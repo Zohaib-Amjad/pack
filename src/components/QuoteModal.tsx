@@ -39,7 +39,6 @@ type QuoteModalContextType = {
 const QuoteModalContext = createContext<QuoteModalContextType>({
   open: () => {},
 });
-// eslint-disable-next-line react-refresh/only-export-components
 export const useQuoteModal = () => useContext(QuoteModalContext);
 
 export const QuoteModalProvider = ({

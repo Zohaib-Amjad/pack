@@ -21,7 +21,6 @@ export function sanitizeHtml(html: string, config?: SanitizeConfig): string {
   }
 
   // Lazy require: browser path uses real DOM, no jsdom needed.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const DOMPurify = require("isomorphic-dompurify") as {
     sanitize: (dirty: string, cfg?: SanitizeConfig) => string;
   };
