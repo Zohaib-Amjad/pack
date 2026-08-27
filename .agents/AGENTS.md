@@ -10,11 +10,11 @@
   - `public/images/categories/` (Category dielines, cards)
   - `public/images/products/` (Product images, dielines)
   - `public/images/blog/` (Blog featured images, illustrations)
-  - `public/images/case-studies/` (Case study covers, photos)
+  - `public/images/case-studies/` (Case study covers, photos )
   - `public/images/ui/` (General UI icons, graphics)
 
 ## Pre-Commit Quality Control & Verification Rule
 - **Mandatory Pre-Commit Checks**: Right before creating ANY git commit (`git commit`), ALWAYS run:
   1. ESLint check (`npm run lint` or `npx next lint`)
   2. Build check (`npm run build` or `npx next build`)
-- **Zero Errors Policy**: Both checks must pass with zero errors before committing or pushing changes. If any errors occur, fix them immediately before committing.
+- **Zero Errors Policy**: Both checks must pass with zero errors before committing or pushing changes. If any errors occur, fix them immediately before committing
