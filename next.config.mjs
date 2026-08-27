@@ -37,9 +37,7 @@ const nextConfig = {
       },
     ];
   },
-  experimental: {
-    reactCompiler: false,
-  },
+  reactCompiler: false,
 };
 
 export default withPayload(nextConfig);
