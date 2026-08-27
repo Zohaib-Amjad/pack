@@ -113,6 +113,12 @@ const soapProducts: (Product & { image?: string })[] = [
   { name: "Soap Display Boxes", slug: "soap-display-boxes", category: "Soap Boxes", section: "industry", image: "/images/products/soap-display-boxes.jpg" },
 ];
 
+const preRollProducts: (Product & { image?: string })[] = [
+  { name: "Pre Roll Display Boxes", slug: "pre-roll-display-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-display-boxes.jpg" },
+  { name: "Pre Roll Cone Packaging", slug: "pre-roll-cone-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-cone-packaging.jpg" },
+  { name: "Cannabis Pre-Roll Packaging", slug: "cannabis-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/cannabis-pre-roll-packaging.jpg" },
+];
+
 // ---------- 2. BOXES BY MATERIAL ----------
 
 const cardboardProducts: (Product & { image?: string })[] = [
@@ -286,6 +292,13 @@ export const categories: Category[] = [
     section: "industry",
     description: "FDA-approved custom printed wax paper and deli wraps for restaurants, burgers, bakeries, and food carts.",
     products: waxPaperProducts,
+  },
+  {
+    name: "Pre Roll Boxes",
+    slug: "pre-roll-boxes",
+    section: "industry",
+    description: "HOF Pack supplies top quality custom pre roll boxes, which are sturdy enough to hold singles, multipacks, or tubes.",
+    products: preRollProducts,
   },
   {
     name: "Soap Boxes",

@@ -33,14 +33,16 @@ export function Header() {
   }, []);
 
   const industryItems = [
-    { name: "Cosmetics & Beauty", slug: "cosmetic-boxes", desc: "Luxury skincare & makeup packaging" },
-    { name: "Candles & Fragrance", slug: "custom-candle-boxes", desc: "Crash-lock heavy duty candle boxes" },
-    { name: "Bakery & Food", slug: "bakery-boxes", desc: "FDA food-grade cartons & gable boxes" },
-    { name: "Soap & Bath Goods", slug: "custom-soap-boxes", desc: "Kraft die-cut soap boxes & sleeves" },
-    { name: "Coffee & Tea Roasters", slug: "custom-coffee-packaging", desc: "Degassing valve barrier pouches" },
-    { name: "Apparel & Fashion", slug: "custom-rigid-boxes", desc: "Magnetic apparel boxes & garment bags" },
-    { name: "Electronics & Tech", slug: "custom-corrugated-boxes", desc: "Precision foam-inserted boxes" },
-    { name: "Retail POP Display", slug: "custom-corrugated-boxes", desc: "Countertop POP display cartons" },
+    { name: "Bakery Boxes", slug: "bakery-boxes", desc: "FDA food-grade cartons & gable boxes" },
+    { name: "Candle Boxes", slug: "custom-candle-boxes", desc: "Crash-lock heavy duty candle boxes" },
+    { name: "Coffee Packaging", slug: "custom-coffee-packaging", desc: "Degassing valve barrier pouches" },
+    { name: "Cosmetic Boxes", slug: "custom-cosmetic-boxes", desc: "Luxury skincare & makeup packaging" },
+    { name: "Custom Cigarette Boxes", slug: "custom-cigarette-boxes", desc: "Flip-top & sliding cigarette packaging" },
+    { name: "Custom Jewelry Boxes", slug: "custom-jewelry-boxes", desc: "High-end luxury jewelry packaging boxes" },
+    { name: "Custom Retail Boxes", slug: "custom-retail-boxes", desc: "Versatile retail packaging cartons" },
+    { name: "Custom Wax Papers", slug: "custom-wax-papers", desc: "FDA-approved custom printed deli wraps" },
+    { name: "Pre Roll Boxes", slug: "pre-roll-boxes", desc: "Child-resistant pre-roll cartons & slider boxes" },
+    { name: "Soap Boxes", slug: "custom-soap-boxes", desc: "Kraft die-cut soap boxes & sleeves" },
   ];
 
   const materialItems = [

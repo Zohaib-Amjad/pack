@@ -43,6 +43,8 @@ export async function generateStaticParams() {
     "pillow-boxes",
     "tube-packaging",
     "tuck-boxes",
+    "pre-roll-boxes",
+    "custom-pre-roll-boxes",
   ];
   for (const a of aliases) slugs.add(a);
 

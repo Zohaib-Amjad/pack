@@ -4850,8 +4850,141 @@ export const TUCK_CATEGORY_DATA: CategoryDetailData = {
   ],
 };
 
+export const PRE_ROLL_CATEGORY_DATA: CategoryDetailData = {
+  id: "cat-pre-roll",
+  name: "Pre Roll Boxes",
+  slug: "pre-roll-boxes",
+  section: "industry",
+  hero_headline_white: "Custom",
+  hero_headline_accent: "Pre Roll Boxes",
+  description: "HOF Pack supplies top quality custom pre roll boxes, which are sturdy enough to hold singles, multipacks, or tubes.",
+  image_url: "/images/categories/pre-roll-boxes-hero.png",
+  banner_image_url: "/images/categories/pre-roll-boxes-hero.png",
+  category_content: {
+    feature_items: [
+      {
+        icon: "Lock",
+        title: "Child-Resistant Locking Mechanisms",
+        description: "Certified push-and-release button locks and dual-tab mechanisms that ensure full compliance while keeping contents secure.",
+      },
+      {
+        icon: "Box",
+        title: "Custom Molded Inserts & Divider Grids",
+        description: "Fitted with precision die-cut cardboard dividers, foam slots, or eco-paper inserts to keep pre-rolls separated and crush-free during transit.",
+      },
+      {
+        icon: "Sparkles",
+        title: "Tactile Finishes & Spot UV Accents",
+        description: "Elevate dispensary shelf presence with soft-touch matte lamination, raised metallic foil stamping, and high-gloss spot UV detailing.",
+      },
+    ],
+    content_blocks: [
+      {
+        heading: "Protect Fragile Pre Roll with Sturdy Boxes ",
+        body: "We provide pre-roll boxes that shield your fragile pre-rolls from crush damage. We bet that it does the selling on a crowded dispensary shelf. Pre rolls packaging that looks engaging earns a second look, then a reorder. We build both jobs into one structure.",
+        image: "/images/categories/pre-roll-sturdy-boxes.jpg",
+        alt: "Protect Fragile Pre Roll with Sturdy Boxes ",
+      },
+      {
+        heading: "Keep Pre Rolls Intact, Fresh, and Shelf-Ready",
+        body: "A crushed joint is a lost sale. Our custom pre roll box pairs rigid stock with snug inserts so nothing shifts inside the carton. Add a foil or poly liner to slow moisture loss and hold aroma through storage and freight.",
+        image: "/images/categories/pre-roll-intact-fresh.jpg",
+        alt: "Keep Pre Rolls Intact, Fresh, and Shelf-Ready",
+        flipped: true,
+      },
+      {
+        heading: "Customize Pre Roll Boxes That Aligns with Your Branding",
+        body: "We offer a large variety of styles of custom pre roll boxes wholesale. It includes straight tuck, sliding drawer, rigid two-piece, or press-and-slide. We allow freedom to choose your finish. Try any from matte, gloss, soft-touch for your pre roll box packaging. Add foil stamping, spot UV, or embossing. Custom pre roll packaging starts at 100 units and scales to pallet volume.",
+        image: "/images/categories/pre-roll-customize-boxes.jpg",
+        alt: "Customize Pre Roll Boxes That Aligns with Your Branding",
+      },
+    ],
+    why_heading: "What Do Pre-Roll Boxes Actually Do?",
+    article_sections: [
+      {
+        level: "p",
+        text: "A pre roll box is a printed paperboard carton built to hold one or more pre rolls upright. These pre roll packaging boxes arrive whole instead of crushed. Operators across the US use them like this:\n- **Dispensaries**: shelf-ready 2, 5, and 10-count pre-roll packaging custom print multipacks that sit in a display row without tipping.\n- **Cultivators**: Branded wholesale pre roll packaging for wholesale accounts, sized to the tubes already on your line.\n- **Cannabis brands**: retail pre roll packaging boxes that hold one look across a product family.\n- **Co-packers**: Plain or printed cartons in bulk for contract fill runs.\n- **Delivery services**: Mailer-friendly outers that survive a van and a doorstep.\n- **Smoke shops**: Counter cartons and small display packs for impulse pickups.",
+      },
+      {
+        level: "h2",
+        text: "Why Do Businesses Choose Our Printed Pre Roll Boxes?",
+      },
+      {
+        level: "p",
+        text: "A printed carton is the one branding channel a customer holds in their hand. Premium pre roll packaging tells a buyer what your flower is worth before they open it. We keep your artwork, dielines, and color targets on file, so run twelve matches and run one at the same price break. Get our exclusive range of:\n- Cannabis Pre Roll Packaging\n- Pre Roll Cone Packaging\n- Pre Roll Display Boxes\n- pre roll packaging\n- Delta 8 Pre Roll Boxes\n- pre roll packaging with labels\n- Luxury Pre Roll Packaging\n- Pre Rolled Joint Boxes",
+      },
+      {
+        level: "h2",
+        text: "Printing Methods We Offer",
+      },
+      {
+        level: "p",
+        text: "- Flexographic is the wholesale workhorse. Lowest per-unit cost on long, repeating runs.\n- Digital printing is finest for short runs, seasonal drops, and strain-specific SKUs in full color, no plate charge.\n- PMS spot-color matching locks your exact brand color across every method and reorder.",
+      },
+      {
+        level: "h2",
+        text: "What Materials and Grades Do We Use?",
+      },
+      {
+        level: "p",
+        text: "- SBS / C1S paperboard (14–24pt) — white surface, best color reproduction for retail SKUs.\n- Kraft board (18–24pt) — uncoated natural look for craft and sustainability-led lines.\n- E-flute corrugated — added crush resistance for shipping and multipack outers.\n- <a href=\"/custom-rigid-boxes\">Rigid chipboard</a> with wrap — weighted feel for top-shelf and gift sets.\n- Recycled CCNB — cost-efficient stock that supports recycled-content targets.",
+      },
+      {
+        level: "h2",
+        text: "What Sizes Do Pre Roll Boxes Come In?",
+      },
+      {
+        level: "p",
+        text: "We cut to your fill, not to a catalog. Common categories:\n- Single-unit pre roll packaging is best for one joint or one tube, slim profile.\n- Multipack boxes of 2, 3, 5, 7, and 10-count layouts with divider inserts.\n- Tube cartons for glass, plastic, or pop-top tubes.\n\nSend your spec sheet and we match the caliper, coating, and finish. Get a quote on custom pre roll boxes wholesale in one business day. Email info@hofpack.com or call +1 (888) 429-4881 with your count, tube size, and artwork.",
+      },
+    ],
+    material_items: [
+      "Trusted by 5000+ clients",
+      "FSC or ISO Certified",
+      "Eco-friendly material options",
+    ],
+    perk_items: [
+      "Wholesale Pricing with Free Sample",
+      "8-10 days turnaround",
+      "Free Shipping all Across the US",
+      "Innovative Printing Designs",
+      "Free design consultation",
+      "MOQ as low as 100 units",
+    ],
+  },
+  faqs: [
+    {
+      id: "faq-1",
+      question: "What is the best pre roll packaging for a small brand?",
+      answer: "A reverse tuck end or straight tuck carton in SBS 16pt is cost-effective, easy to brand with full-color digital print, and has a low barrier to entry with MOQs starting at 100 units.",
+      display_order: 1,
+    },
+    {
+      id: "faq-2",
+      question: "What is the difference between a pre roll box and a pre roll tube?",
+      answer: "A pre roll tube holds a single joint or blunt in an airtight cylinder (glass, plastic, or biodegradable), while a pre roll box is a folding carton or rigid box designed to hold individual tubes, multiple pre-rolls with dividers, or multipack arrangements.",
+      display_order: 2,
+    },
+    {
+      id: "faq-3",
+      question: "What is the minimum order for a custom pre roll box?",
+      answer: "Our minimum order quantity starts as low as 100 units for custom printed pre roll boxes, with volume price breaks scaling to thousands of units.",
+      display_order: 3,
+    },
+    {
+      id: "faq-4",
+      question: "How soon can you process my pre roll boxes order?",
+      answer: "Standard production is completed in 8 to 10 business days after artwork approval, followed by free standard shipping nationwide.",
+      display_order: 4,
+    },
+  ],
+};
+
 // Generic rich content generator for all 21 categories so that each sub-page is completely populated
 export function getCategoryDetailDefaults(slug: string, name: string, section: "industry" | "material" | "style"): CategoryDetailData {
+  if (slug === "pre-roll-boxes" || slug === "custom-pre-roll-boxes") {
+    return PRE_ROLL_CATEGORY_DATA;
+  }
   if (slug === "custom-coffee-packaging" || slug === "coffee-packaging") {
     return COFFEE_CATEGORY_DATA;
   }

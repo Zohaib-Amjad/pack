@@ -33,13 +33,16 @@ export function MobileMenu({ isOpen, onClose, onOpenQuote }: MobileMenuProps) {
   };
 
   const industryItems = [
-    { name: "Cosmetics & Beauty", slug: "cosmetic-boxes" },
-    { name: "Candles & Fragrance", slug: "custom-candle-boxes" },
-    { name: "Bakery & Food", slug: "bakery-boxes" },
-    { name: "Soap & Bath Goods", slug: "custom-soap-boxes" },
-    { name: "Coffee & Tea", slug: "custom-coffee-packaging" },
-    { name: "Apparel & Fashion", slug: "custom-rigid-boxes" },
-    { name: "Electronics & Tech", slug: "custom-corrugated-boxes" },
+    { name: "Bakery Boxes", slug: "bakery-boxes" },
+    { name: "Candle Boxes", slug: "custom-candle-boxes" },
+    { name: "Coffee Packaging", slug: "custom-coffee-packaging" },
+    { name: "Cosmetic Boxes", slug: "custom-cosmetic-boxes" },
+    { name: "Custom Cigarette Boxes", slug: "custom-cigarette-boxes" },
+    { name: "Custom Jewelry Boxes", slug: "custom-jewelry-boxes" },
+    { name: "Custom Retail Boxes", slug: "custom-retail-boxes" },
+    { name: "Custom Wax Papers", slug: "custom-wax-papers" },
+    { name: "Pre Roll Boxes", slug: "pre-roll-boxes" },
+    { name: "Soap Boxes", slug: "custom-soap-boxes" },
   ];
 
   const materialItems = [

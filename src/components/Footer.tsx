@@ -30,22 +30,33 @@ export default function Footer() {
                   src="/images/brand/logo-white.png"
                 />
               </Link>
-              <p className="mb-5 text-[12.5px] leading-[1.65] text-white/50">
+              <p className="mb-5 text-[12.5px] leading-[1.65] text-white/70">
                 Premium custom packaging for brands that care about presentation. Made in the USA.
               </p>
-              <div className="mb-5 flex items-start gap-2 text-[12px] text-white/50">
-                <MapPin className="mt-[2px] shrink-0 text-white/30 w-[13px] h-[13px]" />
-                <span>
-                  3700 W Tybolt Dr,
-                  <br />
-                  Tucson, AZ 85746, USA
-                </span>
-              </div>
-              <div className="mb-5 flex items-center gap-2 text-[12px] text-white/50">
-                <Phone className="shrink-0 text-white/30 w-[13px] h-[13px]" />
-                <a href="tel:+18884294881" className="hover:text-accent transition">
-                  +1 (888) 429-4881
-                </a>
+              <div className="mb-5 space-y-2">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white">
+                  STORE DETAILS
+                </p>
+                <div className="space-y-1.5 text-[12.5px] leading-relaxed text-white/70">
+                  <p>
+                    <span className="font-bold text-white">Business Name:</span> HOFPACK LLC
+                  </p>
+                  <p>
+                    <span className="font-bold text-white">Store Name:</span> HOF Pack
+                  </p>
+                  <p>
+                    <span className="font-bold text-white">EIN Assigned:</span> 41–5364572
+                  </p>
+                  <p>
+                    <span className="font-bold text-white">Location:</span> 3700 W Tybolt Dr, Tucson, AZ 85746, USA
+                  </p>
+                  <p>
+                    <span className="font-bold text-white">Phone:</span>{" "}
+                    <a href="tel:+18884294881" className="hover:text-accent transition">
+                      +1 (888) 429–4881
+                    </a>
+                  </p>
+                </div>
               </div>
               <div className="mb-4">
                 <p className="mb-2 text-[10px] uppercase tracking-[0.14em] text-white/25">We Accept</p>
@@ -182,14 +193,15 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Desktop 4 Columns */}
-            <div className="hidden md:grid w-full md:grid-cols-4 md:gap-6">
-              {/* Business */}
-              <div className="border-b border-white/10 md:border-none">
-                <h4 className="mb-[14px] hidden text-[10px] font-medium uppercase tracking-[0.16em] text-white/40 md:block">
-                  Business
-                </h4>
-                <div className="overflow-hidden transition-all duration-200 md:block">
+            {/* Desktop Navigation (Top row: 3 cols, Bottom row: 2 cols) */}
+            <div className="hidden md:flex flex-col gap-10 w-full">
+              {/* Top Row: Business, Policies, Category */}
+              <div className="grid grid-cols-3 gap-6">
+                {/* Business */}
+                <div>
+                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                    Business
+                  </h4>
                   <ul className="space-y-[9px]">
                     <li>
                       <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/about">
@@ -203,14 +215,51 @@ export default function Footer() {
                     </li>
                   </ul>
                 </div>
-              </div>
 
-              {/* Category */}
-              <div className="border-b border-white/10 md:border-none">
-                <h4 className="mb-[14px] hidden text-[10px] font-medium uppercase tracking-[0.16em] text-white/40 md:block">
-                  Category
-                </h4>
-                <div className="overflow-hidden transition-all duration-200 md:block">
+                {/* Policies */}
+                <div>
+                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                    Policies
+                  </h4>
+                  <ul className="space-y-[9px]">
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/privacy">
+                        Privacy Policy
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/terms">
+                        Terms of Service
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/refund-policy">
+                        Refund Policy
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/shipping-policy">
+                        Shipping Policy
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/cancellation-policy">
+                        Cancellation Policy
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/sitemap.xml">
+                        Sitemap
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Category */}
+                <div>
+                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                    Category
+                  </h4>
                   <ul className="space-y-[9px]">
                     <li>
                       <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-coffee-packaging">
@@ -241,18 +290,14 @@ export default function Footer() {
                 </div>
               </div>
 
-              {/* Products */}
-              <div className="border-b border-white/10 md:border-none">
-                <h4 className="mb-[14px] hidden text-[10px] font-medium uppercase tracking-[0.16em] text-white/40 md:block">
-                  Products
-                </h4>
-                <div className="overflow-hidden transition-all duration-200 md:block">
+              {/* Bottom Row: Products, Contact */}
+              <div className="grid grid-cols-3 gap-6">
+                {/* Products */}
+                <div>
+                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                    Products
+                  </h4>
                   <ul className="space-y-[9px]">
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/cbd-display-boxes">
-                        CBD Display Boxes
-                      </Link>
-                    </li>
                     <li>
                       <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/child-resistant-boxes">
                         Child Resistant Rigid Boxes
@@ -288,16 +333,19 @@ export default function Footer() {
                         Magnetic Closure Boxes
                       </Link>
                     </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/retail-display-boxes">
+                        Retail Display Boxes
+                      </Link>
+                    </li>
                   </ul>
                 </div>
-              </div>
 
-              {/* Contact */}
-              <div className="border-b border-white/10 md:border-none">
-                <h4 className="mb-[14px] hidden text-[10px] font-medium uppercase tracking-[0.16em] text-white/40 md:block">
-                  Contact
-                </h4>
-                <div className="overflow-hidden transition-all duration-200 md:block">
+                {/* Contact */}
+                <div>
+                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                    Contact
+                  </h4>
                   <ul className="space-y-[9px]">
                     <li>
                       <a href="mailto:info@hofpack.com" className="text-[12.5px] text-white/70 transition hover:text-accent">
@@ -321,79 +369,32 @@ export default function Footer() {
                     </li>
                   </ul>
                 </div>
+
+                {/* Empty 3rd slot for alignment */}
+                <div />
               </div>
             </div>
 
             {/* Mobile Accordions */}
             <div className="block md:hidden w-full border-t border-white/10">
-              {/* Our Product */}
+              {/* Business */}
               <div className="border-b border-white/10">
                 <button
                   type="button"
-                  onClick={() => toggleSection("our-product")}
+                  onClick={() => toggleSection("business")}
                   className="flex w-full items-center justify-between py-3 text-left"
-                  aria-expanded={openSection === "our-product"}
+                  aria-expanded={openSection === "business"}
                 >
-                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Our Product</span>
+                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Business</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 text-white/40 transition-transform duration-200 ${
-                      openSection === "our-product" ? "rotate-180" : ""
+                      openSection === "business" ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-200 ${
-                    openSection === "our-product" ? "max-h-[300px] pb-3" : "max-h-0"
-                  }`}
-                >
-                  <ul className="space-y-[9px] pt-1">
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-coffee-packaging">
-                        Coffee Packaging
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-mylar-bags">
-                        Mylar Bags
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-rigid-boxes">
-                        Rigid Boxes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-display-boxes">
-                        Display Boxes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-tuck-boxes">
-                        Tuck Boxes
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Company */}
-              <div className="border-b border-white/10">
-                <button
-                  type="button"
-                  onClick={() => toggleSection("company")}
-                  className="flex w-full items-center justify-between py-3 text-left"
-                  aria-expanded={openSection === "company"}
-                >
-                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Company</span>
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 text-white/40 transition-transform duration-200 ${
-                      openSection === "company" ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-200 ${
-                    openSection === "company" ? "max-h-[300px] pb-3" : "max-h-0"
+                    openSection === "business" ? "max-h-[300px] pb-3" : "max-h-0"
                   }`}
                 >
                   <ul className="space-y-[9px] pt-1">
@@ -411,7 +412,7 @@ export default function Footer() {
                 </div>
               </div>
 
-              {/* Our Policies */}
+              {/* Policies */}
               <div className="border-b border-white/10">
                 <button
                   type="button"
@@ -419,7 +420,7 @@ export default function Footer() {
                   className="flex w-full items-center justify-between py-3 text-left"
                   aria-expanded={openSection === "policies"}
                 >
-                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Our Policies</span>
+                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Policies</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 text-white/40 transition-transform duration-200 ${
                       openSection === "policies" ? "rotate-180" : ""
@@ -453,6 +454,11 @@ export default function Footer() {
                       </Link>
                     </li>
                     <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/cancellation-policy">
+                        Cancellation Policy
+                      </Link>
+                    </li>
+                    <li>
                       <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/sitemap.xml">
                         Sitemap
                       </Link>
@@ -461,32 +467,77 @@ export default function Footer() {
                 </div>
               </div>
 
-              {/* Resources */}
+              {/* Category */}
               <div className="border-b border-white/10">
                 <button
                   type="button"
-                  onClick={() => toggleSection("resources")}
+                  onClick={() => toggleSection("category")}
                   className="flex w-full items-center justify-between py-3 text-left"
-                  aria-expanded={openSection === "resources"}
+                  aria-expanded={openSection === "category"}
                 >
-                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Resources</span>
+                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Category</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 text-white/40 transition-transform duration-200 ${
-                      openSection === "resources" ? "rotate-180" : ""
+                      openSection === "category" ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-200 ${
-                    openSection === "resources" ? "max-h-[350px] pb-3" : "max-h-0"
+                    openSection === "category" ? "max-h-[300px] pb-3" : "max-h-0"
                   }`}
                 >
                   <ul className="space-y-[9px] pt-1">
                     <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/cbd-display-boxes">
-                        CBD Display Boxes
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-coffee-packaging">
+                        Coffee Packaging
                       </Link>
                     </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-mylar-bags">
+                        Mylar Bags
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-rigid-boxes">
+                        Rigid Boxes
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-display-boxes">
+                        Display Boxes
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-tuck-boxes">
+                        Tuck Boxes
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Products */}
+              <div className="border-b border-white/10">
+                <button
+                  type="button"
+                  onClick={() => toggleSection("products")}
+                  className="flex w-full items-center justify-between py-3 text-left"
+                  aria-expanded={openSection === "products"}
+                >
+                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Products</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 text-white/40 transition-transform duration-200 ${
+                      openSection === "products" ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-200 ${
+                    openSection === "products" ? "max-h-[350px] pb-3" : "max-h-0"
+                  }`}
+                >
+                  <ul className="space-y-[9px] pt-1">
                     <li>
                       <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/child-resistant-boxes">
                         Child Resistant Rigid Boxes
@@ -522,28 +573,33 @@ export default function Footer() {
                         Magnetic Closure Boxes
                       </Link>
                     </li>
+                    <li>
+                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/retail-display-boxes">
+                        Retail Display Boxes
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
 
-              {/* Contact Us */}
+              {/* Contact */}
               <div className="border-b border-white/10">
                 <button
                   type="button"
-                  onClick={() => toggleSection("contact-us")}
+                  onClick={() => toggleSection("contact")}
                   className="flex w-full items-center justify-between py-3 text-left"
-                  aria-expanded={openSection === "contact-us"}
+                  aria-expanded={openSection === "contact"}
                 >
-                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Contact Us</span>
+                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">Contact</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 text-white/40 transition-transform duration-200 ${
-                      openSection === "contact-us" ? "rotate-180" : ""
+                      openSection === "contact" ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-200 ${
-                    openSection === "contact-us" ? "max-h-[300px] pb-3" : "max-h-0"
+                    openSection === "contact" ? "max-h-[300px] pb-3" : "max-h-0"
                   }`}
                 >
                   <ul className="space-y-[9px] pt-1">
@@ -579,6 +635,7 @@ export default function Footer() {
               <p className="text-center sm:text-left">
                 &copy; {new Date().getFullYear()} HOF Pack. All rights reserved.
               </p>
+              {/* Policy links hidden for now
               <div className="flex flex-wrap justify-center gap-3 sm:gap-5 sm:justify-end">
                 <Link className="transition hover:text-white/70" href="/privacy">
                   Privacy Policy
@@ -596,6 +653,7 @@ export default function Footer() {
                   Sitemap
                 </Link>
               </div>
+              */}
             </div>
 
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-end sm:gap-5">
