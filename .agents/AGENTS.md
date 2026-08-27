@@ -13,8 +13,8 @@
   - `public/images/case-studies/` (Case study covers, photos )
   - `public/images/ui/` (General UI icons, graphics)
 
-## Pre-Commit Quality Control & Verification Rule
-- **Mandatory Pre-Commit Checks**: Right before creating ANY git commit (`git commit`), ALWAYS run:
+## Pre-Push Quality Control & Verification Rule
+- **Mandatory Pre-Push Checks**: Right before pushing ANY code to the remote repository (`git push`), ALWAYS run:
   1. ESLint check (`npm run lint` or `npx next lint`)
   2. Build check (`npm run build` or `npx next build`)
-- **Zero Errors Policy**: Both checks must pass with zero errors before committing or pushing changes. If any errors occur, fix them immediately before committing
+- **Zero Errors Policy**: Both checks must pass with zero errors before pushing changes to remote. If any errors occur, fix them immediately before pushing.
