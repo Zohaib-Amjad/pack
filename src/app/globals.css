@@ -1,0 +1,818 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   HOF PACK — DESIGN SYSTEM
+   Typography: DM Sans (Sans-Serif) — Global Unified Look
+   Colors, Tokens & Utility Classes
+   ============================================================ */
+
+@layer base {
+    :root {
+        /* ── Core Semantic Tokens ── */
+        --background: 43 26% 95%; /* #f5f3ee  warm cream page bg   */
+        --foreground: 0 0% 10%; /* #1a1a1a  headings / dark text  */
+
+        --card: 0 0% 100%; /* #ffffff  card / form bg        */
+        --card-foreground: 0 0% 10%; /* #1a1a1a                        */
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 10%;
+
+        --primary: 142 34% 27%; /* #2d5c3e  primary green / hero  */
+        --primary-foreground: 43 26% 95%; /* #f5f3ee  light cream on green  */
+
+        --secondary: 43 21% 91%; /* #ece9e2  subtle panel bg       */
+        --secondary-foreground: 0 0% 10%;
+
+        --muted: 43 21% 91%; /* #ece9e2                        */
+        --muted-foreground: 31 3% 46%; /* #7a7672  muted / labels        */
+
+        --accent: 23 80% 54%; /* #e8732a  primary CTA / accent  */
+        --accent-foreground: 0 0% 100%; /* #ffffff                        */
+        --accent-hover: 23 78% 43%; /* #c45a18  CTA hover state       */
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 100%;
+
+        --border: 43 14% 86%; /* #e0ddd6  border / divider      */
+        --input: 43 11% 82%; /* #d8d4cc  input border          */
+        --input-bg: 38 32% 97%; /* #faf8f5  input background      */
+        --ring: 23 80% 54%; /* #e8732a  focus ring            */
+
+        --radius: 0.5rem;
+
+        /* ── Extended Palette Tokens ── */
+        --ds-page-bg: #f5f3ee;
+        --ds-card-bg: #ffffff;
+        --ds-input-bg: #faf8f5;
+        --ds-panel-bg: #ece9e2;
+        --ds-border: #e0ddd6;
+        --ds-input-border: #d8d4cc;
+        --ds-placeholder-border: #c8c4bc;
+
+        --ds-ink: #1a1a1a;
+        --ds-body: #4a4a4a;
+        --ds-muted: #7a7672;
+        --ds-placeholder: #aaa6a0;
+
+        --ds-orange: #e8732a;
+        --ds-orange-hover: #c45a18;
+        --ds-green: #2d5c3e;
+        --ds-green-dark: #1e3d2b;
+
+        /* ── Legacy Named Tokens (kept for compat) ── */
+        --sage: 142 34% 27%;
+        --sage-light: 142 20% 65%;
+        --sage-muted: 142 15% 88%;
+        --cream: 43 26% 95%;
+        --cream-dark: 43 21% 91%;
+        --warm-brown: 25 30% 35%;
+
+        /* ── Gradients ── */
+        --hero-gradient: linear-gradient(
+            135deg,
+            #1e3d2b 0%,
+            #2d5c3e 45%,
+            #3a6b4a 100%
+        );
+        --accent-gradient: linear-gradient(135deg, #e8732a 0%, #d4621f 100%);
+        --cream-gradient: linear-gradient(135deg, #f5f3ee 0%, #faf8f5 100%);
+
+        --section-alt: 43 21% 91%; /* #ece9e2 */
+        --sage-glow: 142 34% 27%;
+    }
+
+    /* ── Admin Panel Theme (scoped — uses same brand tokens as frontend) ── */
+    .admin-theme {
+        --background: 43 26% 95%;       /* #f5f3ee — same as frontend */
+        --foreground: 0 0% 10%;         /* #1a1a1a */
+
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 10%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 10%;
+
+        --primary: 142 34% 27%;         /* #2d5c3e — frontend green */
+        --primary-foreground: 43 26% 95%;
+
+        --secondary: 43 21% 91%;        /* #ece9e2 */
+        --secondary-foreground: 0 0% 10%;
+
+        --muted: 43 21% 91%;
+        --muted-foreground: 31 3% 46%;  /* #7a7672 */
+
+        --accent: 23 80% 54%;           /* #e8732a — frontend orange */
+        --accent-foreground: 0 0% 100%;
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 100%;
+
+        --border: 43 14% 86%;           /* #e0ddd6 */
+        --input: 43 11% 82%;            /* #d8d4cc */
+        --ring: 23 80% 54%;             /* #e8732a */
+
+        /* Admin Design Tokens — aligned to frontend ds tokens */
+        --green: #2d5c3e;
+        --green-dark: #1e3d2b;
+        --green-light: #eaf2ed;
+        --green-mid: #7a7672;
+        --orange: #e8732a;
+        --orange-light: #fdf0e8;
+        --orange-dark: #c45a18;
+        --cream: #f5f3ee;
+        --cream-card: #faf8f5;
+        --fg: #1a1a1a;
+        --fg-mid: #7a7672;
+        --fg-light: #aaa6a0;
+        --border-final: #d8d4cc;
+        --border-light: #e0ddd6;
+        --white: #fff;
+        --red: #b83c2b;
+        --red-light: #fdecea;
+        --sb-bg: #2d5c3e;
+
+        --sidebar-background: 142 34% 27%;   /* #2d5c3e */
+        --sidebar-foreground: 43 26% 95%;
+        --sidebar-primary: 23 80% 54%;       /* #e8732a */
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 142 20% 35%;
+        --sidebar-accent-foreground: 43 26% 95%;
+        --sidebar-border: 142 25% 22%;
+        --sidebar-ring: 23 80% 54%;
+    }
+}
+
+/* ── Base Resets & Typography Defaults ── */
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground antialiased;
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.78;
+        color: var(--ds-body);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        color: var(--ds-ink);
+        line-height: 1.1;
+    }
+
+    /* Anchor defaults */
+    a {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+    }
+}
+
+/* ============================================================
+   DESIGN SYSTEM — TYPOGRAPHY UTILITIES
+   ============================================================ */
+@layer utilities {
+    /* ── Font Family Shortcuts ── */
+    .font-display {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+    }
+    .font-sans {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+    }
+
+    /* ── Hero Title ──────────────────────────────────────────
+     52px · Cormorant Garamond · 700 · lh 1.05
+     Usage: Main hero headline
+  ── */
+    .ds-hero-title {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 52px;
+        font-weight: 700;
+        line-height: 1.05;
+        color: var(--ds-ink);
+        letter-spacing: normal;
+    }
+
+    /* ── Page Heading (Section H2) ────────────────────────────
+     30–32px · Cormorant Garamond · 600 · lh 1.2
+     Usage: All section headings
+  ── */
+    .ds-heading {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: var(--ds-ink);
+    }
+
+    /* ── Sub Heading ──────────────────────────────────────────
+     26px · Cormorant Garamond · 600 · lh 1.25
+     Usage: Sub-section headings, modal titles
+  ── */
+    .ds-subheading {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--ds-ink);
+    }
+
+    /* ── Card / Type Title ────────────────────────────────────
+     13.5–15px · DM Sans · 500 · lh 1.5
+     Usage: Product card names, category titles on cards
+  ── */
+    .ds-card-title {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--ds-ink);
+    }
+
+    /* ── FAQ / Section Nav Heading ────────────────────────────
+     20–22px · DM Sans · 500 · uppercase · ls 0.12em
+     Usage: FAQ accordion labels, section nav headings
+  ── */
+    .ds-faq-heading {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 21px;
+        font-weight: 500;
+        line-height: 1.3;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ds-ink);
+    }
+
+    /* ── Body Copy ────────────────────────────────────────────
+     13px · DM Sans · 400 · lh 1.75–1.78
+     Usage: All paragraph / descriptive text
+  ── */
+    .ds-body {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.78;
+        color: var(--ds-body);
+    }
+
+    /* ── Hero Description ─────────────────────────────────────
+     13.5px · DM Sans · 400 · lh 1.7
+     Usage: Hero tagline, page subtitle below hero headline
+  ── */
+    .ds-hero-desc {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 13.5px;
+        font-weight: 400;
+        line-height: 1.7;
+        color: var(--ds-body);
+    }
+
+    /* ── Product Card Name ────────────────────────────────────
+     12px · DM Sans · 500
+     Usage: Product names inside category grid cards
+  ── */
+    .ds-product-name {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--ds-ink);
+    }
+
+    /* ── Button / CTA ─────────────────────────────────────────
+     11–12px · DM Sans · 500 · uppercase · ls 0.10em
+     Usage: All CTA and action buttons
+  ── */
+    .ds-btn {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 11.5px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    /* ── Form Input ───────────────────────────────────────────
+     13px · DM Sans · 400
+     Usage: Text inputs, selects, textareas
+  ── */
+    .ds-input {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--ds-ink);
+        background-color: var(--ds-input-bg);
+    }
+
+    /* ── Form Label ───────────────────────────────────────────
+     9.5px · DM Sans · 500 · uppercase · ls 0.09em
+     Usage: All form field labels
+  ── */
+    .ds-label {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 9.5px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--ds-muted);
+    }
+
+    /* ── Section / Eyebrow Label ──────────────────────────────
+     9–10px · DM Sans · 500 · uppercase · ls 0.16em
+     Usage: Section eyebrow labels above headings
+  ── */
+    .ds-eyebrow {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 9.5px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ds-placeholder);
+    }
+
+    /* ── Nav Links ────────────────────────────────────────────
+     13.5px · DM Sans · 500 · ls 0.03em
+     Usage: Main navigation links
+  ── */
+    .ds-nav-link {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 13.5px;
+        font-weight: 500;
+        line-height: 1.25;
+        letter-spacing: 0.03em;
+        color: var(--ds-ink);
+    }
+
+    /* ── Footer Links ─────────────────────────────────────────
+     12.5px · DM Sans · 400
+     Usage: Footer navigation links
+  ── */
+    .ds-footer-link {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        font-weight: 400;
+        line-height: 1;
+        color: var(--ds-muted);
+    }
+
+    /* Trustpilot TrustBox — kill iframe scrollbars */
+    .trustpilot-badge-wrap,
+    .trustpilot-badge-wrap .trustpilot-widget {
+        overflow: hidden !important;
+    }
+    .trustpilot-badge-wrap iframe {
+        overflow: hidden !important;
+        max-width: 100% !important;
+    }
+
+    /* ── Spec Table Key ───────────────────────────────────────
+     12.5px · DM Sans · 500
+     Usage: Left column of specification tables
+  ── */
+    .ds-spec-key {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 12.5px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--ds-ink);
+    }
+
+    /* ── Spec Table Value ─────────────────────────────────────
+     13px · DM Sans · 400
+     Usage: Right column of specification tables
+  ── */
+    .ds-spec-val {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.6;
+        color: var(--ds-body);
+    }
+
+    /* ── Caption / Fine Print ─────────────────────────────────
+     11px · DM Sans · 400
+     Usage: Legal text, footnotes, image captions
+  ── */
+    .ds-caption {
+        font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--ds-placeholder);
+    }
+
+    /* ============================================================
+     LAYOUT UTILITIES
+     ============================================================ */
+
+    .section-padding {
+        @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24;
+    }
+
+    .container-max {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .scrollbar-none {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .scrollbar-none::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Article / brand-content panels — visible vertical scrollbar */
+    .article-scroll {
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+        scrollbar-color: #c4bfb6 transparent;
+    }
+    .article-scroll::-webkit-scrollbar {
+        width: 8px;
+    }
+    .article-scroll::-webkit-scrollbar-track {
+        background: #f0ebe3;
+        border-radius: 999px;
+    }
+    .article-scroll::-webkit-scrollbar-thumb {
+        background: #c4bfb6;
+        border-radius: 999px;
+    }
+    .article-scroll::-webkit-scrollbar-thumb:hover {
+        background: #a8a296;
+    }
+
+    /* ============================================================
+     COLOR UTILITIES
+     ============================================================ */
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent;
+        background-image: var(--accent-gradient);
+    }
+
+    .text-gradient-sage {
+        @apply bg-clip-text text-transparent;
+        background-image: linear-gradient(135deg, #2d5c3e 0%, #3a6b4a 100%);
+    }
+
+    .bg-hero {
+        background: var(--hero-gradient);
+    }
+
+    .bg-accent-gradient {
+        background: var(--accent-gradient);
+    }
+
+    .bg-cream-gradient {
+        background: var(--cream-gradient);
+    }
+
+    .bg-section-alt {
+        background-color: hsl(var(--section-alt));
+    }
+
+    /* ── Input background override for design system ── */
+    .bg-input {
+        background-color: var(--ds-input-bg);
+    }
+
+    /* ============================================================
+     COMPONENT UTILITIES
+     ============================================================ */
+
+    /* ── Article body link styling ── */
+    /* Applied to wrappers around dangerouslySetInnerHTML article content */
+    .article-body a {
+        color: var(--ds-orange);
+        text-decoration: underline;
+        text-decoration-color: color-mix(in srgb, var(--ds-orange) 40%, transparent);
+        text-underline-offset: 3px;
+        font-weight: 500;
+        transition: color 0.15s, text-decoration-color 0.15s;
+    }
+    .article-body a:hover {
+        color: var(--ds-orange-hover);
+        text-decoration-color: var(--ds-orange-hover);
+    }
+
+    .hover-lift {
+        @apply transition-all duration-300 ease-out;
+    }
+    .hover-lift:hover {
+        @apply -translate-y-1;
+        box-shadow: 0 12px 40px -12px hsl(var(--sage-glow) / 0.2);
+    }
+
+    .card-warm {
+        @apply bg-card border border-border rounded-xl;
+        box-shadow: 0 4px 20px -4px hsl(var(--sage-glow) / 0.08);
+    }
+
+    /* ============================================================
+     TINYMCE / RICH CONTENT UTILITIES
+     ============================================================ */
+
+    .tinymce-content {
+        width: 100%;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .tinymce-content *,
+    .tinymce-content *::before,
+    .tinymce-content *::after {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    .tinymce-content img,
+    .tinymce-content video,
+    .tinymce-content iframe,
+    .tinymce-content canvas,
+    .tinymce-content svg {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    .tinymce-content table {
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tinymce-content pre,
+    .tinymce-content code {
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .tinymce-content .outer-wrap {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .tinymce-content h2,
+    .tinymce-content h3 {
+        line-height: 1.25;
+    }
+
+    .tinymce-content p,
+    .tinymce-content td,
+    .tinymce-content div {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    @media (max-width: 768px) {
+        .tinymce-content .spec-row {
+            display: flex !important;
+            flex-direction: column !important;
+            background: #ffffff;
+            border: 1px solid var(--ds-border);
+            border-radius: 0.875rem;
+            padding: 0.875rem 1rem;
+        }
+
+        .tinymce-content .spec-label,
+        .tinymce-content .spec-value {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding-right: 0 !important;
+        }
+
+        .tinymce-content .spec-label {
+            padding-bottom: 0 !important;
+            font-size: 1.05rem;
+            line-height: 1.35;
+        }
+
+        .tinymce-content .spec-value {
+            margin-top: 0.625rem;
+            padding-top: 0.625rem !important;
+            padding-left: 0 !important;
+            border-left-width: 0 !important;
+            border-top: 1px solid #e8c53a;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .tinymce-content .spec-value p {
+            margin: 0 !important;
+        }
+
+        .tinymce-content table {
+            display: block !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: auto !important;
+        }
+
+        .tinymce-content table.layout-row,
+        .tinymce-content table.layout-row tbody,
+        .tinymce-content table.layout-row tr,
+        .tinymce-content table.features-table,
+        .tinymce-content table.features-table tbody,
+        .tinymce-content table.features-table tr,
+        .tinymce-content table.styling-table,
+        .tinymce-content table.styling-table tbody,
+        .tinymce-content table.styling-table tr {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        .tinymce-content table.layout-row td,
+        .tinymce-content table.features-table td,
+        .tinymce-content table.styling-table td {
+            display: block !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .tinymce-content table.layout-row td {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            padding-bottom: 1rem !important;
+        }
+
+        .tinymce-content table.layout-row td img {
+            width: 100% !important;
+            height: auto !important;
+            max-height: 260px !important;
+            object-fit: cover !important;
+        }
+
+        .tinymce-content table.features-table td {
+            padding: 0.875rem 0.5rem !important;
+            text-align: center !important;
+        }
+
+        .tinymce-content table.features-table td img {
+            width: 48px !important;
+            height: 48px !important;
+            max-width: 48px !important;
+            max-height: 48px !important;
+            object-fit: cover !important;
+            margin-top: 0 !important;
+            border-radius: 9999px !important;
+        }
+
+        .tinymce-content table.why-table tr {
+            display: flex !important;
+            flex-wrap: wrap !important;
+        }
+
+        .tinymce-content table.why-table td {
+            display: block !important;
+            width: 50% !important;
+        }
+
+        .tinymce-content h2 {
+            font-size: 1.25rem !important;
+        }
+
+        .tinymce-content h3 {
+            font-size: 1rem !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .tinymce-content .outer-wrap {
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        .tinymce-content table.why-table td {
+            width: 100% !important;
+        }
+    }
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+    nav,
+    footer,
+    .print\:hidden,
+    [class*="WhatsApp"],
+    [class*="ChatBot"],
+    [class*="AnnouncementBar"] {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 11pt;
+        line-height: 1.5;
+    }
+
+    section {
+        page-break-inside: avoid;
+        padding: 1.5rem 1rem !important;
+    }
+
+    .container-max {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    h1 {
+        font-size: 24pt !important;
+    }
+    h2 {
+        font-size: 18pt !important;
+    }
+    h3 {
+        font-size: 14pt !important;
+    }
+
+    * {
+        box-shadow: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .animate-marquee-slow {
+        animation: none !important;
+    }
+}
+
+/* ── Rich Text / TinyMCE Global Image & Table Styles ── */
+.tinymce-content img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    border-radius: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    object-fit: cover;
+}
+
+.tinymce-content table {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-collapse: collapse !important;
+    border: none !important;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    table-layout: fixed !important;
+}
+
+.tinymce-content table tr {
+    width: 100% !important;
+    display: table-row !important;
+}
+
+.tinymce-content table th,
+.tinymce-content table td {
+    border: 1px solid hsl(var(--border)) !important;
+    padding: 0.75rem 1rem !important;
+    text-align: left;
+    vertical-align: top;
+    word-break: break-word;
+}
+
+.tinymce-content table th {
+    background-color: hsl(var(--muted) / 0.6) !important;
+    font-weight: 600;
+}
+
+/* Force 2-column tables to take exactly 50% width per column — zero empty area */
+.tinymce-content table tr > td:first-child:nth-last-child(2),
+.tinymce-content table tr > td:first-child:nth-last-child(2) ~ td,
+.tinymce-content table tr > th:first-child:nth-last-child(2),
+.tinymce-content table tr > th:first-child:nth-last-child(2) ~ th {
+    width: 50% !important;
+    max-width: 50% !important;
+}
+
+/* Force 3-column tables to take exactly 33.333% width per column */
+.tinymce-content table tr > td:first-child:nth-last-child(3),
+.tinymce-content table tr > td:first-child:nth-last-child(3) ~ td,
+.tinymce-content table tr > th:first-child:nth-last-child(3),
+.tinymce-content table tr > th:first-child:nth-last-child(3) ~ th {
+    width: 33.333% !important;
+    max-width: 33.333% !important;
+}
+
+

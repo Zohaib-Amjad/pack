@@ -1,0 +1,782 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { createPublicClient } from "@/utils/supabase/public-client";
+import { withAbortableTimeout } from "@/lib/fetch-utils";
+import { useQuoteModal } from "@/components/QuoteModalContext";
+import { Button } from "@/components/ui/button";
+import {
+  Menu, X, ChevronDown,
+  // Industry
+  Flame, FlameKindling, Coffee, Sparkles, Palette, Droplets, ShoppingBag, ShoppingCart,
+  Shirt, Cpu, Utensils, Croissant, Package,
+  Wine, GlassWater, Truck, Leaf, Gem, Gift, Crown,
+  Pill, PawPrint, Scissors, Gamepad2, Cannabis,
+  Stethoscope, Dumbbell, Cigarette, Microscope, Laptop, Flower2,
+  Paintbrush,
+  // Material & Style
+  Box, Mail, Mailbox, Monitor, Archive, PackageCheck,
+  Layers, Cylinder, FolderOpen, ScrollText, PackageOpen, Boxes, Tag, Sticker,
+  type LucideProps,
+} from "lucide-react";
+import type { ComponentType } from "react";
+
+type IconComponent = ComponentType<LucideProps>;
+import HofPackLogo from "@/components/HofPackLogo";
+import { useSettings } from "@/hooks/useSettings";
+import { useQuery } from "@tanstack/react-query";
+import { categories as defaultCategories } from "@/data/products";
+import SearchBar from "@/components/navbar/SearchBar";
+
+const QuoteButton = ({ fullWidth }: { fullWidth?: boolean }) => {
+  const { open } = useQuoteModal();
+  return (
+    <Button
+      variant="cta"
+      size="lg"
+      className={fullWidth ? "w-full" : ""}
+      onClick={() => open()}
+    >
+      Get a Free Quote
+    </Button>
+  );
+};
+
+// Icon map — matched by slug keywords
+const CATEGORY_ICONS: Record<string, IconComponent> = {
+  // Industry
+  bakery: Croissant,
+  bread: Croissant,
+  pastry: Croissant,
+  cake: Croissant,
+  donut: Croissant,
+  candle: Flame,
+  coffee: Coffee,
+  cafe: Coffee,
+  tea: Coffee,
+  cosmetic: Sparkles,
+  makeup: Sparkles,
+  beauty: Sparkles,
+  skincare: Sparkles,
+  cigarette: Cigarette,
+  tobacco: Cigarette,
+  cigar: Cigarette,
+  jewelry: Gem,
+  jewel: Gem,
+  retail: ShoppingBag,
+  store: ShoppingBag,
+  wax: Paintbrush,
+  paper: Paintbrush,
+  wrap: Paintbrush,
+  soap: Droplets,
+  bath: Droplets,
+  food: Utensils,
+  apparel: Shirt,
+  clothing: Shirt,
+  shirt: Shirt,
+  fashion: Shirt,
+  tech: Cpu,
+  electronics: Cpu,
+  pharma: Pill,
+  pill: Pill,
+  medicine: Pill,
+  cannabis: Cannabis,
+  cbd: Cannabis,
+  weed: Cannabis,
+  wine: Wine,
+  bottle: Wine,
+  beverage: GlassWater,
+  pet: PawPrint,
+
+  // Material
+  cardboard: Boxes,
+  corrugated: Layers,
+  kraft: Package,
+  mylar: Archive,
+  rigid: Box,
+
+  // Style
+  sticker: Sticker,
+  label: Sticker,
+  mailer: Mailbox,
+  display: Monitor,
+  gable: PackageOpen,
+  pillow: Gift,
+  tube: Cylinder,
+  tuck: PackageCheck,
+
+  // Fallback
+  default: Box,
+};
+
+function getCategoryIcon(slug: string): IconComponent {
+  const lower = slug.toLowerCase();
+  for (const [key, Icon] of Object.entries(CATEGORY_ICONS)) {
+    if (key !== "default" && lower.includes(key)) return Icon;
+  }
+  return CATEGORY_ICONS.default;
+}
+
+// Custom PNG images — matched by slug keyword (e.g. style icons)
+const CATEGORY_IMAGES: Record<string, string> = {
+  // Boxes by Style
+  mailer: "/parcel.png",
+  gable: "/lunch-box.png",
+  pillow: "/pillow.png",
+  tube: "/tube.png",
+  tuck: "/packing.png",
+
+  // Boxes by Industry
+  bakery: "/breads.png",
+  bread: "/breads.png",
+  pastry: "/breads.png",
+  candle: "/candel.png",
+  cosmetic: "/cosmetics.png",
+  makeup: "/cosmetics.png",
+  beauty: "/cosmetics.png",
+  soap: "/soap.png",
+};
+
+function getCategoryImage(slug: string): string | null {
+  const lower = slug.toLowerCase();
+  for (const [key, src] of Object.entries(CATEGORY_IMAGES)) {
+    if (lower.includes(key)) return src;
+  }
+  return null;
+}
+
+interface MegaMenuProps {
+  label: string;
+  categories: { name: string; slug: string }[];
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
+
+interface SimpleMenuProps {
+  label: string;
+  links: { label: string; href: string }[];
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
+
+const SimpleMenuItem = ({
+  label,
+  links,
+  isOpen,
+  onOpen,
+  onClose,
+}: SimpleMenuProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    onOpen();
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      onClose();
+    }, 150);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    };
+    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [isOpen, onClose]);
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <button
+        type="button"
+        className="flex items-center gap-1 px-3.5 py-2.5 ds-nav-link text-foreground/85 hover:text-foreground rounded-md transition-colors"
+        onClick={() => (isOpen ? onClose() : onOpen())}
+        aria-expanded={isOpen}
+      >
+        {label}{" "}
+        <ChevronDown
+          size={13}
+          className={`transition-transform duration-200 ${isOpen ? "rotate-180 text-accent" : ""}`}
+        />
+      </button>
+
+      {isOpen && (
+        <div
+          className="absolute top-full pt-1.5 bg-transparent z-50 before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:content-['']"
+          style={{
+            width: "clamp(220px, 18vw, 280px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="bg-background border border-border rounded-2xl shadow-2xl p-3 animate-fade-in">
+            <div className="grid grid-cols-1 gap-0.5">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  prefetch={false}
+                  onClick={onClose}
+                  className="flex items-center px-3 py-2.5 rounded-xl text-foreground border border-transparent hover:border-accent/30 hover:bg-accent/5 transition-all"
+                >
+                  <span className="font-sans text-[13.5px] font-normal leading-snug">
+                    {link.label}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const MegaMenuItem = ({
+  label,
+  categories,
+  isOpen,
+  onOpen,
+  onClose,
+}: MegaMenuProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    onOpen();
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      onClose();
+    }, 150);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    };
+    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [isOpen, onClose]);
+
+  const isMultiColumn = categories.length > 5;
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Trigger */}
+      <button
+        type="button"
+        className="flex items-center gap-1 px-3.5 py-2.5 ds-nav-link text-foreground/85 hover:text-foreground rounded-md transition-colors"
+        onClick={() => (isOpen ? onClose() : onOpen())}
+        aria-expanded={isOpen}
+      >
+        {label}{" "}
+        <ChevronDown
+          size={13}
+          className={`transition-transform duration-200 ${isOpen ? "rotate-180 text-accent" : ""}`}
+        />
+      </button>
+
+      {isOpen && (
+        <div
+          className="absolute top-full pt-1.5 bg-transparent z-50 before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:content-['']"
+          style={{
+            width: isMultiColumn ? "clamp(540px, 45vw, 680px)" : "clamp(280px, 24vw, 360px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="bg-background border border-border rounded-2xl shadow-2xl p-4 animate-fade-in">
+            {/* Section header */}
+            <p className="px-2 pb-3 font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground/50 border-b border-border/50 mb-3">
+              {label}
+            </p>
+            <div className={`grid gap-1.5 ${isMultiColumn ? "grid-cols-2" : "grid-cols-1"}`}>
+              {categories.map((cat) => {
+                const imgSrc = getCategoryImage(cat.slug);
+                const Icon = getCategoryIcon(cat.slug);
+                return (
+                  <Link
+                    key={cat.slug}
+                    href={`/${cat.slug}`}
+                    prefetch={false}
+                    onClick={onClose}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground border border-transparent hover:border-accent/30 hover:bg-accent/5 transition-all group"
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent group-hover:bg-accent/20 transition-colors">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      {imgSrc ? (
+                        <img
+                          src={imgSrc}
+                          alt={cat.name}
+                          width={22}
+                          height={22}
+                          style={{
+                            width: 22,
+                            height: 22,
+                            objectFit: "contain",
+                            filter:
+                              "brightness(0) saturate(100%) invert(49%) sepia(100%) saturate(1800%) hue-rotate(346deg) brightness(82%) contrast(1.2)",
+                          }}
+                        />
+                      ) : (
+                        <Icon size={18} strokeWidth={2.2} />
+                      )}
+                    </span>
+                    <span className="font-sans text-[13.5px] font-normal leading-snug">
+                      {cat.name}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Navbar = () => {
+  const { settings } = useSettings();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const { data: categories = defaultCategories } = useQuery({
+    queryKey: ["public", "categories-nav"],
+    staleTime: 1000 * 60 * 5,
+    initialData: defaultCategories,
+    queryFn: async () => {
+      try {
+        const supabase = createPublicClient();
+        const { data, error } = (await withAbortableTimeout(
+          (signal) =>
+            supabase
+              .from("categories" as any)
+              .select("name, slug, section")
+              .abortSignal(signal) as any,
+        )) as any;
+        if (!error && data && data.length > 0) return data;
+      } catch {
+        // use defaultCategories
+      }
+      return defaultCategories;
+    },
+  });
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+    setOpenMenu(null);
+  }, [pathname]);
+
+  // Body scroll lock when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [mobileOpen]);
+
+  const industryCategories = categories.filter(
+    (c: any) => c.section === "industry",
+  );
+  const materialCategories = categories.filter(
+    (c: any) => c.section === "material",
+  );
+  const styleCategories = categories.filter((c: any) => c.section === "style");
+
+  const megaMenus = [
+    {
+      label: "Boxes by Industry",
+      key: "industry",
+      categories: industryCategories,
+    },
+    {
+      label: "Boxes by Material",
+      key: "material",
+      categories: materialCategories,
+    },
+    {
+      label: "Boxes by Style",
+      key: "style",
+      categories: styleCategories,
+    },
+  ].filter((menu) => menu.categories.length > 0);
+
+  const helpCenterLinks = [
+    { label: "Artwork Guidelines", href: "/artwork-guidelines" },
+    { label: "Blog", href: "/blog" },
+    { label: "Library", href: "/library" },
+  ];
+
+  const utilityBadges = [
+    "Earth-Friendly Packaging",
+    "Cruelty-Free",
+    "Made in USA",
+    "Low MOQ",
+    "Free Design Support",
+  ];
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background lg:bg-background/95 lg:backdrop-blur-md">
+      {/* ── Top utility bar ── */}
+      <div className="hidden lg:block bg-[#2d5c3e] text-white">
+        <div className="container-max flex h-8 items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Left badges */}
+          <div className="flex items-center gap-[18px]">
+            {utilityBadges.map((badge) => (
+              <div key={badge} className="flex items-center gap-[5px] font-sans text-[11px] text-white/80">
+                <div className="w-[5px] h-[5px] rounded-full bg-accent shrink-0" />
+                {badge}
+              </div>
+            ))}
+          </div>
+          {/* Right contact info */}
+          <div className="flex items-center gap-[6px] font-sans text-[11.5px] font-medium text-white/90">
+            {settings.contact.email && (
+              <>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M22 6l-10 7L2 6" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <a href={`mailto:${settings.contact.email}`} className="text-white/85 hover:text-accent transition-colors no-underline">
+                  {settings.contact.email}
+                </a>
+              </>
+            )}
+            {settings.contact.email && settings.contact.phone && (
+              <span className="text-white/25 mx-1">|</span>
+            )}
+            {settings.contact.phone && (
+              <>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.06 2.22 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <a href={`tel:${settings.contact.phone.replace(/[^0-9+]/g, "")}`} className="text-white/85 hover:text-accent transition-colors no-underline">
+                  {settings.contact.phone}
+                </a>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Main navbar row ── */}
+      <div className="container-max px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20 lg:h-20">
+          {/* Logo */}
+          <Link href="/" prefetch={false} className="flex items-center gap-2">
+            <HofPackLogo variant="light" className="h-12 lg:h-16 w-auto" />
+          </Link>
+
+          {/* ── Desktop nav links ── */}
+          <div className="hidden lg:flex items-center gap-0.5">
+            <Link
+              href="/"
+              prefetch={false}
+              className={`px-3.5 py-2.5 ds-nav-link rounded-md transition-colors ${pathname === "/" ? "text-accent font-semibold" : "text-foreground/85 hover:text-foreground"
+                }`}
+            >
+              Home
+            </Link>
+
+            {megaMenus.map((menu) => (
+              <MegaMenuItem
+                key={menu.key}
+                label={menu.label}
+                categories={menu.categories}
+                isOpen={openMenu === menu.key}
+                onOpen={() => setOpenMenu(menu.key)}
+                onClose={() => setOpenMenu(null)}
+              />
+            ))}
+
+            <Link
+              href="/contact"
+              prefetch={false}
+              className={`px-3.5 py-2.5 ds-nav-link rounded-md transition-colors ${pathname === "/contact" ? "text-accent font-semibold" : "text-foreground/85 hover:text-foreground"
+                }`}
+            >
+              Contact Us
+            </Link>
+
+            <SimpleMenuItem
+              label="Help Center"
+              links={helpCenterLinks}
+              isOpen={openMenu === "help-center"}
+              onOpen={() => setOpenMenu("help-center")}
+              onClose={() => setOpenMenu(null)}
+            />
+          </div>
+
+          {/* Desktop actions */}
+          <div className="hidden lg:flex items-center gap-2">
+            <SearchBar />
+            <QuoteButton />
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="lg:hidden inline-flex h-9 w-9 items-center justify-center text-foreground hover:text-accent transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-tray"
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* ── Mobile menu version ── */}
+      {mobileOpen && (
+        <div
+          id="mobile-nav-tray"
+          className="fixed inset-0 z-[80] bg-background opacity-100 transition-opacity duration-300 ease-out lg:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+        >
+          <div
+            className={`absolute inset-0 bg-background transition-transform duration-300 ease-out ${mobileOpen ? "translate-x-0" : "translate-x-full"
+              }`}
+          >
+            <div className="mx-auto flex h-dvh w-full max-w-2xl flex-col bg-background px-4 pb-6 pt-4 sm:px-6">
+              <div className="mb-5 flex items-center justify-between border-b border-border/70 pb-4">
+                <Link href="/" prefetch={false} onClick={() => setMobileOpen(false)}>
+                  <HofPackLogo variant="light" className="h-10 w-auto" />
+                </Link>
+                <button
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-background text-foreground transition-all hover:border-accent/40 hover:text-accent"
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Close menu"
+                >
+                  <X size={22} />
+                </button>
+              </div>
+
+              <div className="mb-4 rounded-xl border border-border/70 bg-background p-2">
+                <SearchBar mode="inline" onResultSelect={() => setMobileOpen(false)} />
+              </div>
+
+              <div className="flex-1 space-y-1 overflow-y-auto pr-1">
+                <Link
+                  href="/"
+                  prefetch={false}
+                  className={`flex min-h-[48px] items-center rounded-lg px-4 py-3 text-[15px] font-medium tracking-[0.02em] transition-colors ${pathname === "/" ? "text-accent font-semibold" : "text-foreground hover:bg-accent/5"
+                    }`}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Home
+                </Link>
+
+                {megaMenus.map((menu) => (
+                  <div
+                    key={menu.key}
+                    className="rounded-lg border border-transparent bg-transparent transition-colors hover:border-border/60 hover:bg-background/70"
+                  >
+                    <button
+                      className="flex min-h-[48px] w-full items-center justify-between rounded-lg px-4 py-3 text-left text-[15px] font-medium tracking-[0.02em] text-foreground"
+                      onClick={() =>
+                        setMobileExpanded(
+                          mobileExpanded === menu.key ? null : menu.key,
+                        )
+                      }
+                      aria-expanded={mobileExpanded === menu.key}
+                    >
+                      {menu.label}
+                      <ChevronDown
+                        size={15}
+                        className={`transition-transform ${mobileExpanded === menu.key ? "rotate-180" : ""
+                          }`}
+                      />
+                    </button>
+
+                    {mobileExpanded === menu.key && (
+                      <div className="animate-fade-in space-y-0.5 pb-2 pl-4 pr-2">
+                        {menu.categories.map((cat: any) => {
+                          const imgSrc = getCategoryImage(cat.slug);
+                          const Icon = getCategoryIcon(cat.slug);
+                          return (
+                            <Link
+                              key={cat.slug}
+                              href={`/${cat.slug}`}
+                              prefetch={false}
+                              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent/5 hover:text-accent group"
+                              onClick={() => setMobileOpen(false)}
+                            >
+                              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors">
+                                {imgSrc ? (
+                                  <img
+                                    src={imgSrc}
+                                    alt={cat.name}
+                                    width={16}
+                                    height={16}
+                                    style={{
+                                      width: 16,
+                                      height: 16,
+                                      objectFit: "contain",
+                                      filter:
+                                        "brightness(0) saturate(100%) invert(49%) sepia(100%) saturate(1800%) hue-rotate(346deg) brightness(82%) contrast(1.2)",
+                                    }}
+                                  />
+                                ) : (
+                                  <Icon size={15} strokeWidth={2.2} />
+                                )}
+                              </span>
+                              <span className="font-sans text-[12.5px] font-normal">{cat.name}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                <Link
+                  href="/contact"
+                  prefetch={false}
+                  className={`flex min-h-[48px] items-center rounded-lg px-4 py-3 text-[15px] font-medium tracking-[0.02em] transition-colors ${pathname === "/contact" ? "text-accent font-semibold" : "text-foreground hover:bg-accent/5"
+                    }`}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Contact Us
+                </Link>
+
+                <div className="rounded-lg border border-transparent bg-transparent transition-colors hover:border-border/60 hover:bg-background/70">
+                  <button
+                    className="flex min-h-[48px] w-full items-center justify-between rounded-lg px-4 py-3 text-left text-[15px] font-medium tracking-[0.02em] text-foreground"
+                    onClick={() =>
+                      setMobileExpanded(
+                        mobileExpanded === "help-center" ? null : "help-center",
+                      )
+                    }
+                    aria-expanded={mobileExpanded === "help-center"}
+                  >
+                    Help Center
+                    <ChevronDown
+                      size={15}
+                      className={`transition-transform ${mobileExpanded === "help-center" ? "rotate-180" : ""
+                        }`}
+                    />
+                  </button>
+
+                  {mobileExpanded === "help-center" && (
+                    <div className="animate-fade-in space-y-0.5 pb-2 pl-4 pr-2">
+                      {helpCenterLinks.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          prefetch={false}
+                          className="flex items-center rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent/5 hover:text-accent"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          <span className="font-sans text-[12.5px] font-normal">{link.label}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Contact info */}
+              {(settings.contact.email || settings.contact.phone) && (
+                <div className="mt-4 overflow-hidden rounded-2xl border border-border">
+                  <div className="bg-primary px-4 py-3">
+                    <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">Get in Touch</p>
+                  </div>
+                  <div className="divide-y divide-border bg-card">
+                    {settings.contact.email && (
+                      <a
+                        href={`mailto:${settings.contact.email}`}
+                        className="flex items-center gap-3 px-4 py-3.5 no-underline group"
+                      >
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M22 6l-10 7L2 6" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        <div>
+                          <p className="font-sans text-[10px] text-muted-foreground mb-0.5">Email Us</p>
+                          <p className="font-sans text-[13px] font-semibold text-foreground group-hover:text-accent transition-colors">
+                            {settings.contact.email}
+                          </p>
+                        </div>
+                      </a>
+                    )}
+                    {settings.contact.phone && (
+                      <a
+                        href={`tel:${settings.contact.phone.replace(/[^0-9+]/g, "")}`}
+                        className="flex items-center gap-3 px-4 py-3.5 no-underline group"
+                      >
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.06 2.22 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        <div>
+                          <p className="font-sans text-[10px] text-muted-foreground mb-0.5">Call Us</p>
+                          <p className="font-sans text-[13px] font-semibold text-foreground group-hover:text-accent transition-colors">
+                            {settings.contact.phone}
+                          </p>
+                        </div>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-3 border-t border-border/70 pt-4">
+                <QuoteButton fullWidth />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
