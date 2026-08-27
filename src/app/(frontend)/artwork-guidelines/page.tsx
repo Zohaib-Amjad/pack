@@ -626,7 +626,7 @@ export default function ArtworkGuidelinesPage() {
                 textTransform: "uppercase",
               }}
             >
-              Get Your Free Quote &rarr;
+              Get Your FREE Quote &rarr;
             </Link>
           </div>
         </div>

@@ -142,7 +142,7 @@ const TrendingProducts = () => {
               >
                 <ArrowRight size={26} color="#e8732a" strokeWidth={2.5} />
                 <p className="font-sans font-bold text-white text-center" style={{ fontSize: 13 }}>
-                  See all Products
+                  View All Products
                 </p>
                 <small className="font-sans text-white/60 text-center" style={{ fontSize: "10.5px" }}>
                   20+ box types
@@ -211,7 +211,7 @@ const TrendingProducts = () => {
               >
                 <ArrowRight size={20} color="#e8732a" strokeWidth={2.5} />
                 <p className="font-sans font-bold text-white text-center text-[12px] leading-tight">
-                  See all Products
+                  View All Products
                 </p>
                 <small className="font-sans text-white/60 text-center text-[9.5px]">
                   20+ box types

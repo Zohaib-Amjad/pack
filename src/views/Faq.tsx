@@ -491,7 +491,7 @@ export default function Faq() {
                 textTransform: "uppercase",
               }}
             >
-              Get Your Free Quote →
+              Get Your FREE Quote →
             </Link>
           </div>
         </div>

@@ -740,7 +740,7 @@ export default function Library() {
                 letterSpacing: "0.05em",
               }}
             >
-              Get Your Free Quote &rarr;
+              Get Your FREE Quote &rarr;
             </Link>
           </div>
         </div>

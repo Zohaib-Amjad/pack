@@ -12,8 +12,8 @@ export const DEFAULT_CMS_HOME: CmsHome = {
     headline: "Custom Packaging That Defines Your Brand!",
     subheadline: "Flat 20% Off on Your First Order + Free Shipping",
     tagline: "Fastest turnaround time. Ready at your door in 8 to 12 days.",
-    primaryCta: { label: "Get Your Free Quote", href: "#quote" },
-    secondaryCta: { label: "See Our Work", href: "/custom-rigid-boxes" },
+    primaryCta: { label: "Get Your FREE Quote", href: "#quote" },
+    secondaryCta: { label: "View All Products", href: "/catalog" },
     heroImageUrl: "",
     heroImageAlt: "Premium custom packaging by HOF Pack",
     trustPoints: [
@@ -377,7 +377,7 @@ can be recycled or composted, and we never test on animals.`,
     title: "Let's Make Something Great",
     subtitle:
       "Tell us about your project. We'll handle design, production, and shipping, start to finish.",
-    buttonLabel: "Get Your Free Quote",
+    buttonLabel: "Get Your FREE Quote",
   },
 };
 
