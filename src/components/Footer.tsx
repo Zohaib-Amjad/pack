@@ -14,8 +14,8 @@ export default function Footer() {
   return (
     <footer className="text-white">
       <div className="bg-[#1e3d2b]">
-        <div className="mx-auto max-w-[1100px] px-4 py-[52px] sm:px-10 sm:pb-10">
-          <div className="grid gap-10 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-16">
+        <div className="mx-auto max-w-[1300px] px-4 py-[52px] sm:px-8 sm:pb-10">
+          <div className="grid gap-10 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10 xl:gap-14">
             {/* Left Column */}
             <div className="w-full max-w-[320px]">
               <Link href="/" className="inline-block transition-opacity hover:opacity-90" aria-label="HOF Pack Home">
@@ -193,185 +193,176 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Desktop Navigation (Top row: 3 cols, Bottom row: 2 cols) */}
-            <div className="hidden md:flex flex-col gap-10 w-full">
-              {/* Top Row: Business, Policies, Category */}
-              <div className="grid grid-cols-3 gap-6">
-                {/* Business */}
-                <div>
-                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
-                    Business
-                  </h4>
-                  <ul className="space-y-[9px]">
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/about">
-                        About Us
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/case-studies">
-                        Case Studies
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Policies */}
-                <div>
-                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
-                    Policies
-                  </h4>
-                  <ul className="space-y-[9px]">
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/privacy">
-                        Privacy Policy
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/terms">
-                        Terms of Service
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/refund-policy">
-                        Refund Policy
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/shipping-policy">
-                        Shipping Policy
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/cancellation-policy">
-                        Cancellation Policy
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/sitemap.xml">
-                        Sitemap
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Category */}
-                <div>
-                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
-                    Category
-                  </h4>
-                  <ul className="space-y-[9px]">
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-coffee-packaging">
-                        Coffee Packaging
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-mylar-bags">
-                        Mylar Bags
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-rigid-boxes">
-                        Rigid Boxes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-display-boxes">
-                        Display Boxes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-tuck-boxes">
-                        Tuck Boxes
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+            {/* Desktop Navigation (Single 5-column row) */}
+            <div className="hidden md:grid w-full md:grid-cols-5 md:gap-4 lg:gap-6">
+              {/* Business */}
+              <div>
+                <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                  Business
+                </h4>
+                <ul className="space-y-[9px]">
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/about">
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/case-studies">
+                      Case Studies
+                    </Link>
+                  </li>
+                </ul>
               </div>
 
-              {/* Bottom Row: Products, Contact */}
-              <div className="grid grid-cols-3 gap-6">
-                {/* Products */}
-                <div>
-                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
-                    Products
-                  </h4>
-                  <ul className="space-y-[9px]">
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/child-resistant-boxes">
-                        Child Resistant Rigid Boxes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/coffee-cup-sleeves">
-                        Coffee Cup Sleeves
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/stand-up-pouches">
-                        Custom Stand Up Pouches
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/tuck-top-boxes">
-                        Custom Tuck Top Boxes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/kraft-mylar-bags">
-                        Kraft Mylar Bags
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/kraft-pillow-boxes">
-                        Kraft Pillow Boxes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/magnetic-closure-boxes">
-                        Magnetic Closure Boxes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/retail-display-boxes">
-                        Retail Display Boxes
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+              {/* Policies */}
+              <div>
+                <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                  Policies
+                </h4>
+                <ul className="space-y-[9px]">
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/privacy">
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/terms">
+                      Terms of Service
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/refund-policy">
+                      Refund Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/shipping-policy">
+                      Shipping Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/cancellation-policy">
+                      Cancellation Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/sitemap.xml">
+                      Sitemap
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-                {/* Contact */}
-                <div>
-                  <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
-                    Contact
-                  </h4>
-                  <ul className="space-y-[9px]">
-                    <li>
-                      <a href="mailto:info@hofpack.com" className="text-[12.5px] text-white/70 transition hover:text-accent">
-                        info@hofpack.com
-                      </a>
-                    </li>
-                    <li>
-                      <a href="tel:+18884294881" className="text-[12.5px] text-white/70 transition hover:text-accent">
-                        +1 (888) 429 4881
-                      </a>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/contact">
-                        Live Chat
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/contact">
-                        Get a Quote
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+              {/* Category */}
+              <div>
+                <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                  Category
+                </h4>
+                <ul className="space-y-[9px]">
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-coffee-packaging">
+                      Coffee Packaging
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-mylar-bags">
+                      Mylar Bags
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-rigid-boxes">
+                      Rigid Boxes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-display-boxes">
+                      Display Boxes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/custom-tuck-boxes">
+                      Tuck Boxes
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-                {/* Empty 3rd slot for alignment */}
-                <div />
+              {/* Products */}
+              <div>
+                <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                  Products
+                </h4>
+                <ul className="space-y-[9px]">
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/child-resistant-boxes">
+                      Child Resistant Rigid Boxes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/coffee-cup-sleeves">
+                      Coffee Cup Sleeves
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/stand-up-pouches">
+                      Custom Stand Up Pouches
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/tuck-top-boxes">
+                      Custom Tuck Top Boxes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/kraft-mylar-bags">
+                      Kraft Mylar Bags
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/kraft-pillow-boxes">
+                      Kraft Pillow Boxes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/magnetic-closure-boxes">
+                      Magnetic Closure Boxes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/product/retail-display-boxes">
+                      Retail Display Boxes
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Contact */}
+              <div>
+                <h4 className="mb-[14px] text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                  Contact
+                </h4>
+                <ul className="space-y-[9px]">
+                  <li>
+                    <a href="mailto:info@hofpack.com" className="text-[12.5px] text-white/70 transition hover:text-accent">
+                      info@hofpack.com
+                    </a>
+                  </li>
+                  <li>
+                    <a href="tel:+18884294881" className="text-[12.5px] text-white/70 transition hover:text-accent">
+                      +1 (888) 429 4881
+                    </a>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/contact">
+                      Live Chat
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-[12.5px] text-white/70 transition hover:text-accent" href="/contact">
+                      Get a Quote
+                    </Link>
+                  </li>
+                </ul>
               </div>
             </div>
 

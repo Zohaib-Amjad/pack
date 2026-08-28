@@ -36,31 +36,31 @@ export default async function HomePage() {
       <ClientLogosBar cms={cmsHome} />
 
       {/* 4. Featured Categories (Low MOQ Must-Haves) */}
-      <FeaturedCategories categories={[]} />
+      <FeaturedCategories cms={cmsHome} categories={[]} />
 
       {/* 5. Discount Bar (Flat 20% Off) */}
       <DiscountBar />
 
       {/* 6. Trending Products (Bento Grid) */}
-      <TrendingProducts />
+      <TrendingProducts cms={cmsHome} />
 
       {/* 7. How It Works (4-Step Process & Design Support) */}
       <HowItWorks />
 
       {/* 8. Sustainability / Greener Earth Section */}
-      <WhyChooseUs />
+      <WhyChooseUs cms={cmsHome} />
 
       {/* 9. Home Quote Section */}
       <HomeQuoteSection />
 
       {/* 10. Common Questions (FAQ Section) */}
-      <FAQSection />
+      <FAQSection cms={cmsHome} />
 
       {/* 11. More Products Carousel */}
-      <HomeMoreProducts />
+      <HomeMoreProducts cms={cmsHome} />
 
       {/* 12. Trustpilot Testimonials Section (End of Home Page) */}
-      <TrustpilotTestimonialsSection />
+      <TrustpilotTestimonialsSection cms={cmsHome} />
     </div>
   );
 }

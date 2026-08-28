@@ -43,7 +43,8 @@ export type CmsHomeTrustBar = {
 
 export type CmsHomeFeaturedCategories = {
   sectionLabel: string;
-  titleLead: string;
+  titleLead?: string;
+  titleBeforeAccent?: string;
   titleAccent: string;
   description: string;
 };
@@ -137,6 +138,7 @@ export type CmsHomeTestimonial = {
   initials: string;
   rating: number;
   highlight: string;
+  column?: "left" | "right" | "auto";
   active: boolean;
 };
 
@@ -145,6 +147,14 @@ export type CmsHomeTestimonials = {
   titleLead: string;
   titleAccent: string;
   description: string;
+  primaryCtaLabel?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  trustpilotLinkLabel?: string;
+  trustpilotLinkHref?: string;
+  leftColumnDirection?: "up" | "down";
+  rightColumnDirection?: "up" | "down";
+  scrollSpeed?: "slow" | "normal" | "fast";
   items: CmsHomeTestimonial[];
   trustStats: { value: string; label: string }[];
 };

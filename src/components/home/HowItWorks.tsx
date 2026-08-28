@@ -2,16 +2,25 @@
 
 import Image from "next/image";
 import { useQuoteModal } from "@/components/QuoteModalContext";
-import { Bell } from "lucide-react";
+import { useCmsHome } from "@/hooks/useCms";
+import type { CmsHome } from "@/types/cms";
 
-const STEPS = [
+const DEFAULT_IMAGES = [
+  "/images/products/afe38795-24d9-47c6-b9f8-048f4d3b98d7.png",
+  "/images/products/aa806591-0348-42f5-be2e-3330477f3054.png",
+  "/images/products/7fde84ed-872a-454c-b74e-4f404d5d2bc4.png",
+  "/images/products/f4d0a7f0-7ab2-43ee-a836-dd5be3d1321a.jpg",
+];
+
+const DEFAULT_STEPS = [
   {
     num: "1",
     step: "Step 01",
     name: "Design",
     desc: "Tell us your vision",
     tag: "Free consultation",
-    img: "/images/products/afe38795-24d9-47c6-b9f8-048f4d3b98d7.png",
+    img: DEFAULT_IMAGES[0],
+    active: true,
   },
   {
     num: "2",
@@ -19,7 +28,8 @@ const STEPS = [
     name: "Proof",
     desc: "See it before we print",
     tag: "Free 3D mock-up",
-    img: "/images/products/aa806591-0348-42f5-be2e-3330477f3054.png",
+    img: DEFAULT_IMAGES[1],
+    active: true,
   },
   {
     num: "3",
@@ -27,7 +37,8 @@ const STEPS = [
     name: "Production",
     desc: "We print and inspect",
     tag: "100% QC inspected",
-    img: "/images/products/7fde84ed-872a-454c-b74e-4f404d5d2bc4.png",
+    img: DEFAULT_IMAGES[2],
+    active: true,
   },
   {
     num: "4",
@@ -35,12 +46,40 @@ const STEPS = [
     name: "Delivery",
     desc: "At your door, on time",
     tag: "Free shipping USA",
-    img: "/images/products/f4d0a7f0-7ab2-43ee-a836-dd5be3d1321a.jpg",
+    img: DEFAULT_IMAGES[3],
+    active: true,
   },
 ];
 
-const HowItWorks = () => {
+type HowItWorksProps = {
+  cms?: CmsHome;
+};
+
+const HowItWorks = ({ cms }: HowItWorksProps) => {
   const { open } = useQuoteModal();
+  const { data } = useCmsHome();
+  const how = data?.howItWorks || cms?.howItWorks;
+
+  const sectionLabel = how?.sectionLabel;
+  const titleLead = how?.titleLead || "From Idea to";
+  const titleAccent = how?.titleAccent || "Your Door";
+  const subtitle = how?.subtitle || "Four steps. No confusion. No hidden fees.";
+  const ctaLabel = how?.ctaLabel || "Start Your Project";
+
+  const rawSteps = Array.isArray(how?.steps) && how.steps.length > 0 ? how.steps : DEFAULT_STEPS;
+  const activeSteps = rawSteps
+    .filter((s) => s.active !== false)
+    .map((s, idx) => ({
+      num: String(idx + 1),
+      step: `Step 0${idx + 1}`,
+      name: (s as any).name || s.title || `Step ${idx + 1}`,
+      desc: s.desc || (s as any).description || "",
+      tag:
+        Array.isArray(s.details) && s.details.length > 0
+          ? s.details[0]
+          : (s as any).tag || "Free consultation",
+      img: s.imageUrl || DEFAULT_IMAGES[idx % DEFAULT_IMAGES.length],
+    }));
 
   return (
     <div>
@@ -48,20 +87,27 @@ const HowItWorks = () => {
         <div style={{ maxWidth: "1100px", margin: "0px auto" }}>
           {/* Header */}
           <div className="text-center sm:text-left">
+            {sectionLabel && (
+              <p className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-[#e8732a] mb-1.5">
+                {sectionLabel}
+              </p>
+            )}
             <h2 className="font-display text-[#1a1a1a]" style={{ fontSize: "26px", fontWeight: 700 }}>
-              From Idea to <span className="text-[#e8732a]">Your Door</span>
+              {titleLead} <span className="text-[#e8732a]">{titleAccent}</span>
             </h2>
-            <p
-              className="font-sans text-[#7a7672] mx-auto sm:mx-0"
-              style={{ fontSize: "13px", marginTop: "8px", marginBottom: "28px", maxWidth: "480px" }}
-            >
-              Four steps. No confusion. No hidden fees.
-            </p>
+            {subtitle && (
+              <p
+                className="font-sans text-[#7a7672] mx-auto sm:mx-0"
+                style={{ fontSize: "13px", marginTop: "8px", marginBottom: "28px", maxWidth: "480px" }}
+              >
+                {subtitle}
+              </p>
+            )}
           </div>
 
           {/* Mobile vertical list */}
           <div className="flex sm:hidden flex-col gap-3">
-            {STEPS.map((step) => (
+            {activeSteps.map((step) => (
               <div
                 key={step.step}
                 className="flex flex-row bg-white rounded-[10px] border border-[#e0ddd6] overflow-hidden"
@@ -96,8 +142,13 @@ const HowItWorks = () => {
           </div>
 
           {/* Desktop grid (4 columns) */}
-          <div className="hidden sm:grid grid-cols-4 gap-[3px]">
-            {STEPS.map((step) => (
+          <div
+            className="hidden sm:grid gap-[3px]"
+            style={{
+              gridTemplateColumns: `repeat(${Math.max(1, Math.min(4, activeSteps.length))}, 1fr)`,
+            }}
+          >
+            {activeSteps.map((step) => (
               <div key={step.step} className="group">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
                   <Image
@@ -191,15 +242,13 @@ const HowItWorks = () => {
               className="inline-flex items-center justify-center gap-2 font-sans font-bold text-white rounded-[5px] flex-shrink-0 transition-colors cursor-pointer border-0 w-full sm:w-auto hover:bg-[#c45a18]"
               style={{
                 background: "rgb(232, 115, 42)",
-                fontSize: "11px",
-                padding: "12px 24px",
-                letterSpacing: "0.02em",
+                fontSize: "13px",
+                padding: "12px 28px",
               }}
             >
-              <Bell size={14} strokeWidth={2.5} /> Talk to a Designer
+              <strong>{ctaLabel} →</strong>
             </button>
           </div>
-
         </div>
       </div>
     </div>

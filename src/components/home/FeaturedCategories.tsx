@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useCmsHome } from "@/hooks/useCms";
 
 type FeaturedCategory = {
   name: string;
@@ -67,10 +70,21 @@ const DEFAULT_FEATURED_CATEGORIES: FeaturedCategory[] = [
 ];
 
 type FeaturedCategoriesProps = {
+  cms?: CmsHome;
   categories?: any[];
 };
 
-const FeaturedCategories = ({ categories }: FeaturedCategoriesProps) => {
+const FeaturedCategories = ({ cms, categories }: FeaturedCategoriesProps) => {
+  const { data } = useCmsHome();
+  const fc = data?.featuredCategories || cms?.featuredCategories;
+
+  const sectionLabel = fc?.sectionLabel ?? "Shop By Category";
+  const titleBeforeAccent = fc?.titleBeforeAccent ?? fc?.titleLead ?? "Find Your";
+  const titleAccent = fc?.titleAccent ?? "Perfect Box";
+  const description =
+    fc?.description ??
+    "Browse our most popular packaging styles. Every box is fully customizable to fit your brand.";
+
   const row1 = DEFAULT_FEATURED_CATEGORIES.slice(0, 4);
   const row2 = DEFAULT_FEATURED_CATEGORIES.slice(4, 8);
   const row3 = DEFAULT_FEATURED_CATEGORIES.slice(8, 11);
@@ -79,12 +93,24 @@ const FeaturedCategories = ({ categories }: FeaturedCategoriesProps) => {
     <div>
       <div className="bg-[#f5f3ee] px-4 sm:px-10 py-10 sm:py-[64px]">
         <div style={{ maxWidth: 1100, margin: "0px auto" }}>
-          <div className="flex items-end justify-between" style={{ marginBottom: 32 }}>
-            <h2 className="font-display text-[#1a1a1a]" style={{ fontSize: 26, fontWeight: 700 }}>
-              Low MOQ <span className="text-[#e8732a]">Must-Haves</span>
-            </h2>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4" style={{ marginBottom: 32 }}>
+            <div>
+              {sectionLabel && (
+                <p className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-[#e8732a] mb-1">
+                  {sectionLabel}
+                </p>
+              )}
+              <h2 className="font-display text-[#1a1a1a]" style={{ fontSize: 26, fontWeight: 700 }}>
+                {titleBeforeAccent} {titleAccent && <span className="text-[#e8732a]">{titleAccent}</span>}
+              </h2>
+              {description && (
+                <p className="font-sans text-[13px] text-[#7a7672] mt-1 max-w-xl leading-relaxed">
+                  {description}
+                </p>
+              )}
+            </div>
             <Link
-              className="font-sans font-semibold text-[#e8732a] border-b border-[#f5c8a8] pb-px hover:text-[#c45a18] transition-colors"
+              className="font-sans font-semibold text-[#e8732a] border-b border-[#f5c8a8] pb-px hover:text-[#c45a18] transition-colors shrink-0 self-start sm:self-end"
               href="/catalog"
               style={{ fontSize: 12, letterSpacing: "0.02em" }}
             >

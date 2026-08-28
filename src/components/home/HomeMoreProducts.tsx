@@ -1,10 +1,10 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import React, { useMemo } from "react";
 import RelatedProductsCarouselSection from "@/components/RelatedProductsCarouselSection";
 import { useCmsHome } from "@/hooks/useCms";
-import { withAbortableTimeout } from "@/lib/fetch-utils";
-import { createPublicClient } from "@/utils/supabase/public-client";
+import { getAllProducts } from "@/data/products";
+import type { CmsHome } from "@/types/cms";
 
 type HomeProduct = {
   id: string;
@@ -89,59 +89,55 @@ const DEFAULT_MORE_PRODUCTS: HomeProduct[] = [
   },
 ];
 
-export default function HomeMoreProducts() {
-  const { data: cms } = useCmsHome();
-  const section = cms?.moreProducts;
+type HomeMoreProductsProps = {
+  cms?: CmsHome;
+};
+
+export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
+  const { data } = useCmsHome();
+  const section = data?.moreProducts || cms?.moreProducts;
+  const allCatalogProducts = useMemo(() => getAllProducts(), []);
+
+  if (section?.enabled === false) return null;
+
   const selectedIds = section?.selectedProductIds || [];
   const limit = Math.max(1, Math.min(24, section?.limit ?? 12));
 
-  const { data: products = DEFAULT_MORE_PRODUCTS } = useQuery({
-    queryKey: ["public", "home-more-products", selectedIds, limit],
-    initialData: DEFAULT_MORE_PRODUCTS,
-    queryFn: async () => {
-      try {
-        const supabase = createPublicClient();
-        if (selectedIds.length > 0) {
-          const { data, error } = (await withAbortableTimeout(
-            (signal) =>
-              supabase
-                .from("products" as any)
-                .select("id, name, slug, images, categories(id, name, slug)")
-                .in("id", selectedIds)
-                .eq("is_active", true)
-                .abortSignal(signal) as any,
-          )) as any;
+  // Match ONLY the products explicitly added in the admin
+  const products: HomeProduct[] = useMemo(() => {
+    if (selectedIds.length > 0) {
+      const list: HomeProduct[] = [];
+      const used = new Set<string>();
 
-          if (!error && data && data.length > 0) {
-            const byId = new Map((data || []).map((product: HomeProduct) => [product.id, product]));
-            const mapped = selectedIds
-              .map((id) => byId.get(id))
-              .filter(Boolean)
-              .slice(0, limit) as HomeProduct[];
-            if (mapped.length > 0) return mapped;
-          }
+      selectedIds.forEach((query) => {
+        const q = query.toLowerCase().trim();
+        const found = allCatalogProducts.find(
+          (p) =>
+            p.name.toLowerCase() === q ||
+            p.slug.toLowerCase() === q ||
+            p.id?.toLowerCase() === q ||
+            p.name.toLowerCase().includes(q)
+        );
+
+        if (found && !used.has(found.slug)) {
+          used.add(found.slug);
+          list.push({
+            id: found.id || found.slug,
+            name: found.name,
+            slug: found.slug,
+            images: found.image ? [found.image] : [],
+          });
         }
+      });
 
-        const { data: fallback, error: fallbackError } = (await withAbortableTimeout(
-          (signal) =>
-            supabase
-              .from("products" as any)
-              .select("id, name, slug, images, categories(id, name, slug)")
-              .eq("is_active", true)
-              .order("created_at", { ascending: false })
-              .limit(limit)
-              .abortSignal(signal) as any,
-        )) as any;
+      return list.slice(0, limit);
+    }
 
-        if (!fallbackError && fallback && fallback.length > 0) {
-          return fallback as HomeProduct[];
-        }
-      } catch {
-        // use DEFAULT_MORE_PRODUCTS
-      }
-      return DEFAULT_MORE_PRODUCTS;
-    },
-  });
+    // Default list if nothing selected
+    return DEFAULT_MORE_PRODUCTS.slice(0, limit);
+  }, [allCatalogProducts, selectedIds, limit]);
+
+  if (products.length === 0) return null;
 
   return (
     <RelatedProductsCarouselSection

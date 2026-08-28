@@ -4,12 +4,12 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 import { useQuoteModal } from "@/components/QuoteModalContext";
-import TrustpilotBadge from "@/components/TrustpilotBadge";
 import {
-  TRUSTPILOT_PROFILE_URL,
   TRUSTPILOT_REVIEWS,
   type TrustpilotReview,
 } from "@/data/trustpilot-reviews";
+import { useCmsHome } from "@/hooks/useCms";
+import type { CmsHome } from "@/types/cms";
 
 const AVATAR_COLORS = [
   "bg-[#2d5c3e] text-white",
@@ -67,7 +67,6 @@ function MarqueeColumn({
   direction: "up" | "down";
   duration: string;
 }) {
-  // Need at least 2 copies for seamless loop; pad if few reviews
   const base = items.length >= 2 ? items : [...items, ...items, ...items];
   const loop = [...base, ...base];
 
@@ -89,67 +88,169 @@ function MarqueeColumn({
   );
 }
 
-const TrustpilotTestimonialsSection = () => {
+type TrustpilotTestimonialsSectionProps = {
+  cms?: CmsHome;
+};
+
+const TrustpilotTestimonialsSection = ({ cms }: TrustpilotTestimonialsSectionProps) => {
   const { open } = useQuoteModal();
+  const { data } = useCmsHome();
+  const tm = data?.testimonials || cms?.testimonials;
 
-  const reviews = useMemo(() => TRUSTPILOT_REVIEWS.filter((r) => r.text.trim()), []);
+  const sectionLabel = tm?.sectionLabel !== undefined ? tm.sectionLabel : "Real Reviews";
+  const titleLead = tm?.titleLead !== undefined ? tm.titleLead : "Don't Take Our Word";
+  const titleAccent = tm?.titleAccent !== undefined ? tm.titleAccent : "for It";
+  const description =
+    tm?.description !== undefined
+      ? tm.description
+      : "Here's what our customers have to say after working with us.";
 
-  if (reviews.length === 0) return null;
+  const primaryCtaLabel = tm?.primaryCtaLabel !== undefined ? tm.primaryCtaLabel : "Customize now";
+  const secondaryCtaLabel =
+    tm?.secondaryCtaLabel !== undefined ? tm.secondaryCtaLabel : "Browse all products";
+  const secondaryCtaHref = tm?.secondaryCtaHref !== undefined ? tm.secondaryCtaHref : "/our-products";
+  const trustpilotLinkLabel =
+    tm?.trustpilotLinkLabel !== undefined ? tm.trustpilotLinkLabel : "See all reviews on Trustpilot";
+  const trustpilotLinkHref =
+    tm?.trustpilotLinkHref !== undefined
+      ? tm.trustpilotLinkHref
+      : "https://www.trustpilot.com/review/hofpack.com";
 
-  // 5 reviews → col A: 3, col B: 2 (balanced dual marquee)
-  const leftCol = reviews.filter((_, i) => i % 2 === 0);
-  const rightCol = reviews.filter((_, i) => i % 2 === 1);
+  const leftColDirection = tm?.leftColumnDirection === "down" ? "down" : "up";
+  const rightColDirection = tm?.rightColumnDirection === "up" ? "up" : "down";
+  const speed = tm?.scrollSpeed || "normal";
+  const durationLeft = speed === "fast" ? "18s" : speed === "slow" ? "42s" : "28s";
+  const durationRight = speed === "fast" ? "22s" : speed === "slow" ? "48s" : "32s";
+
+  const stats = Array.isArray(tm?.trustStats)
+    ? tm.trustStats.filter((s) => s.value && s.label)
+    : [];
+
+  const { leftCol, rightCol } = useMemo(() => {
+    const rawList = Array.isArray(tm?.items) ? tm.items : [];
+    const active = rawList.filter((r) => r.active !== false && (r.text.trim() || r.name.trim()));
+
+    if (active.length === 0) {
+      return { leftCol: [] as TrustpilotReview[], rightCol: [] as TrustpilotReview[] };
+    }
+
+    const left: TrustpilotReview[] = [];
+    const right: TrustpilotReview[] = [];
+
+    active.forEach((r) => {
+      const item: TrustpilotReview = {
+        id: r.id,
+        name: r.name || "Customer",
+        location: r.company || "USA",
+        initials: r.initials || (r.name ? r.name.slice(0, 2).toUpperCase() : "HP"),
+        rating: typeof r.rating === "number" ? r.rating : 5,
+        title: r.highlight || undefined,
+        text: r.text,
+        dateLabel: undefined,
+      };
+
+      if (r.column === "left") {
+        left.push(item);
+      } else if (r.column === "right") {
+        right.push(item);
+      } else {
+        // Auto balance
+        if (left.length <= right.length) {
+          left.push(item);
+        } else {
+          right.push(item);
+        }
+      }
+    });
+
+    if (left.length === 0 && right.length > 0) return { leftCol: right, rightCol: right };
+    if (right.length === 0 && left.length > 0) return { leftCol: left, rightCol: left };
+    return { leftCol: left, rightCol: right };
+  }, [tm?.items]);
+
+  const hasReviews = leftCol.length > 0 || rightCol.length > 0;
 
   return (
     <section className="border-t border-[#dce8df] bg-[#E8F4EA] px-4 py-14 sm:px-10 sm:py-16">
-      <div className="mx-auto grid max-w-[1100px] items-center gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12">
+      <div
+        className={`mx-auto grid max-w-[1100px] items-center gap-10 ${
+          hasReviews ? "lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12" : "grid-cols-1 max-w-[650px] text-center"
+        }`}
+      >
         <div className="max-w-[420px]">
-          <p className="ds-eyebrow mb-2 text-accent">Testimonials</p>
+          {sectionLabel && <p className="ds-eyebrow mb-2 text-accent">{sectionLabel}</p>}
           <h2 className="font-display text-[28px] font-semibold leading-[1.15] text-[#1a1a1a] sm:text-[34px]">
-            Trusted by <span className="text-accent">Growing Brands</span>
+            {titleLead} {titleAccent && <span className="text-accent">{titleAccent}</span>}
           </h2>
-          <p className="mt-3 font-sans text-[13.5px] leading-[1.7] text-[#5a5652]">
-            Real Trustpilot reviews from brands who package with HOF Pack.
-          </p>
+          {description && (
+            <p className="mt-3 font-sans text-[13.5px] leading-[1.7] text-[#5a5652]">
+              {description}
+            </p>
+          )}
 
-          <div className="mt-5">
-            <TrustpilotBadge theme="light" />
-          </div>
+          {stats.length > 0 && (
+            <div className="mt-6 pt-5 border-t border-[#c5d6ca] grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {stats.map((st, i) => (
+                <div key={i} className="flex flex-col">
+                  <span className="font-display text-[18px] font-bold text-[#2d5c3e] leading-tight">
+                    {st.value}
+                  </span>
+                  <span className="text-[10.5px] font-semibold text-[#7a7672] leading-tight mt-0.5">
+                    {st.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => open()}
-              className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-accent px-5 py-3 font-sans text-[12.5px] font-semibold text-white transition-colors hover:bg-[var(--ds-orange-hover)]"
+          {(primaryCtaLabel || secondaryCtaLabel) && (
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              {primaryCtaLabel && (
+                <button
+                  type="button"
+                  onClick={() => open()}
+                  className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-accent px-5 py-3 font-sans text-[12.5px] font-semibold text-white transition-colors hover:bg-[var(--ds-orange-hover)]"
+                >
+                  {primaryCtaLabel}
+                  <ArrowRight size={14} strokeWidth={2.5} />
+                </button>
+              )}
+              {secondaryCtaLabel && (
+                <Link
+                  href={secondaryCtaHref}
+                  className="inline-flex items-center justify-center rounded-[8px] border border-[#c5d6ca] bg-white px-5 py-3 font-sans text-[12.5px] font-semibold text-[#1a1a1a] no-underline transition-colors hover:border-[#a8c4b0] hover:bg-[#f7fbf8]"
+                >
+                  {secondaryCtaLabel}
+                </Link>
+              )}
+            </div>
+          )}
+
+          {trustpilotLinkLabel && (
+            <a
+              href={trustpilotLinkHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-1.5 font-sans text-[12px] font-medium text-[#00b67a] no-underline hover:underline"
             >
-              Customize now
-              <ArrowRight size={14} strokeWidth={2.5} />
-            </button>
-            <Link
-              href="/our-products"
-              className="inline-flex items-center justify-center rounded-[8px] border border-[#c5d6ca] bg-white px-5 py-3 font-sans text-[12.5px] font-semibold text-[#1a1a1a] no-underline transition-colors hover:border-[#a8c4b0] hover:bg-[#f7fbf8]"
-            >
-              Browse all products
-            </Link>
-          </div>
-
-          <a
-            href={TRUSTPILOT_PROFILE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center gap-1.5 font-sans text-[12px] font-medium text-[#00b67a] no-underline hover:underline"
-          >
-            See all reviews on Trustpilot
-            <ArrowRight size={12} />
-          </a>
+              {trustpilotLinkLabel}
+              <ArrowRight size={12} />
+            </a>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-          <MarqueeColumn items={leftCol} direction="up" duration="28s" />
-          <div className="hidden sm:block">
-            <MarqueeColumn items={rightCol} direction="down" duration="32s" />
+        {hasReviews && (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+            <MarqueeColumn items={leftCol} direction={leftColDirection} duration={durationLeft} />
+            <div className="hidden sm:block">
+              <MarqueeColumn
+                items={rightCol}
+                direction={rightColDirection}
+                duration={durationRight}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

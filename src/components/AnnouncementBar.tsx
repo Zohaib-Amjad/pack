@@ -1,14 +1,22 @@
+"use client";
+
 import type { CmsHome } from "@/types/cms";
+import { useCmsHome } from "@/hooks/useCms";
 
 type AnnouncementBarProps = {
   cms: CmsHome;
 };
 
 const AnnouncementBar = ({ cms }: AnnouncementBarProps) => {
-  const segments = cms.announcement.items
+  const { data } = useCmsHome();
+  const liveAnnouncement = data?.announcement || cms.announcement;
+
+  const segments = (liveAnnouncement?.items || [])
     .filter((it) => it.active && it.text.trim().length > 0)
     .map((it) => it.text.trim());
   const line = segments.length > 0 ? segments.join(" • ") : "";
+
+  if (!line) return null;
 
   return (
     <div className="bg-[#1e3d2b] text-white py-2 overflow-hidden">

@@ -70,14 +70,17 @@ const cigaretteProducts: (Product & { image?: string })[] = [
 ];
 
 const jewelryProducts: (Product & { image?: string })[] = [
-  { name: "Custom Ring Boxes", slug: "custom-ring-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-ring-boxes.jpg" },
+  { name: "Earring Boxes", slug: "custom-earring-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-earring-boxes.jpg" },
   { name: "Custom Earring Boxes", slug: "custom-earring-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-earring-boxes.jpg" },
+  { name: "Custom Ring Boxes", slug: "custom-ring-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-ring-boxes.jpg" },
   { name: "Kraft Bulk Jewelry Boxes", slug: "kraft-bulk-jewelry-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/kraft-bulk-jewelry-boxes.jpg" },
   { name: "Bracelet Boxes", slug: "bracelet-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/bracelet-boxes.jpg" },
   { name: "Custom Pandasew Packaging", slug: "custom-pandasew-packaging", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-pandasew-packaging.jpg" },
   { name: "Custom Bangle Boxes", slug: "custom-bangle-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-bangle-boxes.jpg" },
   { name: "Pendant Boxes", slug: "pendant-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/pendant-boxes.jpg" },
   { name: "Custom Anklet Boxes", slug: "custom-anklet-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-anklet-boxes.jpg" },
+  { name: "Necklace Boxes", slug: "necklace-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/necklace-boxes-1-ef05a5be-36a4-4c15-be73-12b21b29fcdd.jpg" },
+  { name: "Necklace Cards", slug: "necklace-cards", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/necklace-cards-1-b5c0d983-4eb8-4ca9-9b18-b4852d4d71dd.jpg" },
 ];
 
 const retailProducts: (Product & { image?: string })[] = [
@@ -429,8 +432,40 @@ export const getProductBySlug = (slug: string) => {
 export const getCategoriesBySection = (section: "industry" | "material" | "style") =>
   categories.filter((c) => c.section === section);
 
-export const getAllProducts = () =>
-  categories.flatMap((c) => c.products);
+import { FULL_PRODUCTS_DATABASE } from "./product-detail-defaults";
+import { PRODUCT_GALLERIES } from "./product-galleries";
+
+export const getAllProducts = (): (Product & { image?: string })[] => {
+  const map = new Map<string, Product & { image?: string }>();
+
+  // 1. Add all categorized products
+  categories.flatMap((c) => c.products).forEach((p) => {
+    map.set(p.slug, p);
+  });
+
+  // 2. Add all product detail pages from the full database
+  Object.entries(FULL_PRODUCTS_DATABASE).forEach(([slug, detail]) => {
+    if (!map.has(slug)) {
+      const gallery = PRODUCT_GALLERIES[slug];
+      const localImage =
+        gallery && gallery[0]
+          ? gallery[0]
+          : Array.isArray(detail.images) && detail.images[0]
+          ? detail.images[0]
+          : `/images/products/${slug}.jpg`;
+
+      map.set(slug, {
+        name: detail.name || slug.replace(/-/g, " "),
+        slug: slug,
+        category: detail.category?.name || "Custom Boxes",
+        section: "industry",
+        image: localImage,
+      });
+    }
+  });
+
+  return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+};
 
 import { PRODUCT_TAGS_MAP } from "./product-tags";
 

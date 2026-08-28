@@ -218,7 +218,7 @@ function normalizeSustainabilityPoint(it: unknown, index: number): CmsHomeSustai
     id,
     icon: parseSustIcon(row.icon),
     title: String(row.title ?? ""),
-    desc: String(row.desc ?? ""),
+    desc: String(row.desc ?? row.description ?? ""),
     active: row.active !== false,
   };
 }
@@ -234,14 +234,14 @@ function sustainabilityFromMerged(merged: unknown): CmsHomeSustainability {
   const stats =
     Array.isArray(statsRaw) && statsRaw.length > 0
       ? statsRaw.map((s: unknown) => {
-          const r = s && typeof s === "object" ? (s as Record<string, unknown>) : {};
-          return { value: String(r.value ?? ""), label: String(r.label ?? "") };
-        })
+        const r = s && typeof s === "object" ? (s as Record<string, unknown>) : {};
+        return { value: String(r.value ?? ""), label: String(r.label ?? "") };
+      })
       : def.stats;
   return {
     sectionLabel: String(box.sectionLabel ?? def.sectionLabel),
-    titleLead: String(box.titleLead ?? def.titleLead),
-    titleAccent: String(box.titleAccent ?? def.titleAccent),
+    titleLead: String(box.titleLead ?? (box as any).titleBeforeAccent ?? def.titleLead),
+    titleAccent: String(box.titleAccent ?? (box as any).accentWords ?? def.titleAccent),
     body: String(box.body ?? def.body),
     points,
     panelTitle: String(box.panelTitle ?? def.panelTitle),
@@ -287,12 +287,12 @@ function howItWorksFromMerged(merged: unknown): CmsHomeHowItWorks {
     ? stepsRaw.map((s, i) => normalizeHowStep(s, i))
     : def.steps;
   return {
-    sectionLabel: String(box.sectionLabel ?? def.sectionLabel),
-    titleLead: String(box.titleLead ?? def.titleLead),
-    titleAccent: String(box.titleAccent ?? def.titleAccent),
-    subtitle: String(box.subtitle ?? def.subtitle),
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    subtitle: typeof box.subtitle === "string" ? box.subtitle : def.subtitle,
     steps,
-    ctaLabel: String(box.ctaLabel ?? def.ctaLabel),
+    ctaLabel: typeof box.ctaLabel === "string" ? box.ctaLabel : def.ctaLabel,
   };
 }
 
@@ -337,18 +337,28 @@ function normalizeTestimonial(it: unknown, index: number): CmsHomeTestimonial {
   const row = it && typeof it === "object" ? (it as Record<string, unknown>) : {};
   const n = typeof row.rating === "number" ? row.rating : Number(row.rating);
   const rating = Number.isFinite(n) ? Math.max(0, Math.min(5, Math.round(n))) : 5;
+  const name = String(row.name ?? "");
+  const initials =
+    typeof row.initials === "string" && row.initials.length > 0
+      ? row.initials
+      : name
+        ? name.slice(0, 2).toUpperCase()
+        : "HP";
   const id =
     typeof row.id === "string" && row.id.length > 0
       ? row.id
-      : `tm-${index}-${annItemHash(`${String(row.name ?? "")}|${String(row.company ?? "")}`)}`;
+      : `tm-${index}-${annItemHash(`${name}|${String(row.company ?? "")}`)}`;
+  const colRaw = row.column ?? (row as any).slider;
+  const column = colRaw === "left" || colRaw === "right" ? colRaw : "auto";
   return {
     id,
-    name: String(row.name ?? ""),
-    company: String(row.company ?? ""),
-    text: String(row.text ?? ""),
-    initials: String(row.initials ?? ""),
+    name,
+    company: String(row.company ?? (row as any).location ?? ""),
+    text: String(row.text ?? (row as any).quote ?? ""),
+    initials,
     rating,
-    highlight: String(row.highlight ?? ""),
+    highlight: String(row.highlight ?? (row as any).highlightPill ?? (row as any).title ?? ""),
+    column,
     active: row.active !== false,
   };
 }
@@ -356,25 +366,45 @@ function normalizeTestimonial(it: unknown, index: number): CmsHomeTestimonial {
 function testimonialsFromMerged(merged: unknown): CmsHomeTestimonials {
   const def = cloneDefaults(DEFAULT_CMS_HOME).testimonials;
   const box = merged && typeof merged === "object" ? (merged as Record<string, unknown>) : {};
-  const itemsRaw = box.items;
+  const itemsRaw = box.items ?? (box as any).reviews;
   const items = Array.isArray(itemsRaw)
     ? itemsRaw.map((it, i) => normalizeTestimonial(it, i))
     : def.items;
-  const statsRaw = box.trustStats;
+  const statsRaw = box.trustStats ?? (box as any).stats;
   const trustStats =
     Array.isArray(statsRaw) && statsRaw.length > 0
       ? statsRaw.map((s: unknown) => {
-          const r = s && typeof s === "object" ? (s as Record<string, unknown>) : {};
-          return { value: String(r.value ?? ""), label: String(r.label ?? "") };
-        })
+        const r = s && typeof s === "object" ? (s as Record<string, unknown>) : {};
+        return { value: String(r.value ?? ""), label: String(r.label ?? "") };
+      })
       : def.trustStats;
   return {
-    sectionLabel: String(box.sectionLabel ?? def.sectionLabel),
-    titleLead: String(box.titleLead ?? def.titleLead),
-    titleAccent: String(box.titleAccent ?? def.titleAccent),
-    description: String(box.description ?? def.description),
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    description: typeof box.description === "string" ? box.description : def.description,
+    primaryCtaLabel: typeof box.primaryCtaLabel === "string" ? box.primaryCtaLabel : (def as any).primaryCtaLabel ?? "Customize now",
+    secondaryCtaLabel: typeof box.secondaryCtaLabel === "string" ? box.secondaryCtaLabel : (def as any).secondaryCtaLabel ?? "Browse all products",
+    secondaryCtaHref: typeof box.secondaryCtaHref === "string" ? box.secondaryCtaHref : (def as any).secondaryCtaHref ?? "/our-products",
+    trustpilotLinkLabel: typeof box.trustpilotLinkLabel === "string" ? box.trustpilotLinkLabel : (def as any).trustpilotLinkLabel ?? "See all reviews on Trustpilot",
+    trustpilotLinkHref: typeof box.trustpilotLinkHref === "string" ? box.trustpilotLinkHref : (def as any).trustpilotLinkHref ?? "https://www.trustpilot.com/review/hofpack.com",
+    leftColumnDirection: box.leftColumnDirection === "down" ? "down" : "up",
+    rightColumnDirection: box.rightColumnDirection === "up" ? "up" : "down",
+    scrollSpeed: box.scrollSpeed === "fast" ? "fast" : box.scrollSpeed === "slow" ? "slow" : "normal",
     items,
     trustStats,
+  };
+}
+
+function featuredCategoriesFromMerged(mergedFc: unknown): CmsHomeFeaturedCategories {
+  const def = cloneDefaults(DEFAULT_CMS_HOME).featuredCategories;
+  const box = mergedFc && typeof mergedFc === "object" ? (mergedFc as Record<string, unknown>) : {};
+  return {
+    sectionLabel: String(box.sectionLabel ?? def.sectionLabel),
+    titleLead: String(box.titleLead ?? box.titleBeforeAccent ?? def.titleLead ?? def.titleBeforeAccent ?? ""),
+    titleBeforeAccent: String(box.titleBeforeAccent ?? box.titleLead ?? def.titleBeforeAccent ?? def.titleLead ?? ""),
+    titleAccent: String(box.titleAccent ?? def.titleAccent),
+    description: String(box.description ?? def.description),
   };
 }
 
@@ -383,6 +413,7 @@ export function mergeCmsHome(raw: unknown): CmsHome {
   const merged = deepMerge(defaults, raw ?? {}) as CmsHome;
   merged.announcement = announcementFromMerged(merged.announcement as unknown);
   merged.trustBar = trustBarFromMerged(merged.trustBar as unknown);
+  merged.featuredCategories = featuredCategoriesFromMerged(merged.featuredCategories as unknown);
   merged.relatedProducts = relatedProductsFromMerged(merged.relatedProducts as unknown);
   merged.moreProducts = moreProductsFromMerged(merged.moreProducts as unknown);
   merged.whyUs = whyUsFromMerged(merged.whyUs as unknown);
@@ -454,42 +485,235 @@ function normalizeAboutValue(it: unknown, index: number): CmsAboutValue {
   };
 }
 
+function aboutHeroFromMerged(mergedHero: unknown): CmsAboutHero {
+  const def = cloneDefaults(DEFAULT_CMS_ABOUT).hero;
+  const box = mergedHero && typeof mergedHero === "object" ? (mergedHero as Record<string, unknown>) : {};
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    description: typeof box.description === "string" ? box.description : def.description,
+    ctaLabel: typeof box.ctaLabel === "string" ? box.ctaLabel : def.ctaLabel,
+    heroImageUrl: typeof box.heroImageUrl === "string" ? box.heroImageUrl : (def.heroImageUrl ?? ""),
+    heroImageAlt: typeof box.heroImageAlt === "string" ? box.heroImageAlt : (def.heroImageAlt ?? ""),
+  };
+}
+
+function aboutMissionFromMerged(mergedMission: unknown): CmsAboutMission {
+  const def = cloneDefaults(DEFAULT_CMS_ABOUT).mission;
+  const box = mergedMission && typeof mergedMission === "object" ? (mergedMission as Record<string, unknown>) : {};
+  const bulletsRaw = box.bullets;
+  const bullets = Array.isArray(bulletsRaw)
+    ? bulletsRaw.map((b) => String(b ?? "")).filter((b) => b.length > 0)
+    : def.bullets;
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    paragraph1: typeof box.paragraph1 === "string" ? box.paragraph1 : def.paragraph1,
+    paragraph2: typeof box.paragraph2 === "string" ? box.paragraph2 : def.paragraph2,
+    bullets,
+    teamImageUrl: typeof box.teamImageUrl === "string" ? box.teamImageUrl : (def.teamImageUrl ?? ""),
+    teamImageAlt: typeof box.teamImageAlt === "string" ? box.teamImageAlt : (def.teamImageAlt ?? ""),
+  };
+}
+
+function aboutTimelineFromMerged(mergedTimeline: unknown): CmsAboutTimeline {
+  const def = cloneDefaults(DEFAULT_CMS_ABOUT).timeline;
+  const box = mergedTimeline && typeof mergedTimeline === "object" ? (mergedTimeline as Record<string, unknown>) : {};
+  const itemsRaw = box.items;
+  const items = Array.isArray(itemsRaw)
+    ? itemsRaw.map((it, i) => normalizeAboutTimelineItem(it, i))
+    : def.items;
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    items,
+  };
+}
+
+function aboutManufacturingFromMerged(mergedManu: unknown): CmsAboutManufacturing {
+  const def = cloneDefaults(DEFAULT_CMS_ABOUT).manufacturing;
+  const box = mergedManu && typeof mergedManu === "object" ? (mergedManu as Record<string, unknown>) : {};
+  const highlightsRaw = box.highlights;
+  const highlights = Array.isArray(highlightsRaw)
+    ? highlightsRaw.map((h) => String(h ?? "")).filter((h) => h.length > 0)
+    : def.highlights;
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    body: typeof box.body === "string" ? box.body : def.body,
+    highlights,
+    factoryImageUrl: typeof box.factoryImageUrl === "string" ? box.factoryImageUrl : (def.factoryImageUrl ?? ""),
+    factoryImageAlt: typeof box.factoryImageAlt === "string" ? box.factoryImageAlt : (def.factoryImageAlt ?? ""),
+  };
+}
+
+function aboutValuesFromMerged(mergedValues: unknown): CmsAboutValues {
+  const def = cloneDefaults(DEFAULT_CMS_ABOUT).values;
+  const box = mergedValues && typeof mergedValues === "object" ? (mergedValues as Record<string, unknown>) : {};
+  const itemsRaw = box.items;
+  const items = Array.isArray(itemsRaw)
+    ? itemsRaw.map((it, i) => normalizeAboutValue(it, i))
+    : def.items;
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    description: typeof box.description === "string" ? box.description : def.description,
+    items,
+  };
+}
+
+function aboutCertificationsFromMerged(mergedCerts: unknown): CmsAboutCertifications {
+  const def = cloneDefaults(DEFAULT_CMS_ABOUT).certifications;
+  const box = mergedCerts && typeof mergedCerts === "object" ? (mergedCerts as Record<string, unknown>) : {};
+  const itemsRaw = box.items;
+  const items = Array.isArray(itemsRaw)
+    ? itemsRaw.map((it, i) => normalizeAboutCert(it, i))
+    : def.items;
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    description: typeof box.description === "string" ? box.description : def.description,
+    items,
+  };
+}
+
 export function mergeCmsAbout(raw: unknown): CmsAbout {
   const defaults = cloneDefaults(DEFAULT_CMS_ABOUT);
   const merged = deepMerge(defaults, raw ?? {}) as CmsAbout;
-  merged.stats = Array.isArray(merged.stats)
-    ? merged.stats.map((it, i) => normalizeAboutStat(it, i))
+  merged.hero = aboutHeroFromMerged(merged.hero as unknown);
+  merged.mission = aboutMissionFromMerged(merged.mission as unknown);
+  const rawObj = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : null;
+  const statsRaw = rawObj && Array.isArray(rawObj.stats) ? rawObj.stats : merged.stats;
+  merged.stats = Array.isArray(statsRaw)
+    ? statsRaw.map((it, i) => normalizeAboutStat(it, i))
     : cloneDefaults(DEFAULT_CMS_ABOUT).stats;
-  merged.timeline = {
-    ...merged.timeline,
-    items: Array.isArray(merged.timeline?.items)
-      ? merged.timeline.items.map((it, i) => normalizeAboutTimelineItem(it, i))
-      : cloneDefaults(DEFAULT_CMS_ABOUT).timeline.items,
-  };
-  merged.values = {
-    ...merged.values,
-    items: Array.isArray(merged.values?.items)
-      ? merged.values.items.map((it, i) => normalizeAboutValue(it, i))
-      : cloneDefaults(DEFAULT_CMS_ABOUT).values.items,
-  };
-  const certBox = merged.certifications as unknown;
-  const box = certBox && typeof certBox === "object" ? (certBox as Record<string, unknown>) : {};
-  const itemsRaw = box.items;
-  merged.certifications = {
-    ...merged.certifications,
-    items: Array.isArray(itemsRaw)
-      ? itemsRaw.map((it, i) => normalizeAboutCert(it, i))
-      : cloneDefaults(DEFAULT_CMS_ABOUT).certifications.items,
-  };
+  merged.timeline = aboutTimelineFromMerged(rawObj && rawObj.timeline !== undefined ? rawObj.timeline : merged.timeline);
+  merged.manufacturing = aboutManufacturingFromMerged(rawObj && rawObj.manufacturing !== undefined ? rawObj.manufacturing : merged.manufacturing);
+  merged.values = aboutValuesFromMerged(rawObj && rawObj.values !== undefined ? rawObj.values : merged.values);
+  merged.certifications = aboutCertificationsFromMerged(rawObj && rawObj.certifications !== undefined ? rawObj.certifications : merged.certifications);
   return merged;
 }
 
+function processHeroFromMerged(mergedHero: unknown): CmsProcessHero {
+  const def = cloneDefaults(DEFAULT_CMS_PROCESS).hero;
+  const box = mergedHero && typeof mergedHero === "object" ? (mergedHero as Record<string, unknown>) : {};
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    description: typeof box.description === "string" ? box.description : def.description,
+    ctaLabel: typeof box.ctaLabel === "string" ? box.ctaLabel : def.ctaLabel,
+  };
+}
+
+function parseProcessStatsIcon(val: unknown): CmsProcessStat["icon"] {
+  const s = String(val ?? "").toLowerCase();
+  if (s === "clock" || s === "sparkles" || s === "shield" || s === "globe") return s;
+  return "clock";
+}
+
+function normalizeProcessStat(it: unknown): CmsProcessStat {
+  const row = it && typeof it === "object" ? (it as Record<string, unknown>) : {};
+  return {
+    value: typeof row.value === "string" ? row.value : String(row.value ?? ""),
+    label: typeof row.label === "string" ? row.label : String(row.label ?? ""),
+    icon: parseProcessStatsIcon(row.icon),
+  };
+}
+
+function parseProcessStepIcon(val: unknown): CmsProcessStep["icon"] {
+  const s = String(val ?? "").toLowerCase();
+  if (s === "file" || s === "palette" || s === "package" || s === "truck") return s;
+  return "file";
+}
+
+function normalizeProcessStep(it: unknown): CmsProcessStep {
+  const row = it && typeof it === "object" ? (it as Record<string, unknown>) : {};
+  const detailsRaw = row.details;
+  const details = Array.isArray(detailsRaw)
+    ? detailsRaw.map((d) => String(d ?? "")).filter((d) => d.length > 0)
+    : [];
+  return {
+    icon: parseProcessStepIcon(row.icon),
+    title: typeof row.title === "string" ? row.title : String(row.title ?? ""),
+    desc: typeof row.desc === "string" ? row.desc : String(row.desc ?? ""),
+    details,
+    imageUrl: typeof row.imageUrl === "string" ? row.imageUrl : "",
+    highlight: typeof row.highlight === "string" ? row.highlight : "",
+  };
+}
+
+function normalizeProcessPromiseCard(it: unknown): CmsProcessPromise["cards"][number] {
+  const row = it && typeof it === "object" ? (it as Record<string, unknown>) : {};
+  return {
+    title: typeof row.title === "string" ? row.title : String(row.title ?? ""),
+    desc: typeof row.desc === "string" ? row.desc : String(row.desc ?? ""),
+  };
+}
+
+function processPromiseFromMerged(mergedPromise: unknown): CmsProcessPromise {
+  const def = cloneDefaults(DEFAULT_CMS_PROCESS).promise;
+  const box = mergedPromise && typeof mergedPromise === "object" ? (mergedPromise as Record<string, unknown>) : {};
+  const cardsRaw = box.cards;
+  const cards = Array.isArray(cardsRaw)
+    ? cardsRaw.map((c) => normalizeProcessPromiseCard(c))
+    : def.cards;
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    description: typeof box.description === "string" ? box.description : def.description,
+    cards,
+  };
+}
+
 export function mergeCmsProcess(raw: unknown): CmsProcess {
-  return deepMerge(cloneDefaults(DEFAULT_CMS_PROCESS), raw ?? {}) as CmsProcess;
+  const defaults = cloneDefaults(DEFAULT_CMS_PROCESS);
+  const merged = deepMerge(defaults, raw ?? {}) as CmsProcess;
+  const rawObj = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : null;
+  merged.hero = processHeroFromMerged(rawObj && rawObj.hero !== undefined ? rawObj.hero : merged.hero);
+  const statsRaw = rawObj && Array.isArray(rawObj.stats) ? rawObj.stats : merged.stats;
+  merged.stats = Array.isArray(statsRaw) ? statsRaw.map((it) => normalizeProcessStat(it)) : cloneDefaults(DEFAULT_CMS_PROCESS).stats;
+  const stepsRaw = rawObj && Array.isArray(rawObj.steps) ? rawObj.steps : merged.steps;
+  merged.steps = Array.isArray(stepsRaw) ? stepsRaw.map((it) => normalizeProcessStep(it)) : cloneDefaults(DEFAULT_CMS_PROCESS).steps;
+  merged.promise = processPromiseFromMerged(rawObj && rawObj.promise !== undefined ? rawObj.promise : merged.promise);
+  return merged;
+}
+
+function portfolioHeaderFromMerged(mergedHeader: unknown): CmsPortfolioHeader {
+  const def = cloneDefaults(DEFAULT_CMS_PORTFOLIO).header;
+  const box = mergedHeader && typeof mergedHeader === "object" ? (mergedHeader as Record<string, unknown>) : {};
+  return {
+    sectionLabel: typeof box.sectionLabel === "string" ? box.sectionLabel : def.sectionLabel,
+    titleLead: typeof box.titleLead === "string" ? box.titleLead : def.titleLead,
+    titleAccent: typeof box.titleAccent === "string" ? box.titleAccent : def.titleAccent,
+    description: typeof box.description === "string" ? box.description : def.description,
+  };
+}
+
+function portfolioFiltersFromMerged(mergedFilters: unknown): string[] {
+  if (Array.isArray(mergedFilters)) {
+    return mergedFilters
+      .map((x) => String(x ?? "").trim())
+      .filter((x) => x.length > 0);
+  }
+  return cloneDefaults(DEFAULT_CMS_PORTFOLIO).filterLabels;
 }
 
 export function mergeCmsPortfolio(raw: unknown): CmsPortfolio {
-  return deepMerge(cloneDefaults(DEFAULT_CMS_PORTFOLIO), raw ?? {}) as CmsPortfolio;
+  const defaults = cloneDefaults(DEFAULT_CMS_PORTFOLIO);
+  const merged = deepMerge(defaults, raw ?? {}) as CmsPortfolio;
+  const rawObj = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : null;
+  merged.header = portfolioHeaderFromMerged(rawObj && rawObj.header !== undefined ? rawObj.header : merged.header);
+  const filtersRaw = rawObj && Array.isArray(rawObj.filterLabels) ? rawObj.filterLabels : merged.filterLabels;
+  merged.filterLabels = portfolioFiltersFromMerged(filtersRaw);
+  return merged;
 }
 
 export function mergeCmsLibrary(raw: unknown): CmsLibrary {

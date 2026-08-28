@@ -38,6 +38,9 @@ const needsSsl =
 
 export default buildConfig({
   sharp,
+  routes: {
+    admin: "/payload-admin",
+  },
   admin: {
     user: Users.slug,
     meta: {

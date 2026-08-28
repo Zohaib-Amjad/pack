@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAdminCmsAbout } from "@/hooks/useAdminCms";
 import type { CmsAbout } from "@/types/cms";
+import { mergeCmsAbout } from "@/lib/cms";
 
 export function useCmsAboutSection<K extends keyof CmsAbout>(section: K) {
   const { data, isLoading, error, refetch, saveDocument, saving } = useAdminCmsAbout();
@@ -10,10 +11,15 @@ export function useCmsAboutSection<K extends keyof CmsAbout>(section: K) {
     if (data) setLocal(data[section]);
   }, [data, section]);
 
-  const save = useCallback(async () => {
-    if (!data || local === null) return;
-    await saveDocument({ ...data, [section]: local });
-  }, [data, local, section, saveDocument]);
+  const save = useCallback(
+    async (explicitValue?: CmsAbout[K]) => {
+      const currentDoc = data || mergeCmsAbout(null);
+      const val = explicitValue !== undefined ? explicitValue : local;
+      if (val === null) return;
+      await saveDocument({ ...currentDoc, [section]: val });
+    },
+    [data, local, section, saveDocument]
+  );
 
   return {
     full: data,

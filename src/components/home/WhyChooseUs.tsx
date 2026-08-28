@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Package } from "lucide-react";
+import { useCmsHome } from "@/hooks/useCms";
+import type { CmsHome } from "@/types/cms";
 
 const KRAFT_PRODUCTS = [
   {
@@ -35,7 +37,27 @@ const KRAFT_PRODUCTS = [
   },
 ];
 
-const WhyChooseUs = () => {
+type WhyChooseUsProps = {
+  cms?: CmsHome;
+};
+
+const WhyChooseUs = ({ cms }: WhyChooseUsProps) => {
+  const { data } = useCmsHome();
+  const why = data?.whyUs || cms?.whyUs;
+
+  const sectionLabel = why?.sectionLabel;
+  const titleLead = why?.titleLead ?? "Good Packaging Shouldn’t Cost The Earth";
+  const titleAccent = why?.titleAccent ?? "Shop with us for a Greener Future";
+  const description =
+    why?.description ??
+    "For a sustainable future and a greener Earth, HOF Pack offers recyclable materials, a minimalist branding trend, and a cost-effective solution to your plastic-free packaging. We use recycled materials, soy-based inks, and work with FSC-certified suppliers.";
+
+  const ctaLabel = why?.ctaLabel || "View Eco-Friendly Products";
+  const ctaHref = why?.ctaHref || "/custom-kraft-boxes";
+
+  const rawCards = Array.isArray(why?.cards) ? why.cards : [];
+  const activeCards = rawCards.filter((c) => c.active !== false && (c.title || c.desc));
+
   return (
     <div>
       <div className="bg-white border-t border-[#e0ddd6] px-4 sm:px-10 py-12 sm:py-[64px]">
@@ -44,62 +66,73 @@ const WhyChooseUs = () => {
             <style>{`@media(min-width:1024px){ .why-inner { grid-template-columns: 1fr 1fr !important; } }`}</style>
             <div className="why-inner grid gap-10 lg:gap-14" style={{ gridTemplateColumns: "1fr" }}>
 
-              {/* LEFT: Text & Value Propositions */}
+              {/* LEFT: Heading, Description, Cards & CTA */}
               <div>
-                <h2
-                  className="font-display text-[#1a1a1a]"
-                  style={{ fontSize: "22px", fontWeight: 700, lineHeight: 1.3, marginBottom: "14px" }}
-                >
-                  Good Packaging Shouldn’t Cost The Earth{" "}
-                  <span className="text-[#e8732a]">Shop with us for a Greener Future</span>
-                </h2>
-                <p
-                  className="font-sans text-[#5a5652]"
-                  style={{ fontSize: "13px", lineHeight: 1.75, marginBottom: "24px" }}
-                >
-                  For a sustainable future and a greener Earth, HOF Pack offers recyclable materials, a minimalist branding trend, and a cost-effective solution to your plastic-free packaging. We use recycled materials, soy-based inks, and work with FSC-certified suppliers.
-                </p>
+                {sectionLabel && (
+                  <p className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-[#e8732a] mb-1.5">
+                    {sectionLabel}
+                  </p>
+                )}
+                {(titleLead || titleAccent) && (
+                  <h2
+                    className="font-display text-[#1a1a1a]"
+                    style={{ fontSize: "24px", fontWeight: 700, lineHeight: 1.3, marginBottom: "14px" }}
+                  >
+                    {titleLead}{" "}
+                    {titleAccent && <span className="text-[#e8732a]">{titleAccent}</span>}
+                  </h2>
+                )}
+                {description && (
+                  <p
+                    className="font-sans text-[#5a5652]"
+                    style={{ fontSize: "13px", lineHeight: 1.75, marginBottom: "24px" }}
+                  >
+                    {description}
+                  </p>
+                )}
 
-                <div style={{ marginBottom: "18px", paddingBottom: "18px", borderBottom: "1px solid rgb(240, 237, 230)" }}>
-                  <div className="font-sans font-bold text-[#1a1a1a]" style={{ fontSize: "13px", marginBottom: "4px" }}>
-                    Eco-Friendly Packaging That Builds Customer Trust
-                  </div>
-                  <div className="font-sans text-[#5a5652]" style={{ fontSize: "12.5px", lineHeight: 1.65 }}>
-                    Going green is no longer a trend or differentiation point; it has become a necessity because it&apos;s the right thing to do.
-                  </div>
-                </div>
+                {/* Why Us Cards (Dynamic from /admin/cms/home/why-us) */}
+                {activeCards.map((card, index) => {
+                  const isLast = index === activeCards.length - 1;
+                  return (
+                    <div
+                      key={card.id || index}
+                      style={{
+                        marginBottom: isLast ? "0px" : "18px",
+                        paddingBottom: isLast ? "0px" : "18px",
+                        borderBottom: isLast ? "none" : "1px solid rgb(240, 237, 230)",
+                      }}
+                    >
+                      {card.title && (
+                        <div className="font-sans font-bold text-[#1a1a1a]" style={{ fontSize: "13px", marginBottom: "4px" }}>
+                          {card.title}
+                        </div>
+                      )}
+                      {card.desc && (
+                        <div className="font-sans text-[#5a5652]" style={{ fontSize: "12.5px", lineHeight: 1.65 }}>
+                          {card.desc}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
 
-                <div style={{ marginBottom: "18px", paddingBottom: "18px", borderBottom: "1px solid rgb(240, 237, 230)" }}>
-                  <div className="font-sans font-bold text-[#1a1a1a]" style={{ fontSize: "13px", marginBottom: "4px" }}>
-                    Strong Yet Lightweight
+                {ctaLabel && (
+                  <div className="flex flex-wrap items-center gap-4 mt-6">
+                    <Link
+                      href={ctaHref}
+                      className="inline-flex items-center justify-center gap-1.5 font-sans font-semibold text-white rounded-md w-full sm:w-auto hover:bg-[#c45a18] transition-colors"
+                      style={{
+                        background: "rgb(232, 115, 42)",
+                        fontSize: "12px",
+                        padding: "10px 22px",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {ctaLabel} →
+                    </Link>
                   </div>
-                  <div className="font-sans text-[#5a5652]" style={{ fontSize: "12.5px", lineHeight: 1.65 }}>
-                    Our Kraft boxes are sturdy, light, and perfect for candles, food, and everyday retail products.
-                  </div>
-                </div>
-
-                <div style={{ marginBottom: "0px", paddingBottom: "0px", borderBottomWidth: "medium", borderBottomStyle: "none", borderBottomColor: "currentColor" }}>
-                  <div className="font-sans font-bold text-[#1a1a1a]" style={{ fontSize: "13px", marginBottom: "4px" }}>
-                    A Natural Look That Elevates Brand Identity
-                  </div>
-                  <div className="font-sans text-[#5a5652]" style={{ fontSize: "12.5px", lineHeight: 1.65 }}>
-                    Minimalist kraft packaging is a growing trend — and one of the most effective ways to tell your brand&apos;s sustainability story.
-                  </div>
-                </div>
-
-                <Link
-                  href="/custom-kraft-boxes"
-                  className="inline-flex items-center justify-center gap-1.5 font-sans font-semibold text-white rounded-md w-full sm:w-auto"
-                  style={{
-                    marginTop: "20px",
-                    background: "rgb(232, 115, 42)",
-                    fontSize: "12px",
-                    padding: "10px 22px",
-                    textDecoration: "none",
-                  }}
-                >
-                  View Eco-Friendly Products →
-                </Link>
+                )}
               </div>
 
               {/* RIGHT: 2×2 Product Grid */}
