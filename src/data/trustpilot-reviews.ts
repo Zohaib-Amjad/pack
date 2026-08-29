@@ -7,11 +7,11 @@ export type TrustpilotReview = {
   id: string;
   name: string;
   location: string;
-  title: string;
+  title?: string;
   text: string;
   initials: string;
   rating: number;
-  dateLabel: string;
+  dateLabel?: string;
 };
 
 export const TRUSTPILOT_PROFILE_URL = "https://www.trustpilot.com/review/hofpack.com";

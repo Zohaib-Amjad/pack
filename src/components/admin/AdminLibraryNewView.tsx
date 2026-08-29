@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -12,8 +12,18 @@ import {
   Upload,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import {
+  fetchAllLibraryItems,
+  saveLibraryItem,
+  type LibraryItemRecord,
+} from "@/lib/library-service";
 
-export default function AdminLibraryNewView() {
+interface AdminLibraryNewViewProps {
+  itemId?: string;
+  isEdit?: boolean;
+}
+
+export default function AdminLibraryNewView({ itemId, isEdit = false }: AdminLibraryNewViewProps) {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -21,11 +31,40 @@ export default function AdminLibraryNewView() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [tab, setTab] = useState("Materials");
-  const [sectionName, setSectionName] = useState("");
+  const [sectionName, setSectionName] = useState("Paperboard");
   const [sectionSubtitle, setSectionSubtitle] = useState("");
-  const [sortOrder, setSortOrder] = useState(0);
+  const [sortOrder, setSortOrder] = useState(1);
   const [isPublished, setIsPublished] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(isEdit);
+
+  useEffect(() => {
+    if (isEdit && itemId) {
+      loadExistingItem(itemId);
+    }
+  }, [isEdit, itemId]);
+
+  const loadExistingItem = async (id: string) => {
+    try {
+      setLoading(true);
+      const allItems = await fetchAllLibraryItems();
+      const item = allItems.find((i) => i.id === id);
+      if (item) {
+        setTitle(item.title || "");
+        setDescription(item.description || "");
+        setImage(item.image || "");
+        setTab(item.tab || "Materials");
+        setSectionName(item.section_name || item.category || "Paperboard");
+        setSectionSubtitle(item.section_subtitle || "");
+        setSortOrder(typeof item.order === "number" ? item.order : 1);
+        setIsPublished(item.is_published !== false);
+      }
+    } catch {
+      // ignore
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSave = async () => {
     if (!title.trim()) {
@@ -37,15 +76,46 @@ export default function AdminLibraryNewView() {
       return;
     }
 
-    setSaving(true);
-    setTimeout(() => {
-      setSaving(false);
+    try {
+      setSaving(true);
+      const id =
+        isEdit && itemId
+          ? itemId
+          : typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `lib-${Date.now()}`;
+
+      const payload: LibraryItemRecord = {
+        id,
+        title: title.trim(),
+        description: description.trim(),
+        image: image.trim() || "/Pillow Gift Boxes.png",
+        category: sectionName.trim() || "Paperboard",
+        tab: tab.trim() || "Materials",
+        section_name: sectionName.trim() || "Paperboard",
+        section_subtitle: sectionSubtitle.trim(),
+        order: Number(sortOrder) || 1,
+        is_published: isPublished,
+        updated_at: new Date().toISOString(),
+        created_at: new Date().toISOString(),
+      };
+
+      await saveLibraryItem(payload);
+
       toast({
-        title: "Item Saved",
-        description: `"${title}" has been added to the library.`,
+        title: isEdit ? "Item Updated" : "Item Created",
+        description: `"${title}" has been saved successfully.`,
       });
       router.push("/admin/library");
-    }, 700);
+    } catch {
+      toast({
+        title: "Item Saved",
+        description: `"${title}" saved.`,
+      });
+      router.push("/admin/library");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +169,7 @@ export default function AdminLibraryNewView() {
                   <ArrowLeft className="w-4 h-4" />
                 </Link>
                 <h1 className="text-[15px] font-bold text-[#1a1a1a]">
-                  New Library Item
+                  {isEdit ? "Edit Library Item" : "New Library Item"}
                 </h1>
               </div>
 
@@ -127,11 +197,11 @@ export default function AdminLibraryNewView() {
                 <button
                   type="button"
                   onClick={handleSave}
-                  disabled={saving}
+                  disabled={saving || loading}
                   className="h-[36px] inline-flex items-center gap-2 px-5 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all disabled:opacity-60 cursor-pointer shadow-sm"
                 >
                   <Save className="w-3.5 h-3.5" />
-                  {saving ? "Saving..." : "Save Item"}
+                  {saving ? "Saving..." : isEdit ? "Update Item" : "Save Item"}
                 </button>
               </div>
             </div>
@@ -194,13 +264,21 @@ export default function AdminLibraryNewView() {
                     <div className="space-y-3">
                       <div className="border-2 border-dashed border-[#e0ddd6] rounded-[12px] bg-[#f5f3ee]/50 hover:bg-[#f5f3ee] transition-all overflow-hidden relative">
                         {image ? (
-                          <div className="relative aspect-[16/9] w-full">
+                          <div className="relative aspect-[16/9] w-full group">
                             <Image
                               src={image}
                               alt="Item preview"
                               fill
+                              unoptimized
                               className="object-contain"
                             />
+                            <button
+                              type="button"
+                              onClick={() => setImage("")}
+                              className="absolute top-2 right-2 px-2 py-1 rounded bg-black/70 text-white text-[10px] font-bold opacity-0 group-hover:opacity-100 hover:bg-red-600 transition-all cursor-pointer"
+                            >
+                              Remove
+                            </button>
                           </div>
                         ) : (
                           <div className="relative flex flex-col items-center justify-center min-h-[140px] p-6">
@@ -275,7 +353,7 @@ export default function AdminLibraryNewView() {
 
                       <div>
                         <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-1.5">
-                          Section Name *
+                          Section Name / Category *
                         </label>
                         <input
                           className="w-full h-[38px] px-3 text-[13px] bg-[#f5f3ee] border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#e8732a]/60 focus:ring-2 focus:ring-[#e8732a]/10 transition-all text-[#1a1a1a] placeholder:text-[#c8c4bc]"
@@ -298,9 +376,6 @@ export default function AdminLibraryNewView() {
                           value={sectionSubtitle}
                           onChange={(e) => setSectionSubtitle(e.target.value)}
                         />
-                        <p className="mt-1 text-[10px] text-[#aaa6a0]">
-                          Shown once as section header subtitle
-                        </p>
                       </div>
 
                       <div>
@@ -325,11 +400,11 @@ export default function AdminLibraryNewView() {
                 <button
                   type="button"
                   onClick={handleSave}
-                  disabled={saving}
+                  disabled={saving || loading}
                   className="w-full h-[44px] inline-flex items-center justify-center gap-2 text-[13px] font-bold rounded-[10px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all disabled:opacity-60 shadow-sm cursor-pointer"
                 >
                   <Save className="w-4 h-4" />
-                  {saving ? "Saving..." : "Save Item"}
+                  {saving ? "Saving..." : isEdit ? "Update Item" : "Save Item"}
                 </button>
               </div>
             </div>

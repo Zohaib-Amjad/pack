@@ -1,10 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Clock, ArrowRight, Tag } from "lucide-react";
 import { useQuoteModal } from "@/components/QuoteModalContext";
+
+import { createPublicClient } from "@/utils/supabase/public-client";
+import { withAbortableTimeout } from "@/lib/fetch-utils";
+import { DEFAULT_BLOG_POSTS } from "@/data/blog-defaults";
+import { useQuery } from "@tanstack/react-query";
 
 interface BlogPostItem {
   id: string;
@@ -18,105 +23,100 @@ interface BlogPostItem {
   isFeatured?: boolean;
 }
 
-const BLOG_POSTS: BlogPostItem[] = [
-  {
-    id: "post-1",
-    slug: "wax-paper-vs-butter-paper",
-    title: "Wax Paper vs Butter Paper: Stop Grabbing the Wrong Sheet",
-    category: "Industry News",
-    date: "Aug 5, 2026",
-    readTime: "6 min read",
-    coverImage: "/images/blog/b361803d-d29d-4085-beff-a704ff75dc18.png",
-    isFeatured: true,
-  },
-  {
-    id: "post-2",
-    slug: "milk-carton-dimensions",
-    title: "How to Measure Milk Carton Dimensions: A Complete Packaging Guide",
-    category: "Packaging",
-    date: "Aug 21, 2026",
-    readTime: "8 min read",
-    coverImage: "/images/blog/c1396e60-4e8f-4ebb-8921-8c705fb1428b.png",
-  },
-  {
-    id: "post-3",
-    slug: "jewelry-packaging-ideas",
-    title: "Jewelry Packaging Ideas To Elevate Your Brand",
-    category: "Packaging",
-    date: "Aug 21, 2026",
-    readTime: "9 min read",
-    coverImage: "/images/blog/789cef6f-445a-4071-9a82-49e90666b480.png",
-  },
-  {
-    id: "post-4",
-    slug: "how-to-measure-shoe-box-dimensions",
-    title: "How to Measure Shoe Box Dimensions: Simple Step-by-Step Guide",
-    category: "Packaging",
-    date: "Jun 19, 2026",
-    readTime: "6 min read",
-    coverImage: "/images/blog/226d2933-0e9f-4f09-a23f-f66f407d3c62.png",
-  },
-  {
-    id: "post-5",
-    slug: "food-packaging-solutions-for-brands",
-    title: "The Complete Guide to Custom Food Packaging: Boxes, Pouches, Bags & Labels",
-    category: "Packaging",
-    date: "Jun 11, 2026",
-    readTime: "12 min read",
-    coverImage: "/images/blog/f837086c-3ef9-467b-aeba-de58f17af089.png",
-    excerpt: "In this guide, we’ll break down different types of custom food packaging for you, so that you can choose the style that suits your product best and help it stand out from the crowd.",
-  },
-  {
-    id: "post-6",
-    slug: "custom-mailers-vs-poly-mailers-vs-bubble-mailers",
-    title: "Custom Mailers, Poly Mailers & Bubble Mailers: What’s Right for Your Brand?",
-    category: "Packaging",
-    date: "Jun 10, 2026",
-    readTime: "12 min read",
-    coverImage: "/images/blog/6c24f0d9-35ef-4f41-b249-b585dc4f88b6.png",
-  },
-  {
-    id: "post-7",
-    slug: "custom-flexible-packaging-bag-guide",
-    title: "Guide to Flexible Packaging: How to Choose the Right Custom Bag for Your Brand?",
-    category: "Packaging",
-    date: "Jun 1, 2026",
-    readTime: "13 min read",
-    coverImage: "/images/blog/29f8aa58-5e4f-4fb7-aa7e-a002652546b4.png",
-    excerpt: "Choose the right custom stand up pouch or packaging bag for your brand with an ultimate guide to all flexible packaging types.",
-  },
-  {
-    id: "post-8",
-    slug: "types-of-custom-boxes",
-    title: "Types of Custom Boxes | A Go-To Guide for Every Brand Owner",
-    category: "Packaging",
-    date: "May 18, 2026",
-    readTime: "12 min read",
-    coverImage: "/images/blog/cb1a7ae7-08e8-4726-8153-604250b36632.jpg",
-    excerpt: "Learn everything about custom boxes in the USA, including mailer boxes, shipping boxes, folding cartons, rigid boxes, display packaging, and printing options.",
-  },
-  {
-    id: "post-9",
-    slug: "secondary-packaging-explained",
-    title: "Secondary Packaging Explained: Types, Materials & Branding Guide",
-    category: "Packaging",
-    date: "May 11, 2026",
-    readTime: "17 min read",
-    coverImage: "/images/blog/63bb1ca0-27a0-4dbe-a1a0-181228d2c16b.jpg",
-    excerpt: "Learn everything about custom secondary packaging, including packaging types, materials, printing methods, sustainability, costs, and how businesses choose the right packaging solutions.",
-  },
-];
+const FALLBACK_POSTS: BlogPostItem[] = Object.values(DEFAULT_BLOG_POSTS).map((p, idx) => ({
+  id: p.id || `post-${idx}`,
+  slug: p.slug,
+  title: p.title,
+  category: p.category || "Packaging",
+  date: p.published_at ? new Date(p.published_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Recent",
+  readTime: p.read_time || "5 min read",
+  coverImage: p.cover_image || "/images/blog/b361803d-d29d-4085-beff-a704ff75dc18.png",
+  excerpt: p.excerpt,
+  isFeatured: idx === 0,
+}));
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState("All");
   const { open } = useQuoteModal();
 
-  const categories = ["All", "Industry News", "Packaging"];
+  const { data: posts = FALLBACK_POSTS } = useQuery<BlogPostItem[]>({
+    queryKey: ["public", "blog-posts-list"],
+    queryFn: async () => {
+      try {
+        const supabase = createPublicClient();
+        const res = await withAbortableTimeout((signal) =>
+          (supabase as any)
+            .from("blog_posts")
+            .select("*")
+            .abortSignal(signal)
+        );
+        const data = (res as any)?.data;
+        if (!(res as any)?.error && Array.isArray(data) && data.length > 0) {
+          const publishedOnly = data.filter((p: any) => p.is_published !== false);
+          const dbPosts: BlogPostItem[] = publishedOnly.map((p: any) => ({
+            id: p.id,
+            slug: p.slug,
+            title: p.title,
+            category: p.category || "Packaging",
+            date: p.published_at
+              ? new Date(p.published_at).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })
+              : p.created_at
+              ? new Date(p.created_at).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })
+              : "Recent",
+            readTime: p.read_time || "5 min read",
+            coverImage:
+              p.cover_image ||
+              p.image ||
+              p.coverImage ||
+              "/images/blog/b361803d-d29d-4085-beff-a704ff75dc18.png",
+            excerpt: p.excerpt,
+            isFeatured: false,
+          }));
+
+          dbPosts.sort((a, b) => {
+            const timeA = new Date(a.date || 0).getTime();
+            const timeB = new Date(b.date || 0).getTime();
+            return timeB - timeA;
+          });
+
+          const dbSlugs = new Set(dbPosts.map((p) => p.slug));
+          const remainingFallbacks = FALLBACK_POSTS.filter((p) => !dbSlugs.has(p.slug));
+          const merged = [...dbPosts, ...remainingFallbacks];
+          if (merged.length > 0) {
+            merged[0].isFeatured = true;
+          }
+          return merged;
+        }
+      } catch {
+        // Fallback
+      }
+      return FALLBACK_POSTS;
+    },
+    initialData: FALLBACK_POSTS,
+    staleTime: 0,
+    refetchOnMount: true,
+  });
+
+  const dynamicCategories = useMemo(() => {
+    const set = new Set<string>();
+    posts.forEach((p) => {
+      if (p.category) set.add(p.category);
+    });
+    return ["All", ...Array.from(set)];
+  }, [posts]);
 
   const filtered =
     activeCategory === "All"
-      ? BLOG_POSTS
-      : BLOG_POSTS.filter((p) => p.category === activeCategory);
+      ? posts
+      : posts.filter((p) => (p.category || "").toLowerCase() === activeCategory.toLowerCase());
 
   const featured = filtered.find((p) => p.isFeatured) || filtered[0];
   const rest = filtered.filter((p) => p.id !== featured?.id);
@@ -165,7 +165,7 @@ export default function Blog() {
       <div className="bg-background border-b border-border">
         <div className="container-max px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 overflow-x-auto py-4 scrollbar-none">
-            {categories.map((cat) => {
+            {dynamicCategories.map((cat) => {
               const isActive = activeCategory === cat;
               return (
                 <button

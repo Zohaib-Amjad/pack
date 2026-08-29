@@ -29,7 +29,7 @@ import aboutTeamFallback from "@/assets/about-team.jpg";
 import badgeBbb from "@/assets/badge-bbb.png";
 import badgeFsc from "@/assets/badge-fsc.png";
 import badgeSsl from "@/assets/badge-ssl.png";
-import type { CmsAboutStat } from "@/types/cms";
+import type { CmsAbout, CmsAboutStat } from "@/types/cms";
 import { DEFAULT_CMS_ABOUT } from "@/data/cms-defaults";
 
 const STAT_ICONS: Record<CmsAboutStat["icon"], LucideIcon> = {
@@ -69,7 +69,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
   const factorySrc = cms.manufacturing.factoryImageUrl?.trim() || aboutFactoryFallback;
 
   const statsList = Array.isArray(cms?.stats) ? cms.stats : [];
-  const displayStats = statsList.filter((s) => s.active !== false && (s.value?.trim() || s.label?.trim()));
+  const displayStats = statsList.filter((s: any) => s.active !== false && (s.value?.trim() || s.label?.trim()));
 
   return (
     <Layout>
@@ -113,8 +113,8 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
       <section className="relative -mt-10 z-20 px-4">
         <div className="container-max max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.08)] border border-[#e0ddd6] p-6 md:p-8">
-            {displayStats.map((stat) => {
-              const Icon = (stat.icon && STAT_ICONS[stat.icon]) ? STAT_ICONS[stat.icon] : Users;
+            {displayStats.map((stat: any) => {
+              const Icon = (stat.icon && (STAT_ICONS as any)[stat.icon]) ? (STAT_ICONS as any)[stat.icon] : Users;
               return (
                 <div key={stat.id} className="text-center flex flex-col items-center justify-center">
                   <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-[#eaf2ed] text-[#2d5c3e] mb-3">
@@ -168,7 +168,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
               )}
               {Array.isArray(mission.bullets) && mission.bullets.length > 0 && (
                 <ul className="mt-6 space-y-3">
-                  {mission.bullets.map((item, i) => (
+                  {mission.bullets.map((item: string, i: number) => (
                     <li key={i} className="flex items-center gap-3 text-sm font-sans">
                       <span className="w-6 h-6 rounded-full bg-[#eaf2ed] flex items-center justify-center shrink-0">
                         <CheckCircle size={14} className="text-[#2d5c3e]" />
@@ -186,7 +186,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
       {/* 4. Timeline Section */}
       {(() => {
         const timelineItems = Array.isArray(cms.timeline?.items)
-          ? cms.timeline.items.filter((it) => it.active !== false && (it.year?.trim() || it.title?.trim()))
+          ? cms.timeline.items.filter((it: any) => it.active !== false && (it.year?.trim() || it.title?.trim()))
           : [];
         const hasHeader = Boolean(cms.timeline?.sectionLabel || cms.timeline?.titleLead || cms.timeline?.titleAccent);
         if (!hasHeader && timelineItems.length === 0) return null;
@@ -212,7 +212,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
                 <div className="relative">
                   <div className="absolute left-6 sm:left-1/2 top-0 bottom-0 w-0.5 bg-[#e0ddd6] sm:-translate-x-px" />
                   <div className="space-y-12">
-                    {timelineItems.map((item, i) => {
+                    {timelineItems.map((item: any, i: number) => {
                       const isEven = i % 2 === 0;
                       return (
                         <div
@@ -247,7 +247,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
       {/* 5. Manufacturing Section */}
       {(() => {
         const highlights = Array.isArray(cms.manufacturing?.highlights)
-          ? cms.manufacturing.highlights.filter((h) => typeof h === "string" && h.trim().length > 0)
+          ? cms.manufacturing.highlights.filter((h: any) => typeof h === "string" && h.trim().length > 0)
           : [];
         const hasHeader = Boolean(
           cms.manufacturing?.sectionLabel ||
@@ -280,7 +280,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
                   )}
                   {highlights.length > 0 && (
                     <div className="mt-8 grid grid-cols-2 gap-4">
-                      {highlights.map((label, i) => {
+                      {highlights.map((label: string, i: number) => {
                         const Icon = MANU_ICONS[i % MANU_ICONS.length];
                         return (
                           <div key={`${label}-${i}`} className="flex items-center gap-3 p-3.5 rounded-xl bg-white border border-[#e0ddd6] shadow-sm">
@@ -317,7 +317,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
       {/* 6. Values Section */}
       {(() => {
         const valueItems = Array.isArray(cms.values?.items)
-          ? cms.values.items.filter((v) => v.active !== false && (v.title?.trim() || v.desc?.trim()))
+          ? cms.values.items.filter((v: any) => v.active !== false && (v.title?.trim() || v.desc?.trim()))
           : [];
         const hasHeader = Boolean(
           cms.values?.sectionLabel ||
@@ -349,8 +349,8 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
               )}
               {valueItems.length > 0 && (
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {valueItems.map((v) => {
-                    const Icon = VALUE_ICONS[v.icon] ?? Leaf;
+                  {valueItems.map((v: any) => {
+                    const Icon = (VALUE_ICONS as any)[v.icon] ?? Leaf;
                     return (
                       <div
                         key={v.id}
@@ -377,7 +377,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
       {/* 7. Certifications Section */}
       {(() => {
         const certItems = Array.isArray(cms.certifications?.items)
-          ? cms.certifications.items.filter((c) => c.active !== false && (c.title?.trim() || c.desc?.trim()))
+          ? cms.certifications.items.filter((c: any) => c.active !== false && (c.title?.trim() || c.desc?.trim()))
           : [];
         const hasHeader = Boolean(
           cms.certifications?.sectionLabel ||
@@ -412,7 +412,7 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
               )}
               {certItems.length > 0 && (
                 <div className="grid sm:grid-cols-3 gap-6">
-                  {certItems.map((cert, i) => (
+                  {certItems.map((cert: any, i: number) => (
                     <div
                       key={cert.id}
                       className="text-center p-8 rounded-2xl border border-[#e0ddd6] bg-[#faf8f5] hover:shadow-lg transition-all duration-300 flex flex-col items-center"
@@ -431,7 +431,9 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
                           {cert.rating} Rating
                         </span>
                       )}
-                      <p className="mt-3 text-[13px] text-[#5a5652] font-sans leading-[1.78]">{cert.desc}</p>
+                      {cert.desc && (
+                        <p className="mt-2 text-sm text-[#5a5652] font-sans">{cert.desc}</p>
+                      )}
                     </div>
                   ))}
                 </div>

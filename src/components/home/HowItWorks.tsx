@@ -67,18 +67,18 @@ const HowItWorks = ({ cms }: HowItWorksProps) => {
   const ctaLabel = how?.ctaLabel || "Start Your Project";
 
   const rawSteps = Array.isArray(how?.steps) && how.steps.length > 0 ? how.steps : DEFAULT_STEPS;
-  const activeSteps = rawSteps
-    .filter((s) => s.active !== false)
-    .map((s, idx) => ({
+  const activeSteps = (rawSteps as any[])
+    .filter((s: any) => s.active !== false)
+    .map((s: any, idx: number) => ({
       num: String(idx + 1),
       step: `Step 0${idx + 1}`,
-      name: (s as any).name || s.title || `Step ${idx + 1}`,
-      desc: s.desc || (s as any).description || "",
+      name: s.name || s.title || `Step ${idx + 1}`,
+      desc: s.desc || s.description || "",
       tag:
         Array.isArray(s.details) && s.details.length > 0
           ? s.details[0]
-          : (s as any).tag || "Free consultation",
-      img: s.imageUrl || DEFAULT_IMAGES[idx % DEFAULT_IMAGES.length],
+          : s.tag || "Free consultation",
+      img: s.imageUrl || s.img || DEFAULT_IMAGES[idx % DEFAULT_IMAGES.length],
     }));
 
   return (

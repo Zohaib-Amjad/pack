@@ -37,14 +37,20 @@ export default function CaseStudyDetail({ slug }: { slug: string }) {
             .maybeSingle()
             .abortSignal(signal)
         );
-        if (!error && data) return data;
+        if (!error && data) {
+          return {
+            ...data,
+            cover_image: data.cover_image || data.image || "/images/case-studies/luxe-candle-co-rigid-boxes.jpg",
+          };
+        }
       } catch {
         // fallback to default
       }
       return fallbackPost || null;
     },
     initialData: fallbackPost,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
   const fallbackRelated = useMemo(() => {
@@ -66,11 +72,10 @@ export default function CaseStudyDetail({ slug }: { slug: string }) {
         const { data } = await withAbortableTimeout((signal) =>
           (supabase as any)
             .from("case_studies")
-            .select("id, title, slug, excerpt, cover_image, category, published_at, read_time, content")
+            .select("*")
             .eq("is_published", true)
             .eq("category", post.category)
             .neq("slug", slug)
-            .order("published_at", { ascending: false })
             .limit(3)
             .abortSignal(signal)
         );
@@ -82,7 +87,8 @@ export default function CaseStudyDetail({ slug }: { slug: string }) {
     },
     initialData: fallbackRelated,
     enabled: !!post,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
   if (isLoading && !post) {
@@ -116,6 +122,8 @@ export default function CaseStudyDetail({ slug }: { slug: string }) {
       </Layout>
     );
   }
+
+  const coverImg = post.cover_image || post.image;
 
   return (
     <Layout>
@@ -180,11 +188,11 @@ export default function CaseStudyDetail({ slug }: { slug: string }) {
       </section>
 
       {/* ── Cover Image ── */}
-      {post.cover_image && (
+      {coverImg && (
         <div className="bg-background">
           <div className="container-max px-4 sm:px-6 lg:px-8">
             <div className="relative aspect-[21/9] max-h-[520px] rounded-3xl overflow-hidden shadow-2xl border border-border -mt-2">
-              <Image src={post.cover_image} alt={post.title} fill className="object-cover" priority />
+              <Image src={coverImg} alt={post.title} fill unoptimized className="object-cover" priority />
             </div>
           </div>
         </div>

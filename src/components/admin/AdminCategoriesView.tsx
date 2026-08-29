@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -13,40 +13,63 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { categories, type Category } from "@/data/products";
+import {
+  fetchAllAdminCategories,
+  deleteCategoryRecord,
+  BASE_CATEGORIES,
+  type CategoryDetailRecord,
+} from "@/lib/category-service";
 import { useToast } from "@/hooks/use-toast";
 
 // Predefined thumbnail map matching product catalog
 const CATEGORY_IMAGES: Record<string, string> = {
-  "bakery-boxes": "/images/products/custom-cake-boxes.jpg",
-  "candle-boxes": "/images/products/two-piece-candle-boxes.jpg",
-  "cardboard-boxes": "/images/products/cardboard-boxes-with-lids.jpg",
-  "coffee-packaging": "/images/products/stand-up-coffee-pouches.jpg",
-  "corrugated-boxes": "/images/products/custom-corrugated-boxes.jpg",
-  "cosmetic-boxes": "/images/products/makeup-packaging.jpg",
-  "custom-cigarette-boxes": "/images/products/cardboard-cigarette-boxes.jpg",
-  "custom-food-boxes": "/images/products/custom-burger-boxes.jpg",
-  "custom-jewelry-boxes": "/images/products/cardboard-jewelry-boxes.jpg",
-  "custom-labels-and-stickers": "/images/products/custom-vinyl-stickers.jpg",
-  "custom-mailer-boxes": "/images/products/corrugated-mailer-boxes.jpg",
-  "custom-retail-boxes": "/images/products/custom-retail-boxes.jpg",
-  "custom-wax-papers": "/images/products/custom-deli-papers.jpg",
-  "display-boxes": "/images/products/counter-display-boxes.jpg",
-  "gable-boxes": "/images/products/gable-box-with-window.jpg",
-  "kraft-boxes": "/images/products/kraft-boxes-with-lids.jpg",
-  "mylar-bags": "/images/products/cookies-mylar-bags.jpg",
-  "pillow-boxes": "/images/products/pillow-gift-boxes.jpg",
-  "pre-roll-boxes": "/images/products/pre-roll-display-boxes.jpg",
-  "rigid-boxes": "/images/products/rigid-setup-boxes.jpg",
-  "soap-boxes": "/images/products/kraft-soap-boxes.jpg",
-  "tube-packaging": "/images/products/cardboard-tube-packaging.jpg",
-  "tuck-boxes": "/images/products/reverse-tuck-boxes.jpg",
+  "bakery-boxes": "/images/categories/cat-bakery-boxes.jpg",
+  "custom-bakery-boxes": "/images/categories/cat-bakery-boxes.jpg",
+  "candle-boxes": "/images/categories/cat-candle-boxes.jpg",
+  "custom-candle-boxes": "/images/categories/cat-candle-boxes.jpg",
+  "cardboard-boxes": "/images/categories/cat-cardboard-boxes.jpg",
+  "custom-cardboard-boxes": "/images/categories/cat-cardboard-boxes.jpg",
+  "coffee-packaging": "/images/categories/cat-coffee-packaging.jpg",
+  "custom-coffee-packaging": "/images/categories/cat-coffee-packaging.jpg",
+  "corrugated-boxes": "/images/categories/corrugated-boxes-hero.png",
+  "custom-corrugated-boxes": "/images/categories/corrugated-boxes-hero.png",
+  "cosmetic-boxes": "/images/categories/cosmetic-box-style.jpg",
+  "custom-cosmetic-boxes": "/images/categories/cosmetic-box-style.jpg",
+  "cigarette-boxes": "/images/categories/cigarette-boxes-hero.jpg",
+  "custom-cigarette-boxes": "/images/categories/cigarette-boxes-hero.jpg",
+  "food-boxes": "/images/categories/cat-food-boxes.jpg",
+  "custom-food-boxes": "/images/categories/cat-food-boxes.jpg",
+  "jewelry-boxes": "/images/categories/jewelry-boxes-hero.png",
+  "custom-jewelry-boxes": "/images/categories/jewelry-boxes-hero.png",
+  "labels-and-stickers": "/images/categories/labels-stickers-hero.png",
+  "custom-labels-and-stickers": "/images/categories/labels-stickers-hero.png",
+  "mailer-boxes": "/images/categories/cat-mailer-boxes.jpg",
+  "custom-mailer-boxes": "/images/categories/cat-mailer-boxes.jpg",
+  "retail-boxes": "/images/categories/retail-boxes-hero.png",
+  "custom-retail-boxes": "/images/categories/retail-boxes-hero.png",
+  "wax-papers": "/images/categories/wax-papers-hero.png",
+  "custom-wax-papers": "/images/categories/wax-papers-hero.png",
+  "display-boxes": "/images/categories/cat-display-boxes.jpg",
+  "custom-display-boxes": "/images/categories/cat-display-boxes.jpg",
+  "gable-boxes": "/images/categories/cat-gable-boxes.jpg",
+  "custom-gable-boxes": "/images/categories/cat-gable-boxes.jpg",
+  "kraft-boxes": "/images/categories/cat-kraft-boxes.jpg",
+  "custom-kraft-boxes": "/images/categories/cat-kraft-boxes.jpg",
+  "mylar-bags": "/images/categories/cat-mylar-bags.jpg",
+  "custom-mylar-bags": "/images/categories/cat-mylar-bags.jpg",
+  "pillow-boxes": "/images/categories/cat-pillow-boxes.jpg",
+  "custom-pillow-boxes": "/images/categories/cat-pillow-boxes.jpg",
+  "pre-roll-boxes": "/images/categories/pre-roll-boxes-hero.png",
+  "custom-pre-roll-boxes": "/images/categories/pre-roll-boxes-hero.png",
+  "rigid-boxes": "/images/categories/cat-rigid.png",
+  "custom-rigid-boxes": "/images/categories/cat-rigid.png",
+  "soap-boxes": "/images/categories/cat-soap-boxes.jpg",
+  "custom-soap-boxes": "/images/categories/cat-soap-boxes.jpg",
+  "tube-packaging": "/images/categories/cat-tube-packaging.jpg",
+  "custom-tube-packaging": "/images/categories/cat-tube-packaging.jpg",
+  "tuck-boxes": "/images/categories/cat-tuck-boxes.jpg",
+  "custom-tuck-boxes": "/images/categories/cat-tuck-boxes.jpg",
 };
-
-interface CategoryWithState extends Category {
-  id?: string;
-  is_active?: boolean;
-}
 
 export default function AdminCategoriesView() {
   const { toast } = useToast();
@@ -56,15 +79,20 @@ export default function AdminCategoriesView() {
   const [searchQuery, setSearchQuery] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [categoryList, setCategoryList] = useState<CategoryDetailRecord[]>(BASE_CATEGORIES);
 
-  const [categoryList, setCategoryList] = useState<CategoryWithState[]>(() => {
-    return categories.map((c, idx) => ({
-      ...c,
-      id: `cat-${c.slug}`,
-      // Make custom-food-boxes hidden as shown in the screenshot, others active
-      is_active: c.slug !== "custom-food-boxes",
-    }));
-  });
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    try {
+      const data = await fetchAllAdminCategories();
+      setCategoryList(data);
+    } catch {
+      // ignore
+    }
+  };
 
   const filteredCategories = useMemo(() => {
     return categoryList.filter((cat) => {
@@ -99,7 +127,7 @@ export default function AdminCategoriesView() {
     filteredCategories.length
   );
 
-  const handleDelete = (slug: string, name: string) => {
+  const handleDelete = async (slug: string, name: string) => {
     if (
       !confirm(
         `Are you sure you want to delete category "${name}"? Products inside will remain.`
@@ -107,6 +135,7 @@ export default function AdminCategoriesView() {
     )
       return;
     setCategoryList((prev) => prev.filter((c) => c.slug !== slug));
+    await deleteCategoryRecord(slug);
     toast({
       title: "Category Deleted",
       description: `"${name}" has been removed.`,
@@ -130,11 +159,10 @@ export default function AdminCategoriesView() {
             setActiveTab("all");
             setCurrentPage(1);
           }}
-          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${
-            activeTab === "all"
+          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${activeTab === "all"
               ? "text-[#2d5c3e]"
               : "text-[#aaa6a0] hover:text-[#1a1a1a]"
-          }`}
+            }`}
         >
           Product Categories
           {activeTab === "all" && (
@@ -147,11 +175,10 @@ export default function AdminCategoriesView() {
             setActiveTab("industry");
             setCurrentPage(1);
           }}
-          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${
-            activeTab === "industry"
+          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${activeTab === "industry"
               ? "text-[#2d5c3e]"
               : "text-[#aaa6a0] hover:text-[#1a1a1a]"
-          }`}
+            }`}
         >
           Industry Section
           {activeTab === "industry" && (
@@ -164,11 +191,10 @@ export default function AdminCategoriesView() {
             setActiveTab("style");
             setCurrentPage(1);
           }}
-          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${
-            activeTab === "style"
+          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${activeTab === "style"
               ? "text-[#2d5c3e]"
               : "text-[#aaa6a0] hover:text-[#1a1a1a]"
-          }`}
+            }`}
         >
           Style Section
           {activeTab === "style" && (
@@ -181,11 +207,10 @@ export default function AdminCategoriesView() {
             setActiveTab("material");
             setCurrentPage(1);
           }}
-          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${
-            activeTab === "material"
+          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${activeTab === "material"
               ? "text-[#2d5c3e]"
               : "text-[#aaa6a0] hover:text-[#1a1a1a]"
-          }`}
+            }`}
         >
           Material Section
           {activeTab === "material" && (
@@ -280,7 +305,10 @@ export default function AdminCategoriesView() {
                     </thead>
                     <tbody className="divide-y divide-[#e0ddd6]">
                       {paginatedCategories.map((cat) => {
-                        const img = CATEGORY_IMAGES[cat.slug];
+                        const img =
+                          CATEGORY_IMAGES[cat.slug] ||
+                          CATEGORY_IMAGES[cat.slug.replace(/^custom-/, "")] ||
+                          CATEGORY_IMAGES[`custom-${cat.slug}`];
                         return (
                           <tr
                             key={cat.slug}
@@ -293,6 +321,7 @@ export default function AdminCategoriesView() {
                                     <Image
                                       alt={cat.name}
                                       fill
+                                      unoptimized
                                       sizes="40px"
                                       className="object-cover"
                                       src={img}
@@ -315,11 +344,10 @@ export default function AdminCategoriesView() {
                             </td>
                             <td className="p-[12px_16px]">
                               <span
-                                className={`inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                                  cat.is_active
+                                className={`inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${cat.is_active
                                     ? "bg-[#eaf2ed] text-[#2d5c3e]"
                                     : "bg-[#fdecea] text-[#b83c2b]"
-                                }`}
+                                  }`}
                               >
                                 {cat.is_active ? "Active" : "Hidden"}
                               </span>

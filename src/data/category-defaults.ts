@@ -4980,8 +4980,12 @@ export const PRE_ROLL_CATEGORY_DATA: CategoryDetailData = {
   ],
 };
 
-// Generic rich content generator for all 21 categories so that each sub-page is completely populated
-export function getCategoryDetailDefaults(slug: string, name: string, section: "industry" | "material" | "style"): CategoryDetailData {
+// Generic rich content generator for all categories so that each sub-page is completely populated
+export function getCategoryDetailDefaults(
+  slug: string,
+  name: string = "Custom Boxes",
+  section: "industry" | "material" | "style" = "industry"
+): CategoryDetailData {
   if (slug === "pre-roll-boxes" || slug === "custom-pre-roll-boxes") {
     return PRE_ROLL_CATEGORY_DATA;
   }

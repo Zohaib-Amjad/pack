@@ -380,19 +380,16 @@ const Navbar = () => {
 
   const { data: categories = defaultCategories } = useQuery({
     queryKey: ["public", "categories-nav"],
-    staleTime: 1000 * 60 * 5,
+    staleTime: 0,
+    refetchOnMount: true,
     initialData: defaultCategories,
     queryFn: async () => {
       try {
-        const supabase = createPublicClient();
-        const { data, error } = (await withAbortableTimeout(
-          (signal) =>
-            supabase
-              .from("categories" as any)
-              .select("name, slug, section")
-              .abortSignal(signal) as any,
-        )) as any;
-        if (!error && data && data.length > 0) return data;
+        const { fetchAllAdminCategories } = await import("@/lib/category-service");
+        const list = await fetchAllAdminCategories();
+        if (list && list.length > 0) {
+          return list.filter((c) => c.is_active !== false);
+        }
       } catch {
         // use defaultCategories
       }

@@ -103,18 +103,10 @@ const CategoryPage = ({ categorySlug: propSlug, initialData = null }: CategoryPa
   const initialCategoryKey = initialData?.category?.id || initialData?.category?.slug || "";
 
   useEffect(() => {
-    if (initialData?.category) {
-      setClientFallback(null);
-      setClientLoading(false);
-      return;
-    }
-
     let cancelled = false;
-    setClientLoading(true);
-    setClientFallback(null);
     fetchCategoryPageData(categorySlug)
       .then((data) => {
-        if (!cancelled) setClientFallback(data);
+        if (!cancelled && data) setClientFallback(data);
       })
       .finally(() => {
         if (!cancelled) setClientLoading(false);
@@ -123,13 +115,13 @@ const CategoryPage = ({ categorySlug: propSlug, initialData = null }: CategoryPa
     return () => {
       cancelled = true;
     };
-  }, [categorySlug, initialCategoryKey]);
+  }, [categorySlug]);
 
   const pageData =
-    initialData?.category
-      ? initialData
-      : clientFallback?.category
-        ? clientFallback
+    clientFallback?.category
+      ? clientFallback
+      : initialData?.category
+        ? initialData
         : null;
 
   const category = pageData?.category;
@@ -371,7 +363,7 @@ const CategoryPage = ({ categorySlug: propSlug, initialData = null }: CategoryPa
               className={hasCustomStudioBanner ? "object-cover object-right" : "object-cover object-center"}
               sizes="100vw"
               priority
-              unoptimized={hasCustomStudioBanner}
+              unoptimized
             />
           </div>
         )}
@@ -439,6 +431,7 @@ const CategoryPage = ({ categorySlug: propSlug, initialData = null }: CategoryPa
                         src={productImg}
                         alt={product.name}
                         fill
+                        unoptimized
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
@@ -541,6 +534,7 @@ const CategoryPage = ({ categorySlug: propSlug, initialData = null }: CategoryPa
                             src={productImg}
                             alt={product.name}
                             fill
+                            unoptimized
                             sizes="(max-width: 640px) 85vw, (max-width: 1024px) 48vw, (max-width: 1280px) 31vw, 24vw"
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                           />

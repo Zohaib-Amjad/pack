@@ -1,25 +1,52 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Save,
-  Eye,
-  EyeOff,
-  Link2,
-  Search,
   FileText,
   Upload,
   Check,
+  RotateCcw,
+  RotateCw,
+  Bold,
+  Italic,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
+  List,
+  ListOrdered,
+  Outdent,
+  Indent,
+  ChevronDown,
+  Baseline,
+  Search,
+  Zap,
+  Send,
+  Heart,
+  ImageIcon,
+  Trash2,
+  MoreHorizontal,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { createPublicClient } from "@/utils/supabase/public-client";
+import { createDataClient } from "@/utils/supabase/data-client";
+import { withAbortableTimeout } from "@/lib/fetch-utils";
+import { DEFAULT_CASE_STUDIES } from "@/data/case-studies-defaults";
 
-export default function AdminCaseStudyNewView() {
+type AdminCaseStudyNewViewProps = {
+  caseStudyId?: string;
+  isEdit?: boolean;
+};
+
+export default function AdminCaseStudyNewView({ caseStudyId, isEdit = false }: AdminCaseStudyNewViewProps = {}) {
   const router = useRouter();
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
@@ -28,14 +55,58 @@ export default function AdminCaseStudyNewView() {
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
   const [allowIndexing, setAllowIndexing] = useState(true);
-  const [isPublished, setIsPublished] = useState(false);
+  const [isPublished, setIsPublished] = useState(true);
   const [coverImage, setCoverImage] = useState("");
+  const [manualUrl, setManualUrl] = useState("");
   const [category, setCategory] = useState("Retail & Gift");
   const [author, setAuthor] = useState("HOF Pack Team");
   const [tags, setTags] = useState("");
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(Boolean(isEdit && caseStudyId));
 
-  // Auto-generate slug from title
+  useEffect(() => {
+    if (isEdit && caseStudyId) {
+      loadCaseStudy(caseStudyId);
+    }
+  }, [isEdit, caseStudyId]);
+
+  const loadCaseStudy = async (id: string) => {
+    try {
+      setLoading(true);
+      const supabase = createPublicClient();
+      const { data } = await withAbortableTimeout((signal) =>
+        (supabase
+          .from("case_studies" as any)
+          .select("*")
+          .eq("id", id)
+          .maybeSingle() as any)
+          .abortSignal(signal)
+      );
+      const item =
+        data ||
+        Object.values(DEFAULT_CASE_STUDIES).find((c) => c.id === id || c.slug === id);
+
+      if (item) {
+        setTitle(item.title || "");
+        setSlug(item.slug || "");
+        setExcerpt(item.excerpt || "");
+        setContent(item.content || "");
+        setMetaTitle(item.meta_title || item.title || "");
+        setMetaDescription(item.meta_description || item.excerpt || "");
+        setIsPublished(Boolean(item.is_published));
+        setCoverImage(item.cover_image || item.image || "");
+        setManualUrl(item.cover_image || item.image || "");
+        setCategory(item.category || "Retail & Gift");
+        setAuthor(item.author || "HOF Pack Team");
+        setTags(Array.isArray(item.tags) ? item.tags.join(", ") : "");
+      }
+    } catch {
+      // ignore
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleAutoSlug = () => {
     const generated = title
       .toLowerCase()
@@ -46,21 +117,51 @@ export default function AdminCaseStudyNewView() {
     setSlug(generated);
   };
 
-  // Checklist items calculation
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (uploadEvent) => {
+        const result = uploadEvent.target?.result as string;
+        if (result) {
+          setCoverImage(result);
+          setManualUrl(result);
+          toast({
+            title: "Cover Image Selected",
+            description: `${file.name} ready for case study.`,
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleApplyManualUrl = () => {
+    if (manualUrl.trim()) {
+      setCoverImage(manualUrl.trim());
+      toast({
+        title: "Image URL Applied",
+        description: "Cover image set from manual URL.",
+      });
+    }
+  };
+
+  // Checklist items
   const checklist = useMemo(() => {
     const items = [
       { label: "Title added", done: title.trim().length > 0 },
       { label: "Slug set", done: slug.trim().length > 0 },
       { label: "Excerpt written", done: excerpt.trim().length > 0 },
-      { label: "Cover image uploaded", done: coverImage.trim().length > 0 },
+      { label: "Cover image uploaded", done: coverImage.trim().length > 0 || manualUrl.trim().length > 0 },
       { label: "Content written", done: content.trim().length > 0 },
-      {
-        label: "Meta description set",
-        done: (metaDescription || excerpt).trim().length > 0,
-      },
+      { label: "Meta description set", done: (metaDescription || excerpt).trim().length > 0 },
     ];
-    return items;
-  }, [title, slug, excerpt, coverImage, content, metaDescription]);
+    const completedCount = items.filter((i) => i.done).length;
+    const percentage = Math.round((completedCount / items.length) * 100);
+    return { items, percentage };
+  }, [title, slug, excerpt, coverImage, manualUrl, content, metaDescription]);
+
+  const wordCount = content.trim() ? content.trim().split(/\s+/).length : 0;
 
   const handleSave = async (publishNow = false) => {
     if (!title.trim()) {
@@ -73,526 +174,788 @@ export default function AdminCaseStudyNewView() {
     }
 
     setSaving(true);
-    setTimeout(() => {
-      setSaving(false);
+    const postSlug =
+      slug.trim() ||
+      title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .trim();
+    const finalPublish = publishNow ? true : isPublished;
+    const finalImage =
+      coverImage.trim() ||
+      manualUrl.trim() ||
+      "/images/case-studies/luxe-candle-co-rigid-boxes.jpg";
+
+    try {
+      const supabase = createDataClient();
+      const newId =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `case-${Date.now()}`;
+
+      const payload: Record<string, unknown> = {
+        title: title.trim(),
+        slug: postSlug,
+        excerpt: excerpt.trim(),
+        content: content.trim(),
+        is_published: finalPublish,
+        cover_image: finalImage,
+        image: finalImage,
+        category: category.trim() || "Retail & Gift",
+        author: author.trim() || "HOF Pack Team",
+        published_at: finalPublish ? new Date().toISOString() : null,
+        updated_at: new Date().toISOString(),
+      };
+
+      if (metaTitle.trim()) payload.meta_title = metaTitle.trim();
+      if (metaDescription.trim()) payload.meta_description = metaDescription.trim();
+      const parsedTags = tags
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean);
+      if (parsedTags.length > 0) payload.tags = parsedTags;
+
+      if (isEdit && caseStudyId) {
+        let res = await (supabase
+          .from("case_studies" as any)
+          .update(payload as any)
+          .eq("id", caseStudyId) as any);
+
+        if (res.error) {
+          const minimalPayload = {
+            title: title.trim(),
+            slug: postSlug,
+            excerpt: excerpt.trim(),
+            content: content.trim(),
+            is_published: finalPublish,
+            cover_image: finalImage,
+            category: category.trim() || "Retail & Gift",
+            author: author.trim() || "HOF Pack Team",
+            published_at: finalPublish ? new Date().toISOString() : null,
+          };
+          res = await (supabase
+            .from("case_studies" as any)
+            .update(minimalPayload as any)
+            .eq("id", caseStudyId) as any);
+          if (res.error) throw res.error;
+        }
+      } else {
+        payload.id = newId;
+        payload.created_at = new Date().toISOString();
+
+        let res = await (supabase
+          .from("case_studies" as any)
+          .insert(payload as any) as any);
+
+        if (res.error) {
+          const minimalPayload = {
+            id: newId,
+            title: title.trim(),
+            slug: postSlug,
+            excerpt: excerpt.trim(),
+            content: content.trim(),
+            is_published: finalPublish,
+            cover_image: finalImage,
+            category: category.trim() || "Retail & Gift",
+            author: author.trim() || "HOF Pack Team",
+            published_at: finalPublish ? new Date().toISOString() : null,
+            created_at: new Date().toISOString(),
+          };
+          res = await (supabase
+            .from("case_studies" as any)
+            .insert(minimalPayload as any) as any);
+          if (res.error) throw res.error;
+        }
+      }
+
       toast({
-        title: publishNow || isPublished ? "Case Study Published!" : "Draft Saved",
+        title: finalPublish ? "Case Study Published!" : "Draft Saved",
         description: `"${title}" has been saved successfully.`,
       });
       router.push("/admin/case-studies");
-    }, 800);
-  };
+    } catch (err: unknown) {
+      const errMsg =
+        (err as Record<string, unknown>)?.message ||
+        (err as Record<string, unknown>)?.details ||
+        (err as Record<string, unknown>)?.error_description ||
+        (err instanceof Error ? err.message : "Failed to save case study.");
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const fakeUrl = URL.createObjectURL(file);
-      setCoverImage(fakeUrl);
       toast({
-        title: "Cover Image Selected",
-        description: `${file.name} ready for case study.`,
+        variant: "destructive",
+        title: "Error saving case study",
+        description: String(errMsg),
       });
+    } finally {
+      setSaving(false);
     }
   };
 
-  return (
-    <div className="flex flex-col flex-1 min-h-0 min-w-0">
-      {/* Subtabs Bar */}
-      <div className="ptabs bg-white/70 backdrop-blur-sm border-b border-[#e0ddd6]/60 flex px-5 sm:px-6 shrink-0 overflow-x-auto gap-4 [scrollbar-width:thin]">
-        <Link
-          href="/admin/case-studies"
-          className="ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 text-[#2d5c3e]"
-        >
-          All Case Studies
-          <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#e8732a] rounded-t-[1px]" />
-        </Link>
-        <Link
-          href="/admin/case-studies"
-          className="ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 text-[#aaa6a0] hover:text-[#1a1a1a]"
-        >
-          Published
-        </Link>
-        <Link
-          href="/admin/case-studies"
-          className="ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 text-[#aaa6a0] hover:text-[#1a1a1a]"
-        >
-          Drafts
-        </Link>
+  if (loading) {
+    return (
+      <div className="flex-1 p-12 flex items-center justify-center min-h-[400px]">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-[#e8732a] border-t-transparent animate-spin" />
+          <p className="text-[13px] text-[#7a7672]">Loading case study...</p>
+        </div>
       </div>
+    );
+  }
 
-      {/* Main Form Area */}
-      <div className="flex-1 overflow-y-auto p-8 scroll-smooth">
-        <div className="max-w-[1440px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <div className="flex flex-col gap-5 w-full">
-            {/* Header with Title & Action Buttons */}
-            <div className="flex items-center justify-between gap-4 flex-wrap">
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/admin/case-studies"
-                  className="w-8 h-8 flex items-center justify-center rounded-lg border border-[#e0ddd6] bg-white text-[#7a7672] hover:bg-[#f5f3ee] transition-colors no-underline"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </Link>
-                <div>
-                  <h1 className="text-[15px] font-bold text-[#1a1a1a]">
-                    New Case Study
-                  </h1>
-                  <p className="text-[11px] text-[#aaa6a0] truncate max-w-[320px]">
-                    Create a new case study
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsPublished(!isPublished)}
-                  className={`h-[36px] inline-flex items-center gap-2 px-4 text-[11px] font-bold rounded-[8px] border transition-all cursor-pointer ${
-                    isPublished
-                      ? "bg-[#eaf2ed] text-[#2d5c3e] border-[#b8dfc8] hover:bg-[#d8ecde]"
-                      : "bg-[#fdf0e8] text-[#c45a18] border-[#f5c8a8] hover:bg-[#fde8cc]"
-                  }`}
-                >
-                  {isPublished ? (
-                    <>
-                      <Eye className="w-3.5 h-3.5" /> Published
-                    </>
-                  ) : (
-                    <>
-                      <EyeOff className="w-3.5 h-3.5" /> Draft
-                    </>
-                  )}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleSave(false)}
-                  disabled={saving}
-                  className="h-[36px] inline-flex items-center gap-2 px-5 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all disabled:opacity-60 cursor-pointer shadow-sm"
-                >
-                  <Save className="w-3.5 h-3.5" />
-                  {saving ? "Saving..." : "Save Case Study"}
-                </button>
+  return (
+    <div className="flex-1 overflow-y-auto p-6 sm:p-8 scroll-smooth bg-[#faf8f5]/60">
+      <div className="max-w-[1440px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSave(isPublished);
+          }}
+          className="flex flex-col gap-6"
+        >
+          {/* Top Header Bar */}
+          <div className="flex items-center justify-between gap-4 flex-wrap pb-2">
+            <div className="flex items-center gap-3">
+              <Link
+                href="/admin/case-studies"
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-[#e0ddd6] bg-white text-[#7a7672] hover:bg-[#f5f3ee] hover:text-[#1a1a1a] transition-colors"
+                title="Back to all case studies"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Link>
+              <div>
+                <h1 className="font-display text-[17px] font-bold text-[#1a1a1a] leading-tight">
+                  {isEdit ? "Edit Case Study" : "New Case Study"}
+                </h1>
+                <p className="text-[11px] text-[#7a7672]">
+                  {isEdit ? "Update client success story & outcomes" : "Create a new packaging success story"}
+                </p>
               </div>
             </div>
 
-            {/* Form Layout: 2 Columns */}
-            <div className="grid xl:grid-cols-[1fr_360px] gap-5 items-start">
-              {/* Left Column: Core Fields */}
-              <div className="flex flex-col gap-4">
-                {/* Title & Slug */}
-                <div className="bg-white border border-[#e0ddd6] rounded-[12px] p-6">
-                  <div className="mb-4">
-                    <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-1.5">
-                      Title *
+            <div className="flex items-center gap-2.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsPublished(false);
+                  handleSave(false);
+                }}
+                disabled={saving}
+                className="h-[38px] px-4 text-[12px] font-bold rounded-[8px] border border-[#e0ddd6] bg-white text-[#7a7672] hover:bg-[#f5f3ee] hover:text-[#1a1a1a] inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                Draft
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSave(isPublished)}
+                disabled={saving}
+                className="h-[38px] px-5 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] inline-flex items-center gap-2 shadow-sm transition-colors cursor-pointer disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                {saving ? "Saving..." : isEdit ? "Save Changes" : "Save Case Study"}
+              </button>
+            </div>
+          </div>
+
+          {/* Form Layout: 2 Columns */}
+          <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-6 items-start">
+            {/* Left Column (Main Fields) */}
+            <div className="flex flex-col gap-5">
+              {/* 1. Title & Slug Card */}
+              <div className="bg-white border border-[#e0ddd6] rounded-[16px] p-6 shadow-sm space-y-4">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider text-[#7a7672] mb-1.5">
+                    TITLE *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g., How Luxe Candle Co. Increased Sales 40%..."
+                    value={title}
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                      if (!slug) {
+                        setSlug(
+                          e.target.value
+                            .toLowerCase()
+                            .replace(/[^\w\s-]/g, "")
+                            .replace(/\s+/g, "-")
+                        );
+                      }
+                    }}
+                    className="w-full h-[46px] px-3.5 text-[14px] font-medium bg-white border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a] placeholder:text-[#d0ccc4]"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-[#7a7672]">
+                      SLUG *
                     </label>
+                    <button
+                      type="button"
+                      onClick={handleAutoSlug}
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#7a7672] hover:text-[#e8732a] cursor-pointer"
+                    >
+                      <Zap className="w-3 h-3 text-[#e8732a]" /> Auto
+                    </button>
+                  </div>
+                  <div className="flex items-center rounded-[8px] border border-[#e0ddd6] bg-white overflow-hidden focus-within:border-[#2d5c3e]">
+                    <span className="h-[40px] px-3.5 flex items-center text-[12px] font-mono text-[#7a7672] bg-[#faf8f5] border-r border-[#e0ddd6] select-none">
+                      /case-studies/
+                    </span>
                     <input
-                      className="w-full h-[48px] px-3.5 text-[16px] font-semibold bg-white border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#e8732a]/60 focus:ring-2 focus:ring-[#e8732a]/10 transition-all text-[#1a1a1a] placeholder:text-[#c8c4bc]"
-                      placeholder="Case study title..."
-                      value={title}
-                      onChange={(e) => {
-                        setTitle(e.target.value);
-                        if (!slug) {
-                          setSlug(
-                            e.target.value
-                              .toLowerCase()
-                              .replace(/[^\w\s-]/g, "")
-                              .replace(/\s+/g, "-")
-                          );
-                        }
-                      }}
+                      type="text"
+                      placeholder="client-name-case-study"
+                      value={slug}
+                      onChange={(e) => setSlug(e.target.value)}
+                      className="flex-1 h-[40px] px-3 text-[13px] font-mono bg-white text-[#1a1a1a] placeholder:text-[#d0ccc4] focus:outline-none"
                     />
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-0">
-                        Slug *
-                      </label>
-                      <button
-                        type="button"
-                        onClick={handleAutoSlug}
-                        className="flex items-center gap-1 text-[10px] font-semibold text-[#aaa6a0] hover:text-[#e8732a] transition-colors cursor-pointer"
-                      >
-                        <Link2 className="w-3 h-3" /> Auto
-                      </button>
-                    </div>
-                    <div className="flex items-center gap-0 rounded-[8px] border border-[#e0ddd6] overflow-hidden focus-within:border-[#e8732a]/60 focus-within:ring-2 focus-within:ring-[#e8732a]/10 transition-all">
-                      <span className="h-[38px] px-3 flex items-center text-[12px] text-[#aaa6a0] font-medium bg-[#f5f3ee] border-r border-[#e0ddd6] shrink-0 select-none">
-                        /case-studies/
-                      </span>
-                      <input
-                        className="flex-1 h-[38px] px-3 text-[13px] bg-white text-[#1a1a1a] placeholder:text-[#c8c4bc] focus:outline-none"
-                        placeholder="case-study-slug"
-                        value={slug}
-                        onChange={(e) => setSlug(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Excerpt */}
-                <div className="bg-white border border-[#e0ddd6] rounded-[12px] p-6">
-                  <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-1.5">
-                    Excerpt
-                  </label>
-                  <textarea
-                    className="w-full px-3 py-2.5 text-[13px] bg-[#f5f3ee] border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#e8732a]/60 focus:ring-2 focus:ring-[#e8732a]/10 transition-all text-[#1a1a1a] placeholder:text-[#c8c4bc] resize-none leading-relaxed"
-                    rows={3}
-                    placeholder="Brief summary of the case study result..."
-                    value={excerpt}
-                    onChange={(e) => setExcerpt(e.target.value)}
-                  />
-                  <p className="mt-1.5 text-[10px] text-[#aaa6a0]">
-                    {excerpt.length} / 200 characters recommended
-                  </p>
-                </div>
-
-                {/* Content Area */}
-                <div className="bg-white border border-[#e0ddd6] rounded-[12px] p-6">
-                  <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-1.5">
-                    Content (HTML / Rich Text)
-                  </label>
-                  <textarea
-                    className="w-full min-h-[350px] p-4 text-[13px] font-mono bg-[#f5f3ee]/50 border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a] leading-relaxed"
-                    placeholder="<h2>1. Introduction</h2><p>Describe the client background, challenge, and the results achieved...</p>"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  />
-                </div>
-
-                {/* SEO & Meta Box */}
-                <div className="bg-white border border-[#e0ddd6] rounded-[12px] p-6">
-                  <div className="flex items-center gap-2 mb-5">
-                    <div className="w-7 h-7 rounded-lg bg-[#f5f3ee] flex items-center justify-center">
-                      <Search className="w-3.5 h-3.5 text-[#7a7672]" />
-                    </div>
-                    <p className="text-[12px] font-bold text-[#1a1a1a]">
-                      SEO &amp; Meta
-                    </p>
-                  </div>
-
-                  {/* Google Search Result Preview */}
-                  <div className="mb-5 p-4 rounded-[10px] bg-[#f5f3ee] border border-[#e0ddd6]">
-                    <p className="text-[9.5px] font-bold uppercase tracking-[0.1em] text-[#aaa6a0] mb-2">
-                      Search Preview
-                    </p>
-                    <p className="text-[#1a0dab] text-[14px] font-medium leading-tight truncate">
-                      {metaTitle || title || "Case study title will appear here"}
-                    </p>
-                    <p className="text-[#006621] text-[11px] mt-0.5">
-                      hofpack.com › case-studies › {slug || "case-study-slug"}
-                    </p>
-                    <p className="text-[#545454] text-[12px] mt-1 leading-[1.5] line-clamp-2">
-                      {metaDescription ||
-                        excerpt ||
-                        "Your meta description will appear here in search results."}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-4">
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-0">
-                          Meta Title
-                        </label>
-                        <span className="text-[10px] font-medium text-[#aaa6a0]">
-                          {metaTitle.length}/60
-                        </span>
-                      </div>
-                      <input
-                        className="w-full h-[38px] px-3 text-[13px] bg-[#f5f3ee] border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#e8732a]/60 focus:ring-2 focus:ring-[#e8732a]/10 transition-all text-[#1a1a1a] placeholder:text-[#c8c4bc]"
-                        placeholder="SEO title"
-                        value={metaTitle}
-                        onChange={(e) => setMetaTitle(e.target.value)}
-                      />
-                    </div>
-
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-0">
-                          Meta Description
-                        </label>
-                        <span className="text-[10px] font-medium text-[#aaa6a0]">
-                          {metaDescription.length}/160
-                        </span>
-                      </div>
-                      <textarea
-                        className="w-full px-3 py-2.5 text-[13px] bg-[#f5f3ee] border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#e8732a]/60 focus:ring-2 focus:ring-[#e8732a]/10 transition-all text-[#1a1a1a] placeholder:text-[#c8c4bc] resize-none"
-                        rows={3}
-                        placeholder="SEO description"
-                        value={metaDescription}
-                        onChange={(e) => setMetaDescription(e.target.value)}
-                      />
-                    </div>
-
-                    <div className="flex items-center justify-between gap-4 pt-3 border-t border-[#e0ddd6]">
-                      <div>
-                        <p className="text-[12px] font-semibold text-[#1a1a1a]">
-                          Allow search engine indexing
-                        </p>
-                        <p className="text-[10.5px] text-[#aaa6a0] mt-0.5">
-                          Page will appear in Google search results
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setAllowIndexing(!allowIndexing)}
-                        className={`relative w-10 h-6 rounded-full transition-colors shrink-0 cursor-pointer ${
-                          allowIndexing ? "bg-[#2d5c3e]" : "bg-[#d8d4cc]"
-                        }`}
-                      >
-                        <span
-                          className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${
-                            allowIndexing ? "left-5" : "left-1"
-                          }`}
-                        />
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column: Settings & Checklist */}
-              <div className="flex flex-col gap-4">
-                {/* Publish Status Card */}
-                <div className="bg-white border border-[#e0ddd6] rounded-[12px] overflow-hidden">
-                  <div
-                    className={`px-5 py-3 border-b border-[#e0ddd6] flex items-center justify-between ${
-                      isPublished ? "bg-[#eaf2ed]" : "bg-[#fdf0e8]"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`w-2 h-2 rounded-full animate-pulse ${
-                          isPublished ? "bg-[#2d5c3e]" : "bg-[#e8732a]"
-                        }`}
-                      />
-                      <span
-                        className={`text-[11px] font-bold uppercase tracking-wider ${
-                          isPublished ? "text-[#2d5c3e]" : "text-[#c45a18]"
-                        }`}
-                      >
-                        {isPublished ? "Published" : "Draft"}
-                      </span>
+              {/* 2. Excerpt Card */}
+              <div className="bg-white border border-[#e0ddd6] rounded-[16px] p-6 shadow-sm space-y-2">
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-[#7a7672]">
+                  EXCERPT / KEY OUTCOME
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder="Short summary highlighting client challenge, packaging solution, and percentage growth..."
+                  value={excerpt}
+                  onChange={(e) => setExcerpt(e.target.value)}
+                  className="w-full p-3.5 text-[13px] bg-white border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a] placeholder:text-[#d0ccc4] resize-y leading-relaxed"
+                />
+                <p className="text-[10px] text-[#aaa6a0]">
+                  {excerpt.length} / 200 characters recommended
+                </p>
+              </div>
+
+              {/* 3. Content Card (TinyMCE Layout) */}
+              <div className="bg-white border border-[#e0ddd6] rounded-[16px] p-6 shadow-sm space-y-2">
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-[#7a7672] mb-1">
+                  CASE STUDY CONTENT
+                </label>
+
+                <div className="border border-[#e0ddd6] rounded-[10px] bg-white overflow-hidden">
+                  {/* TinyMCE Top Menu Bar */}
+                  <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#e0ddd6] bg-[#faf8f5] text-[11px] text-[#5a5652]">
+                    <div className="flex items-center gap-3">
+                      <span className="cursor-pointer hover:text-[#1a1a1a]">File</span>
+                      <span className="cursor-pointer hover:text-[#1a1a1a]">Edit</span>
+                      <span className="cursor-pointer hover:text-[#1a1a1a]">View</span>
+                      <span className="cursor-pointer hover:text-[#1a1a1a]">Insert</span>
+                      <span className="cursor-pointer hover:text-[#1a1a1a]">Format</span>
+                      <span className="cursor-pointer hover:text-[#1a1a1a]">Tools</span>
+                      <span className="cursor-pointer hover:text-[#1a1a1a]">Table</span>
+                      <span className="cursor-pointer hover:text-[#1a1a1a]">Help</span>
                     </div>
+                    <div className="flex items-center gap-1 text-[#e8732a] font-semibold text-[10px]">
+                      <Heart className="w-3 h-3 fill-current" />
+                      <span>Get all features</span>
+                    </div>
+                  </div>
+
+                  {/* TinyMCE Toolbar */}
+                  <div className="flex flex-wrap items-center gap-1.5 px-3 py-2 border-b border-[#e0ddd6] bg-white text-[#5a5652]">
                     <button
                       type="button"
-                      onClick={() => setIsPublished(!isPublished)}
-                      className="text-[10px] font-bold px-2.5 py-1 rounded-md transition-all bg-white/60 text-[#1a1a1a] hover:bg-white cursor-pointer"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Undo"
                     >
-                      {isPublished ? "Set to Draft" : "Publish"}
+                      <RotateCcw className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Redo"
+                    >
+                      <RotateCw className="w-3.5 h-3.5" />
+                    </button>
+                    <div className="w-[1px] h-4 bg-[#e0ddd6] mx-1" />
+
+                    <div className="flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 border border-[#e0ddd6] rounded bg-white">
+                      <span>Heading 2</span>
+                      <ChevronDown className="w-3 h-3 text-[#aaa6a0]" />
+                    </div>
+
+                    <div className="w-[1px] h-4 bg-[#e0ddd6] mx-1" />
+
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Bold"
+                    >
+                      <Bold className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Italic"
+                    >
+                      <Italic className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Text color"
+                    >
+                      <Baseline className="w-3.5 h-3.5" />
+                    </button>
+
+                    <div className="w-[1px] h-4 bg-[#e0ddd6] mx-1" />
+
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Insert Image"
+                    >
+                      <ImageIcon className="w-3.5 h-3.5" />
+                    </button>
+
+                    <div className="w-[1px] h-4 bg-[#e0ddd6] mx-1" />
+
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Align Left"
+                    >
+                      <AlignLeft className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Align Center"
+                    >
+                      <AlignCenter className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Align Right"
+                    >
+                      <AlignRight className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Justify"
+                    >
+                      <AlignJustify className="w-3.5 h-3.5" />
+                    </button>
+
+                    <div className="w-[1px] h-4 bg-[#e0ddd6] mx-1" />
+
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Bullet list"
+                    >
+                      <List className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Numbered list"
+                    >
+                      <ListOrdered className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Outdent"
+                    >
+                      <Outdent className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="Indent"
+                    >
+                      <Indent className="w-3.5 h-3.5" />
+                    </button>
+
+                    <div className="w-[1px] h-4 bg-[#e0ddd6] mx-1" />
+
+                    <button
+                      type="button"
+                      className="p-1 hover:bg-[#f5f3ee] rounded text-[#7a7672] hover:text-[#1a1a1a]"
+                      title="More"
+                    >
+                      <MoreHorizontal className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
-                  <div className="p-5 space-y-3">
-                    <label
-                      onClick={() => setIsPublished(true)}
-                      className="flex items-start gap-3 cursor-pointer group"
-                    >
-                      <div
-                        className={`mt-0.5 w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
-                          isPublished
-                            ? "border-[#2d5c3e] bg-[#2d5c3e]"
-                            : "border-[#d8d4cc] group-hover:border-[#e8732a]/50"
-                        }`}
-                      >
-                        {isPublished && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </div>
-                      <div>
-                        <p className="text-[12px] font-semibold text-[#1a1a1a]">
-                          Published
-                        </p>
-                        <p className="text-[10.5px] text-[#aaa6a0]">
-                          Visible to everyone on the site
-                        </p>
-                      </div>
-                    </label>
+                  {/* Editor Textarea */}
+                  <textarea
+                    rows={12}
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="<h2>1. Challenge</h2><p>Describe client pain points...</p><h2>2. Packaging Solution</h2><p>Box structural design, materials, finishes...</p><h2>3. Results & ROI</h2><p>Sales lift, unboxing feedback, retention...</p>"
+                    className="w-full p-4 text-[13px] text-[#1a1a1a] focus:outline-none resize-y min-h-[260px] font-sans placeholder:text-[#d0ccc4] leading-relaxed"
+                  />
 
-                    <label
-                      onClick={() => setIsPublished(false)}
-                      className="flex items-start gap-3 cursor-pointer group"
-                    >
-                      <div
-                        className={`mt-0.5 w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
-                          !isPublished
-                            ? "border-[#e8732a] bg-[#e8732a]"
-                            : "border-[#d8d4cc] group-hover:border-[#e8732a]/50"
-                        }`}
-                      >
-                        {!isPublished && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </div>
-                      <div>
-                        <p className="text-[12px] font-semibold text-[#1a1a1a]">
-                          Draft
-                        </p>
-                        <p className="text-[10.5px] text-[#aaa6a0]">
-                          Only visible to admins
-                        </p>
-                      </div>
-                    </label>
+                  {/* Status Footer */}
+                  <div className="flex items-center justify-between px-3 py-1.5 border-t border-[#e0ddd6] bg-[#faf8f5] text-[10px] text-[#aaa6a0]">
+                    <span>p</span>
+                    <span>Press Alt + 0 for help</span>
+                    <div className="flex items-center gap-3">
+                      <span>{wordCount} words</span>
+                      <span>Build with TinyMCE</span>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Cover Image Card */}
-                <div className="bg-white border border-[#e0ddd6] rounded-[12px] p-5">
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="w-7 h-7 rounded-lg bg-[#f5f3ee] flex items-center justify-center">
-                      <FileText className="w-3.5 h-3.5 text-[#7a7672]" />
-                    </div>
+              {/* 4. SEO & Meta Card */}
+              <div className="bg-white border border-[#e0ddd6] rounded-[16px] p-6 shadow-sm space-y-4">
+                <div className="flex items-center gap-2">
+                  <Search className="w-4 h-4 text-[#7a7672]" />
+                  <h3 className="text-[13px] font-bold text-[#1a1a1a]">
+                    SEO &amp; Meta
+                  </h3>
+                </div>
+
+                {/* Google Search Preview Box */}
+                <div className="p-4 rounded-[12px] bg-[#faf8f5] border border-[#e0ddd6] space-y-1">
+                  <p className="text-[9.5px] font-bold uppercase tracking-wider text-[#aaa6a0]">
+                    SEARCH PREVIEW
+                  </p>
+                  <p className="text-[15px] font-medium text-[#1a0dab] leading-tight truncate">
+                    {metaTitle.trim() || title.trim() || "Case study title will appear here"}
+                  </p>
+                  <p className="text-[11px] font-medium text-[#006621]">
+                    hofpack.com › case-studies › {slug.trim() || "client-slug"}
+                  </p>
+                  <p className="text-[12px] text-[#545454] leading-snug line-clamp-2">
+                    {metaDescription.trim() ||
+                      excerpt.trim() ||
+                      "Your meta description will appear here in search results."}
+                  </p>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-[#7a7672]">
+                      META TITLE
+                    </label>
+                    <span className="text-[10px] font-medium text-[#aaa6a0]">
+                      {metaTitle.length}/60
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="SEO title (defaults to case study title)"
+                    value={metaTitle}
+                    onChange={(e) => setMetaTitle(e.target.value)}
+                    className="w-full h-[40px] px-3.5 text-[13px] bg-white border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a] placeholder:text-[#d0ccc4]"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-[#7a7672]">
+                      META DESCRIPTION
+                    </label>
+                    <span className="text-[10px] font-medium text-[#aaa6a0]">
+                      {metaDescription.length}/160
+                    </span>
+                  </div>
+                  <textarea
+                    rows={2}
+                    placeholder="SEO description (defaults to excerpt)"
+                    value={metaDescription}
+                    onChange={(e) => setMetaDescription(e.target.value)}
+                    className="w-full p-3 text-[13px] bg-white border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a] placeholder:text-[#d0ccc4] resize-none"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between gap-4 pt-3 border-t border-[#e0ddd6]">
+                  <div>
                     <p className="text-[12px] font-bold text-[#1a1a1a]">
-                      Cover Image
+                      Allow search engine indexing
+                    </p>
+                    <p className="text-[10.5px] text-[#7a7672]">
+                      Page will appear in Google search results
                     </p>
                   </div>
-
-                  <div className="space-y-3">
-                    <div className="border-2 border-dashed border-[#e0ddd6] rounded-[12px] bg-[#f5f3ee]/50 hover:bg-[#f5f3ee] transition-all overflow-hidden relative">
-                      {coverImage ? (
-                        <div className="relative aspect-[16/9] w-full">
-                          <Image
-                            src={coverImage}
-                            alt="Cover preview"
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      ) : (
-                        <div className="relative flex flex-col items-center justify-center min-h-[140px] p-6">
-                          <div className="flex flex-col items-center gap-3 w-full">
-                            <div className="h-12 w-12 rounded-xl bg-[#2d5c3e]/10 text-[#2d5c3e] flex items-center justify-center">
-                              <Upload className="h-6 w-6" />
-                            </div>
-                            <div className="text-center w-full px-2">
-                              <p className="text-[12px] font-bold text-[#1a1a1a]">
-                                Upload Artwork (Cloudinary)
-                              </p>
-                              <p className="text-[10px] text-[#aaa6a0] font-medium">
-                                PNG, JPG or WebP up to 5MB
-                              </p>
-                            </div>
-                          </div>
-                          <input
-                            accept="image/*"
-                            className="absolute inset-0 opacity-0 cursor-pointer"
-                            type="file"
-                            onChange={handleImageUpload}
-                          />
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold text-[#aaa6a0] uppercase tracking-widest pl-1">
-                        Manual URL
-                      </label>
-                      <input
-                        className="w-full h-[36px] px-[12px] text-[12px] bg-[#f5f3ee] border border-[#e0ddd6] rounded-[6px] focus:outline-none focus:border-[#e8732a]/40 transition-all outline-none text-[#1a1a1a] placeholder:text-[#aaa6a0]/50"
-                        placeholder="Or paste an image URL..."
-                        value={coverImage}
-                        onChange={(e) => setCoverImage(e.target.value)}
-                      />
-                    </div>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setAllowIndexing(!allowIndexing)}
+                    className={`relative w-11 h-6 rounded-full transition-colors shrink-0 cursor-pointer ${
+                      allowIndexing ? "bg-[#2d5c3e]" : "bg-[#d8d4cc]"
+                    }`}
+                  >
+                    <span
+                      className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${
+                        allowIndexing ? "left-6" : "left-1"
+                      }`}
+                    />
+                  </button>
                 </div>
-
-                {/* Case Study Settings Card */}
-                <div className="bg-white border border-[#e0ddd6] rounded-[12px] p-5">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-4">
-                    Case Study Settings
-                  </p>
-                  <div className="flex flex-col gap-4">
-                    <div>
-                      <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-1.5">
-                        Industry / Category
-                      </label>
-                      <select
-                        className="w-full h-[38px] px-3 text-[13px] bg-[#f5f3ee] border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#e8732a]/60 focus:ring-2 focus:ring-[#e8732a]/10 transition-all text-[#1a1a1a] cursor-pointer"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                      >
-                        <option>Retail &amp; Gift</option>
-                        <option>Food &amp; Beverage</option>
-                        <option>Beauty &amp; Cosmetics</option>
-                        <option>E-Commerce</option>
-                        <option>Fashion &amp; Apparel</option>
-                        <option>Technology</option>
-                        <option>Health &amp; Wellness</option>
-                        <option>Sustainability</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-1.5">
-                        Author
-                      </label>
-                      <input
-                        className="w-full h-[38px] px-3 text-[13px] bg-[#f5f3ee] border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#e8732a]/60 focus:ring-2 focus:ring-[#e8732a]/10 transition-all text-[#1a1a1a] placeholder:text-[#c8c4bc]"
-                        placeholder="HOF Pack Team"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-1.5">
-                        Tags
-                      </label>
-                      <input
-                        className="w-full h-[38px] px-3 text-[13px] bg-[#f5f3ee] border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#e8732a]/60 focus:ring-2 focus:ring-[#e8732a]/10 transition-all text-[#1a1a1a] placeholder:text-[#c8c4bc]"
-                        placeholder="rigid-boxes, luxury, unboxing"
-                        value={tags}
-                        onChange={(e) => setTags(e.target.value)}
-                      />
-                      <p className="mt-1.5 text-[10px] text-[#aaa6a0]">
-                        Comma-separated
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Pre-publish Checklist Card */}
-                <div className="bg-white border border-[#e0ddd6] rounded-[12px] p-5">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#aaa6a0] mb-3">
-                    Pre-publish Checklist
-                  </p>
-                  <div className="space-y-2">
-                    {checklist.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2.5">
-                        <div
-                          className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 transition-all ${
-                            item.done
-                              ? "bg-[#2d5c3e] text-white"
-                              : "bg-[#f5f3ee] border border-[#e0ddd6]"
-                          }`}
-                        >
-                          {item.done && <Check className="w-2.5 h-2.5" />}
-                        </div>
-                        <span
-                          className={`text-[11.5px] font-medium ${
-                            item.done ? "text-[#1a1a1a]" : "text-[#aaa6a0]"
-                          }`}
-                        >
-                          {item.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Action Submit Button */}
-                <button
-                  type="button"
-                  onClick={() => handleSave(true)}
-                  disabled={saving}
-                  className="w-full h-[44px] inline-flex items-center justify-center gap-2 text-[13px] font-bold rounded-[10px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all disabled:opacity-60 shadow-sm cursor-pointer"
-                >
-                  <Save className="w-4 h-4" />
-                  {saving ? "Publishing..." : "Publish Case Study"}
-                </button>
               </div>
             </div>
+
+            {/* Right Sidebar */}
+            <div className="flex flex-col gap-5">
+              {/* 1. Status Card */}
+              <div className="bg-white border border-[#e0ddd6] rounded-[16px] p-5 shadow-sm space-y-3.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        isPublished ? "bg-[#2d5c3e]" : "bg-[#e8732a]"
+                      }`}
+                    />
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#1a1a1a]">
+                      {isPublished ? "PUBLISHED" : "DRAFT"}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsPublished(!isPublished)}
+                    className="text-[11px] font-bold text-[#e8732a] hover:underline cursor-pointer"
+                  >
+                    {isPublished ? "Draft" : "Publish"}
+                  </button>
+                </div>
+
+                <div className="space-y-2 pt-1 border-t border-[#e0ddd6]/60">
+                  <label
+                    onClick={() => setIsPublished(true)}
+                    className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-[#faf8f5] cursor-pointer transition-colors"
+                  >
+                    <input
+                      type="radio"
+                      name="status"
+                      checked={isPublished}
+                      onChange={() => setIsPublished(true)}
+                      className="mt-0.5 text-[#2d5c3e] focus:ring-[#2d5c3e]"
+                    />
+                    <div>
+                      <p className="text-[12px] font-bold text-[#1a1a1a] leading-none">
+                        Published
+                      </p>
+                      <p className="text-[10px] text-[#7a7672] mt-0.5">
+                        Visible on the public case studies page
+                      </p>
+                    </div>
+                  </label>
+
+                  <label
+                    onClick={() => setIsPublished(false)}
+                    className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-[#faf8f5] cursor-pointer transition-colors"
+                  >
+                    <input
+                      type="radio"
+                      name="status"
+                      checked={!isPublished}
+                      onChange={() => setIsPublished(false)}
+                      className="mt-0.5 text-[#e8732a] focus:ring-[#e8732a]"
+                    />
+                    <div>
+                      <p className="text-[12px] font-bold text-[#1a1a1a] leading-none">
+                        Draft
+                      </p>
+                      <p className="text-[10px] text-[#7a7672] mt-0.5">
+                        Only visible to admins
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* 2. Cover Image Card */}
+              <div className="bg-white border border-[#e0ddd6] rounded-[16px] p-5 shadow-sm space-y-3.5">
+                <div className="flex items-center gap-2">
+                  <ImageIcon className="w-4 h-4 text-[#7a7672]" />
+                  <span className="text-[12px] font-bold text-[#1a1a1a]">
+                    Cover Image
+                  </span>
+                </div>
+
+                {/* Upload or Preview Box */}
+                {coverImage.trim() ? (
+                  <div className="relative aspect-[16/10] rounded-[12px] overflow-hidden border border-[#e0ddd6] bg-[#faf8f5] group">
+                    <Image
+                      src={coverImage.trim()}
+                      alt="Cover image preview"
+                      fill
+                      unoptimized
+                      className="object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCoverImage("");
+                        setManualUrl("");
+                      }}
+                      className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-red-600 transition-all shadow cursor-pointer"
+                      title="Remove image"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="border-2 border-dashed border-[#e0ddd6] rounded-[12px] bg-white p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#2d5c3e] hover:bg-[#faf8f5] transition-colors"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-[#2d5c3e]/10 text-[#2d5c3e] flex items-center justify-center mb-2">
+                      <Upload className="w-4 h-4" />
+                    </div>
+                    <p className="text-[11px] font-bold text-[#1a1a1a] text-center">
+                      Upload Artwork (Cloudinary)
+                    </p>
+                    <p className="text-[9px] text-[#aaa6a0] text-center mt-0.5">
+                      PNG, JPG or WebP up to 5MB
+                    </p>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                  </div>
+                )}
+
+                <div>
+                  <label className="text-[9.5px] font-bold uppercase tracking-wider text-[#7a7672] block mb-1">
+                    MANUAL URL
+                  </label>
+                  <div className="flex gap-1.5">
+                    <input
+                      type="text"
+                      placeholder="Or paste an image URL..."
+                      value={manualUrl}
+                      onChange={(e) => setManualUrl(e.target.value)}
+                      onBlur={handleApplyManualUrl}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleApplyManualUrl();
+                        }
+                      }}
+                      className="flex-1 h-[36px] px-3 text-[12px] bg-white border border-[#e0ddd6] rounded-[6px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a] placeholder:text-[#d0ccc4]"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleApplyManualUrl}
+                      className="h-[36px] px-3 bg-[#f5f3ee] hover:bg-[#e0ddd6] text-[#1a1a1a] text-[11px] font-bold rounded-[6px] transition-colors cursor-pointer"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. POST SETTINGS Card */}
+              <div className="bg-white border border-[#e0ddd6] rounded-[16px] p-5 shadow-sm space-y-3.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#7a7672] block">
+                  CASE STUDY SETTINGS
+                </span>
+
+                <div>
+                  <label className="text-[9.5px] font-bold uppercase tracking-wider text-[#7a7672] block mb-1">
+                    CATEGORY
+                  </label>
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full h-[38px] px-3 text-[12px] bg-white border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
+                  >
+                    <option value="Retail & Gift">Retail & Gift</option>
+                    <option value="Food & Beverage">Food & Beverage</option>
+                    <option value="Beauty & Cosmetics">Beauty & Cosmetics</option>
+                    <option value="E-Commerce">E-Commerce</option>
+                    <option value="Apparel & Fashion">Apparel & Fashion</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[9.5px] font-bold uppercase tracking-wider text-[#7a7672] block mb-1">
+                    AUTHOR / TEAM
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="HOF Pack Team"
+                    value={author}
+                    onChange={(e) => setAuthor(e.target.value)}
+                    className="w-full h-[38px] px-3 text-[12px] bg-white border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-[9.5px] font-bold uppercase tracking-wider text-[#7a7672] block mb-1">
+                    TAGS
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="rigid-boxes, luxury, unboxing"
+                    value={tags}
+                    onChange={(e) => setTags(e.target.value)}
+                    className="w-full h-[38px] px-3 text-[12px] bg-white border border-[#e0ddd6] rounded-[8px] focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
+                  />
+                  <span className="text-[9px] text-[#aaa6a0] mt-0.5 block">
+                    Comma-separated
+                  </span>
+                </div>
+              </div>
+
+              {/* 4. PRE-PUBLISH CHECKLIST Card */}
+              <div className="bg-white border border-[#e0ddd6] rounded-[16px] p-5 shadow-sm space-y-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#7a7672] block">
+                  PRE-PUBLISH CHECKLIST
+                </span>
+
+                <div className="space-y-2">
+                  {checklist.items.map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-[11px]">
+                      <div
+                        className={`w-3.5 h-3.5 rounded-full flex items-center justify-center border ${
+                          item.done
+                            ? "bg-[#2d5c3e] border-[#2d5c3e] text-white"
+                            : "border-[#d8d4cc] bg-white"
+                        }`}
+                      >
+                        {item.done && <Check className="w-2.5 h-2.5" />}
+                      </div>
+                      <span
+                        className={
+                          item.done
+                            ? "text-[#1a1a1a] font-medium"
+                            : "text-[#aaa6a0]"
+                        }
+                      >
+                        {item.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-2 border-t border-[#e0ddd6]/60 flex items-center justify-between text-[10px] text-[#7a7672]">
+                  <span>Completeness</span>
+                  <span className="font-bold text-[#1a1a1a]">
+                    {checklist.percentage}%
+                  </span>
+                </div>
+              </div>
+
+              {/* 5. Bottom Publish CTA */}
+              <button
+                type="button"
+                onClick={() => handleSave(true)}
+                disabled={saving}
+                className="w-full h-[44px] px-4 text-[13px] font-bold rounded-[10px] bg-[#e8732a] text-white hover:bg-[#c45a18] inline-flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer disabled:opacity-50"
+              >
+                <Send className="w-4 h-4" />
+                Publish Case Study
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

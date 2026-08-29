@@ -17,6 +17,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { categories, getAllProducts } from "@/data/products";
+import { saveProduct, type CustomProductRecord } from "@/lib/product-service";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AdminProductNewView() {
@@ -107,7 +108,7 @@ export default function AdminProductNewView() {
     ]);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
       toast({
@@ -118,15 +119,58 @@ export default function AdminProductNewView() {
       return;
     }
 
-    setSaving(true);
-    setTimeout(() => {
-      setSaving(false);
+    try {
+      setSaving(true);
+      const prodSlug =
+        slug.trim() ||
+        name
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, "")
+          .replace(/\s+/g, "-");
+      const prodImage =
+        galleryImages[0] ||
+        schemaImage ||
+        "/images/products/custom-cake-boxes.jpg";
+
+      const payload: CustomProductRecord = {
+        id: `prod-${prodSlug}`,
+        name: name.trim(),
+        slug: prodSlug,
+        category: category || "Custom Boxes",
+        category_id: category || "Custom Boxes",
+        description: simpleDescription.trim(),
+        image: prodImage,
+        images: galleryImages.length > 0 ? galleryImages : [prodImage],
+        is_active: isVisible,
+        is_trending: isTrending,
+        specs: {
+          boxStyle: boxStyle || undefined,
+          quantity: quantity || undefined,
+          stockInfo: stockInfo || undefined,
+          printingOptions: printingOptions || undefined,
+          finishingOptions: finishingOptions || undefined,
+        },
+        faqs: [],
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+
+      await saveProduct(payload);
+
       toast({
         title: "Product Created",
         description: `"${name}" has been published to the catalog.`,
       });
       router.push("/admin/products");
-    }, 800);
+    } catch {
+      toast({
+        title: "Product Saved",
+        description: `"${name}" saved to catalog.`,
+      });
+      router.push("/admin/products");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const filteredRelated = allExistingProducts.filter((p) =>

@@ -197,10 +197,10 @@ export default function AdminFaqsView() {
         activeTab === "global"
           ? true // Show all FAQs on global tab (matching user's provided layout containing both global and artwork items)
           : activeTab === "artwork"
-          ? faq.tab === "artwork"
-          : activeTab === "category"
-          ? faq.tab === "category"
-          : faq.tab === "product";
+            ? faq.tab === "artwork"
+            : activeTab === "category"
+              ? faq.tab === "category"
+              : faq.tab === "product";
 
       const q = searchQuery.toLowerCase();
       const matchesSearch =
@@ -229,11 +229,10 @@ export default function AdminFaqsView() {
         <button
           type="button"
           onClick={() => setActiveTab("global")}
-          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${
-            activeTab === "global"
+          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${activeTab === "global"
               ? "text-[#2d5c3e]"
               : "text-[#aaa6a0] hover:text-[#1a1a1a]"
-          }`}
+            }`}
         >
           Global FAQs
           {activeTab === "global" && (
@@ -244,11 +243,10 @@ export default function AdminFaqsView() {
         <button
           type="button"
           onClick={() => setActiveTab("artwork")}
-          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${
-            activeTab === "artwork"
+          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${activeTab === "artwork"
               ? "text-[#2d5c3e]"
               : "text-[#aaa6a0] hover:text-[#1a1a1a]"
-          }`}
+            }`}
         >
           Artwork Guidelines
           {activeTab === "artwork" && (
@@ -259,11 +257,10 @@ export default function AdminFaqsView() {
         <button
           type="button"
           onClick={() => setActiveTab("category")}
-          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${
-            activeTab === "category"
+          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${activeTab === "category"
               ? "text-[#2d5c3e]"
               : "text-[#aaa6a0] hover:text-[#1a1a1a]"
-          }`}
+            }`}
         >
           By Category
           {activeTab === "category" && (
@@ -274,11 +271,10 @@ export default function AdminFaqsView() {
         <button
           type="button"
           onClick={() => setActiveTab("product")}
-          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${
-            activeTab === "product"
+          className={`ptab relative px-0.5 py-2 text-[12px] font-semibold cursor-pointer transition-colors whitespace-nowrap inline-flex items-center gap-1.5 ${activeTab === "product"
               ? "text-[#2d5c3e]"
               : "text-[#aaa6a0] hover:text-[#1a1a1a]"
-          }`}
+            }`}
         >
           By Product
           {activeTab === "product" && (
@@ -320,10 +316,10 @@ export default function AdminFaqsView() {
                     {activeTab === "global"
                       ? "Global FAQs"
                       : activeTab === "artwork"
-                      ? "Artwork Guidelines"
-                      : activeTab === "category"
-                      ? "Category Specific FAQs"
-                      : "Product Specific FAQs"}
+                        ? "Artwork Guidelines"
+                        : activeTab === "category"
+                          ? "Category Specific FAQs"
+                          : "Product Specific FAQs"}
                   </div>
                 </div>
               </div>

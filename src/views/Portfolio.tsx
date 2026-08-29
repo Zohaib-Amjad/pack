@@ -16,7 +16,7 @@ type PortfolioProps = {
 };
 
 const Portfolio = ({ cms: initialCms }: PortfolioProps = {}) => {
-  const { data } = useCmsPortfolio(initialCms);
+  const { data } = useCmsPortfolio();
   const cms = data || initialCms || DEFAULT_CMS_PORTFOLIO;
   const filterKey = Array.isArray(cms.filterLabels) ? cms.filterLabels.join("|") : "";
   const categories = useMemo(() => {

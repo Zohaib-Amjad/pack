@@ -1,8 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAllLibraryItems } from "@/lib/library-service";
+import { useCmsLibrary } from "@/hooks/useCms";
+import { DEFAULT_CMS_LIBRARY } from "@/data/cms-defaults";
+import type { CmsLibrary } from "@/types/cms";
 
 interface MaterialItem {
   title: string;
@@ -499,10 +504,87 @@ const TABS = [
   { id: "bag-handles", label: "Bag Handles", data: BAG_HANDLES_DATA },
 ];
 
-export default function Library() {
+export default function Library({ initialCms }: { initialCms?: CmsLibrary } = {}) {
+  const { data: cms = initialCms || DEFAULT_CMS_LIBRARY } = useCmsLibrary();
+  const hero = cms?.hero || DEFAULT_CMS_LIBRARY.hero;
   const [activeTab, setActiveTab] = useState("materials");
 
-  const currentTabData = TABS.find((t) => t.id === activeTab)?.data || MATERIALS_DATA;
+  const { data: dbItems = [] } = useQuery({
+    queryKey: ["public", "library-items"],
+    queryFn: async () => {
+      try {
+        const all = await fetchAllLibraryItems();
+        return all.filter((item: any) => item.is_published !== false);
+      } catch {
+        return [];
+      }
+    },
+    staleTime: 0,
+    refetchOnMount: true,
+  });
+
+  const tabsWithDb = useMemo(() => {
+    return TABS.map((tab) => {
+      const tabKey = tab.id.toLowerCase();
+      const matchingDbItems = dbItems.filter((item: any) => {
+        const rawTab = (item.tab || "Materials").toLowerCase().replace(/[^a-z0-9]/g, "-");
+        return rawTab === tabKey || (tabKey === "materials" && !item.tab);
+      });
+
+      if (matchingDbItems.length === 0) return tab;
+
+      const sectionMap = new Map<string, MaterialItem[]>();
+      const sectionMeta = new Map<string, string>();
+
+      matchingDbItems.forEach((item: any) => {
+        const secTitle = item.section_name || item.category || "General";
+        if (!sectionMap.has(secTitle)) {
+          sectionMap.set(secTitle, []);
+        }
+        if (item.section_subtitle) {
+          sectionMeta.set(secTitle, item.section_subtitle);
+        }
+        sectionMap.get(secTitle)!.push({
+          title: item.title,
+          desc: item.description || "",
+          img: item.image || item.image_url || "/Pillow Gift Boxes.png",
+        });
+      });
+
+      const updatedSections: MaterialSection[] = tab.data.map((sec) => {
+        const customItems = sectionMap.get(sec.title);
+        if (!customItems) return sec;
+        const customTitles = new Set(customItems.map((i) => i.title.toLowerCase()));
+        const remainingDefaults = sec.items.filter((i) => !customTitles.has(i.title.toLowerCase()));
+        sectionMap.delete(sec.title);
+        return {
+          ...sec,
+          items: [...customItems, ...remainingDefaults],
+        };
+      });
+
+      sectionMap.forEach((items, title) => {
+        updatedSections.push({
+          title,
+          desc: sectionMeta.get(title) || "Custom packaging options and specifications.",
+          items,
+        });
+      });
+
+      return {
+        ...tab,
+        data: updatedSections,
+      };
+    });
+  }, [dbItems]);
+
+  const titleLead = hero.titleLead || DEFAULT_CMS_LIBRARY.hero.titleLead;
+  const titleAccent = hero.titleAccent || DEFAULT_CMS_LIBRARY.hero.titleAccent;
+  const subtitle = hero.subtitle || DEFAULT_CMS_LIBRARY.hero.subtitle;
+  const heroImg = hero.heroImageUrl || "/Group (1).png";
+  const heroAlt = hero.heroImageAlt || "HOF Pack Library";
+
+  const currentTabData = tabsWithDb.find((t) => t.id === activeTab)?.data || MATERIALS_DATA;
 
   return (
     <div className="flex-1 w-full">
@@ -522,9 +604,13 @@ export default function Library() {
                   letterSpacing: "-0.02em",
                 }}
               >
-                All you need for
-                <br />
-                <span style={{ color: "rgb(232, 115, 42)" }}>ideal packaging.</span>
+                {titleLead}
+                {titleAccent && (
+                  <>
+                    <br />
+                    <span style={{ color: "rgb(232, 115, 42)" }}>{titleAccent}</span>
+                  </>
+                )}
               </h1>
               <p
                 className="mt-5 max-w-[420px]"
@@ -536,20 +622,20 @@ export default function Library() {
                   color: "rgba(26, 26, 26, 0.72)",
                 }}
               >
-                HOF Pack offers tailored packaging solutions for various businesses globally. Our extensive industry
-                experience has helped us compile a convenient library of material options.
+                {subtitle}
               </p>
             </div>
 
             {/* Right Banner Image */}
             <div className="flex-1 flex items-center justify-center lg:justify-end self-center">
               <div className="relative w-full max-w-[600px] h-[320px] sm:h-[420px] lg:h-[520px]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt="HOF Pack Library"
+                <Image
+                  alt={heroAlt}
+                  fill
+                  unoptimized
                   className="object-contain w-full h-full"
-                  src="/Group (1).png"
-                  style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", color: "transparent" }}
+                  src={heroImg}
+                  priority
                 />
               </div>
             </div>
@@ -628,19 +714,12 @@ export default function Library() {
                       className="flex flex-col rounded-2xl border border-[#e0ddd6] bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                     >
                       <div className="relative w-full aspect-[4/3] bg-white">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           alt={item.title}
-                          loading="lazy"
+                          fill
+                          unoptimized
                           className="object-contain p-4 w-full h-full"
-                          src={item.img}
-                          style={{
-                            position: "absolute",
-                            height: "100%",
-                            width: "100%",
-                            inset: "0px",
-                            color: "transparent",
-                          }}
+                          src={item.img || "/Pillow Gift Boxes.png"}
                         />
                       </div>
                       <div className="p-4">

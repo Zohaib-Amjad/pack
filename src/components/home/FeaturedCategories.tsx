@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useCmsHome } from "@/hooks/useCms";
+import type { CmsHome } from "@/types/cms";
 
 type FeaturedCategory = {
   name: string;
@@ -131,6 +132,7 @@ const FeaturedCategories = ({ cms, categories }: FeaturedCategoriesProps) => {
                   alt={item.name}
                   loading="lazy"
                   fill
+                  unoptimized
                   className="object-cover transition-transform duration-350 group-hover:scale-105"
                   sizes="(max-width: 640px) 50vw, 25vw"
                   src={item.image}
@@ -161,6 +163,7 @@ const FeaturedCategories = ({ cms, categories }: FeaturedCategoriesProps) => {
                   alt={item.name}
                   loading="lazy"
                   fill
+                  unoptimized
                   className="object-cover transition-transform duration-350 group-hover:scale-105"
                   sizes="(max-width: 640px) 50vw, 25vw"
                   src={item.image}
@@ -191,6 +194,7 @@ const FeaturedCategories = ({ cms, categories }: FeaturedCategoriesProps) => {
                   alt={item.name}
                   loading="lazy"
                   fill
+                  unoptimized
                   className="object-cover transition-transform duration-350 group-hover:scale-105"
                   sizes="(max-width: 640px) 50vw, 25vw"
                   src={item.image}

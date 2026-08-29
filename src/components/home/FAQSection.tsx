@@ -121,32 +121,30 @@ const DEFAULT_FAQS: FAQItem[] = [
   },
 ];
 
-const FAQSection = () => {
+const FAQSection = ({ cms }: { cms?: any } = {}) => {
   const [openId, setOpenId] = useState<string | null>(null);
 
   const { data: faqs = DEFAULT_FAQS } = useQuery<FAQItem[]>({
     queryKey: ["faqs", "homepage"],
+    staleTime: 0,
+    refetchOnMount: true,
+    initialData: DEFAULT_FAQS,
     queryFn: async () => {
       try {
-        const supabase = createPublicClient();
-        const { data, error } = await supabase
-          .from("faqs" as any)
-          .select("id, question, answer, order")
-          .or("section.eq.homepage,category.eq.general")
-          .order("order", { ascending: true })
-          .limit(30);
-
-        if (error || !data || data.length === 0) return DEFAULT_FAQS;
-        return data.map((d: any) => ({
-          id: String(d.id),
-          question: d.question,
-          answer: d.answer,
-        }));
+        const { fetchHomepageFaqs } = await import("@/lib/faq-service");
+        const list = await fetchHomepageFaqs();
+        if (list && list.length > 0) {
+          return list.map((d) => ({
+            id: d.id,
+            question: d.question,
+            answer: d.answer,
+          }));
+        }
       } catch {
-        return DEFAULT_FAQS;
+        // use default
       }
+      return DEFAULT_FAQS;
     },
-    initialData: DEFAULT_FAQS,
   });
 
   const toggle = (id: string) => {

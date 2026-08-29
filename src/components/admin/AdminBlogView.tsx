@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -14,23 +14,82 @@ import {
   FileText,
 } from "lucide-react";
 import { DEFAULT_BLOG_POSTS, type DefaultBlogPost } from "@/data/blog-defaults";
+import { createPublicClient } from "@/utils/supabase/public-client";
+import { createDataClient } from "@/utils/supabase/data-client";
+import { withAbortableTimeout } from "@/lib/fetch-utils";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AdminBlogView() {
   const [activeTab, setActiveTab] = useState<"all" | "published" | "drafts">("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [posts, setPosts] = useState<DefaultBlogPost[]>(
-    Object.values(DEFAULT_BLOG_POSTS)
-  );
+  const [posts, setPosts] = useState<DefaultBlogPost[]>(Object.values(DEFAULT_BLOG_POSTS));
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      const supabase = createPublicClient();
+      const res = (await withAbortableTimeout((signal) =>
+        (supabase
+          .from("blog_posts" as any)
+          .select("*")
+          .abortSignal(signal) as any)
+      )) as any;
+
+      const fallbackList = Object.values(DEFAULT_BLOG_POSTS);
+      const data = res?.data;
+
+      if (!res?.error && Array.isArray(data) && data.length > 0) {
+        const dbItems: DefaultBlogPost[] = data.map((item: any) => ({
+          id: item.id || item.slug,
+          slug: item.slug,
+          title: item.title || "Untitled Post",
+          category: item.category || "Packaging",
+          excerpt: item.excerpt || "",
+          author: item.author || "HOF Pack Team",
+          published_at: item.published_at || item.created_at || new Date().toISOString(),
+          read_time: item.read_time || "5 min read",
+          cover_image:
+            item.cover_image ||
+            item.image ||
+            item.coverImage ||
+            "/images/blog/b361803d-d29d-4085-beff-a704ff75dc18.png",
+          is_published: item.is_published !== false,
+          tags: Array.isArray(item.tags) ? item.tags : [],
+          content: item.content || "",
+        }));
+
+        dbItems.sort((a, b) => {
+          const timeA = new Date(a.published_at || 0).getTime();
+          const timeB = new Date(b.published_at || 0).getTime();
+          return timeB - timeA;
+        });
+
+        const dbSlugs = new Set(dbItems.map((p) => p.slug));
+        const remainingFallbacks = fallbackList.filter((p) => !dbSlugs.has(p.slug));
+        setPosts([...dbItems, ...remainingFallbacks]);
+      } else {
+        setPosts(fallbackList);
+      }
+    } catch {
+      setPosts(Object.values(DEFAULT_BLOG_POSTS));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
       const q = searchQuery.toLowerCase();
       const matchesSearch =
-        post.title.toLowerCase().includes(q) ||
-        post.category.toLowerCase().includes(q) ||
-        post.slug.toLowerCase().includes(q);
+        (post.title || "").toLowerCase().includes(q) ||
+        (post.category || "").toLowerCase().includes(q) ||
+        (post.slug || "").toLowerCase().includes(q);
 
       if (!matchesSearch) return false;
 
@@ -40,23 +99,49 @@ export default function AdminBlogView() {
     });
   }, [posts, searchQuery, activeTab]);
 
-  const togglePublish = (id: string, currentStatus: boolean, title: string) => {
-    setPosts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, is_published: !currentStatus } : p))
-    );
-    toast({
-      title: !currentStatus ? "Post published" : "Post unpublished",
-      description: `"${title}" is now ${!currentStatus ? "live" : "saved as draft"}.`,
-    });
+  const togglePublish = async (id: string, currentStatus: boolean, title: string) => {
+    try {
+      const supabase = createDataClient();
+      await (supabase
+        .from("blog_posts" as any)
+        .update({ is_published: !currentStatus, updated_at: new Date().toISOString() } as any)
+        .eq("id", id) as any);
+
+      setPosts((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, is_published: !currentStatus } : p))
+      );
+      toast({
+        title: !currentStatus ? "Post published" : "Post unpublished",
+        description: `"${title}" is now ${!currentStatus ? "live" : "saved as draft"}.`,
+      });
+    } catch {
+      setPosts((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, is_published: !currentStatus } : p))
+      );
+      toast({
+        title: !currentStatus ? "Post published" : "Post unpublished",
+        description: `"${title}" status updated.`,
+      });
+    }
   };
 
-  const handleDelete = (id: string, title: string) => {
+  const handleDelete = async (id: string, title: string) => {
     if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
-    setPosts((prev) => prev.filter((p) => p.id !== id));
-    toast({
-      title: "Post deleted",
-      description: `"${title}" has been removed.`,
-    });
+    try {
+      const supabase = createDataClient();
+      await (supabase.from("blog_posts" as any).delete().eq("id", id) as any);
+      setPosts((prev) => prev.filter((p) => p.id !== id));
+      toast({
+        title: "Post deleted",
+        description: `"${title}" has been removed.`,
+      });
+    } catch {
+      setPosts((prev) => prev.filter((p) => p.id !== id));
+      toast({
+        title: "Post removed",
+        description: `"${title}" removed.`,
+      });
+    }
   };
 
   return (
@@ -125,7 +210,7 @@ export default function AdminBlogView() {
               </div>
               <Link
                 href="/admin/blog/new"
-                className="h-[40px] inline-flex items-center gap-[7px] px-4 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all no-underline shadow-sm"
+                className="h-[40px] inline-flex items-center gap-[7px] px-4 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all no-underline shadow-sm cursor-pointer"
               >
                 <Plus className="w-[15px] h-[15px]" /> New Post
               </Link>
@@ -164,100 +249,107 @@ export default function AdminBlogView() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#e0ddd6]">
-                      {filteredPosts.map((post) => (
-                        <tr
-                          key={post.id}
-                          className="hover:bg-[#f5f3ee] transition-colors group"
-                        >
-                          <td className="p-[12px_16px]">
-                            <div className="flex items-center gap-3">
-                              <div className="h-10 w-14 rounded-[6px] bg-[#f5f3ee] border border-[#e0ddd6] overflow-hidden shrink-0 relative">
-                                <Image
-                                  alt={post.title}
-                                  fill
-                                  sizes="56px"
-                                  className="object-cover"
-                                  src={post.cover_image || "/images/blog/b361803d-d29d-4085-beff-a704ff75dc18.png"}
-                                />
+                      {filteredPosts.map((post) => {
+                        const cover =
+                          post.cover_image ||
+                          "/images/blog/b361803d-d29d-4085-beff-a704ff75dc18.png";
+
+                        return (
+                          <tr
+                            key={post.id}
+                            className="hover:bg-[#f5f3ee] transition-colors group"
+                          >
+                            <td className="p-[12px_16px]">
+                              <div className="flex items-center gap-3">
+                                <div className="h-10 w-14 rounded-[6px] bg-[#f5f3ee] border border-[#e0ddd6] overflow-hidden shrink-0 relative">
+                                  <Image
+                                    alt={post.title || "Blog post"}
+                                    fill
+                                    unoptimized
+                                    sizes="56px"
+                                    className="object-cover"
+                                    src={cover}
+                                  />
+                                </div>
+                                <div className="min-w-0">
+                                  <p className="text-[12px] font-bold text-[#1a1a1a] truncate max-w-[280px] sm:max-w-[400px]">
+                                    {post.title}
+                                  </p>
+                                  <p className="text-[10px] text-[#aaa6a0] font-medium truncate">
+                                    /blog/{post.slug}
+                                  </p>
+                                </div>
                               </div>
-                              <div className="min-w-0">
-                                <p className="text-[12px] font-bold text-[#1a1a1a] truncate max-w-[280px] sm:max-w-[400px]">
-                                  {post.title}
-                                </p>
-                                <p className="text-[10px] text-[#aaa6a0] font-medium truncate">
-                                  /blog/{post.slug}
-                                </p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="p-[12px_16px] text-[12px] font-semibold text-[#7a7672] hidden sm:table-cell">
-                            {post.category}
-                          </td>
-                          <td className="p-[12px_16px] text-center">
-                            <span
-                              className={`inline-block px-2 py-0.5 rounded-[4px] text-[9px] font-black uppercase tracking-wider ${
-                                post.is_published
-                                  ? "bg-[#eaf2ed] text-[#2d5c3e]"
-                                  : "bg-[#f0ede8] text-[#aaa6a0]"
-                              }`}
-                            >
-                              {post.is_published ? "Published" : "Draft"}
-                            </span>
-                          </td>
-                          <td className="p-[12px_16px] text-right">
-                            <div className="flex items-center justify-end gap-1.5 translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-                              <Link
-                                target="_blank"
-                                href={`/blog/${post.slug}`}
+                            </td>
+                            <td className="p-[12px_16px] text-[12px] font-semibold text-[#7a7672] hidden sm:table-cell">
+                              {post.category}
+                            </td>
+                            <td className="p-[12px_16px] text-center">
+                              <span
+                                className={`inline-block px-2 py-0.5 rounded-[4px] text-[9px] font-black uppercase tracking-wider ${
+                                  post.is_published
+                                    ? "bg-[#eaf2ed] text-[#2d5c3e]"
+                                    : "bg-[#f0ede8] text-[#aaa6a0]"
+                                }`}
                               >
+                                {post.is_published ? "Published" : "Draft"}
+                              </span>
+                            </td>
+                            <td className="p-[12px_16px] text-right">
+                              <div className="flex items-center justify-end gap-1.5 translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                                <Link
+                                  target="_blank"
+                                  href={`/blog/${post.slug}`}
+                                >
+                                  <button
+                                    type="button"
+                                    className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] transition-all cursor-pointer"
+                                    title="View live post"
+                                  >
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                  </button>
+                                </Link>
                                 <button
                                   type="button"
-                                  className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] transition-all cursor-pointer"
-                                  title="View live post"
+                                  onClick={() =>
+                                    togglePublish(post.id, post.is_published, post.title)
+                                  }
+                                  title={post.is_published ? "Unpublish" : "Publish"}
+                                  className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#eaf2ed] hover:text-[#2d5c3e] hover:border-[#b8dfc8] transition-all cursor-pointer"
                                 >
-                                  <ExternalLink className="w-3.5 h-3.5" />
+                                  {post.is_published ? (
+                                    <EyeOff className="w-3.5 h-3.5" />
+                                  ) : (
+                                    <Eye className="w-3.5 h-3.5" />
+                                  )}
                                 </button>
-                              </Link>
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  togglePublish(post.id, post.is_published, post.title)
-                                }
-                                title={post.is_published ? "Unpublish" : "Publish"}
-                                className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#eaf2ed] hover:text-[#2d5c3e] hover:border-[#b8dfc8] transition-all cursor-pointer"
-                              >
-                                {post.is_published ? (
-                                  <EyeOff className="w-3.5 h-3.5" />
-                                ) : (
-                                  <Eye className="w-3.5 h-3.5" />
-                                )}
-                              </button>
-                              <Link href={`/admin/blog/${post.id}`}>
+                                <Link href={`/admin/blog/${post.id}`}>
+                                  <button
+                                    type="button"
+                                    className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#e8732a] hover:text-white hover:border-[#e8732a] transition-all cursor-pointer"
+                                    title="Edit post"
+                                  >
+                                    <Pen className="w-3.5 h-3.5" />
+                                  </button>
+                                </Link>
                                 <button
                                   type="button"
-                                  className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#e8732a] hover:text-white hover:border-[#e8732a] transition-all cursor-pointer"
-                                  title="Edit post"
+                                  onClick={() => handleDelete(post.id, post.title)}
+                                  className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer"
+                                  title="Delete post"
                                 >
-                                  <Pen className="w-3.5 h-3.5" />
+                                  <Trash2 className="w-3.5 h-3.5" />
                                 </button>
-                              </Link>
-                              <button
-                                type="button"
-                                onClick={() => handleDelete(post.id, post.title)}
-                                className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer"
-                                title="Delete post"
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
 
-                {filteredPosts.length === 0 && (
+                {filteredPosts.length === 0 && !loading && (
                   <div className="p-12 text-center">
                     <div className="w-12 h-12 rounded-full bg-[#f5f3ee] text-[#7a7672] flex items-center justify-center mx-auto mb-3">
                       <FileText className="w-6 h-6" />

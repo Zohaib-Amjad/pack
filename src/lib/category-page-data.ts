@@ -63,6 +63,24 @@ export function staticCategoryFallback(categorySlug: string): CategoryPageData |
 
   const defaults = getCategoryDetailDefaults(staticCat.slug, staticCat.name, staticCat.section);
 
+  // Check client-side overrides if available
+  let customOverrides: any = null;
+  if (typeof window !== "undefined") {
+    try {
+      const localOverrides = localStorage.getItem("hof_category_status_overrides");
+      if (localOverrides) {
+        const map = JSON.parse(localOverrides);
+        customOverrides = map[categorySlug] || map[resolvedSlug] || map[staticCat.slug];
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  if (customOverrides?.is_active === false) {
+    return null;
+  }
+
   const staticProducts = (staticCat.products || []).map((p) => ({
     id: `static-${p.slug}`,
     name: p.name,
@@ -75,38 +93,38 @@ export function staticCategoryFallback(categorySlug: string): CategoryPageData |
     staticCat.slug === "custom-cosmetic-boxes" || staticCat.slug === "cosmetic-boxes"
       ? COSMETIC_RELATED_PRODUCTS
       : staticCat.slug === "custom-jewelry-boxes" || staticCat.slug === "jewelry-boxes"
-      ? JEWELRY_RELATED_PRODUCTS
-      : staticCat.slug === "custom-retail-boxes" || staticCat.slug === "retail-boxes"
-      ? RETAIL_RELATED_PRODUCTS
-      : staticCat.slug === "custom-wax-papers" || staticCat.slug === "wax-papers"
-      ? WAX_PAPER_RELATED_PRODUCTS
-      : staticCat.slug === "custom-soap-boxes" || staticCat.slug === "soap-boxes"
-      ? SOAP_RELATED_PRODUCTS
-      : staticCat.slug === "custom-cardboard-boxes" || staticCat.slug === "cardboard-boxes"
-      ? CARDBOARD_RELATED_PRODUCTS
-      : staticCat.slug === "custom-corrugated-boxes" || staticCat.slug === "corrugated-boxes"
-      ? CORRUGATED_RELATED_PRODUCTS
-      : staticCat.slug === "custom-kraft-boxes" || staticCat.slug === "kraft-boxes"
-      ? KRAFT_RELATED_PRODUCTS
-      : staticCat.slug === "custom-mylar-bags" || staticCat.slug === "mylar-bags" || staticCat.slug === "custom-mylar-boxes"
-      ? MYLAR_RELATED_PRODUCTS
-      : staticCat.slug === "custom-rigid-boxes" || staticCat.slug === "rigid-boxes"
-      ? RIGID_RELATED_PRODUCTS
-      : staticCat.slug === "custom-labels-and-stickers" || staticCat.slug === "labels-and-stickers"
-      ? STICKERS_RELATED_PRODUCTS
-      : staticCat.slug === "custom-mailer-boxes" || staticCat.slug === "mailer-boxes"
-      ? MAILER_RELATED_PRODUCTS
-      : staticCat.slug === "custom-display-boxes" || staticCat.slug === "display-boxes"
-      ? DISPLAY_RELATED_PRODUCTS
-      : staticCat.slug === "custom-gable-boxes" || staticCat.slug === "gable-boxes"
-      ? GABLE_RELATED_PRODUCTS
-      : staticCat.slug === "custom-pillow-boxes" || staticCat.slug === "pillow-boxes"
-      ? PILLOW_RELATED_PRODUCTS
-      : staticCat.slug === "custom-tube-packaging" || staticCat.slug === "tube-packaging"
-      ? TUBE_RELATED_PRODUCTS
-      : staticCat.slug === "custom-tuck-boxes" || staticCat.slug === "tuck-boxes"
-      ? TUCK_RELATED_PRODUCTS
-      : COFFEE_RELATED_PRODUCTS;
+        ? JEWELRY_RELATED_PRODUCTS
+        : staticCat.slug === "custom-retail-boxes" || staticCat.slug === "retail-boxes"
+          ? RETAIL_RELATED_PRODUCTS
+          : staticCat.slug === "custom-wax-papers" || staticCat.slug === "wax-papers"
+            ? WAX_PAPER_RELATED_PRODUCTS
+            : staticCat.slug === "custom-soap-boxes" || staticCat.slug === "soap-boxes"
+              ? SOAP_RELATED_PRODUCTS
+              : staticCat.slug === "custom-cardboard-boxes" || staticCat.slug === "cardboard-boxes"
+                ? CARDBOARD_RELATED_PRODUCTS
+                : staticCat.slug === "custom-corrugated-boxes" || staticCat.slug === "corrugated-boxes"
+                  ? CORRUGATED_RELATED_PRODUCTS
+                  : staticCat.slug === "custom-kraft-boxes" || staticCat.slug === "kraft-boxes"
+                    ? KRAFT_RELATED_PRODUCTS
+                    : staticCat.slug === "custom-mylar-bags" || staticCat.slug === "mylar-bags" || staticCat.slug === "custom-mylar-boxes"
+                      ? MYLAR_RELATED_PRODUCTS
+                      : staticCat.slug === "custom-rigid-boxes" || staticCat.slug === "rigid-boxes"
+                        ? RIGID_RELATED_PRODUCTS
+                        : staticCat.slug === "custom-labels-and-stickers" || staticCat.slug === "labels-and-stickers"
+                          ? STICKERS_RELATED_PRODUCTS
+                          : staticCat.slug === "custom-mailer-boxes" || staticCat.slug === "mailer-boxes"
+                            ? MAILER_RELATED_PRODUCTS
+                            : staticCat.slug === "custom-display-boxes" || staticCat.slug === "display-boxes"
+                              ? DISPLAY_RELATED_PRODUCTS
+                              : staticCat.slug === "custom-gable-boxes" || staticCat.slug === "gable-boxes"
+                                ? GABLE_RELATED_PRODUCTS
+                                : staticCat.slug === "custom-pillow-boxes" || staticCat.slug === "pillow-boxes"
+                                  ? PILLOW_RELATED_PRODUCTS
+                                  : staticCat.slug === "custom-tube-packaging" || staticCat.slug === "tube-packaging"
+                                    ? TUBE_RELATED_PRODUCTS
+                                    : staticCat.slug === "custom-tuck-boxes" || staticCat.slug === "tuck-boxes"
+                                      ? TUCK_RELATED_PRODUCTS
+                                      : COFFEE_RELATED_PRODUCTS;
 
   const relatedProducts = relatedSource.map((p) => ({
     id: `related-${p.slug}`,
@@ -118,16 +136,16 @@ export function staticCategoryFallback(categorySlug: string): CategoryPageData |
   return {
     category: {
       id: defaults.id,
-      name: defaults.name,
+      name: customOverrides?.name || defaults.name,
       slug: categorySlug, // Matches the route slug requested
       canonical_slug: defaults.slug,
-      description: defaults.description,
+      description: customOverrides?.description || defaults.description,
       detail_description: null,
-      section: defaults.section,
-      image_url: defaults.image_url,
-      banner_image_url: defaults.banner_image_url,
-      hero_headline_white: defaults.hero_headline_white,
-      hero_headline_accent: defaults.hero_headline_accent,
+      section: customOverrides?.section || defaults.section,
+      image_url: customOverrides?.image || defaults.image_url,
+      banner_image_url: customOverrides?.banner_image_url || defaults.banner_image_url,
+      hero_headline_white: customOverrides?.hero_headline_white || defaults.hero_headline_white,
+      hero_headline_accent: customOverrides?.hero_headline_accent || defaults.hero_headline_accent,
       category_content: defaults.category_content,
       related_product_ids: [],
     },
@@ -232,28 +250,28 @@ export async function fetchCategoryPageData(
             .abortSignal(signal) as any),
           manualRelatedIds.length > 0
             ? (supabase
-                .from("products" as any)
-                .select("id, name, slug, images, category_id")
-                .in("id", manualRelatedIds)
-                .eq("is_active", true)
-                .abortSignal(signal) as any)
+              .from("products" as any)
+              .select("id, name, slug, images, category_id")
+              .in("id", manualRelatedIds)
+              .eq("is_active", true)
+              .abortSignal(signal) as any)
             : isRigidBoxesPage
               ? (supabase
-                  .from("products" as any)
-                  .select("id, name, slug, images, category_id")
-                  .eq("category_id", catData.id)
-                  .eq("is_active", true)
-                  .order("created_at", { ascending: false })
-                  .limit(RELATED_PRODUCTS_LIMIT)
-                  .abortSignal(signal) as any)
+                .from("products" as any)
+                .select("id, name, slug, images, category_id")
+                .eq("category_id", catData.id)
+                .eq("is_active", true)
+                .order("created_at", { ascending: false })
+                .limit(RELATED_PRODUCTS_LIMIT)
+                .abortSignal(signal) as any)
               : (supabase
-                  .from("products" as any)
-                  .select("id, name, slug, images, category_id")
-                  .neq("category_id", catData.id)
-                  .eq("is_active", true)
-                  .order("created_at", { ascending: false })
-                  .limit(RELATED_PRODUCTS_LIMIT)
-                  .abortSignal(signal) as any),
+                .from("products" as any)
+                .select("id, name, slug, images, category_id")
+                .neq("category_id", catData.id)
+                .eq("is_active", true)
+                .order("created_at", { ascending: false })
+                .limit(RELATED_PRODUCTS_LIMIT)
+                .abortSignal(signal) as any),
         ]),
       3_000
     );

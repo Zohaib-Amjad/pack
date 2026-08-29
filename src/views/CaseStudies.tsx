@@ -29,26 +29,45 @@ export default function CaseStudies() {
     queryFn: async () => {
       try {
         const supabase = createPublicClient();
-        const { data, error } = await withAbortableTimeout((signal) =>
+        const res = await withAbortableTimeout((signal) =>
           (supabase as any)
             .from("case_studies")
-            .select("id, title, slug, excerpt, cover_image, author, category, tags, published_at, read_time, content")
-            .eq("is_published", true)
-            .order("published_at", { ascending: false })
+            .select("*")
             .abortSignal(signal)
         );
-        if (!error && data && (data as any[]).length > 0) return data as any[];
+        const data = (res as any)?.data;
+        if (!(res as any)?.error && Array.isArray(data) && data.length > 0) {
+          const publishedOnly = data.filter((item: any) => item.is_published !== false);
+          const dbItems = publishedOnly.map((item: any) => ({
+            ...item,
+            cover_image: item.cover_image || item.image || item.coverImage || "/images/case-studies/luxe-candle-co-rigid-boxes.jpg",
+          }));
+
+          dbItems.sort((a, b) => {
+            const timeA = new Date(a.published_at || a.created_at || 0).getTime();
+            const timeB = new Date(b.published_at || b.created_at || 0).getTime();
+            return timeB - timeA;
+          });
+
+          const dbSlugs = new Set(dbItems.map((c: any) => c.slug));
+          const nonDuplicateFallbacks = fallbackPosts.filter((c: any) => !dbSlugs.has(c.slug));
+          return [...dbItems, ...nonDuplicateFallbacks];
+        }
       } catch {
         // fallback
       }
       return fallbackPosts;
     },
     initialData: fallbackPosts,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
   const categories = ["All", ...Array.from(new Set(posts.map((p: any) => p.category).filter(Boolean)))];
-  const filtered = activeCategory === "All" ? posts : posts.filter((p: any) => p.category === activeCategory);
+  const filtered =
+    activeCategory === "All"
+      ? posts
+      : posts.filter((p: any) => (p.category || "").toLowerCase() === activeCategory.toLowerCase());
   const [featured, ...rest] = filtered;
 
   return (
@@ -91,8 +110,8 @@ export default function CaseStudies() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`shrink-0 px-5 py-2 rounded-full font-sans text-[12px] font-medium transition-all duration-200 ${
-                  activeCategory === cat
+                className={`shrink-0 px-5 py-2 rounded-full font-sans text-[12px] font-medium transition-all duration-200 cursor-pointer ${
+                  activeCategory.toLowerCase() === cat.toLowerCase()
                     ? "bg-primary text-white shadow-sm"
                     : "bg-card border border-border text-muted-foreground hover:border-primary/30 hover:text-foreground"
                 }`}
@@ -126,12 +145,13 @@ export default function CaseStudies() {
               {featured && (
                 <Link href={`/case-studies/${featured.slug}`} className="group block mb-12 no-underline">
                   <div className="grid lg:grid-cols-[1fr_480px] rounded-3xl overflow-hidden border border-border bg-card hover:border-accent/20 hover:shadow-2xl transition-all duration-500">
-                    <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden order-1 lg:order-2">
+                    <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden order-1 lg:order-2 min-h-[280px]">
                       {featured.cover_image ? (
                         <Image
                           src={featured.cover_image}
                           alt={featured.title}
                           fill
+                          unoptimized
                           className="object-cover group-hover:scale-[1.03] transition-transform duration-700"
                           priority
                         />
@@ -142,7 +162,7 @@ export default function CaseStudies() {
                       )}
                       <div className="absolute top-5 left-5">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm font-sans text-[10px] font-bold uppercase tracking-wider text-primary shadow-sm">
-                          <Tag size={9} /> {featured.category || "Packaging"}
+                          <Tag size={9} /> {featured.category || "Case Study"}
                         </span>
                       </div>
                     </div>
@@ -196,6 +216,7 @@ export default function CaseStudies() {
                                 src={post.cover_image}
                                 alt={post.title}
                                 fill
+                                unoptimized
                                 className="object-cover group-hover:scale-[1.04] transition-transform duration-500"
                               />
                             ) : (
@@ -226,10 +247,9 @@ export default function CaseStudies() {
                                 </span>
                                 <span className="flex items-center gap-1">
                                   <Clock size={10} />
-                                  {post.read_time || `${readingTime(post.content || "")} min`}
+                                  {post.read_time || `${readingTime(post.content || "")} min read`}
                                 </span>
                               </div>
-                              <ArrowRight size={14} className="text-accent -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
                             </div>
                           </div>
                         </article>

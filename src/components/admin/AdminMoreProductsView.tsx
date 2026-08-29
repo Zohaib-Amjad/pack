@@ -301,7 +301,7 @@ export default function AdminMoreProductsView() {
                     const isSelected = selectedList.includes(p.name);
                     return (
                       <div
-                        key={p.id || p.slug || p.name}
+                        key={(p as any).id || p.slug || p.name}
                         className="px-5 py-3.5 flex items-center justify-between hover:bg-[#faf8f5] transition-colors"
                       >
                         <span className="text-[13px] font-semibold text-[#1a1a1a]">

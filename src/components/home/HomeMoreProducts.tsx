@@ -112,7 +112,7 @@ export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
       selectedIds.forEach((query) => {
         const q = query.toLowerCase().trim();
         const found = allCatalogProducts.find(
-          (p) =>
+          (p: any) =>
             p.name.toLowerCase() === q ||
             p.slug.toLowerCase() === q ||
             p.id?.toLowerCase() === q ||
@@ -122,10 +122,10 @@ export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
         if (found && !used.has(found.slug)) {
           used.add(found.slug);
           list.push({
-            id: found.id || found.slug,
+            id: (found as any).id || found.slug,
             name: found.name,
             slug: found.slug,
-            images: found.image ? [found.image] : [],
+            images: (found as any).image ? [(found as any).image] : [],
           });
         }
       });

@@ -319,6 +319,17 @@ export type CmsProcess = {
   };
 };
 
+export type CmsAboutHero = CmsAbout["hero"];
+export type CmsAboutMission = CmsAbout["mission"];
+export type CmsAboutTimeline = CmsAbout["timeline"];
+export type CmsAboutManufacturing = CmsAbout["manufacturing"];
+export type CmsAboutValues = CmsAbout["values"];
+export type CmsAboutCertifications = CmsAbout["certifications"];
+
+export type CmsProcessHero = CmsProcess["hero"];
+export type CmsProcessPromise = CmsProcess["promise"];
+export type CmsPortfolioHeader = CmsPortfolio["header"];
+
 export type CmsPortfolio = {
   header: {
     sectionLabel: string;

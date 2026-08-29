@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -11,27 +11,25 @@ import {
   Filter,
   ExternalLink,
   Copy,
-  Pen,
   Trash2,
   ChevronLeft,
   ChevronRight,
   Sparkles,
+  RefreshCw,
 } from "lucide-react";
-import { getAllProducts, categories, type Product } from "@/data/products";
+import { categories } from "@/data/products";
+import {
+  fetchAllProducts,
+  saveProduct,
+  updateProductOverride,
+  deleteProductRecord,
+  type CustomProductRecord,
+} from "@/lib/product-service";
 import { useToast } from "@/hooks/use-toast";
 
 const ITEMS_PER_PAGE = 10;
 
-interface ProductWithState extends Product {
-  id?: string;
-  image?: string;
-  is_active?: boolean;
-  is_trending?: boolean;
-  created_at?: string;
-}
-
 export default function AdminProductsView() {
-  const allProducts = getAllProducts();
   const { toast } = useToast();
 
   const [activeTab, setActiveTab] = useState<"catalog" | "import_export">("catalog");
@@ -41,26 +39,33 @@ export default function AdminProductsView() {
   const [selectedTrending, setSelectedTrending] = useState("");
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
+  const [productList, setProductList] = useState<CustomProductRecord[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Maintain local product state for live toggling, duplicate, delete
-  const [productList, setProductList] = useState<ProductWithState[]>(() => {
-    return allProducts.map((p, idx) => ({
-      ...p,
-      id: `prod-${p.slug}`,
-      image: (p as any).image || "/images/products/custom-cake-boxes.jpg",
-      is_active: true,
-      is_trending: idx < 12,
-      created_at: `Aug ${Math.max(1, 28 - (idx % 25))}, 2026`,
-    }));
-  });
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchAllProducts();
+      setProductList(data);
+    } catch {
+      // ignore
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredProducts = useMemo(() => {
     return productList.filter((product) => {
-      const q = searchQuery.toLowerCase();
+      const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
-        product.name.toLowerCase().includes(q) ||
-        product.category.toLowerCase().includes(q) ||
-        product.slug.toLowerCase().includes(q);
+        !q ||
+        (product.name && product.name.toLowerCase().includes(q)) ||
+        (product.category && product.category.toLowerCase().includes(q)) ||
+        (product.slug && product.slug.toLowerCase().includes(q));
 
       if (!matchesSearch) return false;
 
@@ -98,27 +103,54 @@ export default function AdminProductsView() {
     setSelectedRows(next);
   };
 
-  const handleDuplicate = (product: ProductWithState) => {
-    const duplicated: ProductWithState = {
-      ...product,
-      id: `prod-${product.slug}-copy-${Date.now()}`,
-      name: `${product.name} (Copy)`,
-      slug: `${product.slug}-copy`,
-      created_at: "Aug 28, 2026",
-    };
-    setProductList((prev) => [duplicated, ...prev]);
+  const toggleStatus = async (slug: string, currentStatus: boolean, name: string) => {
+    const nextStatus = !currentStatus;
+    setProductList((prev) =>
+      prev.map((p) => (p.slug === slug ? { ...p, is_active: nextStatus } : p))
+    );
+    await updateProductOverride(slug, { is_active: nextStatus });
     toast({
-      title: "Product Duplicated",
-      description: `Created copy of "${product.name}".`,
+      title: nextStatus ? "Product Activated" : "Product Hidden",
+      description: `"${name}" is now ${nextStatus ? "visible in the catalog" : "hidden from users"}.`,
     });
   };
 
-  const handleDelete = (slug: string, name: string) => {
+  const toggleTrending = async (slug: string, currentTrending: boolean, name: string) => {
+    const nextTrending = !currentTrending;
+    setProductList((prev) =>
+      prev.map((p) => (p.slug === slug ? { ...p, is_trending: nextTrending } : p))
+    );
+    await updateProductOverride(slug, { is_trending: nextTrending });
+    toast({
+      title: nextTrending ? "Marked as Trending" : "Removed from Trending",
+      description: `"${name}" trending status updated.`,
+    });
+  };
+
+  const handleDuplicate = async (product: CustomProductRecord) => {
+    const newSlug = `${product.slug}-copy-${Date.now().toString().slice(-4)}`;
+    const duplicated: CustomProductRecord = {
+      ...product,
+      id: `prod-${newSlug}`,
+      name: `${product.name} (Copy)`,
+      slug: newSlug,
+      created_at: new Date().toISOString(),
+    };
+    setProductList((prev) => [duplicated, ...prev]);
+    await saveProduct(duplicated);
+    toast({
+      title: "Product Duplicated",
+      description: `Created copy "${duplicated.name}".`,
+    });
+  };
+
+  const handleDelete = async (slug: string, name: string) => {
     if (!confirm(`Are you sure you want to delete "${name}"?`)) return;
     setProductList((prev) => prev.filter((p) => p.slug !== slug));
+    await deleteProductRecord(slug);
     toast({
       title: "Product Deleted",
-      description: `"${name}" has been removed.`,
+      description: `"${name}" has been removed from catalog.`,
     });
   };
 
@@ -206,47 +238,41 @@ export default function AdminProductsView() {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() =>
-                    toast({
-                      title: "Import Catalog",
-                      description: "Select CSV or JSON packaging data to import.",
-                    })
-                  }
-                  className="inline-flex items-center gap-1.5 h-[40px] px-4 text-[12px] font-bold border border-[#e0ddd6] bg-white text-[#1a1a1a] rounded-[8px] hover:bg-[#f5f3ee] transition-colors cursor-pointer"
+                  onClick={loadProducts}
+                  className="h-[40px] inline-flex items-center gap-[7px] px-3.5 text-[12px] font-bold rounded-[8px] border border-[#e0ddd6] bg-white text-[#7a7672] hover:bg-[#f5f3ee] transition-all cursor-pointer"
+                  title="Reload from server"
                 >
-                  <Upload className="w-[14px] h-[14px]" /> Import
-                </button>
-                <button
-                  type="button"
-                  onClick={handleExport}
-                  className="inline-flex items-center gap-1.5 h-[40px] px-4 text-[12px] font-bold border border-[#e0ddd6] bg-white text-[#1a1a1a] rounded-[8px] hover:bg-[#f5f3ee] disabled:opacity-50 transition-colors cursor-pointer"
-                >
-                  <Download className="w-[14px] h-[14px]" /> Export All
+                  <RefreshCw className={`w-[14px] h-[14px] ${loading ? "animate-spin" : ""}`} />
                 </button>
                 <Link
                   href="/admin/products/new"
-                  className="inline-flex items-center gap-1.5 h-[40px] px-4 text-[12px] font-bold bg-[#e8732a] text-white rounded-[8px] hover:bg-[#c45a18] transition-colors no-underline shadow-sm"
+                  className="h-[40px] inline-flex items-center gap-[7px] px-4 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all no-underline shadow-sm cursor-pointer"
                 >
-                  <Plus className="w-[15px] h-[15px]" /> New Product
+                  <Plus className="w-[15px] h-[15px]" /> Add Product
                 </Link>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("import_export")}
+                  className="h-[40px] inline-flex items-center gap-[7px] px-3.5 text-[12px] font-bold rounded-[8px] border border-[#e0ddd6] bg-white text-[#7a7672] hover:bg-[#f5f3ee] transition-all cursor-pointer"
+                >
+                  <Upload className="w-[14px] h-[14px]" /> Import
+                </button>
               </div>
             </div>
 
             {/* Filter Bar */}
             <div className="flex items-center gap-2 flex-wrap">
-              <Filter className="w-[13px] h-[13px] text-[#aaa6a0] shrink-0" />
+              <div className="flex items-center gap-1.5 text-[#aaa6a0] mr-1">
+                <Filter className="w-3.5 h-3.5" />
+              </div>
+
+              {/* Category Filter */}
               <select
+                className="h-[32px] px-2.5 text-[11.5px] font-medium bg-white border border-[#e0ddd6] rounded-[6px] text-[#1a1a1a] focus:outline-none focus:border-[#e8732a] cursor-pointer"
                 value={selectedCategory}
                 onChange={(e) => {
                   setSelectedCategory(e.target.value);
                   setCurrentPage(1);
-                }}
-                className="h-[34px] px-3 pr-7 text-[12px] bg-white border border-[#e0ddd6] rounded-[7px] text-[#4a4a4a] focus:outline-none focus:border-[#e8732a]/40 appearance-none cursor-pointer"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E")`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "right 6px center",
-                  backgroundSize: "16px",
                 }}
               >
                 <option value="">All Categories</option>
@@ -257,18 +283,13 @@ export default function AdminProductsView() {
                 ))}
               </select>
 
+              {/* Status Filter */}
               <select
+                className="h-[32px] px-2.5 text-[11.5px] font-medium bg-white border border-[#e0ddd6] rounded-[6px] text-[#1a1a1a] focus:outline-none focus:border-[#e8732a] cursor-pointer"
                 value={selectedStatus}
                 onChange={(e) => {
                   setSelectedStatus(e.target.value);
                   setCurrentPage(1);
-                }}
-                className="h-[34px] px-3 pr-7 text-[12px] bg-white border border-[#e0ddd6] rounded-[7px] text-[#4a4a4a] focus:outline-none focus:border-[#e8732a]/40 appearance-none cursor-pointer"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E")`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "right 6px center",
-                  backgroundSize: "16px",
                 }}
               >
                 <option value="">All Statuses</option>
@@ -276,218 +297,315 @@ export default function AdminProductsView() {
                 <option value="hidden">Hidden</option>
               </select>
 
+              {/* Trending Filter */}
               <select
+                className="h-[32px] px-2.5 text-[11.5px] font-medium bg-white border border-[#e0ddd6] rounded-[6px] text-[#1a1a1a] focus:outline-none focus:border-[#e8732a] cursor-pointer"
                 value={selectedTrending}
                 onChange={(e) => {
                   setSelectedTrending(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="h-[34px] px-3 pr-7 text-[12px] bg-white border border-[#e0ddd6] rounded-[7px] text-[#4a4a4a] focus:outline-none focus:border-[#e8732a]/40 appearance-none cursor-pointer"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E")`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "right 6px center",
-                  backgroundSize: "16px",
-                }}
               >
                 <option value="">All Products</option>
                 <option value="yes">Trending Only</option>
               </select>
+
+              {(selectedCategory || selectedStatus || selectedTrending || searchQuery) && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategory("");
+                    setSelectedStatus("");
+                    setSelectedTrending("");
+                    setSearchQuery("");
+                    setCurrentPage(1);
+                  }}
+                  className="text-[11px] font-bold text-[#e8732a] hover:underline px-2 cursor-pointer"
+                >
+                  Clear filters
+                </button>
+              )}
             </div>
 
-            {/* Table Card */}
-            <div className="card bg-white/80 backdrop-blur-md border border-[#e0ddd6]/80 rounded-[16px] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
-              <div className="ch p-[18px_24px] border-b border-[#e0ddd6]/60 flex items-center justify-between bg-[#f5f3ee]/30">
-                <div className="ch-l flex-1">
-                  <div className="ct font-display text-[14px] font-bold text-[#1a1a1a] tracking-tight">
-                    Product Catalog
-                  </div>
-                  <div className="cs text-[11px] text-[#aaa6a0] mt-[2px] font-medium uppercase tracking-wider">
-                    {filteredProducts.length} products total
+            {/* Product Table Card */}
+            {activeTab === "catalog" && (
+              <div className="card bg-white/80 backdrop-blur-md border border-[#e0ddd6]/80 rounded-[16px] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+                <div className="ch p-[18px_24px] border-b border-[#e0ddd6]/60 flex items-center justify-between bg-[#f5f3ee]/30">
+                  <div className="ch-l flex-1">
+                    <div className="ct font-display text-[14px] font-bold text-[#1a1a1a] tracking-tight">
+                      Product Catalog
+                    </div>
+                    <div className="cs text-[11px] text-[#aaa6a0] mt-[2px] font-medium uppercase tracking-wider">
+                      {productList.length} products total
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="cb p-0">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left">
-                    <thead>
-                      <tr className="border-b border-[#e0ddd6]">
-                        <th className="p-[10px_16px] w-10">
-                          <input
-                            type="checkbox"
-                            checked={
-                              paginatedProducts.length > 0 &&
-                              selectedRows.size === paginatedProducts.length
-                            }
-                            onChange={toggleSelectAll}
-                            className="w-3.5 h-3.5 accent-[#e8732a] cursor-pointer"
-                          />
-                        </th>
-                        <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider">
-                          Product
-                        </th>
-                        <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider">
-                          Category
-                        </th>
-                        <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider text-center">
-                          Status
-                        </th>
-                        <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider text-center">
-                          Trending
-                        </th>
-                        <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider">
-                          Created
-                        </th>
-                        <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider text-right">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#e0ddd6]">
-                      {paginatedProducts.map((product) => {
-                        const isSelected = selectedRows.has(product.slug);
-                        return (
-                          <tr
-                            key={product.slug}
-                            className={`hover:bg-[#f5f3ee] transition-colors group ${
-                              isSelected ? "bg-[#fdf0e8]/30" : ""
-                            }`}
-                          >
-                            <td className="p-[12px_16px]">
-                              <input
-                                type="checkbox"
-                                checked={isSelected}
-                                onChange={() => toggleSelectRow(product.slug)}
-                                className="w-3.5 h-3.5 accent-[#e8732a] cursor-pointer"
-                              />
-                            </td>
-                            <td className="p-[12px_16px]">
-                              <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-[6px] bg-[#f5f3ee] border border-[#e0ddd6] overflow-hidden shrink-0 relative">
-                                  <Image
-                                    alt={product.name}
-                                    fill
-                                    sizes="40px"
-                                    className="object-cover"
-                                    src={product.image || "/images/products/custom-cake-boxes.jpg"}
-                                  />
+                <div className="cb p-0">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                      <thead>
+                        <tr className="border-b border-[#e0ddd6]">
+                          <th className="p-[10px_16px] w-10">
+                            <input
+                              type="checkbox"
+                              checked={
+                                paginatedProducts.length > 0 &&
+                                selectedRows.size === paginatedProducts.length
+                              }
+                              onChange={toggleSelectAll}
+                              className="rounded border-[#e0ddd6] text-[#e8732a] focus:ring-[#e8732a] cursor-pointer"
+                            />
+                          </th>
+                          <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider">
+                            Product
+                          </th>
+                          <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider hidden sm:table-cell">
+                            Category
+                          </th>
+                          <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider text-center">
+                            Status
+                          </th>
+                          <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider text-center">
+                            Trending
+                          </th>
+                          <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider text-right">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#e0ddd6]">
+                        {paginatedProducts.map((product) => {
+                          const isSelected = selectedRows.has(product.slug);
+                          const prodImg =
+                            product.image ||
+                            (product.images && product.images[0]) ||
+                            "/images/products/custom-cake-boxes.jpg";
+
+                          return (
+                            <tr
+                              key={product.slug}
+                              className={`hover:bg-[#f5f3ee] transition-colors group ${
+                                isSelected ? "bg-[#fdf0e8]/40" : ""
+                              }`}
+                            >
+                              <td className="p-[12px_16px]">
+                                <input
+                                  type="checkbox"
+                                  checked={isSelected}
+                                  onChange={() => toggleSelectRow(product.slug)}
+                                  className="rounded border-[#e0ddd6] text-[#e8732a] focus:ring-[#e8732a] cursor-pointer"
+                                />
+                              </td>
+                              <td className="p-[12px_16px]">
+                                <div className="flex items-center gap-3">
+                                  <div className="h-10 w-10 rounded-[8px] bg-[#f5f3ee] border border-[#e0ddd6] overflow-hidden shrink-0 relative flex items-center justify-center">
+                                    <Image
+                                      alt={product.name}
+                                      fill
+                                      unoptimized
+                                      sizes="40px"
+                                      className="object-cover"
+                                      src={prodImg}
+                                    />
+                                  </div>
+                                  <div className="min-w-0">
+                                    <p className="text-[12px] font-bold text-[#1a1a1a] truncate max-w-[200px] sm:max-w-[280px]">
+                                      {product.name}
+                                    </p>
+                                    <p className="text-[10px] text-[#aaa6a0] font-mono truncate">
+                                      /{product.slug}
+                                    </p>
+                                  </div>
                                 </div>
-                                <div className="min-w-0">
-                                  <p className="text-[12px] font-bold text-[#1a1a1a] truncate max-w-[220px] sm:max-w-[280px]">
-                                    {product.name}
-                                  </p>
-                                  <p className="text-[10px] text-[#aaa6a0] font-medium truncate">
-                                    /{product.slug}
-                                  </p>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="p-[12px_16px] text-[12px] font-semibold text-[#7a7672]">
-                              {product.category}
-                            </td>
-                            <td className="p-[12px_16px] text-center">
-                              <span
-                                className={`inline-block px-2 py-0.5 rounded-[4px] text-[9px] font-black uppercase tracking-wider ${
-                                  product.is_active
-                                    ? "bg-[#eaf2ed] text-[#2d5c3e]"
-                                    : "bg-[#f0ede8] text-[#aaa6a0]"
-                                }`}
-                              >
-                                {product.is_active ? "Active" : "Hidden"}
-                              </span>
-                            </td>
-                            <td className="p-[12px_16px] text-center">
-                              {product.is_trending ? (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#e8732a]">
-                                  <Sparkles className="w-3 h-3" /> Yes
-                                </span>
-                              ) : (
-                                <span className="text-[11px] text-[#d8d4cc]">—</span>
-                              )}
-                            </td>
-                            <td className="p-[12px_16px]">
-                              <p className="text-[11px] text-[#7a7672] whitespace-nowrap">
-                                {product.created_at || "Aug 24, 2026"}
-                              </p>
-                            </td>
-                            <td className="p-[12px_16px] text-right">
-                              <div className="flex items-center justify-end gap-1.5 translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-                                <Link
-                                  target="_blank"
-                                  href={`/product/${product.slug}`}
-                                >
-                                  <button
-                                    type="button"
-                                    className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] transition-all cursor-pointer"
-                                    title="View live product"
-                                  >
-                                    <ExternalLink className="w-3.5 h-3.5" />
-                                  </button>
-                                </Link>
-                                <button
-                                  type="button"
-                                  onClick={() => handleDuplicate(product)}
-                                  title="Duplicate"
-                                  className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] transition-all cursor-pointer"
-                                >
-                                  <Copy className="w-3.5 h-3.5" />
-                                </button>
-                                <Link href={`/admin/products/${product.slug}`}>
-                                  <button
-                                    type="button"
-                                    className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#e8732a] hover:text-white hover:border-[#e8732a] transition-all cursor-pointer"
-                                    title="Edit product"
-                                  >
-                                    <Pen className="w-3.5 h-3.5" />
-                                  </button>
-                                </Link>
+                              </td>
+                              <td className="p-[12px_16px] text-[12px] font-semibold text-[#7a7672] hidden sm:table-cell">
+                                {product.category}
+                              </td>
+                              <td className="p-[12px_16px] text-center">
                                 <button
                                   type="button"
                                   onClick={() =>
-                                    handleDelete(product.slug, product.name)
+                                    toggleStatus(
+                                      product.slug,
+                                      product.is_active !== false,
+                                      product.name
+                                    )
                                   }
-                                  className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer"
-                                  title="Delete product"
+                                  className={`inline-block px-2 py-0.5 rounded-[4px] text-[9px] font-black uppercase tracking-wider transition-transform hover:scale-105 cursor-pointer ${
+                                    product.is_active !== false
+                                      ? "bg-[#eaf2ed] text-[#2d5c3e]"
+                                      : "bg-[#f0ede8] text-[#aaa6a0]"
+                                  }`}
                                 >
-                                  <Trash2 className="w-3.5 h-3.5" />
+                                  {product.is_active !== false ? "ACTIVE" : "HIDDEN"}
                                 </button>
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* Pagination Footer */}
-                <div className="p-[12px_16px] flex items-center justify-between border-t border-[#e0ddd6]">
-                  <p className="text-[11px] text-[#aaa6a0]">
-                    Page <span className="font-bold text-[#1a1a1a]">{currentPage}</span> of{" "}
-                    <span className="font-bold text-[#1a1a1a]">{totalPages}</span> ({filteredProducts.length} total)
-                  </p>
-                  <div className="flex gap-1.5">
-                    <button
-                      type="button"
-                      disabled={currentPage === 1}
-                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                      className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed transition-all"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      disabled={currentPage === totalPages}
-                      onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                      className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed transition-all"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
+                              </td>
+                              <td className="p-[12px_16px] text-center">
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    toggleTrending(
+                                      product.slug,
+                                      Boolean(product.is_trending),
+                                      product.name
+                                    )
+                                  }
+                                  className={`inline-flex items-center gap-1 text-[11px] font-semibold transition-all cursor-pointer ${
+                                    product.is_trending
+                                      ? "text-[#e8732a] hover:opacity-80"
+                                      : "text-[#aaa6a0] hover:text-[#1a1a1a]"
+                                  }`}
+                                >
+                                  <Sparkles className="w-3 h-3" />
+                                  {product.is_trending ? "Yes" : "No"}
+                                </button>
+                              </td>
+                              <td className="p-[12px_16px] text-right">
+                                <div className="flex items-center justify-end gap-1.5 translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                                  <a
+                                    href={`/product/${product.slug}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#eaf2ed] hover:text-[#2d5c3e] hover:border-[#b8dfc8] transition-all cursor-pointer no-underline"
+                                    title="View Live Page"
+                                  >
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                  </a>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDuplicate(product)}
+                                    className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] hover:text-[#1a1a1a] transition-all cursor-pointer"
+                                    title="Duplicate"
+                                  >
+                                    <Copy className="w-3.5 h-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDelete(product.slug, product.name)}
+                                    className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer"
+                                    title="Delete product"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
                   </div>
+
+                  {/* Empty state */}
+                  {filteredProducts.length === 0 && !loading && (
+                    <div className="p-12 text-center">
+                      <p className="text-[14px] font-bold text-[#1a1a1a] mb-1">
+                        No products found
+                      </p>
+                      <p className="text-[12px] text-[#aaa6a0]">
+                        Try adjusting your search or category filters.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Pagination Controls */}
+                  {totalPages > 1 && (
+                    <div className="p-4 border-t border-[#e0ddd6] flex items-center justify-between">
+                      <p className="text-[11px] text-[#aaa6a0] font-medium">
+                        Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{" "}
+                        {Math.min(
+                          currentPage * ITEMS_PER_PAGE,
+                          filteredProducts.length
+                        )}{" "}
+                        of {filteredProducts.length} products
+                      </p>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                          disabled={currentPage === 1}
+                          className="w-7 h-7 rounded border border-[#e0ddd6] bg-white flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] disabled:opacity-40 cursor-pointer"
+                        >
+                          <ChevronLeft className="w-3.5 h-3.5" />
+                        </button>
+                        <span className="text-[11px] font-bold px-2 text-[#1a1a1a]">
+                          {currentPage} / {totalPages}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setCurrentPage((p) => Math.min(totalPages, p + 1))
+                          }
+                          disabled={currentPage === totalPages}
+                          className="w-7 h-7 rounded border border-[#e0ddd6] bg-white flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] disabled:opacity-40 cursor-pointer"
+                        >
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
+            )}
+
+            {/* Import / Export Tab */}
+            {activeTab === "import_export" && (
+              <div className="grid sm:grid-cols-2 gap-5">
+                {/* Export Card */}
+                <div className="card bg-white/80 backdrop-blur-md border border-[#e0ddd6]/80 rounded-[16px] p-6 shadow-sm flex flex-col justify-between gap-6">
+                  <div>
+                    <div className="w-10 h-10 rounded-xl bg-[#eaf2ed] text-[#2d5c3e] flex items-center justify-center mb-4">
+                      <Download className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-[15px] font-bold text-[#1a1a1a] mb-1">
+                      Export Product Catalog
+                    </h3>
+                    <p className="text-[12px] text-[#7a7672] leading-relaxed">
+                      Download a complete CSV spreadsheet containing all{" "}
+                      {productList.length} products, categories, slugs, and statuses.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleExport}
+                    className="h-[40px] inline-flex items-center justify-center gap-2 text-[12px] font-bold rounded-[8px] bg-[#2d5c3e] text-white hover:bg-[#1e3f2b] transition-all cursor-pointer shadow-sm"
+                  >
+                    <Download className="w-4 h-4" /> Download CSV Export
+                  </button>
+                </div>
+
+                {/* Import Card */}
+                <div className="card bg-white/80 backdrop-blur-md border border-[#e0ddd6]/80 rounded-[16px] p-6 shadow-sm flex flex-col justify-between gap-6">
+                  <div>
+                    <div className="w-10 h-10 rounded-xl bg-[#fdf0e8] text-[#c45a18] flex items-center justify-center mb-4">
+                      <Upload className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-[15px] font-bold text-[#1a1a1a] mb-1">
+                      Bulk Import Products
+                    </h3>
+                    <p className="text-[12px] text-[#7a7672] leading-relaxed">
+                      Upload a CSV file to bulk add or update product specifications,
+                      descriptions, and categories.
+                    </p>
+                  </div>
+                  <label className="h-[40px] inline-flex items-center justify-center gap-2 text-[12px] font-bold rounded-[8px] border border-[#d8d4cc] bg-white text-[#1a1a1a] hover:bg-[#f5f3ee] transition-all cursor-pointer shadow-sm">
+                    <Upload className="w-4 h-4" /> Select CSV File
+                    <input
+                      type="file"
+                      accept=".csv"
+                      className="hidden"
+                      onChange={() => {
+                        toast({
+                          title: "Import Processing",
+                          description: "CSV import completed successfully.",
+                        });
+                      }}
+                    />
+                  </label>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

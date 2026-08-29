@@ -37,8 +37,10 @@ import { buildInquiryAttribution } from "@/lib/attribution";
 import { useAbandonedFormCapture } from "@/hooks/useAbandonedFormCapture";
 import { getProductDetailDefaults, ProductDetailData } from "@/data/product-defaults";
 import { getProductBySlug, getProductTag, getAllProducts } from "@/data/products";
+import { fetchAllProducts } from "@/lib/product-service";
 import { FULL_PRODUCTS_DATABASE } from "@/data/product-detail-defaults";
 import FeatureItemsRow from "@/components/FeatureItemsRow";
+import { useQuoteModal } from "@/components/QuoteModalContext";
 
 interface ProductPageProps {
   productSlug?: string;
@@ -48,6 +50,7 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
   const params = useParams();
   const rawSlug = propSlug || (params?.productSlug as string) || "kraft-paper-tubes";
   const { toast } = useToast();
+  const { open: openQuoteModal } = useQuoteModal();
 
   const [activeImage, setActiveImage] = useState<number>(0);
   const [activePlatform, setActivePlatform] = useState<"google" | "trustpilot">("google");
@@ -116,66 +119,54 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
   const { data: productData, isLoading: loading } = useQuery<ProductDetailData>({
     queryKey: ["product-detail", rawSlug],
     queryFn: async () => {
-      // 1. Try static lookup
-      const staticResult = getProductBySlug(rawSlug);
-      const defaults = getProductDetailDefaults(
-        rawSlug,
-        staticResult?.product?.name,
-        staticResult?.category?.name,
-        staticResult?.category?.slug,
-        (staticResult?.product as any)?.image
-      );
-
-      // 2. Try Supabase enhancement if available
       try {
-        const supabase = createPublicClient();
-        const { data } = await withAbortableTimeout((signal) =>
-          (supabase
-            .from("products" as any)
-            .select(`
-              id, name, slug, description, images, is_active,
-              box_style, min_quantity, stock_info, size_info, 
-              printing_options, finishing_options, proof_info, 
-              turnaround_time, shipping_info, product_content,
-              categories (
-                id, name, slug, section
-              )
-            `)
-            .eq("slug", rawSlug)
-            .eq("is_active", true)
-            .single() as any)
-            .abortSignal(signal)
-        ) as any;
+        const allItems = await fetchAllProducts();
+        const customItem = allItems.find((p) => p.slug === rawSlug);
 
-        if (data) {
+        if (customItem) {
+          const customImg =
+            customItem.image ||
+            (customItem.images && customItem.images[0]) ||
+            "/images/products/custom-cake-boxes.jpg";
+
+          const defaults = getProductDetailDefaults(
+            rawSlug,
+            customItem.name,
+            customItem.category,
+            (customItem.category || "custom-boxes").toLowerCase().replace(/\s+/g, "-"),
+            customImg
+          );
+
           return {
             ...defaults,
-            id: data.id,
-            name: data.name || defaults.name,
-            description: data.description || defaults.description,
-            box_style: data.box_style || defaults.box_style || data.name || defaults.name,
-            min_quantity: data.min_quantity || defaults.min_quantity,
-            stock_info: data.stock_info || defaults.stock_info,
-            size_info: data.size_info || defaults.size_info,
-            printing_options: data.printing_options || defaults.printing_options,
-            finishing_options: data.finishing_options || defaults.finishing_options,
-            proof_info: data.proof_info || defaults.proof_info,
-            turnaround_time: data.turnaround_time || defaults.turnaround_time,
-            shipping_info: data.shipping_info || defaults.shipping_info,
-            product_content: data.product_content || defaults.product_content,
-            images: defaults.images,
-            category: data.categories
-              ? { name: data.categories.name, slug: data.categories.slug }
-              : defaults.category,
+            id: customItem.id || `prod-${rawSlug}`,
+            name: customItem.name,
+            description: customItem.description || defaults.description,
+            images:
+              customItem.images && customItem.images.length > 0
+                ? customItem.images
+                : [customImg],
+            category: {
+              name: customItem.category || "Custom Boxes",
+              slug: (customItem.category || "custom-boxes")
+                .toLowerCase()
+                .replace(/\s+/g, "-"),
+            },
+            stock_info: (customItem.specs as any)?.stockInfo || defaults.stock_info,
+            printing_options:
+              (customItem.specs as any)?.printingOptions || defaults.printing_options,
+            finishing_options:
+              (customItem.specs as any)?.finishingOptions || defaults.finishing_options,
           };
         }
-      } catch (err) {
+      } catch {
         // Fallback gracefully
       }
 
-      return defaults;
+      return getProductDetailDefaults(rawSlug);
     },
-    staleTime: 1000 * 60 * 5,
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
   const product = productData || getProductDetailDefaults(rawSlug);
@@ -217,19 +208,19 @@ ${requirements || "No additional notes"}`;
       const attribution = buildInquiryAttribution("product_page_quote_form");
 
       await withAbortableTimeout((signal) =>
-        (supabase
-          .from("chat_inquiries" as any)
-          .insert({
-            name: `${firstName} ${lastName}`.trim(),
-            email: email.trim(),
-            phone: phone.trim(),
-            product_interest: product.name,
-            message: messageContent,
-            source: "product_detail",
-            status: "new",
-            ...attribution,
-          } as any)
-          .abortSignal(signal) as any)
+      (supabase
+        .from("chat_inquiries" as any)
+        .insert({
+          name: `${firstName} ${lastName}`.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          product_interest: product.name,
+          message: messageContent,
+          source: "product_detail",
+          status: "new",
+          ...attribution,
+        } as any)
+        .abortSignal(signal) as any)
       );
 
       setSubmitted(true);
@@ -353,7 +344,7 @@ ${requirements || "No additional notes"}`;
         <section className="bg-[#faf8f5] pb-6 pt-3 sm:pb-8 lg:pt-5" id="quote-form">
           <div className="w-full px-3 sm:px-4 lg:px-6">
             <div className="grid grid-cols-1 items-stretch gap-0 overflow-hidden rounded-[14px] border border-[#e0ddd6] bg-card shadow-[0_8px_28px_rgba(0,0,0,0.04)] lg:grid-cols-2">
-              
+
               {/* Left: Product Images Gallery */}
               <div className="m-0 min-w-0 p-0 flex flex-col">
                 <div className="relative m-0 aspect-square w-full cursor-pointer overflow-hidden p-0 bg-muted/20">
@@ -375,11 +366,10 @@ ${requirements || "No additional notes"}`;
                         key={idx}
                         type="button"
                         onClick={() => setActiveImage(idx)}
-                        className={`relative h-[56px] w-[56px] shrink-0 overflow-hidden border-0 border-r border-[#e0ddd6] p-0 transition-opacity duration-200 sm:h-[64px] sm:w-[64px] ${
-                          activeImage === idx
+                        className={`relative h-[56px] w-[56px] shrink-0 overflow-hidden border-0 border-r border-[#e0ddd6] p-0 transition-opacity duration-200 sm:h-[64px] sm:w-[64px] ${activeImage === idx
                             ? "opacity-100 ring-2 ring-inset ring-accent"
                             : "opacity-80 hover:opacity-100"
-                        }`}
+                          }`}
                       >
                         <Image
                           src={imgUrl}
@@ -441,9 +431,8 @@ ${requirements || "No additional notes"}`;
                           aria-selected={activePlatform === "trustpilot"}
                           onClick={() => setActivePlatform("trustpilot")}
                           aria-label="Show Trustpilot rating"
-                          className={`h-1.5 rounded-full transition-all ${
-                            activePlatform === "trustpilot" ? "w-5 bg-accent" : "w-1.5 bg-[#d8d4cc] hover:bg-[#b8b4ac]"
-                          }`}
+                          className={`h-1.5 rounded-full transition-all ${activePlatform === "trustpilot" ? "w-5 bg-accent" : "w-1.5 bg-[#d8d4cc] hover:bg-[#b8b4ac]"
+                            }`}
                         />
                         <button
                           type="button"
@@ -451,9 +440,8 @@ ${requirements || "No additional notes"}`;
                           aria-selected={activePlatform === "google"}
                           onClick={() => setActivePlatform("google")}
                           aria-label="Show Google rating"
-                          className={`h-1.5 rounded-full transition-all ${
-                            activePlatform === "google" ? "w-5 bg-accent" : "w-1.5 bg-[#d8d4cc] hover:bg-[#b8b4ac]"
-                          }`}
+                          className={`h-1.5 rounded-full transition-all ${activePlatform === "google" ? "w-5 bg-accent" : "w-1.5 bg-[#d8d4cc] hover:bg-[#b8b4ac]"
+                            }`}
                         />
                       </div>
                     </div>
@@ -737,7 +725,7 @@ ${requirements || "No additional notes"}`;
           const specDimension = specOverrides?.dimension_info || product.size_info || "Fully Customizable (All dimensions available)";
           const specQuantities = specOverrides?.quantities_info || product.min_quantity || "Starting from 100 Units";
           const specStock = product.stock_info || "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock";
-          
+
           const specPrintingList = specOverrides?.printing_options_list && specOverrides.printing_options_list.length > 0
             ? specOverrides.printing_options_list
             : (product.printing_options ? product.printing_options.split(/[,/]+/).map((s: string) => s.trim()).filter(Boolean) : ["CMYK", "PMS", "No Printing", "Offset High Fidelity"]);
@@ -925,7 +913,7 @@ ${requirements || "No additional notes"}`;
         <section className="border-t border-[#e0ddd6] bg-[#faf8f5] py-14 sm:py-16 lg:py-20">
           <div className="container-max px-4 lg:px-8">
             <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:gap-16">
-              
+
               {/* Feature items */}
               <FeatureItemsRow items={product.product_content?.feature_items || []} />
 
@@ -1097,9 +1085,8 @@ ${requirements || "No additional notes"}`;
                             {product.product_content.perk_items.map((item, index) => (
                               <div
                                 key={item}
-                                className={`flex items-center gap-2.5 px-4 py-3 text-ds-body text-ds-body ${
-                                  index % 2 === 0 ? "border-r border-[#e0ddd6]" : ""
-                                } ${index < (product.product_content?.perk_items?.length || 0) - 2 ? "border-b border-[#e0ddd6]" : ""}`}
+                                className={`flex items-center gap-2.5 px-4 py-3 text-ds-body text-ds-body ${index % 2 === 0 ? "border-r border-[#e0ddd6]" : ""
+                                  } ${index < (product.product_content?.perk_items?.length || 0) - 2 ? "border-b border-[#e0ddd6]" : ""}`}
                               >
                                 <Check size={14} className="shrink-0 text-accent" />
                                 <span>{item}</span>
@@ -1140,9 +1127,8 @@ ${requirements || "No additional notes"}`;
                         </span>
                         <ChevronRight
                           size={16}
-                          className={`shrink-0 text-[#e8732a] transition-transform duration-200 ${
-                            isOpen ? "rotate-90" : ""
-                          }`}
+                          className={`shrink-0 text-[#e8732a] transition-transform duration-200 ${isOpen ? "rotate-90" : ""
+                            }`}
                         />
                       </button>
                       {isOpen && (
@@ -1231,9 +1217,8 @@ ${requirements || "No additional notes"}`;
                       key={index}
                       type="button"
                       onClick={() => scrollRelatedProducts(index)}
-                      className={`h-1 rounded-full transition-all ${
-                        currentRelatedPage === index ? "w-12 bg-foreground" : "w-8 bg-muted/30 hover:bg-muted/60"
-                      }`}
+                      className={`h-1 rounded-full transition-all ${currentRelatedPage === index ? "w-12 bg-foreground" : "w-8 bg-muted/30 hover:bg-muted/60"
+                        }`}
                     />
                   ))}
                 </div>
@@ -1251,13 +1236,14 @@ ${requirements || "No additional notes"}`;
             <p className="mx-auto mt-2 max-w-2xl text-[13px] text-white/65 sm:text-sm">
               Get your custom packaging quote today — free design support included.
             </p>
-            <a
-              href="#quote-form"
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap h-10 mt-4 rounded-md bg-accent px-7 py-[11px] text-[12px] font-medium uppercase tracking-[0.12em] text-white hover:bg-[#c45a18] transition-colors"
+            <button
+              type="button"
+              onClick={() => openQuoteModal({ product: product.name, category: typeof product.category === "string" ? product.category : product.category?.name })}
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap h-10 mt-4 rounded-md bg-accent px-7 py-[11px] text-[12px] font-medium uppercase tracking-[0.12em] text-white hover:bg-[#c45a18] transition-colors cursor-pointer"
             >
               Get a Quote
               <ArrowRight size={16} />
-            </a>
+            </button>
           </div>
         </section>
       </div>

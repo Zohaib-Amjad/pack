@@ -7,6 +7,12 @@ import {
 } from "@/data/cms-defaults";
 import type {
   CmsAbout,
+  CmsAboutHero,
+  CmsAboutMission,
+  CmsAboutTimeline,
+  CmsAboutManufacturing,
+  CmsAboutValues,
+  CmsAboutCertifications,
   CmsAboutCert,
   CmsAboutStat,
   CmsAboutTimelineItem,
@@ -14,6 +20,7 @@ import type {
   CmsHome,
   CmsHomeAnnouncement,
   CmsHomeAnnouncementItem,
+  CmsHomeFeaturedCategories,
   CmsHomeHowItWorks,
   CmsHomeHowStep,
   CmsHomePackaging,
@@ -28,7 +35,12 @@ import type {
   CmsHomeWhyUsCard,
   CmsLibrary,
   CmsPortfolio,
+  CmsPortfolioHeader,
   CmsProcess,
+  CmsProcessHero,
+  CmsProcessStat,
+  CmsProcessStep,
+  CmsProcessPromise,
 } from "@/types/cms";
 import { deepMerge } from "@/lib/cms-merge";
 

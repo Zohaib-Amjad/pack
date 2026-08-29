@@ -3,10 +3,12 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Package, ChevronDown, ChevronUp, X } from "lucide-react";
+import { Package, ChevronDown, ChevronUp, X, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { createPublicClient } from "@/utils/supabase/public-client";
 import { withAbortableTimeout } from "@/lib/fetch-utils";
+import { fetchAllProducts, type CustomProductRecord } from "@/lib/product-service";
+import { categories as defaultCategories } from "@/data/products";
 import Layout from "@/components/Layout";
 import PageLoader from "@/components/PageLoader";
 
@@ -18,14 +20,6 @@ interface Category {
   name: string;
   slug: string;
   section: "industry" | "material" | "style";
-}
-
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  images: string[] | null;
-  category_id: string;
 }
 
 // ── Filter group ──────────────────────────────────────────────────────────────
@@ -46,7 +40,7 @@ function FilterGroup({
     <div className="border-b border-[#e0ddd6] pb-4 mb-4">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center justify-between w-full font-sans text-[11px] tracking-[0.14em] uppercase text-[#1a1a1a] mb-3"
+        className="flex items-center justify-between w-full font-sans text-[11px] tracking-[0.14em] uppercase text-[#1a1a1a] mb-3 cursor-pointer"
         style={{ fontWeight: 700 }}
       >
         {label}
@@ -60,7 +54,7 @@ function FilterGroup({
               <li key={cat.id}>
                 <button
                   onClick={() => onToggle(cat.id)}
-                  className="flex items-center gap-2 w-full text-left font-sans text-[12.5px] transition-colors"
+                  className="flex items-center gap-2 w-full text-left font-sans text-[12.5px] transition-colors cursor-pointer"
                   style={{ color: active ? "#e8732a" : "#4a4a4a" }}
                 >
                   <span
@@ -87,7 +81,7 @@ function FilterGroup({
   );
 }
 
-// ── Sidebar — declared outside CatalogView to avoid re-creation on render ────
+// ── Sidebar ───────────────────────────────────────────────────────────────────
 function Sidebar({
   industryCategories,
   materialCategories,
@@ -132,8 +126,12 @@ function Sidebar({
 }
 
 // ── Product card ──────────────────────────────────────────────────────────────
-function ProductCard({ product }: { product: Product }) {
-  const img = product.images?.[0] ?? null;
+function ProductCard({ product }: { product: CustomProductRecord }) {
+  const img =
+    product.image ||
+    (product.images && product.images[0]) ||
+    "/images/products/custom-cake-boxes.jpg";
+
   return (
     <Link
       href={`/product/${product.slug}`}
@@ -145,6 +143,7 @@ function ProductCard({ product }: { product: Product }) {
             src={img}
             alt={product.name}
             fill
+            unoptimized
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 20vw"
           />
@@ -195,7 +194,7 @@ function Pagination({
       <button
         disabled={page === 1}
         onClick={() => onChange(page - 1)}
-        className="px-3 py-1.5 rounded-[6px] border border-[#e0ddd6] font-sans text-[12px] text-[#4a4a4a] disabled:opacity-40 hover:border-[#e8732a] hover:text-[#e8732a] transition-colors"
+        className="px-3 py-1.5 rounded-[6px] border border-[#e0ddd6] font-sans text-[12px] text-[#4a4a4a] disabled:opacity-40 hover:border-[#e8732a] hover:text-[#e8732a] transition-colors cursor-pointer"
       >
         ← Prev
       </button>
@@ -206,7 +205,7 @@ function Pagination({
           <button
             key={p}
             onClick={() => onChange(p as number)}
-            className="w-8 h-8 rounded-[6px] border font-sans text-[12px] transition-colors"
+            className="w-8 h-8 rounded-[6px] border font-sans text-[12px] transition-colors cursor-pointer"
             style={{
               borderColor: page === p ? "#e8732a" : "#e0ddd6",
               background: page === p ? "#e8732a" : "transparent",
@@ -220,7 +219,7 @@ function Pagination({
       <button
         disabled={page === totalPages}
         onClick={() => onChange(page + 1)}
-        className="px-3 py-1.5 rounded-[6px] border border-[#e0ddd6] font-sans text-[12px] text-[#4a4a4a] disabled:opacity-40 hover:border-[#e8732a] hover:text-[#e8732a] transition-colors"
+        className="px-3 py-1.5 rounded-[6px] border border-[#e0ddd6] font-sans text-[12px] text-[#4a4a4a] disabled:opacity-40 hover:border-[#e8732a] hover:text-[#e8732a] transition-colors cursor-pointer"
       >
         Next →
       </button>
@@ -231,44 +230,51 @@ function Pagination({
 // ── Main view ─────────────────────────────────────────────────────────────────
 export default function CatalogView() {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
+  const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  const { data: categories = [] } = useQuery<Category[]>({
+  const fallbackCategories: Category[] = useMemo(() => {
+    return defaultCategories.map((c) => ({
+      id: c.slug,
+      name: c.name,
+      slug: c.slug,
+      section: (c.section as any) || "industry",
+    }));
+  }, []);
+
+  const { data: categories = fallbackCategories } = useQuery<Category[]>({
     queryKey: ["public", "catalog-categories"],
-    staleTime: Infinity,
+    staleTime: 0,
+    refetchOnMount: true,
     queryFn: async () => {
-      const supabase = createPublicClient();
-      const { data, error } = (await withAbortableTimeout(
-        (signal) =>
-          (supabase as any)
-            .from("categories")
-            .select("id, name, slug, section")
-            .eq("is_active", true)
-            .order("name")
-            .abortSignal(signal),
-      )) as any;
-      if (error) throw error;
-      return data || [];
+      try {
+        const { fetchAllAdminCategories } = await import("@/lib/category-service");
+        const list = await fetchAllAdminCategories();
+        if (list && list.length > 0) {
+          return list
+            .filter((c) => c.is_active !== false)
+            .map((c) => ({
+              id: c.slug,
+              name: c.name,
+              slug: c.slug,
+              section: c.section,
+            }));
+        }
+      } catch {
+        // ignore
+      }
+      return fallbackCategories;
     },
   });
 
-  const { data: allProducts = [], isLoading } = useQuery<Product[]>({
+  const { data: allProducts = [], isLoading } = useQuery<CustomProductRecord[]>({
     queryKey: ["public", "catalog-products"],
-    staleTime: 5 * 60 * 1000,
+    staleTime: 0,
+    refetchOnMount: true,
     queryFn: async () => {
-      const supabase = createPublicClient();
-      const { data, error } = (await withAbortableTimeout(
-        (signal) =>
-          (supabase as any)
-            .from("products")
-            .select("id, name, slug, images, category_id")
-            .eq("is_active", true)
-            .order("name")
-            .abortSignal(signal),
-      )) as any;
-      if (error) throw error;
-      return data || [];
+      const items = await fetchAllProducts();
+      return items.filter((p) => p.is_active !== false);
     },
   });
 
@@ -287,13 +293,47 @@ export default function CatalogView() {
 
   const clearFilters = () => {
     setSelectedCategories(new Set());
+    setSearchQuery("");
     setPage(1);
   };
 
   const filtered = useMemo(() => {
-    if (selectedCategories.size === 0) return allProducts;
-    return allProducts.filter((p) => selectedCategories.has(p.category_id));
-  }, [allProducts, selectedCategories]);
+    let list = allProducts;
+    const q = searchQuery.toLowerCase().trim();
+    if (q) {
+      list = list.filter((p) => {
+        return (
+          p.name.toLowerCase().includes(q) ||
+          p.slug.toLowerCase().includes(q) ||
+          (p.category && p.category.toLowerCase().includes(q))
+        );
+      });
+    }
+
+    if (selectedCategories.size === 0) return list;
+
+    const selectedNames = new Set<string>();
+    const selectedSlugs = new Set<string>();
+
+    categories.forEach((c) => {
+      if (selectedCategories.has(c.id)) {
+        selectedNames.add(c.name.toLowerCase());
+        selectedSlugs.add(c.slug.toLowerCase());
+      }
+    });
+
+    return list.filter((p) => {
+      if (selectedCategories.has(p.category_id || "") || selectedCategories.has(p.category)) {
+        return true;
+      }
+      const pCat = (p.category || "").toLowerCase();
+      const pSlug = (p.slug || "").toLowerCase();
+      if (selectedNames.has(pCat) || selectedSlugs.has(pSlug)) {
+        return true;
+      }
+      return false;
+    });
+  }, [allProducts, selectedCategories, categories, searchQuery]);
 
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const activeFilterLabels = categories.filter((c) => selectedCategories.has(c.id));
@@ -328,94 +368,119 @@ export default function CatalogView() {
       </div>
 
       {/* Mobile filter toggle */}
-      <div className="sm:hidden bg-white border-b border-[#e0ddd6] px-5 py-3 flex items-center justify-between">
-        <span className="font-sans text-[12px] text-[#4a4a4a]">
-          {filtered.length} product{filtered.length !== 1 ? "s" : ""}
-          {selectedCategories.size > 0 && ` · ${selectedCategories.size} filter${selectedCategories.size > 1 ? "s" : ""}`}
-        </span>
+      <div className="md:hidden border-b border-[#e0ddd6] bg-[#faf8f5] px-4 py-3 flex items-center justify-between">
         <button
-          onClick={() => setMobileSidebarOpen((v) => !v)}
-          className="flex items-center gap-1.5 font-sans text-[12px] font-semibold text-[#e8732a]"
+          onClick={() => setMobileSidebarOpen(true)}
+          className="font-sans text-[12px] font-medium text-[#1a1a1a] flex items-center gap-1.5 cursor-pointer"
         >
-          Filter {mobileSidebarOpen ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+          Filters
+          {selectedCategories.size > 0 && (
+            <span className="w-4 h-4 rounded-full bg-[#e8732a] text-white text-[10px] flex items-center justify-center font-bold">
+              {selectedCategories.size}
+            </span>
+          )}
         </button>
+        <span className="font-sans text-[11px] text-[#7a7672]">
+          {filtered.length} {filtered.length === 1 ? "product" : "products"}
+        </span>
       </div>
 
-      {/* Mobile sidebar drawer */}
+      {/* Mobile drawer */}
       {mobileSidebarOpen && (
-        <div className="sm:hidden bg-white border-b border-[#e0ddd6] px-5 py-5">
-          <Sidebar {...sidebarProps} />
+        <div className="fixed inset-0 z-50 flex md:hidden">
+          <div className="fixed inset-0 bg-black/40" onClick={() => setMobileSidebarOpen(false)} />
+          <div className="relative ml-auto w-[280px] bg-white h-full overflow-y-auto p-5 z-10 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b border-[#e0ddd6] mb-4">
+                <span className="font-sans text-[13px] font-bold text-[#1a1a1a]">Filters</span>
+                <button onClick={() => setMobileSidebarOpen(false)} className="text-[#aaa6a0] hover:text-[#1a1a1a]">
+                  <X size={16} />
+                </button>
+              </div>
+              <Sidebar {...sidebarProps} />
+            </div>
+            <button
+              onClick={() => setMobileSidebarOpen(false)}
+              className="mt-6 w-full py-2.5 rounded-[8px] bg-[#e8732a] text-white font-sans text-[12px] font-semibold tracking-wider uppercase cursor-pointer"
+            >
+              Apply Filters
+            </button>
+          </div>
         </div>
       )}
 
       {/* Main layout */}
-      <div className="bg-[#f5f3ee]" style={{ padding: "40px 40px 64px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", gap: 32, alignItems: "flex-start" }}>
-
+      <div className="bg-[#faf8f5] min-h-[600px]">
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "40px 24px 80px" }} className="flex gap-10">
           {/* Desktop sidebar */}
-          <div className="hidden sm:block flex-shrink-0" style={{ width: 210 }}>
-            <div className="bg-white border border-[#e0ddd6] rounded-[10px] p-5 sticky top-[72px]">
-              <p className="font-sans text-[11px] font-bold tracking-[0.14em] uppercase text-[#7a7672] mb-4">
-                Filter Products
-              </p>
-              <Sidebar {...sidebarProps} />
+          <div className="hidden md:block w-[220px] flex-shrink-0">
+            <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#e0ddd6]">
+              <span className="font-sans text-[12px] font-bold tracking-wider uppercase text-[#1a1a1a]">Filters</span>
+              {selectedCategories.size > 0 && (
+                <button
+                  onClick={clearFilters}
+                  className="font-sans text-[11px] text-[#e8732a] hover:underline cursor-pointer"
+                >
+                  Reset all
+                </button>
+              )}
             </div>
+            <Sidebar {...sidebarProps} />
           </div>
 
           {/* Product grid */}
           <div className="flex-1 min-w-0">
-
-            {/* Active filter chips */}
-            {activeFilterLabels.length > 0 && (
-              <div className="flex flex-wrap items-center gap-2 mb-5">
-                {activeFilterLabels.map((c) => (
+            {/* Active filter chips & count */}
+            <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
+              <span className="font-sans text-[12px] text-[#7a7672]">
+                Showing {filtered.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}–
+                {Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length} products
+              </span>
+              {activeFilterLabels.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 items-center">
+                  {activeFilterLabels.map((cat) => (
+                    <span
+                      key={cat.id}
+                      className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#fdf0e8] border border-[#f5c8a8] font-sans text-[11px] text-[#c45a18]"
+                    >
+                      {cat.name}
+                      <button onClick={() => toggleCategory(cat.id)} className="hover:text-black cursor-pointer">
+                        <X size={10} />
+                      </button>
+                    </span>
+                  ))}
                   <button
-                    key={c.id}
-                    onClick={() => toggleCategory(c.id)}
-                    className="flex items-center gap-2 font-sans text-[13px] font-medium text-[#e8732a] bg-[#fff0e8] border border-[#f5c8a8] rounded-full px-4 py-1.5 hover:bg-[#fde0cc] transition-colors"
+                    onClick={clearFilters}
+                    className="font-sans text-[11px] text-[#aaa6a0] hover:text-[#1a1a1a] ml-1 underline cursor-pointer"
                   >
-                    {c.name} <X size={12} strokeWidth={2} />
+                    Clear all
                   </button>
-                ))}
-                <button
-                  onClick={clearFilters}
-                  className="font-sans text-[13px] text-[#7a7672] underline underline-offset-2 hover:text-[#e8732a] transition-colors"
-                >
-                  Clear all
-                </button>
-              </div>
-            )}
-
-            {/* Result count */}
-            <div className="flex items-center justify-between mb-5">
-              <p className="font-sans text-[12.5px] text-[#7a7672]">
-                {filtered.length} product{filtered.length !== 1 ? "s" : ""} found
-              </p>
+                </div>
+              )}
             </div>
 
-            {/* Empty state */}
-            {filtered.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-24 gap-4">
-                <Package size={48} className="text-[#c8c4bc]" />
-                <p className="font-sans text-[14px] text-[#7a7672]">No products match your filters.</p>
+            {/* Grid */}
+            {filtered.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <Package size={48} className="text-[#c8c4bc] mb-3" />
+                <p className="font-sans text-[14px] font-semibold text-[#1a1a1a] mb-1">No products found</p>
+                <p className="font-sans text-[12px] text-[#7a7672] mb-4">Try clearing some filters to see more packaging options.</p>
                 <button
                   onClick={clearFilters}
-                  className="font-sans text-[12px] font-semibold text-[#e8732a] underline underline-offset-2"
+                  className="px-4 py-2 rounded-[8px] bg-[#e8732a] text-white font-sans text-[12px] font-semibold uppercase tracking-wider cursor-pointer"
                 >
-                  Clear filters
+                  Clear Filters
                 </button>
               </div>
-            )}
-
-            {/* Grid */}
-            {paginated.length > 0 && (
+            ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {paginated.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard key={product.slug} product={product} />
                 ))}
               </div>
             )}
 
+            {/* Pagination */}
             <Pagination
               page={page}
               total={filtered.length}

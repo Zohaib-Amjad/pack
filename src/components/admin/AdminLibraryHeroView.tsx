@@ -201,13 +201,21 @@ export default function AdminLibraryHeroView() {
                       <div className="space-y-3">
                         <div className="border-2 border-dashed border-[#e0ddd6] rounded-[12px] bg-[#f5f3ee]/50 hover:bg-[#f5f3ee] transition-all overflow-hidden relative">
                           {heroImageUrl ? (
-                            <div className="relative aspect-[16/9] w-full max-h-[220px]">
+                            <div className="relative aspect-[16/9] w-full max-h-[220px] group">
                               <Image
                                 src={heroImageUrl}
                                 alt="Hero preview"
                                 fill
+                                unoptimized
                                 className="object-contain"
                               />
+                              <button
+                                type="button"
+                                onClick={() => setHeroImageUrl("")}
+                                className="absolute top-2 right-2 px-2 py-1 rounded bg-black/70 text-white text-[10px] font-bold opacity-0 group-hover:opacity-100 hover:bg-red-600 transition-all cursor-pointer"
+                              >
+                                Remove
+                              </button>
                             </div>
                           ) : (
                             <div className="relative flex flex-col items-center justify-center min-h-[140px] p-6">

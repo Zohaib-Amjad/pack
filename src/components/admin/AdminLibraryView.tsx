@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -15,9 +15,12 @@ import {
   ChevronRight,
 } from "lucide-react";
 import {
-  DEFAULT_LIBRARY_ITEMS,
-  type DefaultLibraryItem,
-} from "@/data/library-defaults";
+  fetchAllLibraryItems,
+  saveLibraryItem,
+  deleteLibraryItem,
+  type LibraryItemRecord,
+} from "@/lib/library-service";
+import { DEFAULT_LIBRARY_ITEMS } from "@/data/library-defaults";
 import { useToast } from "@/hooks/use-toast";
 
 const ITEMS_PER_PAGE = 10;
@@ -26,16 +29,35 @@ export default function AdminLibraryView() {
   const [activeTab, setActiveTab] = useState<"all" | "published" | "drafts">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [items, setItems] = useState<DefaultLibraryItem[]>(DEFAULT_LIBRARY_ITEMS);
+  const [items, setItems] = useState<LibraryItemRecord[]>(DEFAULT_LIBRARY_ITEMS as any);
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+
+  useEffect(() => {
+    loadItems();
+  }, []);
+
+  const loadItems = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchAllLibraryItems();
+      setItems(data);
+    } catch {
+      setItems(DEFAULT_LIBRARY_ITEMS as any);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
-      const q = searchQuery.toLowerCase();
+      const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
-        item.title.toLowerCase().includes(q) ||
+        !q ||
+        (item.title && item.title.toLowerCase().includes(q)) ||
         (item.category && item.category.toLowerCase().includes(q)) ||
-        item.description.toLowerCase().includes(q);
+        (item.section_name && item.section_name.toLowerCase().includes(q)) ||
+        (item.description && item.description.toLowerCase().includes(q));
 
       if (!matchesSearch) return false;
 
@@ -51,19 +73,21 @@ export default function AdminLibraryView() {
     return filteredItems.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredItems, currentPage]);
 
-  const togglePublish = (id: string, currentStatus: boolean, title: string) => {
-    setItems((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, is_published: !currentStatus } : i))
-    );
+  const togglePublish = async (item: LibraryItemRecord) => {
+    const newStatus = !item.is_published;
+    const updated = { ...item, is_published: newStatus };
+    setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
+    await saveLibraryItem(updated);
     toast({
-      title: !currentStatus ? "Item published" : "Item unpublished",
-      description: `"${title}" is now ${!currentStatus ? "visible in library" : "hidden"}.`,
+      title: newStatus ? "Item published" : "Item unpublished",
+      description: `"${item.title}" is now ${newStatus ? "visible in library" : "hidden"}.`,
     });
   };
 
-  const handleDelete = (id: string, title: string) => {
+  const handleDelete = async (id: string, title: string) => {
     if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
     setItems((prev) => prev.filter((i) => i.id !== id));
+    await deleteLibraryItem(id);
     toast({
       title: "Item deleted",
       description: `"${title}" has been removed from the library.`,
@@ -148,9 +172,9 @@ export default function AdminLibraryView() {
               </div>
               <Link
                 href="/admin/library/new"
-                className="h-[40px] inline-flex items-center gap-[7px] px-4 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all no-underline shadow-sm"
+                className="h-[40px] inline-flex items-center gap-[7px] px-4 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] transition-all no-underline shadow-sm cursor-pointer"
               >
-                <Plus className="w-[15px] h-[15px]" /> New Item
+                <Plus className="w-[15px] h-[15px]" /> New Library Item
               </Link>
             </div>
 
@@ -162,7 +186,7 @@ export default function AdminLibraryView() {
                     Library Items
                   </div>
                   <div className="cs text-[11px] text-[#aaa6a0] mt-[2px] font-medium uppercase tracking-wider">
-                    {filteredItems.length} total items
+                    {items.length} total items
                   </div>
                 </div>
               </div>
@@ -178,7 +202,7 @@ export default function AdminLibraryView() {
                         <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider hidden sm:table-cell">
                           Category
                         </th>
-                        <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider hidden sm:table-cell">
+                        <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider text-center">
                           Order
                         </th>
                         <th className="p-[10px_16px] text-[10px] font-bold text-[#aaa6a0] uppercase tracking-wider text-center">
@@ -197,24 +221,30 @@ export default function AdminLibraryView() {
                         >
                           <td className="p-[12px_16px]">
                             <div className="flex items-center gap-3">
-                              <div className="h-10 w-14 rounded-[6px] bg-[#f5f3ee] border border-[#e0ddd6] overflow-hidden shrink-0 relative">
+                              <div className="h-10 w-14 rounded-[6px] bg-[#f5f3ee] border border-[#e0ddd6] overflow-hidden shrink-0 relative flex items-center justify-center">
                                 <Image
                                   alt={item.title}
                                   fill
+                                  unoptimized
                                   sizes="56px"
-                                  className="object-cover"
+                                  className="object-contain p-1"
                                   src={item.image || "/Pillow Gift Boxes.png"}
                                 />
                               </div>
-                              <p className="text-[12px] font-bold text-[#1a1a1a] truncate max-w-[220px] sm:max-w-[320px]">
-                                {item.title}
-                              </p>
+                              <div className="min-w-0">
+                                <p className="text-[12px] font-bold text-[#1a1a1a] truncate max-w-[280px] sm:max-w-[400px]">
+                                  {item.title}
+                                </p>
+                                <p className="text-[10px] text-[#aaa6a0] font-medium truncate max-w-[280px] sm:max-w-[400px]">
+                                  {item.description}
+                                </p>
+                              </div>
                             </div>
                           </td>
                           <td className="p-[12px_16px] text-[12px] font-semibold text-[#7a7672] hidden sm:table-cell">
-                            {item.category || "—"}
+                            {item.section_name || item.category || "General"}
                           </td>
-                          <td className="p-[12px_16px] text-[12px] text-[#aaa6a0] hidden sm:table-cell">
+                          <td className="p-[12px_16px] text-center text-[12px] font-mono font-medium text-[#7a7672]">
                             {item.order}
                           </td>
                           <td className="p-[12px_16px] text-center">
@@ -232,9 +262,7 @@ export default function AdminLibraryView() {
                             <div className="flex items-center justify-end gap-1.5 translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
                               <button
                                 type="button"
-                                onClick={() =>
-                                  togglePublish(item.id, item.is_published, item.title)
-                                }
+                                onClick={() => togglePublish(item)}
                                 title={item.is_published ? "Unpublish" : "Publish"}
                                 className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#eaf2ed] hover:text-[#2d5c3e] hover:border-[#b8dfc8] transition-all cursor-pointer"
                               >
@@ -269,7 +297,7 @@ export default function AdminLibraryView() {
                   </table>
                 </div>
 
-                {filteredItems.length === 0 ? (
+                {filteredItems.length === 0 && !loading && (
                   <div className="p-12 text-center">
                     <div className="w-12 h-12 rounded-full bg-[#f5f3ee] text-[#7a7672] flex items-center justify-center mx-auto mb-3">
                       <FileText className="w-6 h-6" />
@@ -289,28 +317,35 @@ export default function AdminLibraryView() {
                       <Plus className="w-3.5 h-3.5" /> Create New Item
                     </Link>
                   </div>
-                ) : (
-                  <div className="p-[12px_16px] flex items-center justify-between border-t border-[#e0ddd6]">
-                    <div className="text-[11px] text-[#aaa6a0]">
-                      Page <span className="font-bold text-[#1a1a1a]">{currentPage}</span> of{" "}
-                      <span className="font-bold text-[#1a1a1a]">{totalPages}</span>
-                    </div>
-                    <div className="flex gap-1.5">
+                )}
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="p-4 border-t border-[#e0ddd6] flex items-center justify-between">
+                    <p className="text-[11px] text-[#aaa6a0] font-medium">
+                      Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{" "}
+                      {Math.min(currentPage * ITEMS_PER_PAGE, filteredItems.length)} of{" "}
+                      {filteredItems.length} items
+                    </p>
+                    <div className="flex items-center gap-1">
                       <button
                         type="button"
-                        disabled={currentPage === 1}
                         onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                        className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed transition-all"
+                        disabled={currentPage === 1}
+                        className="w-7 h-7 rounded border border-[#e0ddd6] bg-white flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] disabled:opacity-40 cursor-pointer"
                       >
-                        <ChevronLeft className="w-4 h-4" />
+                        <ChevronLeft className="w-3.5 h-3.5" />
                       </button>
+                      <span className="text-[11px] font-bold px-2 text-[#1a1a1a]">
+                        {currentPage} / {totalPages}
+                      </span>
                       <button
                         type="button"
-                        disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                        className="w-7 h-7 bg-white border border-[#d8d4cc] rounded-md flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed transition-all"
+                        disabled={currentPage === totalPages}
+                        className="w-7 h-7 rounded border border-[#e0ddd6] bg-white flex items-center justify-center text-[#7a7672] hover:bg-[#f5f3ee] disabled:opacity-40 cursor-pointer"
                       >
-                        <ChevronRight className="w-4 h-4" />
+                        <ChevronRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
