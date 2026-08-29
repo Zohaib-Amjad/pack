@@ -19,21 +19,23 @@ interface QuoteFormProps {
 }
 
 export function QuoteForm({ initialCategory, onSuccess, className = "" }: QuoteFormProps) {
-  const [formData, setFormData] = useState({
+  const getInitialFormData = () => ({
     fullName: "",
     email: "",
     phone: "",
     company: "",
     boxStyle: initialCategory || CATEGORIES[0].name,
-    length: "6",
-    width: "4",
-    depth: "2",
+    length: "",
+    width: "",
+    depth: "",
     unit: "inches",
     quantity: "500",
     material: "Kraft Corrugated",
     printing: "Full Color Inside & Outside",
     additionalNotes: "",
   });
+
+  const [formData, setFormData] = useState(getInitialFormData());
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -43,7 +45,11 @@ export function QuoteForm({ initialCategory, onSuccess, className = "" }: QuoteF
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === "phone") {
+      setFormData((prev) => ({ ...prev, [name]: value.replace(/[^0-9+()-\s]/g, "") }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,15 +69,22 @@ export function QuoteForm({ initialCategory, onSuccess, className = "" }: QuoteF
       }
 
       setIsSubmitted(true);
+      setFormData(getInitialFormData());
       if (onSuccess) onSuccess();
     } catch (err: any) {
       console.error("Quote submission error:", err);
       // Even if network fails during local preview, show success
       setIsSubmitted(true);
+      setFormData(getInitialFormData());
       if (onSuccess) onSuccess();
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleReset = () => {
+    setFormData(getInitialFormData());
+    setIsSubmitted(false);
   };
 
   if (isSubmitted) {
@@ -82,7 +95,7 @@ export function QuoteForm({ initialCategory, onSuccess, className = "" }: QuoteF
         </div>
         <h3 className="text-2xl font-bold text-[#1a1a1a]">Quote Request Received!</h3>
         <p className="text-sm text-[#4a4a4a] max-w-md mx-auto">
-          Thank you, <span className="font-semibold text-[#1a1a1a]">{formData.fullName}</span>. A dedicated packaging specialist has received your specifications and will send your official pricing and 3D mockup proposal to <span className="font-semibold text-[#1a1a1a]">{formData.email}</span> within 2 hours.
+          Thank you! A dedicated packaging specialist has received your specifications and will send your official pricing and 3D mockup proposal within 2 hours.
         </p>
         <div className="pt-4 border-t border-[#e0ddd6] flex flex-wrap justify-center gap-4 text-xs text-[#7a7672]">
           <span className="flex items-center gap-1">
@@ -96,7 +109,7 @@ export function QuoteForm({ initialCategory, onSuccess, className = "" }: QuoteF
           </span>
         </div>
         <button
-          onClick={() => setIsSubmitted(false)}
+          onClick={handleReset}
           className="mt-4 text-xs font-semibold text-[#e8732a] hover:underline"
         >
           Submit Another Quote Request

@@ -260,7 +260,10 @@ const ChatBot = () => {
         })
         .abortSignal(signal) as any)
     ) as any;
-    if (!error) setInquirySubmitted(true);
+    if (!error) {
+      form.reset();
+      setInquirySubmitted(true);
+    }
   };
 
   return (
@@ -446,7 +449,16 @@ const ChatBot = () => {
                   <p className="text-sm text-muted-foreground font-sans">Leave your details and we&apos;ll get back to you shortly.</p>
                   <Input name="name" placeholder="Your Name *" required className="text-sm font-sans" />
                   <Input name="email" type="email" placeholder="Email Address *" required className="text-sm font-sans" />
-                  <Input name="phone" type="tel" placeholder="Phone (optional)" className="text-sm font-sans" />
+                  <Input
+                    name="phone"
+                    type="tel"
+                    inputMode="numeric"
+                    placeholder="Phone (optional)"
+                    onInput={(e) => {
+                      e.currentTarget.value = e.currentTarget.value.replace(/[^0-9+()-\s]/g, "");
+                    }}
+                    className="text-sm font-sans"
+                  />
                   <select
                     name="product"
                     className="w-full h-9 px-3 rounded-md border border-[#d8d4cc] bg-[#faf8f5] font-sans text-[13px] text-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-ring"

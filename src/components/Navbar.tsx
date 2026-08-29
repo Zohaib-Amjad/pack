@@ -415,13 +415,23 @@ const Navbar = () => {
     };
   }, [mobileOpen]);
 
-  const industryCategories = categories.filter(
-    (c: any) => c.section === "industry",
-  );
-  const materialCategories = categories.filter(
-    (c: any) => c.section === "material",
-  );
-  const styleCategories = categories.filter((c: any) => c.section === "style");
+  const getUniqueCategories = (sectionName: string) => {
+    const map = new Map<string, any>();
+    categories
+      .filter((c: any) => c.section === sectionName)
+      .forEach((c: any) => {
+        const canonical = c.slug === "kraft-boxes" ? "custom-kraft-boxes" : c.slug;
+        const key = `${canonical}-${c.name.toLowerCase().trim()}`;
+        if (!map.has(key)) {
+          map.set(key, { ...c, slug: canonical });
+        }
+      });
+    return Array.from(map.values());
+  };
+
+  const industryCategories = getUniqueCategories("industry");
+  const materialCategories = getUniqueCategories("material");
+  const styleCategories = getUniqueCategories("style");
 
   const megaMenus = [
     {

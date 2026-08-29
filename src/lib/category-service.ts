@@ -163,7 +163,7 @@ export const BASE_CATEGORIES: CategoryDetailRecord[] = [
   {
     id: "cat-kraft-boxes",
     name: "Kraft Boxes",
-    slug: "kraft-boxes",
+    slug: "custom-kraft-boxes",
     section: "material",
     description: "Flat 20% Off on Your First Order + Free Shipping",
     is_active: true,
@@ -365,13 +365,30 @@ export async function fetchAllAdminCategories(): Promise<CategoryDetailRecord[]>
   // Add any custom categories created that are not in baseList
   const baseSlugs = new Set(baseList.map((b) => b.slug));
   dbCategoriesMap.forEach((c, slug) => {
-    if (!baseSlugs.has(slug)) {
-      const override = overrides[slug] || overrides[c.id];
-      merged.push(override ? { ...c, ...override } : c);
+    const canonicalSlug = slug === "kraft-boxes" ? "custom-kraft-boxes" : slug;
+    if (!baseSlugs.has(canonicalSlug) && !baseSlugs.has(slug)) {
+      const override = overrides[slug] || overrides[c.id] || overrides[canonicalSlug];
+      merged.push(override ? { ...c, slug: canonicalSlug, ...override } : { ...c, slug: canonicalSlug });
     }
   });
 
-  return merged;
+  // Deduplicate by canonical slug
+  const finalMap = new Map<string, CategoryDetailRecord>();
+  merged.forEach((item) => {
+    const slug = item.slug === "kraft-boxes" ? "custom-kraft-boxes" : item.slug;
+    if (!finalMap.has(slug)) {
+      finalMap.set(slug, { ...item, slug });
+    } else {
+      // Merge properties if already present
+      finalMap.set(slug, {
+        ...finalMap.get(slug)!,
+        ...item,
+        slug,
+      });
+    }
+  });
+
+  return Array.from(finalMap.values());
 }
 
 export async function fetchCategoryBySlugOrId(

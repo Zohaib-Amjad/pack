@@ -385,7 +385,10 @@ export default function QuoteRequestForm({
       </div>
       <button
         type="button"
-        onClick={() => setSubmitted(false)}
+        onClick={() => {
+          resetForm();
+          setSubmitted(false);
+        }}
         style={{ fontSize: 12, color: "#e8732a", textDecoration: "underline" }}
       >
         Submit another request

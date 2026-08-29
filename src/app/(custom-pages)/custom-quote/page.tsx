@@ -13,14 +13,16 @@ import {
 } from "lucide-react";
 
 export default function CustomQuotePage() {
-  const [formData, setFormData] = useState({
+  const initialForm = {
     name: "",
     email: "",
     phone: "",
     company: "",
     packagingType: "",
     quantity: "",
-  });
+  };
+
+  const [formData, setFormData] = useState(initialForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -45,11 +47,18 @@ export default function CustomQuotePage() {
       });
       if (!res.ok) throw new Error("Submission failed");
       setIsSubmitted(true);
+      setFormData(initialForm);
     } catch {
       setIsSubmitted(true);
+      setFormData(initialForm);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleReset = () => {
+    setFormData(initialForm);
+    setIsSubmitted(false);
   };
 
   return (
@@ -129,8 +138,8 @@ export default function CustomQuotePage() {
                   </p>
                   <button
                     type="button"
-                    onClick={() => setIsSubmitted(false)}
-                    className="mt-4 inline-flex h-9 items-center justify-center rounded-lg bg-[#1f5a38] px-4 text-xs font-semibold text-white"
+                    onClick={handleReset}
+                    className="mt-4 inline-flex h-9 items-center justify-center rounded-lg bg-[#1f5a38] px-4 text-xs font-semibold text-white hover:bg-[#174830] transition-colors"
                   >
                     Submit Another Inquiry
                   </button>
@@ -147,6 +156,7 @@ export default function CustomQuotePage() {
                         className="h-10 w-full rounded-[9px] border px-3 text-[14px] outline-none border-[#d6dad7] focus:border-[#a8b8ad]"
                         required
                         name="name"
+                        placeholder="Jane Smith"
                         value={formData.name}
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
@@ -163,6 +173,7 @@ export default function CustomQuotePage() {
                         type="email"
                         required
                         name="email"
+                        placeholder="jane@company.com"
                         value={formData.email}
                         onChange={(e) =>
                           setFormData({ ...formData, email: e.target.value })
@@ -192,7 +203,10 @@ export default function CustomQuotePage() {
                           name="phone"
                           value={formData.phone}
                           onChange={(e) =>
-                            setFormData({ ...formData, phone: e.target.value })
+                            setFormData({
+                              ...formData,
+                              phone: e.target.value.replace(/[^0-9+()-\s]/g, ""),
+                            })
                           }
                         />
                       </div>
@@ -207,6 +221,7 @@ export default function CustomQuotePage() {
                       </label>
                       <input
                         className="h-10 w-full rounded-[9px] border border-[#d6dad7] px-3 text-[14px] outline-none focus:border-[#a8b8ad]"
+                        placeholder="Your Brand Inc."
                         value={formData.company}
                         onChange={(e) =>
                           setFormData({ ...formData, company: e.target.value })

@@ -261,6 +261,18 @@ export default function ContactView() {
       if (error) throw error;
 
       setSubmitted(true);
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setCompany("");
+      setProductType("");
+      setQuantity("");
+      setMessage("");
+      setTimeline("");
+      setTerms(false);
+      setTouched({});
+      setErrors({});
       trackLeadSubmitted("contact_form", attribution);
       toast({ title: "Request Sent!", description: "We'll get back to you within 24 hours." });
     } catch (err: any) {
@@ -272,6 +284,22 @@ export default function ContactView() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleResetForm = () => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPhone("");
+    setCompany("");
+    setProductType("");
+    setQuantity("");
+    setMessage("");
+    setTimeline("");
+    setTerms(false);
+    setTouched({});
+    setErrors({});
+    setSubmitted(false);
   };
 
   return (
@@ -521,7 +549,7 @@ export default function ContactView() {
                 </p>
                 <button
                   type="button"
-                  onClick={() => setSubmitted(false)}
+                  onClick={handleResetForm}
                   className="mt-8 px-10 py-3 rounded-lg bg-accent font-sans font-semibold text-white transition-colors hover:bg-[var(--ds-orange-hover)]"
                 >
                   Send Another Request

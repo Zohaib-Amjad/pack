@@ -67,7 +67,7 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
   const [width, setWidth] = useState("");
   const [depth, setDepth] = useState("");
   const [unit, setUnit] = useState("in");
-  const [quantity, setQuantity] = useState("500");
+  const [quantity, setQuantity] = useState("");
   const [color, setColor] = useState("");
   const [requirements, setRequirements] = useState("");
   const [captchaInput, setCaptchaInput] = useState("");
@@ -224,6 +224,19 @@ ${requirements || "No additional notes"}`;
       );
 
       setSubmitted(true);
+      setFirstName("");
+      setLastName("");
+      setPhone("");
+      setEmail("");
+      setLength("");
+      setWidth("");
+      setDepth("");
+      setUnit("in");
+      setQuantity("");
+      setColor("");
+      setRequirements("");
+      setCaptchaInput("");
+      setFileAttached(null);
       toast({
         title: "Quote Request Sent!",
         description: "Thank you! Our packaging specialists will contact you with a free dieline and estimate within 24 hours.",
@@ -232,6 +245,19 @@ ${requirements || "No additional notes"}`;
     } catch (err: any) {
       // In case Supabase table is unreachable, still provide success UX to customer
       setSubmitted(true);
+      setFirstName("");
+      setLastName("");
+      setPhone("");
+      setEmail("");
+      setLength("");
+      setWidth("");
+      setDepth("");
+      setUnit("in");
+      setQuantity("");
+      setColor("");
+      setRequirements("");
+      setCaptchaInput("");
+      setFileAttached(null);
       toast({
         title: "Quote Request Received!",
         description: "We've registered your custom quote inquiry and will respond within 24 hours.",
@@ -239,6 +265,23 @@ ${requirements || "No additional notes"}`;
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const resetForm = () => {
+    setFirstName("");
+    setLastName("");
+    setPhone("");
+    setEmail("");
+    setLength("");
+    setWidth("");
+    setDepth("");
+    setUnit("in");
+    setQuantity("");
+    setColor("");
+    setRequirements("");
+    setCaptchaInput("");
+    setFileAttached(null);
+    setSubmitted(false);
   };
 
   const scrollRelatedProducts = (pageIndex: number) => {
@@ -466,7 +509,7 @@ ${requirements || "No additional notes"}`;
                     </p>
                     <button
                       type="button"
-                      onClick={() => setSubmitted(false)}
+                      onClick={resetForm}
                       className="mt-5 inline-flex items-center justify-center rounded-[7px] bg-accent px-6 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-white hover:bg-[#c45a18]"
                     >
                       Submit Another Request
@@ -522,8 +565,9 @@ ${requirements || "No additional notes"}`;
                             placeholder="5551234567"
                             value={phone}
                             onChange={(e) => {
-                              setPhone(e.target.value);
-                              trackUnfilled({ name: `${firstName} ${lastName}`, email, phone: e.target.value });
+                              const cleaned = e.target.value.replace(/[^0-9+()-\s]/g, "");
+                              setPhone(cleaned);
+                              trackUnfilled({ name: `${firstName} ${lastName}`, email, phone: cleaned });
                             }}
                             className="flex w-full py-2 font-sans font-normal text-[#1a1a1a] border placeholder:text-[#aaa6a0] transition-colors duration-150 focus-visible:outline-none focus-visible:border-[#e8732a] focus-visible:ring-2 focus-visible:ring-offset-0 h-9 rounded-[7px] border-[#d8d4cc] bg-[#faf8f5] px-3 text-[12.5px] focus-visible:ring-accent/20"
                           />
@@ -619,9 +663,9 @@ ${requirements || "No additional notes"}`;
                           </label>
                           <input
                             required
-                            placeholder="500"
+                            placeholder="e.g. 500"
                             value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
+                            onChange={(e) => setQuantity(e.target.value.replace(/\D/g, ""))}
                             className="flex w-full py-2 font-sans font-normal text-[#1a1a1a] border placeholder:text-[#aaa6a0] transition-colors duration-150 focus-visible:outline-none focus-visible:border-[#e8732a] focus-visible:ring-2 focus-visible:ring-offset-0 h-9 rounded-[7px] border-[#d8d4cc] bg-[#faf8f5] px-3 text-[12.5px] focus-visible:ring-accent/20"
                           />
                         </div>

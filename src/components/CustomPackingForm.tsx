@@ -115,12 +115,26 @@ export default function CustomPackingForm({ source = "landing_page" }: Props) {
       )) as any;
       if (error) throw error;
       setSubmitted(true);
+      setFormData({
+        name: "", email: "", phone: "", company: "",
+        packagingType: "", estimatedQuantity: "",
+      });
+      setErrors({});
       trackLeadSubmitted("custom_packing_form", attribution);
     } catch (error: any) {
       toast({ title: "Something went wrong", description: error?.message || "Please try again.", variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleReset = () => {
+    setFormData({
+      name: "", email: "", phone: "", company: "",
+      packagingType: "", estimatedQuantity: "",
+    });
+    setErrors({});
+    setSubmitted(false);
   };
 
   return (
@@ -131,8 +145,15 @@ export default function CustomPackingForm({ source = "landing_page" }: Props) {
       <p className="mt-2 text-[13px] text-[#6c7170]">Reply within 1 business day.</p>
 
       {submitted ? (
-        <div className="mt-6 rounded-[12px] border border-[#dce7df] bg-[#f5fbf7] p-4 text-[14px] text-[#245238]">
-          Thanks! Your request has been captured. We will contact you shortly.
+        <div className="mt-6 rounded-[12px] border border-[#dce7df] bg-[#f5fbf7] p-4 text-[14px] text-[#245238] space-y-3">
+          <p>Thanks! Your request has been captured. We will contact you shortly.</p>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="text-xs font-semibold text-[#ee7a1b] underline"
+          >
+            Submit another request
+          </button>
         </div>
       ) : (
         <form
@@ -151,6 +172,7 @@ export default function CustomPackingForm({ source = "landing_page" }: Props) {
                 data-unfilled="name"
                 className={`h-10 w-full rounded-[9px] border px-3 text-[14px] outline-none ${errors.name ? "border-red-400 focus:border-red-500" : "border-[#d6dad7] focus:border-[#a8b8ad]"}`}
                 required
+                placeholder="Jane Smith"
                 value={formData.name}
                 onChange={(e) => updateForm("name", e.target.value)}
               />
@@ -166,6 +188,7 @@ export default function CustomPackingForm({ source = "landing_page" }: Props) {
                 className={`h-10 w-full rounded-[9px] border px-3 text-[14px] outline-none ${errors.email ? "border-red-400 focus:border-red-500" : "border-[#d6dad7] focus:border-[#a8b8ad]"}`}
                 type="email"
                 required
+                placeholder="jane@company.com"
                 value={formData.email}
                 onChange={(e) => updateForm("email", e.target.value)}
               />
@@ -203,6 +226,7 @@ export default function CustomPackingForm({ source = "landing_page" }: Props) {
               <label className="text-[13px] font-medium text-[#2f2f2f]">Company Name</label>
               <input
                 className="h-10 w-full rounded-[9px] border border-[#d6dad7] px-3 text-[14px] outline-none focus:border-[#a8b8ad]"
+                placeholder="Your Brand Inc."
                 value={formData.company}
                 onChange={(e) => updateForm("company", e.target.value)}
               />
