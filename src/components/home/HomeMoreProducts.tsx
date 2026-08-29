@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import RelatedProductsCarouselSection from "@/components/RelatedProductsCarouselSection";
 import { useCmsHome } from "@/hooks/useCms";
 import { getAllProducts } from "@/data/products";
+import { fetchAllProducts } from "@/lib/product-service";
 import type { CmsHome } from "@/types/cms";
 
 type HomeProduct = {
@@ -94,39 +96,88 @@ type HomeMoreProductsProps = {
 };
 
 export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
-  const { data } = useCmsHome();
-  const section = data?.moreProducts || cms?.moreProducts;
-  const allCatalogProducts = useMemo(() => getAllProducts(), []);
+  const queryClient = useQueryClient();
+  const { data: cmsData } = useCmsHome();
+  const section = cmsData?.moreProducts || cms?.moreProducts;
+
+  const staticCatalog = useMemo(() => getAllProducts(), []);
+
+  const { data: allCatalogProducts = staticCatalog } = useQuery({
+    queryKey: ["all-products-for-more-slider"],
+    queryFn: async () => {
+      try {
+        const full = await fetchAllProducts();
+        if (full && full.length > 0) return full;
+      } catch {
+        // fallback
+      }
+      return staticCatalog;
+    },
+    initialData: staticCatalog,
+    staleTime: 10_000,
+  });
+
+  // Listen for admin storage events to re-render in real-time
+  useEffect(() => {
+    const handleSync = () => {
+      queryClient.invalidateQueries({ queryKey: ["public", "cms", "cms_home"] });
+      queryClient.invalidateQueries({ queryKey: ["all-products-for-more-slider"] });
+    };
+    window.addEventListener("storage", handleSync);
+    window.addEventListener("focus", handleSync);
+    return () => {
+      window.removeEventListener("storage", handleSync);
+      window.removeEventListener("focus", handleSync);
+    };
+  }, [queryClient]);
 
   if (section?.enabled === false) return null;
 
   const selectedIds = section?.selectedProductIds || [];
-  const limit = Math.max(1, Math.min(24, section?.limit ?? 12));
+  const limit = Math.max(1, Math.min(40, section?.limit ?? (selectedIds.length > 0 ? selectedIds.length : 12)));
 
-  // Match ONLY the products explicitly added in the admin
+  // Match and preserve the exact order of products chosen in the admin
   const products: HomeProduct[] = useMemo(() => {
     if (selectedIds.length > 0) {
       const list: HomeProduct[] = [];
       const used = new Set<string>();
 
       selectedIds.forEach((query) => {
-        const q = query.toLowerCase().trim();
+        const q = String(query || "").toLowerCase().trim();
+        if (!q) return;
+
         const found = allCatalogProducts.find(
           (p: any) =>
-            p.name.toLowerCase() === q ||
-            p.slug.toLowerCase() === q ||
-            p.id?.toLowerCase() === q ||
-            p.name.toLowerCase().includes(q)
+            (p.name && p.name.toLowerCase().trim() === q) ||
+            (p.slug && p.slug.toLowerCase().trim() === q) ||
+            (p.id && String(p.id).toLowerCase().trim() === q) ||
+            (p.name && p.name.toLowerCase().trim().includes(q)) ||
+            (p.slug && p.slug.toLowerCase().trim().includes(q.replace(/\s+/g, "-")))
         );
 
-        if (found && !used.has(found.slug)) {
-          used.add(found.slug);
-          list.push({
-            id: (found as any).id || found.slug,
-            name: found.name,
-            slug: found.slug,
-            images: (found as any).image ? [(found as any).image] : [],
-          });
+        if (found) {
+          const key = found.slug || found.name;
+          if (!used.has(key)) {
+            used.add(key);
+            list.push({
+              id: (found as any).id || found.slug || found.name,
+              name: found.name,
+              slug: found.slug,
+              images: (found as any).image ? [(found as any).image] : (found as any).images || ["/images/products/custom-cake-boxes.jpg"],
+            });
+          }
+        } else {
+          // If not in catalog yet, add as custom item so it is NEVER omitted from the UI
+          const slug = q.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+          if (!used.has(slug)) {
+            used.add(slug);
+            list.push({
+              id: `sel-${slug}`,
+              name: query,
+              slug: slug,
+              images: ["/images/products/custom-cake-boxes.jpg"],
+            });
+          }
         }
       });
 

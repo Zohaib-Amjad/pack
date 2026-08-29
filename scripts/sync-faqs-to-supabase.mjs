@@ -1,25 +1,20 @@
-import { createPublicClient } from "@/utils/supabase/public-client";
-import { createDataClient } from "@/utils/supabase/data-client";
-import { withAbortableTimeout } from "@/lib/fetch-utils";
+import { createClient } from "@supabase/supabase-js";
+import { config } from "dotenv";
 
-export interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  tab: "global" | "artwork" | "category" | "product";
-  section?: "homepage" | "category" | "artwork" | "product" | "general";
-  category_slug?: string | null;
-  category_id?: string | null;
-  product_slug?: string | null;
-  product_id?: string | null;
-  status: "Published" | "Draft";
-  order?: number;
-  created_at?: string;
-  updated_at?: string;
+config({ path: ".env.local" });
+config({ path: ".env" });
+
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!url || !key) {
+  console.log("Supabase credentials not found.");
+  process.exit(0);
 }
 
-export const BASE_FAQS: FAQItem[] = [
+const supabase = createClient(url, key);
+
+const FAQS_18 = [
   {
     id: "ba1c9724-18f6-4901-9975-f68f502f9cc7",
     question: "Can I get a sample before a custom order in bulk?",
@@ -220,258 +215,43 @@ export const BASE_FAQS: FAQItem[] = [
   },
 ];
 
-const SETTINGS_KEY = "custom_faqs_list";
-
-export async function fetchAllFaqs(tabFilter?: string): Promise<FAQItem[]> {
-  const map = new Map<string, FAQItem>();
-
-  // Base list
-  BASE_FAQS.forEach((f) => {
-    map.set(f.id, { ...f });
-  });
-
-  // 1. Fetch from Supabase faqs table
-  try {
-    const supabase = createPublicClient();
-    const { data: rows } = await withAbortableTimeout((signal) =>
-      supabase
-        .from("faqs" as any)
-        .select("*")
-        .order("order", { ascending: true })
-        .abortSignal(signal) as any
-    );
-
-    if (Array.isArray(rows) && rows.length > 0) {
-      rows.forEach((row: any) => {
-        const id = String(row.id || "");
-        if (!id) return;
-        const existing = map.get(id);
-        const sec = row.section || (row.category === "artwork" ? "artwork" : "homepage");
-        const tab = (row.tab as any) || (sec === "artwork" ? "artwork" : sec === "category" ? "category" : sec === "product" ? "product" : "global");
-
-        map.set(id, {
-          id,
-          question: row.question || "",
-          answer: row.answer || "",
-          category: row.category || row.section || "Global Support",
-          tab,
-          section: sec,
-          category_slug: row.category_slug || row.categoryRef || null,
-          category_id: row.category_id || null,
-          product_slug: row.product_slug || row.productRef || null,
-          product_id: row.product_id || null,
-          status: row.is_published === false ? "Draft" : "Published",
-          order: row.order ?? row.display_order ?? existing?.order ?? 999,
-          created_at: row.created_at,
-          updated_at: row.updated_at,
-        });
-      });
-    }
-  } catch {
-    // ignore
-  }
-
-  // 2. Fetch from Supabase site_settings
-  try {
-    const supabase = createPublicClient();
-    const res = (await withAbortableTimeout((signal) =>
-      (supabase
-        .from("site_settings" as any)
-        .select("value")
-        .eq("key", SETTINGS_KEY)
-        .abortSignal(signal)
-        .maybeSingle() as any)
-    )) as any;
-
-    if (!res?.error && Array.isArray(res?.data?.value)) {
-      res.data.value.forEach((item: FAQItem) => {
-        if (item.id) {
-          map.set(item.id, {
-            ...(map.get(item.id) || {}),
-            ...item,
-          });
-        }
-      });
-    }
-  } catch {
-    // ignore
-  }
-
-  // 3. Check LocalStorage
-  if (typeof window !== "undefined") {
-    try {
-      const localStr = localStorage.getItem("hof_custom_faqs_list");
-      if (localStr) {
-        const localList: FAQItem[] = JSON.parse(localStr);
-        localList.forEach((item) => {
-          if (item.id) {
-            map.set(item.id, {
-              ...(map.get(item.id) || {}),
-              ...item,
-            });
-          }
-        });
-      }
-    } catch {
-      // ignore
-    }
-  }
-
-  let list = Array.from(map.values());
-  if (tabFilter && tabFilter !== "all") {
-    list = list.filter((f) => f.tab === tabFilter || f.section === tabFilter);
-  }
-  list.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-  return list;
-}
-
-export async function fetchHomepageFaqs(): Promise<FAQItem[]> {
-  const all = await fetchAllFaqs();
-  return all.filter((f) => f.status !== "Draft");
-}
-
-export async function fetchCategoryFaqs(categorySlug: string, categoryId?: string): Promise<FAQItem[]> {
-  const all = await fetchAllFaqs();
-  const clean = categorySlug.toLowerCase().replace(/^custom-/, "");
-  return all.filter((f) => {
-    if (f.status === "Draft") return false;
-    if (f.tab !== "category" && f.section !== "category") return false;
-    if (categoryId && f.category_id === categoryId) return true;
-    if (f.category_slug && (f.category_slug === categorySlug || f.category_slug.replace(/^custom-/, "") === clean)) return true;
-    return false;
-  });
-}
-
-export async function fetchProductFaqs(productSlug: string, productId?: string): Promise<FAQItem[]> {
-  const all = await fetchAllFaqs();
-  return all.filter((f) => {
-    if (f.status === "Draft") return false;
-    if (f.tab !== "product" && f.section !== "product") return false;
-    if (productId && f.product_id === productId) return true;
-    if (f.product_slug && f.product_slug === productSlug) return true;
-    return false;
-  });
-}
-
-export async function fetchFaqById(id: string): Promise<FAQItem | null> {
-  const all = await fetchAllFaqs();
-  return all.find((f) => f.id === id) || null;
-}
-
-export async function saveFaqRecord(faq: Partial<FAQItem> & { question: string; answer: string }): Promise<FAQItem> {
+async function sync() {
   const now = new Date().toISOString();
-  const id = faq.id || crypto.randomUUID();
-  const record: FAQItem = {
-    id,
-    question: faq.question,
-    answer: faq.answer,
-    category: faq.category || "Global Support",
-    tab: faq.tab || "global",
-    section: faq.section || (faq.tab === "artwork" ? "artwork" : faq.tab === "category" ? "category" : faq.tab === "product" ? "product" : "homepage"),
-    category_slug: faq.category_slug || null,
-    category_id: faq.category_id || null,
-    product_slug: faq.product_slug || null,
-    product_id: faq.product_id || null,
-    status: faq.status || "Published",
-    order: faq.order ?? 0,
-    created_at: faq.created_at || now,
-    updated_at: now,
-  };
 
-  // 1. Try Supabase faqs table
-  try {
-    const supabase = createDataClient();
-    await supabase.from("faqs" as any).upsert(
+  // 1. Sync to site_settings
+  const { error: err1 } = await supabase.from("site_settings").upsert(
+    {
+      key: "custom_faqs_list",
+      value: FAQS_18,
+      updated_at: now,
+    },
+    { onConflict: "key" }
+  );
+
+  if (err1) {
+    console.error("site_settings sync error:", err1);
+  } else {
+    console.log("Synced 18 FAQs to site_settings!");
+  }
+
+  // 2. Sync to faqs table
+  for (const faq of FAQS_18) {
+    await supabase.from("faqs").upsert(
       {
-        id: record.id,
-        question: record.question,
-        answer: record.answer,
-        category: record.category,
-        tab: record.tab,
-        section: record.section,
-        category_slug: record.category_slug,
-        category_id: record.category_id,
-        product_slug: record.product_slug,
-        product_id: record.product_id,
-        is_published: record.status !== "Draft",
-        order: record.order,
+        id: faq.id,
+        question: faq.question,
+        answer: faq.answer,
+        category: faq.category,
+        tab: faq.tab,
+        section: faq.section,
+        is_published: true,
+        order: faq.order,
         updated_at: now,
       },
       { onConflict: "id" }
     );
-  } catch {
-    // fallback
   }
-
-  // 2. Try Supabase site_settings
-  try {
-    const all = await fetchAllFaqs();
-    const updated = [record, ...all.filter((f) => f.id !== record.id)];
-    const supabase = createDataClient();
-    await supabase.from("site_settings" as any).upsert(
-      {
-        key: SETTINGS_KEY,
-        value: updated,
-        updated_at: now,
-      },
-      { onConflict: "key" }
-    );
-  } catch {
-    // fallback
-  }
-
-  // 3. LocalStorage
-  if (typeof window !== "undefined") {
-    try {
-      const all = await fetchAllFaqs();
-      const updated = [record, ...all.filter((f) => f.id !== record.id)];
-      localStorage.setItem("hof_custom_faqs_list", JSON.stringify(updated));
-      window.dispatchEvent(new Event("storage"));
-    } catch {
-      // ignore
-    }
-  }
-
-  return record;
+  console.log("Upserted all 18 FAQs in Supabase faqs table!");
 }
 
-export async function deleteFaqRecord(id: string): Promise<boolean> {
-  // 1. Supabase faqs table
-  try {
-    const supabase = createDataClient();
-    await supabase.from("faqs" as any).delete().eq("id", id);
-  } catch {
-    // ignore
-  }
-
-  // 2. Supabase site_settings
-  try {
-    const all = await fetchAllFaqs();
-    const filtered = all.filter((f) => f.id !== id);
-    const supabase = createDataClient();
-    await supabase.from("site_settings" as any).upsert(
-      {
-        key: SETTINGS_KEY,
-        value: filtered,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: "key" }
-    );
-  } catch {
-    // ignore
-  }
-
-  // 3. LocalStorage
-  if (typeof window !== "undefined") {
-    try {
-      const all = await fetchAllFaqs();
-      const filtered = all.filter((f) => f.id !== id);
-      localStorage.setItem("hof_custom_faqs_list", JSON.stringify(filtered));
-      window.dispatchEvent(new Event("storage"));
-    } catch {
-      // ignore
-    }
-  }
-
-  return true;
-}
+sync();

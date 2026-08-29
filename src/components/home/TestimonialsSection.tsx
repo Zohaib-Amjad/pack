@@ -1,18 +1,15 @@
 "use client";
 
-import { DEFAULT_CMS_HOME } from "@/data/cms-defaults";
-
-
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useCmsHome } from "@/hooks/useCms";
+import { DEFAULT_CMS_HOME } from "@/data/cms-defaults";
 
 const TestimonialsSection = () => {
   const { data } = useCmsHome();
   const cms = data || DEFAULT_CMS_HOME;
   const {
     items,
-    trustStats,
     sectionLabel,
     titleLead,
     titleAccent,
@@ -189,19 +186,6 @@ const TestimonialsSection = () => {
                 {t.name}
               </p>
             </button>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-8 sm:gap-16 mt-12 pt-8 border-t border-border">
-          {trustStats.map((stat, i) => (
-            <div key={`${stat.label}-${i}`} className="text-center">
-              <p className="font-display text-2xl sm:text-3xl font-bold text-accent">
-                {stat.value}
-              </p>
-              <p className="text-xs text-muted-foreground font-sans mt-1">
-                {stat.label}
-              </p>
-            </div>
           ))}
         </div>
       </div>

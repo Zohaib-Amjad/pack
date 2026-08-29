@@ -330,12 +330,7 @@ can be recycled or composted, and we never test on animals.`,
     leftColumnDirection: "up",
     rightColumnDirection: "down",
     scrollSpeed: "normal",
-    trustStats: [
-      { value: "52200+", label: "Brands Served" },
-      { value: "4.0/5", label: "Average Rating" },
-      { value: "95%", label: "Reorder Rate" },
-      { value: "24hr", label: "Response Time" },
-    ],
+    trustStats: [],
   },
   faq: {
     titleLead: "Common",

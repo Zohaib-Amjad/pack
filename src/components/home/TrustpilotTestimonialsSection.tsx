@@ -122,9 +122,6 @@ const TrustpilotTestimonialsSection = ({ cms }: TrustpilotTestimonialsSectionPro
   const durationLeft = speed === "fast" ? "18s" : speed === "slow" ? "42s" : "28s";
   const durationRight = speed === "fast" ? "22s" : speed === "slow" ? "48s" : "32s";
 
-  const stats = Array.isArray(tm?.trustStats)
-    ? tm.trustStats.filter((s) => s.value && s.label)
-    : [];
 
   const { leftCol, rightCol } = useMemo(() => {
     const rawList = Array.isArray(tm?.items) ? tm.items : [];
@@ -188,20 +185,7 @@ const TrustpilotTestimonialsSection = ({ cms }: TrustpilotTestimonialsSectionPro
             </p>
           )}
 
-          {stats.length > 0 && (
-            <div className="mt-6 pt-5 border-t border-[#c5d6ca] grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {stats.map((st, i) => (
-                <div key={i} className="flex flex-col">
-                  <span className="font-display text-[18px] font-bold text-[#2d5c3e] leading-tight">
-                    {st.value}
-                  </span>
-                  <span className="text-[10.5px] font-semibold text-[#7a7672] leading-tight mt-0.5">
-                    {st.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
+
 
           {(primaryCtaLabel || secondaryCtaLabel) && (
             <div className="mt-7 flex flex-wrap items-center gap-3">

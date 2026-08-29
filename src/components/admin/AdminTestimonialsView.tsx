@@ -104,15 +104,6 @@ export default function AdminTestimonialsView() {
   const [rightColumnDirection, setRightColumnDirection] = useState<"up" | "down">("down");
   const [scrollSpeed, setScrollSpeed] = useState<"slow" | "normal" | "fast">("normal");
 
-  const [stat1Val, setStat1Val] = useState("52200+");
-  const [stat1Label, setStat1Label] = useState("Brands Served");
-  const [stat2Val, setStat2Val] = useState("4.0/5");
-  const [stat2Label, setStat2Label] = useState("Average Rating");
-  const [stat3Val, setStat3Val] = useState("95%");
-  const [stat3Label, setStat3Label] = useState("Reorder Rate");
-  const [stat4Val, setStat4Val] = useState("24hr");
-  const [stat4Label, setStat4Label] = useState("Response Time");
-
   const [reviews, setReviews] = useState<ReviewItem[]>(INITIAL_REVIEWS);
   const [isSaved, setIsSaved] = useState(false);
 
@@ -136,24 +127,6 @@ export default function AdminTestimonialsView() {
       setLeftColumnDirection(local.leftColumnDirection === "down" ? "down" : "up");
       setRightColumnDirection(local.rightColumnDirection === "up" ? "up" : "down");
       setScrollSpeed(local.scrollSpeed === "fast" ? "fast" : local.scrollSpeed === "slow" ? "slow" : "normal");
-
-      const stats = Array.isArray(local.trustStats) ? local.trustStats : [];
-      if (stats[0]) {
-        setStat1Val(typeof stats[0].value === "string" ? stats[0].value : "52200+");
-        setStat1Label(typeof stats[0].label === "string" ? stats[0].label : "Brands Served");
-      }
-      if (stats[1]) {
-        setStat2Val(typeof stats[1].value === "string" ? stats[1].value : "4.0/5");
-        setStat2Label(typeof stats[1].label === "string" ? stats[1].label : "Average Rating");
-      }
-      if (stats[2]) {
-        setStat3Val(typeof stats[2].value === "string" ? stats[2].value : "95%");
-        setStat3Label(typeof stats[2].label === "string" ? stats[2].label : "Reorder Rate");
-      }
-      if (stats[3]) {
-        setStat4Val(typeof stats[3].value === "string" ? stats[3].value : "24hr");
-        setStat4Label(typeof stats[3].label === "string" ? stats[3].label : "Response Time");
-      }
 
       if (Array.isArray(local.items)) {
         setReviews(
@@ -236,14 +209,6 @@ export default function AdminTestimonialsView() {
       setLeftColumnDirection("up");
       setRightColumnDirection("down");
       setScrollSpeed("normal");
-      setStat1Val("52200+");
-      setStat1Label("Brands Served");
-      setStat2Val("4.0/5");
-      setStat2Label("Average Rating");
-      setStat3Val("95%");
-      setStat3Label("Reorder Rate");
-      setStat4Val("24hr");
-      setStat4Label("Response Time");
       setReviews(INITIAL_REVIEWS);
     }
     toast({
@@ -267,12 +232,7 @@ export default function AdminTestimonialsView() {
       leftColumnDirection,
       rightColumnDirection,
       scrollSpeed,
-      trustStats: [
-        { value: stat1Val, label: stat1Label },
-        { value: stat2Val, label: stat2Label },
-        { value: stat3Val, label: stat3Label },
-        { value: stat4Val, label: stat4Label },
-      ],
+      trustStats: [],
       items: reviews.map((r) => ({
         id: r.id,
         name: r.name,
@@ -297,7 +257,7 @@ export default function AdminTestimonialsView() {
     setIsSaved(true);
     toast({
       title: "Testimonials Saved",
-      description: "Updated Testimonials order, slider assignments, and directions in Supabase.",
+      description: "Updated Testimonials in Supabase.",
     });
     setTimeout(() => setIsSaved(false), 3000);
   };
@@ -544,123 +504,7 @@ export default function AdminTestimonialsView() {
                 </div>
               </div>
 
-              {/* Card 4: Trust Stats */}
-              <div className="card bg-white border border-[#e0ddd6]/80 rounded-[16px] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                <div className="p-5 sm:p-6 border-b border-[#e0ddd6]/80 bg-white">
-                  <h2 className="font-display text-[16px] font-bold text-[#1a1a1a]">
-                    Trust stats
-                  </h2>
-                  <p className="text-[10px] uppercase font-bold tracking-widest text-[#aaa6a0] mt-1">
-                    NUMBERS ON THE TESTIMONIALS PANEL
-                  </p>
-                </div>
 
-                <div className="p-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  {/* Stat 1 */}
-                  <div className="space-y-3 p-3.5 rounded-xl bg-[#faf8f5] border border-[#e0ddd6]/60">
-                    <div>
-                      <label className="text-[9px] font-bold text-[#aaa6a0] uppercase tracking-widest block mb-1">
-                        Stat 1 Value
-                      </label>
-                      <input
-                        className="w-full min-h-[36px] px-3 text-[13px] bg-white border border-[#e0ddd6] rounded-lg focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
-                        value={stat1Val}
-                        onChange={(e) => setStat1Val(e.target.value)}
-                        placeholder="52200+"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[9px] font-bold text-[#aaa6a0] uppercase tracking-widest block mb-1">
-                        Label
-                      </label>
-                      <input
-                        className="w-full min-h-[36px] px-3 text-[13px] bg-white border border-[#e0ddd6] rounded-lg focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
-                        value={stat1Label}
-                        onChange={(e) => setStat1Label(e.target.value)}
-                        placeholder="Brands Served"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Stat 2 */}
-                  <div className="space-y-3 p-3.5 rounded-xl bg-[#faf8f5] border border-[#e0ddd6]/60">
-                    <div>
-                      <label className="text-[9px] font-bold text-[#aaa6a0] uppercase tracking-widest block mb-1">
-                        Stat 2 Value
-                      </label>
-                      <input
-                        className="w-full min-h-[36px] px-3 text-[13px] bg-white border border-[#e0ddd6] rounded-lg focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
-                        value={stat2Val}
-                        onChange={(e) => setStat2Val(e.target.value)}
-                        placeholder="4.0/5"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[9px] font-bold text-[#aaa6a0] uppercase tracking-widest block mb-1">
-                        Label
-                      </label>
-                      <input
-                        className="w-full min-h-[36px] px-3 text-[13px] bg-white border border-[#e0ddd6] rounded-lg focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
-                        value={stat2Label}
-                        onChange={(e) => setStat2Label(e.target.value)}
-                        placeholder="Average Rating"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Stat 3 */}
-                  <div className="space-y-3 p-3.5 rounded-xl bg-[#faf8f5] border border-[#e0ddd6]/60">
-                    <div>
-                      <label className="text-[9px] font-bold text-[#aaa6a0] uppercase tracking-widest block mb-1">
-                        Stat 3 Value
-                      </label>
-                      <input
-                        className="w-full min-h-[36px] px-3 text-[13px] bg-white border border-[#e0ddd6] rounded-lg focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
-                        value={stat3Val}
-                        onChange={(e) => setStat3Val(e.target.value)}
-                        placeholder="95%"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[9px] font-bold text-[#aaa6a0] uppercase tracking-widest block mb-1">
-                        Label
-                      </label>
-                      <input
-                        className="w-full min-h-[36px] px-3 text-[13px] bg-white border border-[#e0ddd6] rounded-lg focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
-                        value={stat3Label}
-                        onChange={(e) => setStat3Label(e.target.value)}
-                        placeholder="Reorder Rate"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Stat 4 */}
-                  <div className="space-y-3 p-3.5 rounded-xl bg-[#faf8f5] border border-[#e0ddd6]/60">
-                    <div>
-                      <label className="text-[9px] font-bold text-[#aaa6a0] uppercase tracking-widest block mb-1">
-                        Stat 4 Value
-                      </label>
-                      <input
-                        className="w-full min-h-[36px] px-3 text-[13px] bg-white border border-[#e0ddd6] rounded-lg focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
-                        value={stat4Val}
-                        onChange={(e) => setStat4Val(e.target.value)}
-                        placeholder="24hr"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[9px] font-bold text-[#aaa6a0] uppercase tracking-widest block mb-1">
-                        Label
-                      </label>
-                      <input
-                        className="w-full min-h-[36px] px-3 text-[13px] bg-white border border-[#e0ddd6] rounded-lg focus:outline-none focus:border-[#2d5c3e] text-[#1a1a1a]"
-                        value={stat4Label}
-                        onChange={(e) => setStat4Label(e.target.value)}
-                        placeholder="Response Time"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               {/* Card 5: Reviews */}
               <div className="card bg-white border border-[#e0ddd6]/80 rounded-[16px] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]">

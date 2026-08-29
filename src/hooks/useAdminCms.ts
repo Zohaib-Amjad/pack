@@ -12,26 +12,59 @@ import {
 import type { CmsAbout, CmsHome, CmsLibrary, CmsPortfolio, CmsProcess } from "@/types/cms";
 
 async function fetchSettingValue(key: string): Promise<unknown> {
-  const supabase = createDataClient();
-  const { data, error } = await withAbortableTimeout((signal) =>
-    supabase.from("site_settings" as any).select("value").eq("key", key).abortSignal(signal).maybeSingle() as any
-  );
-  if (error) throw new Error(error.message);
-  return data?.value ?? null;
+  try {
+    const supabase = createDataClient();
+    const { data, error } = await withAbortableTimeout((signal) =>
+      supabase.from("site_settings" as any).select("value").eq("key", key).abortSignal(signal).maybeSingle() as any
+    );
+    if (!error && data?.value) {
+      return data.value;
+    }
+  } catch (err) {
+    console.warn(`[useAdminCms] fetchSettingValue remote error for ${key}:`, err);
+  }
+
+  // Fallback to local storage if available
+  if (typeof window !== "undefined") {
+    try {
+      const stored = localStorage.getItem("cms_" + key);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  return null;
 }
 
 async function upsertSetting(key: string, value: unknown) {
-  const supabase = createDataClient();
-  const { error } = await withAbortableTimeout((signal) =>
-    supabase
+  // 1. Immediately persist to localStorage for instant local reactivity
+  if (typeof window !== "undefined") {
+    try {
+      localStorage.setItem("cms_" + key, JSON.stringify(value));
+      window.dispatchEvent(new Event("storage"));
+    } catch {
+      // ignore
+    }
+  }
+
+  // 2. Persist to Supabase site_settings
+  try {
+    const supabase = createDataClient();
+    const { error } = await supabase
       .from("site_settings" as any)
       .upsert(
         { key, value, updated_at: new Date().toISOString() } as any,
         { onConflict: "key" }
-      )
-      .abortSignal(signal) as any
-  );
-  if (error) throw new Error(error.message);
+      );
+    if (error) {
+      console.warn(`[useAdminCms] Supabase upsert error for ${key}:`, error.message);
+    }
+  } catch (err: any) {
+    console.warn(`[useAdminCms] Remote save warning for ${key}:`, err?.message || err);
+  }
 }
 
 export function useAdminCmsHome() {
