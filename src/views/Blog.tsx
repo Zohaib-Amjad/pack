@@ -139,10 +139,8 @@ export default function Blog() {
             <span className="inline-block font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-accent mb-5">
               Insights &amp; Guides
             </span>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05]">
-              The HOF Pack
-              <br />
-              <span className="text-accent italic">Blog</span>
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-[1.12] [text-wrap:balance]">
+              The HOF Pack <span className="text-accent italic">Blog</span>
             </h1>
             <p className="mt-5 font-sans text-base text-white/55 leading-relaxed max-w-lg">
               Packaging tips, brand strategy, and industry trends — straight from our team of custom packaging experts.

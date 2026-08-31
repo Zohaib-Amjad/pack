@@ -8,6 +8,7 @@ import {
   useEffect,
   useRef,
 } from "react";
+import { useRouter } from "next/navigation";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -83,6 +84,7 @@ function QuoteModalDialog({
   initialProduct?: string;
   initialCategory?: string;
 }) {
+  const router = useRouter();
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -246,7 +248,6 @@ function QuoteModalDialog({
         variant: "destructive",
       });
     } else {
-      setSubmitted(true);
       trackLeadSubmitted("quote_modal", attribution);
       toast({
         title: "Quote Request Sent!",
@@ -283,6 +284,10 @@ function QuoteModalDialog({
       setCompany("");
       setDetails("");
       setSmsConsent(false);
+
+      const targetPath = initialCategory ? `/thank-you/${initialCategory}` : "/thank-you";
+      onClose();
+      router.push(targetPath);
     }
   };
 

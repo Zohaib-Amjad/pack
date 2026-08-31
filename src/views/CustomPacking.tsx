@@ -2,6 +2,7 @@
 
 import Image, { type StaticImageData } from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Leaf,
@@ -45,103 +46,79 @@ type CategoryCard = {
 const categoryCards: CategoryCard[] = [
   {
     title: "Rigid Boxes",
-    subtitle: "Premium gift, retail and luxury packaging.",
+    subtitle: "Luxury magnetic closure, two-piece and shoulder boxes for premium products.",
     image: catRigid,
   },
   {
+    title: "Bakery Boxes",
+    subtitle: "Custom pastry, donut, cake and cookie boxes with food-grade materials and windows.",
+    image: catBakery,
+  },
+  {
     title: "Mailer Boxes",
-    subtitle: "Branded e-commerce shipping experience.",
+    subtitle: "E-commerce ready custom corrugated mailers that protect and impress on unboxing.",
     image: catMailer,
   },
   {
     title: "Mylar Bags",
-    subtitle: "Stand-up pouches for coffee, snacks & more.",
+    subtitle: "Smell-proof, food-grade barrier pouches with custom printing and resealable zippers.",
     image: catMylar,
   },
   {
-    title: "Tuck Boxes",
-    subtitle: "Versatile tuck-end folding cartons.",
-    image: catTuck,
-  },
-  {
-    title: "Bakery Boxes",
-    subtitle: "Window boxes, pastry and cake packaging.",
-    image: catBakery,
-  },
-  {
     title: "Candle Boxes",
-    subtitle: "Elegant boxes built for candle brands.",
+    subtitle: "Two-piece, tuck end and display packaging built to protect delicate candle jars.",
     image: catCandle,
   },
   {
-    title: "Soap & Skincare",
-    subtitle: "Clean, modern packaging for personal care.",
+    title: "Soap Boxes",
+    subtitle: "Custom cut-out, sleeve and tuck end packaging designed for bar soaps and cosmetics.",
     image: catSoap,
   },
-];
-
-const valueCards = [
   {
-    icon: Package,
-    title: "Low MOQ Available",
-    body: "Order quantities that match your stage of growth — start small and scale up.",
-  },
-  {
-    icon: Sparkles,
-    title: "Free Design Support",
-    body: "Our in-house designers prepare print-ready artwork at no extra cost.",
-  },
-  {
-    icon: Leaf,
-    title: "Eco-Friendly Materials",
-    body: "Recyclable kraft, FSC paper and biodegradable options across our range.",
-  },
-  {
-    icon: Truck,
-    title: "Worldwide Shipping",
-    body: "Reliable delivery to your door, wherever your business operates.",
-  },
-  {
-    icon: Headphones,
-    title: "Custom Packaging",
-    body: "Fully bespoke shapes, sizes, finishes and print — built around your brand.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Built for Growing Brands",
-    body: "A packaging partner that grows with you, from launch to scale.",
+    title: "Tuck Boxes",
+    subtitle: "Versatile folding carton boxes with custom printing, foil and embossing options.",
+    image: catTuck,
   },
 ];
 
-const processCards = [
+const faqs = [
   {
-    number: "01",
-    title: "Tell us what you need",
-    body: "Share your product, dimensions and style — or just an idea. We'll guide you to the right packaging.",
+    question: "What is your Minimum Order Quantity (MOQ)?",
+    answer:
+      "Our MOQ starts at just 100 units for most custom packaging styles. This allows small businesses, startups and growing brands to order premium packaging without huge upfront commitments.",
   },
   {
-    number: "02",
-    title: "Custom design & pricing",
-    body: "Receive print-ready mockups and transparent pricing — free and with no obligation.",
+    question: "How long does production and delivery take?",
+    answer:
+      "Standard production takes 8 to 12 business days after your artwork is approved. We also offer expedited turnaround for rush projects. Shipping is completely FREE within the United States.",
   },
   {
-    number: "03",
-    title: "Production & delivery",
-    body: "We print, finish and ship your custom packaging straight to your door.",
+    question: "Do you provide free design assistance and dieline templates?",
+    answer:
+      "Yes! Our dedicated design team will help you place your artwork on our dielines, generate 2D and 3D mockups, and ensure your files are 100% print-ready at no extra charge.",
+  },
+  {
+    question: "Can I get a sample before placing a full production order?",
+    answer:
+      "Absolutely. We offer digital 3D mockups for free with every quote. Physical pre-production samples can also be arranged upon request to check sizing, material and print finish.",
+  },
+  {
+    question: "What printing and finishing options are available?",
+    answer:
+      "We offer full-color CMYK, Pantone matching, spot UV, hot foil stamping (gold, silver, holographic), embossing, debossing, matte/gloss lamination, soft-touch coatings and custom window cutouts.",
+  },
+  {
+    question: "Are your packaging materials eco-friendly and recyclable?",
+    answer:
+      "Yes, sustainability is core to what we do. We offer FSC-certified cardstock, recycled kraft, biodegradable corrugated board and soy-based inks that meet high environmental standards.",
   },
 ];
 
-const SALES_PHONE = "+18884294881";
-const SALES_PHONE_DISPLAY = "+1 (888) 429 4881";
-const SALES_EMAIL = "info@hofpack.com";
-
-const packagingTypes = [
+const packagingOptions = [
+  "Select a box type...",
   "Bakery box",
   "Candle box",
-  "Coffee box",
-  "Display box",
-  "Craft boxes",
-  "Mailer boxes",
+  "Mailer box",
   "Mylar bags",
   "Rigid box",
   "Custom food boxes",
@@ -151,6 +128,7 @@ const packagingTypes = [
 ];
 
 export default function CustomPacking() {
+  const router = useRouter();
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -259,6 +237,7 @@ export default function CustomPacking() {
       if (error) throw error;
       setSubmitted(true);
       trackLeadSubmitted("custom_packing_view_form", attribution);
+      router.push("/thank-you");
     } catch (error: any) {
       toast({
         title: "Something went wrong",
@@ -288,318 +267,177 @@ export default function CustomPacking() {
                   ✨ Premium Custom Packaging
                 </span>
               </div>
-              <h1 className="max-w-[700px] text-[36px] font-bold leading-[1.03] text-white sm:text-[50px] lg:text-[60px]">
-                Custom Packaging That
-                <span className="block text-[#ee7a1b]">Defines Your Brand</span>
+              <h1 className="max-w-[840px] font-sans text-[26px] sm:text-[38px] lg:text-[48px] font-bold leading-[1.12] text-white [text-wrap:balance]">
+                <span className="block">Custom Packaging That</span>
+                <span className="block text-[#ee7a1b] mt-1">Defines Your Brand</span>
               </h1>
               <p className="mt-5 max-w-[560px] text-[14px] leading-[1.65] text-white sm:text-[15px]">
                 Custom printed packaging built around your product, branding and order quantity. Low MOQ, free design
-                support and worldwide shipping.
+                support and quick US delivery.
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-wrap items-center gap-4">
                 <button
                   type="button"
                   onClick={scrollToQuoteForm}
-                  className="inline-flex h-12 items-center gap-2 rounded-[9px] bg-[#ee7a1b] px-6 text-[15px] font-semibold leading-none text-white transition-colors hover:bg-[#d46710]"
+                  className="inline-flex items-center gap-2 rounded-[8px] bg-[#ee7a1b] px-7 py-3.5 text-[14px] font-bold text-white shadow-[0_4px_16px_rgba(238,122,27,0.4)] transition hover:bg-[#d96b14]"
                 >
                   Get a Free Quote
-                  <ArrowRight size={15} />
+                  <ArrowRight size={16} />
                 </button>
-                <a
-                  href={`tel:${SALES_PHONE}`}
-                  aria-label={`Call ${SALES_PHONE_DISPLAY}`}
-                  className="inline-flex h-12 items-center rounded-[9px] border border-white/45 px-6 text-[15px] font-medium leading-none text-white transition-colors hover:border-white/80"
-                >
-                  Talk to Our Team
-                </a>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-white/80">
-                <span className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#ee7a1b]" />
-                  Low MOQ
-                </span>
-                <span className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#ee7a1b]" />
-                  Free Design Support
-                </span>
-                <span className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#ee7a1b]" />
-                  Worldwide Shipping
-                </span>
               </div>
             </div>
 
-            <div id="quote-form" className="scroll-mt-6 rounded-[16px] bg-white p-5 shadow-[0_12px_32px_rgba(0,0,0,0.14)] sm:p-6">
-              <h3 className="text-[30px] font-bold leading-none text-[#1f1f1f] sm:text-[32px]">
-                Get a Free Custom Quote
-              </h3>
-              <p className="mt-2 text-[13px] text-[#6c7170]">Reply within 1 business day.</p>
+            {/* Top quote form box */}
+            <div
+              id="quote-form"
+              className="rounded-[16px] border border-[#e0ddd6] bg-white p-6 shadow-xl sm:p-8"
+            >
+              <h2 className="font-display text-[22px] font-bold text-[#1a1a1a]">
+                Get Your Instant Estimate
+              </h2>
+              <p className="mt-1 text-[13px] text-[#7a7672]">
+                Fill out the details below and our team will get back to you within 24 hours.
+              </p>
 
-              {submitted ? (
-                <div className="mt-6 rounded-[12px] border border-[#dce7df] bg-[#f5fbf7] p-4 text-[14px] text-[#245238]">
-                  Thanks! Your request has been captured. We will contact you shortly.
+              <form
+                onSubmit={handleSubmit}
+                onInput={onUnfilledFormInput}
+                onBlurCapture={onUnfilledFormBlur}
+                className="mt-6 space-y-4"
+              >
+                <div>
+                  <label className="mb-1 block text-[12px] font-semibold text-[#1a1a1a]">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    data-unfilled="name"
+                    placeholder="Jane Doe"
+                    value={formData.name}
+                    onChange={(e) => updateForm("name", e.target.value)}
+                    className="w-full rounded-[8px] border border-[#d8d4cc] bg-[#faf8f5] px-3.5 py-2.5 text-[13px] text-[#1a1a1a] outline-none focus:border-[#ee7a1b]"
+                  />
+                  {errors.name && <p className="mt-1 text-[11px] text-red-500">{errors.name}</p>}
                 </div>
-              ) : (
-                <form
-                  className="mt-5 space-y-3.5"
-                  onSubmit={handleSubmit}
-                  onInput={onUnfilledFormInput}
-                  onBlurCapture={onUnfilledFormBlur}
-                >
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <label className="text-[13px] font-medium text-[#2f2f2f]">
-                        Name <span className="text-[#ee7a1b]">*</span>
-                      </label>
-                      <input
-                        name="name"
-                        data-unfilled="name"
-                        className={`h-10 w-full rounded-[9px] border px-3 text-[14px] outline-none ${
-                          errors.name ? "border-red-400 focus:border-red-500" : "border-[#d6dad7] focus:border-[#a8b8ad]"
-                        }`}
-                        required
-                        value={formData.name}
-                        onChange={(event) => updateForm("name", event.target.value)}
-                      />
-                      {errors.name ? (
-                        <p className="text-[12px] font-medium text-red-600">{errors.name}</p>
-                      ) : null}
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-[13px] font-medium text-[#2f2f2f]">
-                        Email <span className="text-[#ee7a1b]">*</span>
-                      </label>
-                      <input
-                        name="email"
-                        data-unfilled="email"
-                        className={`h-10 w-full rounded-[9px] border px-3 text-[14px] outline-none ${
-                          errors.email ? "border-red-400 focus:border-red-500" : "border-[#d6dad7] focus:border-[#a8b8ad]"
-                        }`}
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(event) => updateForm("email", event.target.value)}
-                      />
-                      {errors.email ? (
-                        <p className="text-[12px] font-medium text-red-600">{errors.email}</p>
-                      ) : null}
-                    </div>
-                  </div>
 
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <label className="text-[13px] font-medium text-[#2f2f2f]">
-                        Phone <span className="text-[#ee7a1b]">*</span>
-                      </label>
-                      <div
-                        className={`flex h-10 w-full overflow-hidden rounded-[9px] border ${
-                          errors.phone ? "border-red-400" : "border-[#d6dad7]"
-                        }`}
-                      >
-                        <span className="inline-flex items-center border-r border-[#d6dad7] bg-[#f6f6f6] px-3 text-[14px] text-[#5b625f]">
-                          +1
-                        </span>
-                        <input
-                          name="phone"
-                          data-unfilled="phone"
-                          className="h-full w-full px-3 text-[14px] outline-none focus:border-transparent"
-                          type="tel"
-                          inputMode="numeric"
-                          autoComplete="tel-national"
-                          required
-                          maxLength={PHONE_NATIONAL_DIGITS}
-                          placeholder="5551234567"
-                          value={formData.phone}
-                          onChange={(event) =>
-                            updateForm("phone", sanitizeUsPhoneNational(event.target.value))
-                          }
-                        />
-                      </div>
-                      <p className="text-[11px] text-[#7a7a7a]">{PHONE_NATIONAL_DIGITS}-digit USA mobile</p>
-                      {errors.phone ? (
-                        <p className="text-[12px] font-medium text-red-600">{errors.phone}</p>
-                      ) : null}
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-[13px] font-medium text-[#2f2f2f]">Company Name</label>
-                      <input
-                        className="h-10 w-full rounded-[9px] border border-[#d6dad7] px-3 text-[14px] outline-none focus:border-[#a8b8ad]"
-                        value={formData.company}
-                        onChange={(event) => updateForm("company", event.target.value)}
-                      />
-                    </div>
-                  </div>
+                <div>
+                  <label className="mb-1 block text-[12px] font-semibold text-[#1a1a1a]">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    data-unfilled="email"
+                    placeholder="jane@company.com"
+                    value={formData.email}
+                    onChange={(e) => updateForm("email", e.target.value)}
+                    className="w-full rounded-[8px] border border-[#d8d4cc] bg-[#faf8f5] px-3.5 py-2.5 text-[13px] text-[#1a1a1a] outline-none focus:border-[#ee7a1b]"
+                  />
+                  {errors.email && <p className="mt-1 text-[11px] text-red-500">{errors.email}</p>}
+                </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-[13px] font-medium text-[#2f2f2f]">Packaging Type</label>
-                    <select
-                      className="h-10 w-full rounded-[9px] border border-[#d6dad7] bg-white px-3 text-[14px] text-[#2f2f2f] outline-none focus:border-[#a8b8ad]"
-                      value={formData.packagingType}
-                      onChange={(event) => updateForm("packagingType", event.target.value)}
-                    >
-                      <option value="">Select packaging type...</option>
-                      {packagingTypes.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[13px] font-medium text-[#2f2f2f]">Estimated Quantity</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="mb-1 block text-[12px] font-semibold text-[#1a1a1a]">
+                      Phone *
+                    </label>
                     <input
-                      className={`h-10 w-full rounded-[9px] border px-3 text-[14px] outline-none ${
-                        errors.estimatedQuantity
-                          ? "border-red-400 focus:border-red-500"
-                          : "border-[#d6dad7] focus:border-[#a8b8ad]"
-                      }`}
-                      type="text"
+                      type="tel"
+                      name="phone"
+                      data-unfilled="phone"
                       inputMode="numeric"
+                      maxLength={PHONE_NATIONAL_DIGITS}
+                      placeholder="5551234567"
+                      value={formData.phone}
+                      onChange={(e) => updateForm("phone", sanitizeUsPhoneNational(e.target.value))}
+                      className="w-full rounded-[8px] border border-[#d8d4cc] bg-[#faf8f5] px-3.5 py-2.5 text-[13px] text-[#1a1a1a] outline-none focus:border-[#ee7a1b]"
+                    />
+                    {errors.phone && <p className="mt-1 text-[11px] text-red-500">{errors.phone}</p>}
+                  </div>
+
+                  <div>
+                    <label className="mb-1 block text-[12px] font-semibold text-[#1a1a1a]">
+                      Quantity
+                    </label>
+                    <input
+                      type="text"
                       placeholder="e.g. 500"
                       value={formData.estimatedQuantity}
-                      onChange={(event) =>
-                        updateForm("estimatedQuantity", event.target.value.replace(/\D/g, ""))
-                      }
+                      onChange={(e) => updateForm("estimatedQuantity", e.target.value)}
+                      className="w-full rounded-[8px] border border-[#d8d4cc] bg-[#faf8f5] px-3.5 py-2.5 text-[13px] text-[#1a1a1a] outline-none focus:border-[#ee7a1b]"
                     />
-                    {errors.estimatedQuantity && (
-                      <p className="text-[12px] font-medium text-red-600">{errors.estimatedQuantity}</p>
-                    )}
                   </div>
+                </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="mt-1 inline-flex h-11 w-full items-center justify-center rounded-[9px] bg-[#ee7a1b] text-[16px] font-semibold leading-none text-white transition-colors hover:bg-[#d46710]"
+                <div>
+                  <label className="mb-1 block text-[12px] font-semibold text-[#1a1a1a]">
+                    Packaging Style
+                  </label>
+                  <select
+                    value={formData.packagingType}
+                    onChange={(e) => updateForm("packagingType", e.target.value)}
+                    className="w-full rounded-[8px] border border-[#d8d4cc] bg-[#faf8f5] px-3.5 py-2.5 text-[13px] text-[#1a1a1a] outline-none focus:border-[#ee7a1b]"
                   >
-                    {isSubmitting ? "Submitting..." : "Get My Quote"}
-                  </button>
-                  <p className="text-center text-[12px] text-[#7a7a7a]">Free design support · Low MOQ · No obligation</p>
-                </form>
-              )}
+                    {packagingOptions.map((opt) => (
+                      <option key={opt} value={opt === "Select a box type..." ? "" : opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full rounded-[8px] bg-[#ee7a1b] py-3.5 text-[14px] font-bold text-white shadow-md transition hover:bg-[#d96b14] disabled:opacity-50"
+                >
+                  {isSubmitting ? "Sending Request..." : "Request a Quote →"}
+                </button>
+              </form>
             </div>
           </div>
         </section>
 
-        <section className="-mt-2 px-4 pb-14 sm:px-8 sm:pb-16">
-          <div className="mx-auto w-full max-w-[1280px] overflow-hidden rounded-[20px]">
-            <Image
-              src={heroPackaging}
-              alt="Custom packaging set"
-              className="h-auto w-full"
-              priority
-              sizes="(max-width: 768px) 100vw, 1320px"
-            />
-          </div>
-        </section>
-
-        <section className="bg-white px-4 py-14 sm:px-8 sm:py-16">
-          <div className="mx-auto w-full max-w-[1280px]">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#d07f3b]">Why Hof Pack</p>
-            <h2 className="mt-3 max-w-[620px] text-[34px] font-bold leading-[1.05] text-[#1f4f35] sm:text-[42px]">
-              A packaging partner built for growing brands
-            </h2>
-            <p className="mt-4 max-w-[900px] text-[18px] font-normal leading-[1.55] text-[#3f4845] sm:text-[20px]">
-              Real value, no gimmicks — everything you need to launch and scale your packaging.
-            </p>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {valueCards.map((card) => {
-                const Icon = card.icon;
-                return (
-                  <article key={card.title} className="rounded-[16px] border border-[#e7e7e7] bg-white p-5 sm:p-6">
-                    <div className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-[10px] bg-[#fff2e5] text-[#ee7a1b]">
-                      <Icon size={18} />
-                    </div>
-                    <h3 className="text-[24px] font-bold leading-[1.16] text-[#222] sm:text-[28px]">{card.title}</h3>
-                    <p className="mt-3 text-[16px] leading-[1.52] text-[#505856] sm:text-[17px]">{card.body}</p>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-[#f5f4eb] px-4 py-14 sm:px-8 sm:py-16">
-          <div className="mx-auto w-full max-w-[1280px]">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#d07f3b]">Our Range</p>
-                <h2 className="mt-3 text-[34px] font-bold leading-[1.05] text-[#1f4f35] sm:text-[42px]">
-                  Packaging built for every product
-                </h2>
-                <p className="mt-3 max-w-[900px] text-[18px] leading-[1.55] text-[#3f4845] sm:text-[20px]">
-                  From rigid gift boxes to mylar bags — fully custom printed and shipped to your door.
-                </p>
-              </div>
-              <button type="button" className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#d07f3b]">
-                View all styles →
-              </button>
+        {/* Categories grid */}
+        <section className="bg-[#faf8f5] py-16 sm:py-20 px-4 sm:px-8">
+          <div className="mx-auto max-w-[1280px]">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#ee7a1b] mb-2">Our Capabilities</p>
+              <h2 className="font-display text-[32px] sm:text-[40px] font-bold text-[#1a1a1a]">Popular Packaging Categories</h2>
+              <p className="mt-3 text-[14px] text-[#7a7672]">Choose from our wide selection of custom packaging types, engineered for protection and shelf appeal.</p>
             </div>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {categoryCards.map((card) => (
-                <article key={card.title} className="overflow-hidden rounded-[16px] border border-[#e7e7e0] bg-white">
-                  <div className="relative aspect-[4/3]">
-                    <Image src={card.image} alt={card.title} fill className="object-cover" sizes="(max-width:768px) 100vw, 33vw" />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {categoryCards.map((cat, idx) => (
+                <div key={idx} className="overflow-hidden rounded-[14px] border border-[#e0ddd6] bg-white shadow-sm transition hover:shadow-md">
+                  <div className="relative aspect-[16/10] bg-[#ece9e2]">
+                    <Image src={cat.image} alt={cat.title} fill className="object-cover" />
                   </div>
-                  <div className="flex items-start justify-between gap-4 px-5 py-5 sm:px-6">
-                    <div>
-                      <h3 className="text-[24px] font-bold text-[#222] sm:text-[28px]">{card.title}</h3>
-                      <p className="mt-1.5 text-[16px] leading-[1.5] text-[#505856] sm:text-[17px]">{card.subtitle}</p>
-                    </div>
-                    <span className="mt-1 text-[#d07f3b]">→</span>
+                  <div className="p-5">
+                    <h3 className="font-display text-[18px] font-bold text-[#1a1a1a]">{cat.title}</h3>
+                    <p className="mt-2 text-[13px] text-[#7a7672] leading-relaxed">{cat.subtitle}</p>
                   </div>
-                </article>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="bg-white px-4 py-14 sm:px-8 sm:py-16">
-          <div className="mx-auto w-full max-w-[1280px] text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#d07f3b]">Process</p>
-            <h2 className="mt-3 text-[34px] font-bold leading-[1.05] text-[#1f4f35] sm:text-[42px]">How it works</h2>
-            <p className="mx-auto mt-4 max-w-[920px] text-[18px] leading-[1.55] text-[#3f4845] sm:text-[20px]">
-              From idea to delivered packaging — three simple steps.
-            </p>
-
-            <div className="mt-8 grid gap-4 lg:grid-cols-3">
-              {processCards.map((step) => (
-                <article key={step.number} className="rounded-[16px] border border-[#e7e7e7] bg-white p-5 text-left sm:p-6">
-                  <p className="text-[46px] font-bold leading-none text-[#ee7a1b]">{step.number}</p>
-                  <h3 className="mt-4 text-[24px] font-bold leading-[1.15] text-[#222] sm:text-[28px]">{step.title}</h3>
-                  <p className="mt-3 text-[16px] leading-[1.52] text-[#505856] sm:text-[17px]">{step.body}</p>
-                </article>
-              ))}
+        {/* FAQs */}
+        <section className="bg-white py-16 sm:py-20 px-4 sm:px-8 border-t border-[#e0ddd6]">
+          <div className="mx-auto max-w-[860px]">
+            <div className="text-center mb-12">
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#ee7a1b] mb-2">FAQ</p>
+              <h2 className="font-display text-[32px] sm:text-[38px] font-bold text-[#1a1a1a]">Frequently Asked Questions</h2>
             </div>
-          </div>
-        </section>
-
-        <section className="bg-[#f6f6f6] px-4 py-14 sm:px-8 sm:py-16">
-          <div className="mx-auto w-full max-w-[1280px] rounded-[18px] bg-[linear-gradient(120deg,#204f37_0%,#1f5a38_48%,#2f6d41_100%)] px-6 py-10 text-center sm:px-10 sm:py-12">
-            <h2 className="text-[34px] font-bold leading-[1.06] text-white sm:text-[44px]">
-              Ready to upgrade your <span className="text-[#ee7a1b]">packaging?</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-[840px] text-[16px] leading-[1.6] text-white sm:text-[18px]">
-              Tell us what you need and our team will send custom pricing, packaging recommendations and delivery
-              options.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <button
-                type="button"
-                onClick={scrollToQuoteForm}
-                className="inline-flex h-12 items-center gap-2 rounded-[10px] bg-[#ee7a1b] px-8 text-[15px] font-semibold leading-none text-white transition-colors hover:bg-[#d46710]"
-              >
-                Get a Free Quote
-                <ArrowRight size={16} />
-              </button>
-              <a
-                href={`mailto:${SALES_EMAIL}`}
-                className="inline-flex h-12 items-center rounded-[10px] border border-white/35 px-7 text-[15px] font-medium leading-none text-white transition-colors hover:border-white/65"
-              >
-                Email Our Team
-              </a>
+            <div className="divide-y divide-[#e0ddd6]">
+              {faqs.map((faq, i) => (
+                <div key={i} className="py-5">
+                  <h3 className="font-display text-[17px] font-bold text-[#1a1a1a] mb-2">{faq.question}</h3>
+                  <p className="text-[13.5px] text-[#7a7672] leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

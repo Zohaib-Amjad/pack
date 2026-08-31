@@ -84,9 +84,8 @@ export default function CaseStudies() {
             <span className="inline-block font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-accent mb-5">
               Success Stories
             </span>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05]">
-              HOF Pack<br />
-              <span className="text-accent italic">Case Studies</span>
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-[1.12] [text-wrap:balance]">
+              HOF Pack <span className="text-accent italic">Case Studies</span>
             </h1>
             <p className="mt-5 font-sans text-base text-white/55 leading-relaxed max-w-lg">
               Real results from real brands — see how our custom packaging solutions helped businesses grow, stand out, and delight customers.

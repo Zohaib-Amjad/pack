@@ -594,24 +594,34 @@ export default function Library({ initialCms }: { initialCms?: CmsLibrary } = {}
           <div className="flex flex-col lg:flex-row items-center min-h-[320px] lg:min-h-[440px] gap-8 lg:gap-0">
             {/* Left */}
             <div className="flex-1 py-10 lg:py-14 pr-0 lg:pr-16 flex flex-col justify-center">
-              <h1
-                style={{
-                  fontFamily: '"DM Sans", sans-serif',
-                  fontWeight: 700,
-                  fontSize: "clamp(2.2rem, 3.8vw, 4rem)",
-                  lineHeight: 1.08,
-                  color: "rgb(26, 26, 26)",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                {titleLead}
-                {titleAccent && (
-                  <>
-                    <br />
-                    <span style={{ color: "rgb(232, 115, 42)" }}>{titleAccent}</span>
-                  </>
-                )}
-              </h1>
+              {(() => {
+                const totalWords = `${titleLead} ${titleAccent || ""}`.trim().split(/\s+/).filter(Boolean).length;
+                return (
+                  <h1
+                    className="[text-wrap:balance]"
+                    style={{
+                      fontFamily: '"DM Sans", sans-serif',
+                      fontWeight: 700,
+                      fontSize: "clamp(2rem, 3.5vw, 3.5rem)",
+                      lineHeight: 1.08,
+                      color: "rgb(26, 26, 26)",
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {titleLead}
+                    {titleAccent && (
+                      totalWords <= 4 ? (
+                        <> <span style={{ color: "rgb(232, 115, 42)" }}>{titleAccent}</span></>
+                      ) : (
+                        <>
+                          <br />
+                          <span style={{ color: "rgb(232, 115, 42)" }}>{titleAccent}</span>
+                        </>
+                      )
+                    )}
+                  </h1>
+                );
+              })()}
               <p
                 className="mt-5 max-w-[420px]"
                 style={{
@@ -632,7 +642,6 @@ export default function Library({ initialCms }: { initialCms?: CmsLibrary } = {}
                 <Image
                   alt={heroAlt}
                   fill
-                  unoptimized
                   className="object-contain w-full h-full"
                   src={heroImg}
                   priority
@@ -644,27 +653,22 @@ export default function Library({ initialCms }: { initialCms?: CmsLibrary } = {}
       </section>
 
       {/* ── Sticky Tab Bar ── */}
-      <div className="sticky top-0 z-20 py-0" style={{ backgroundColor: "rgb(246, 244, 239)", paddingTop: "50px" }}>
-        <div className="flex justify-center">
-          <div
-            className="flex overflow-x-auto scrollbar-none border border-[#e8c89a] rounded-[4px]"
-            style={{ backgroundColor: "rgb(252, 236, 216)", height: "62px", width: "80%" }}
-          >
+      <div className="sticky top-0 z-20 py-3 sm:py-4 bg-[#f6f4ef]/95 backdrop-blur-md border-b border-[#e5e0d8] shadow-xs">
+        <div className="container-max px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-start md:justify-center overflow-x-auto gap-1.5 sm:gap-2 p-1.5 rounded-xl bg-[#ece8df] border border-[#ded8cd] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full max-w-3xl mx-auto">
             {TABS.map((tab) => {
               const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className="flex-1 flex items-center justify-center whitespace-nowrap transition-all duration-200 min-w-[120px] cursor-pointer"
+                  className={`inline-flex items-center justify-center px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-lg whitespace-nowrap transition-all duration-200 cursor-pointer text-xs sm:text-sm font-semibold shrink-0 ${
+                    isActive
+                      ? "bg-[#e8732a] text-white shadow-sm font-bold"
+                      : "bg-transparent text-[#2e2e2e]/70 hover:text-[#1a1a1a] hover:bg-black/5"
+                  }`}
                   style={{
-                    backgroundColor: isActive ? "rgb(232, 115, 42)" : "transparent",
-                    color: isActive ? "rgb(255, 255, 255)" : "rgba(0, 0, 0, 0.5)",
                     fontFamily: '"DM Sans", sans-serif',
-                    fontWeight: 500,
-                    fontSize: "18px",
-                    lineHeight: "18px",
-                    borderRadius: isActive ? "3px" : "0px",
                   }}
                 >
                   {tab.label}

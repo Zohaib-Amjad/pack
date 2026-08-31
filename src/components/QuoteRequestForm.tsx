@@ -345,11 +345,8 @@ export default function QuoteRequestForm({
         });
         trackLeadSubmitted("category_quote_form", attribution);
         resetForm();
-        if (thankYouPath) {
-          router.push(thankYouPath);
-        } else {
-          setSubmitted(true);
-        }
+        const targetPath = thankYouPath || (categorySlug ? `/thank-you/${categorySlug}` : "/thank-you");
+        router.push(targetPath);
       }
     } catch (err: any) {
       toast({
@@ -602,19 +599,21 @@ export default function QuoteRequestForm({
                   Optional
                 </span>
               </span>
-              <div className="flex overflow-hidden rounded-[6px] border border-[#CFCFCF]">
+              <div className="inline-grid grid-cols-2 w-[72px] h-[28px] p-0.5 rounded-[6px] border border-[#cfcfcf] bg-white select-none">
                 {(["in", "cm"] as const).map((u) => (
                   <button
                     key={u}
                     type="button"
                     onClick={() => setUnit(u)}
-                    className="px-3 py-1 text-[12px] font-semibold transition-all"
-                    style={{
-                      background: unit === u ? "#E8732A" : "#fff",
-                      color: unit === u ? "#fff" : "#6B6B66",
-                    }}
+                    className={`w-full h-full flex items-center justify-center text-center text-[11.5px] font-bold rounded-[4px] transition-colors cursor-pointer p-0 m-0 border-0 ${
+                      unit === u
+                        ? "bg-[#e8732a] text-white shadow-xs"
+                        : "bg-transparent text-[#6b6b66] hover:text-[#1a1a1a]"
+                    }`}
                   >
-                    {u}
+                    <span className="flex items-center justify-center text-center leading-none tracking-normal">
+                      {u}
+                    </span>
                   </button>
                 ))}
               </div>

@@ -64,12 +64,8 @@ export function MobileMenu({ isOpen, onClose, onOpenQuote }: MobileMenuProps) {
 
   const helpItems = [
     { name: "Artwork Guidelines", href: "/artwork-guidelines" },
-    { name: "Packaging Blog", href: "/blog" },
-    { name: "Resource Library", href: "/library" },
-    { name: "Track Your Order", href: "/track" },
-    { name: "Case Studies", href: "/case-studies" },
-    { name: "Our Process", href: "/process" },
-    { name: "About Us", href: "/about" },
+    { name: "Blog", href: "/blog" },
+    { name: "Library", href: "/library" },
   ];
 
   return (

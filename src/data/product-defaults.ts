@@ -2,6 +2,7 @@ import type { ProductContent } from "@/types/product-content";
 import { PRODUCT_GALLERIES } from "./product-galleries";
 import { FULL_PRODUCTS_DATABASE } from "./product-detail-defaults";
 import { categories, getCategoryBySlug, getProductTag } from "./products";
+import { getProductFaqs, toPageFaqs } from "./content-sheet-faqs";
 
 export interface ProductDetailData {
   id: string;
@@ -380,6 +381,7 @@ export function getProductDetailDefaults(
     }));
 
   const calculatedTag = getProductTag(slug, resolvedCatSlug);
+  const sheetFaqs = toPageFaqs(slug, getProductFaqs(slug));
 
   if (FULL_PRODUCTS_DATABASE[slug]) {
     const dbProduct = FULL_PRODUCTS_DATABASE[slug];
@@ -392,7 +394,8 @@ export function getProductDetailDefaults(
       },
       relatedProducts: (dbProduct.relatedProducts && dbProduct.relatedProducts.length > 0)
         ? dbProduct.relatedProducts
-        : defaultRelated
+        : defaultRelated,
+      faqs: sheetFaqs || dbProduct.faqs || [],
     };
   }
 
@@ -411,6 +414,7 @@ export function getProductDetailDefaults(
       skuCode: calculatedTag,
       images: resolvedImages,
       relatedProducts: defaultRelated.length > 0 ? defaultRelated : KRAFT_PAPER_TUBES_DATA.relatedProducts,
+      faqs: sheetFaqs || KRAFT_PAPER_TUBES_DATA.faqs,
     };
   }
 
@@ -462,7 +466,7 @@ export function getProductDetailDefaults(
         },
       ],
     },
-    faqs: KRAFT_PAPER_TUBES_DATA.faqs,
+    faqs: sheetFaqs || KRAFT_PAPER_TUBES_DATA.faqs,
     relatedProducts: defaultRelated.length > 0 ? defaultRelated : KRAFT_PAPER_TUBES_DATA.relatedProducts,
   };
 }

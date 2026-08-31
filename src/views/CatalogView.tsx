@@ -358,7 +358,7 @@ export default function CatalogView() {
             <span className="mx-1.5 text-white/30">/</span>
             <span className="text-white/70">Catalog</span>
           </p>
-          <h1 className="font-sans text-[32px] font-bold text-white leading-tight">
+          <h1 className="font-sans text-[26px] sm:text-[32px] font-bold text-white leading-tight [text-wrap:balance]">
             Our Packaging <span style={{ color: "#e8732a" }}>Catalog</span>
           </h1>
           <p className="font-sans text-[13px] text-white/65 mt-2">

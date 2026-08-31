@@ -12,6 +12,15 @@ import {
 } from "@/lib/faq-service";
 import { BASE_CATEGORIES } from "@/lib/category-service";
 
+const PAGE_OPTIONS = [
+  { slug: "home", name: "Home Page (/)" },
+  { slug: "product-detail-pages", name: "Product Detail Pages (/product/*)" },
+  { slug: "process", name: "Process Page (/process)" },
+  { slug: "about", name: "About Page (/about)" },
+  { slug: "artwork-guidelines", name: "Artwork Guidelines (/artwork-guidelines)" },
+  { slug: "contact", name: "Contact Page (/contact)" },
+];
+
 export default function EditFaqPage() {
   const params = useParams();
   const router = useRouter();
@@ -20,7 +29,8 @@ export default function EditFaqPage() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [category, setCategory] = useState("Global Support");
-  const [tab, setTab] = useState<"global" | "artwork" | "category" | "product">("global");
+  const [tab, setTab] = useState<"global" | "artwork" | "category" | "product" | "page">("global");
+  const [pageSlug, setPageSlug] = useState("home");
   const [categorySlug, setCategorySlug] = useState("bakery-boxes");
   const [productSlug, setProductSlug] = useState("");
   const [order, setOrder] = useState<number>(1);
@@ -33,7 +43,8 @@ export default function EditFaqPage() {
         setQuestion(found.question);
         setAnswer(found.answer);
         setCategory(found.category);
-        setTab(found.tab || "global");
+        setTab(found.tab || (found.page_slug ? "page" : "global"));
+        if (found.page_slug) setPageSlug(found.page_slug);
         if (found.category_slug) setCategorySlug(found.category_slug);
         if (found.product_slug) setProductSlug(found.product_slug);
         if (found.order) setOrder(found.order);
@@ -46,18 +57,24 @@ export default function EditFaqPage() {
     e.preventDefault();
     if (!question.trim() || !answer.trim()) return;
     setIsSaved(true);
+
+    const selectedPage = PAGE_OPTIONS.find((p) => p.slug === pageSlug);
+
     await saveFaqRecord({
       id,
       question: question.trim(),
       answer: answer.trim(),
-      category: category.trim() || (tab === "category" ? categorySlug : "Global Support"),
+      category: category.trim() || (tab === "page" ? `${selectedPage?.name} FAQs` : "Global Support"),
       tab,
-      section: tab === "global" ? "homepage" : tab,
+      section: tab === "global" ? "homepage" : tab === "page" ? "page" : tab,
+      page_slug: tab === "page" ? pageSlug : tab === "global" ? "home" : null,
+      page_name: tab === "page" ? selectedPage?.name : null,
       category_slug: tab === "category" ? categorySlug : null,
       product_slug: tab === "product" ? productSlug.trim() : null,
       order: Number(order) || 1,
       status,
     });
+
     setTimeout(() => {
       router.push("/admin/faqs");
     }, 500);
@@ -91,7 +108,7 @@ export default function EditFaqPage() {
             <div>
               <h2 className="text-[20px] font-bold text-[#1a1a1a]">Edit FAQ</h2>
               <p className="text-[12px] text-[#7a7672]">
-                Update knowledge base question, answer, and target page category.
+                Update knowledge base question, answer, and target page placement.
               </p>
             </div>
           </div>
@@ -106,7 +123,7 @@ export default function EditFaqPage() {
             </button>
             <button
               onClick={handleSubmit}
-              className="h-[40px] inline-flex items-center gap-2 px-6 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] cursor-pointer"
+              className="h-[40px] inline-flex items-center gap-2 px-6 text-[12px] font-bold rounded-[8px] bg-[#e8732a] text-white hover:bg-[#c45a18] cursor-pointer shadow-sm"
             >
               {isSaved ? <Check size={16} /> : <Save size={16} />}
               {isSaved ? "Saved!" : "Save Changes"}
@@ -127,7 +144,7 @@ export default function EditFaqPage() {
               required
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
-              placeholder="e.g. What are the benefits of custom packaging?"
+              placeholder="e.g. How do I choose the right box dimensions?"
               className="w-full h-11 px-3.5 text-[13px] bg-[#faf8f5] border border-[#d8d4cc] rounded-lg text-[#1a1a1a] outline-none focus:border-[#2d5c3e] focus:bg-white"
             />
           </div>
@@ -149,19 +166,39 @@ export default function EditFaqPage() {
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div>
               <label className="block text-[12px] font-bold text-[#1a1a1a] mb-1">
-                Target Page Category
+                Target Section / Tab
               </label>
               <select
                 value={tab}
                 onChange={(e) => setTab(e.target.value as any)}
                 className="w-full h-10 px-3 text-[13px] bg-[#faf8f5] border border-[#d8d4cc] rounded-lg text-[#1a1a1a] outline-none focus:border-[#2d5c3e] focus:bg-white"
               >
+                <option value="page">By Specific Website Page</option>
                 <option value="global">Homepage FAQs (Global)</option>
                 <option value="artwork">Artwork Guidelines Page</option>
                 <option value="category">Category Page (Specific)</option>
                 <option value="product">Product Detail Page (Specific)</option>
               </select>
             </div>
+
+            {tab === "page" && (
+              <div>
+                <label className="block text-[12px] font-bold text-[#1a1a1a] mb-1">
+                  Select Website Page
+                </label>
+                <select
+                  value={pageSlug}
+                  onChange={(e) => setPageSlug(e.target.value)}
+                  className="w-full h-10 px-3 text-[13px] bg-[#faf8f5] border border-[#d8d4cc] rounded-lg text-[#1a1a1a] outline-none focus:border-[#2d5c3e] focus:bg-white"
+                >
+                  {PAGE_OPTIONS.map((p) => (
+                    <option key={p.slug} value={p.slug}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             {tab === "category" && (
               <div>

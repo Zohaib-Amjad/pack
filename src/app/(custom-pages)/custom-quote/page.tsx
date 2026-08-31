@@ -80,11 +80,10 @@ export default function CustomQuotePage() {
             </p>
 
             <h1
-              className="font-sans text-white text-[30px] sm:text-[42px] lg:text-[50px] font-bold leading-[1.08] mb-4"
+              className="font-sans text-white text-[26px] sm:text-[38px] lg:text-[46px] font-bold leading-[1.12] mb-4 [text-wrap:balance]"
             >
-              Get a Custom
-              <br />
-              <span className="text-[#f19a48]">Packaging Quote</span>
+              <span className="block">Get a Custom</span>
+              <span className="block text-[#f19a48] mt-1">Packaging Quote</span>
             </h1>
 
             <p className="mb-6 max-w-[480px] text-[15px] leading-[1.65] text-white/80">

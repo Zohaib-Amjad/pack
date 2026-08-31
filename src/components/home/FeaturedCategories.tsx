@@ -76,7 +76,7 @@ type FeaturedCategoriesProps = {
 };
 
 const FeaturedCategories = ({ cms, categories }: FeaturedCategoriesProps) => {
-  const { data } = useCmsHome();
+  const { data } = useCmsHome(cms);
   const fc = data?.featuredCategories || cms?.featuredCategories;
 
   const sectionLabel = fc?.sectionLabel ?? "Shop By Category";

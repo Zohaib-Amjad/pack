@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   Mail,
   Phone,
@@ -10,11 +11,13 @@ import {
   Send,
   CheckCircle,
   ArrowRight,
+  X,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { createPublicClient } from "@/utils/supabase/public-client";
 import { trackLeadSubmitted } from "@/lib/analytics";
 import { buildInquiryAttribution } from "@/lib/attribution";
+import { uploadInquiryAttachment } from "@/lib/inquiry-attachment";
 import {
   PHONE_NATIONAL_DIGITS,
   sanitizePhoneInput,
@@ -22,6 +25,8 @@ import {
   validateRequiredEmail,
   validateRequiredName,
   validateRequiredQuantity,
+  validateArtworkFile,
+  ARTWORK_ACCEPT,
 } from "@/lib/form-validation";
 import { useAbandonedFormCapture } from "@/hooks/useAbandonedFormCapture";
 
@@ -174,6 +179,7 @@ const ALL_PRODUCT_OPTIONS = [
 ];
 
 export default function ContactView() {
+  const router = useRouter();
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -189,6 +195,11 @@ export default function ContactView() {
   const [timeline, setTimeline] = useState("");
   const [message, setMessage] = useState("");
   const [terms, setTerms] = useState(false);
+  const [artworkFile, setArtworkFile] = useState<File | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+
+  const fileRef = useRef<HTMLInputElement>(null);
+  const artworkBoxRef = useRef<HTMLDivElement>(null);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -198,6 +209,22 @@ export default function ContactView() {
     enabled: !submitted && !isSubmitting,
     productInterest: productType || "Contact page inquiry",
   });
+
+  const setArtwork = (file: File | null) => {
+    if (!file) {
+      setArtworkFile(null);
+      setErrors((er) => ({ ...er, artwork: "" }));
+      return;
+    }
+    const err = validateArtworkFile(file);
+    if (err) {
+      setErrors((er) => ({ ...er, artwork: err }));
+      setArtworkFile(null);
+      return;
+    }
+    setArtworkFile(file);
+    setErrors((er) => ({ ...er, artwork: "" }));
+  };
 
   const validate = () => {
     const errs: Record<string, string> = {};
@@ -212,6 +239,8 @@ export default function ContactView() {
     if (!productType.trim()) errs.productType = "Please select a product type";
     const qtyErr = validateRequiredQuantity(quantity);
     if (qtyErr) errs.quantity = qtyErr;
+    const artworkErr = validateArtworkFile(artworkFile);
+    if (artworkErr) errs.artwork = artworkErr;
     if (!terms) errs.terms = "Please agree to continue";
     return errs;
   };
@@ -235,30 +264,45 @@ export default function ContactView() {
 
     setIsSubmitting(true);
 
-    const fullMessage = [
-      message,
-      quantity ? `Quantity: ${quantity}` : null,
-      timeline ? `Timeline: ${timeline}` : null,
-      company ? `Company: ${company}` : null,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
     try {
-      const supabase = createPublicClient();
+      let attachment: { url: string; name: string; type: string } | null = null;
+      if (artworkFile) {
+        attachment = await uploadInquiryAttachment(artworkFile);
+      }
+
+      const fullMessage = [
+        message,
+        quantity ? `Quantity: ${quantity}` : null,
+        timeline ? `Timeline: ${timeline}` : null,
+        company ? `Company: ${company}` : null,
+        attachment ? `\nArtwork file: ${attachment.name}\nArtwork URL: ${attachment.url}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n");
+
       const attribution = buildInquiryAttribution("contact_form");
-      const { error } = await supabase.from("chat_inquiries" as any).insert({
-        name: `${firstName} ${lastName}`.trim(),
-        email,
-        phone: phone || null,
-        product_interest: productType || null,
-        message: fullMessage,
-        source: "organic",
-        status: "new",
-        ...attribution,
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `${firstName} ${lastName}`.trim(),
+          email,
+          phone: phone || "",
+          message: fullMessage,
+          source: "contact_form",
+          attachment_url: attachment?.url,
+          attachment_name: attachment?.name,
+          attachment_type: attachment?.type,
+          ...attribution,
+        }),
       });
 
-      if (error) throw error;
+      const resData = await res.json();
+      if (!res.ok) {
+        throw new Error(
+          resData?.message || resData?.error || "Failed to submit contact form"
+        );
+      }
 
       setSubmitted(true);
       setFirstName("");
@@ -275,6 +319,7 @@ export default function ContactView() {
       setErrors({});
       trackLeadSubmitted("contact_form", attribution);
       toast({ title: "Request Sent!", description: "We'll get back to you within 24 hours." });
+      router.push("/thank-you");
     } catch (err: any) {
       toast({
         title: "Something went wrong",
@@ -296,6 +341,7 @@ export default function ContactView() {
     setQuantity("");
     setMessage("");
     setTimeline("");
+    setArtworkFile(null);
     setTerms(false);
     setTouched({});
     setErrors({});
@@ -306,11 +352,11 @@ export default function ContactView() {
     <>
       {/* ── Hero Section ── */}
       <section className="bg-primary py-10 sm:py-14 text-center">
-        <div className="max-w-[680px] mx-auto px-4 sm:px-5">
+        <div className="max-w-[840px] mx-auto px-4 sm:px-5">
           <p className="font-sans text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-3">
             Get Started
           </p>
-          <h1 className="font-display text-[32px] sm:text-[48px] font-semibold text-white leading-[1.1] mb-3">
+          <h1 className="font-display text-[28px] sm:text-[40px] lg:text-[48px] font-semibold text-white leading-[1.12] mb-3 [text-wrap:balance]">
             Tell Us What You <span className="text-accent">Need</span>
           </h1>
           <p className="font-sans text-[13px] sm:text-[14px] text-white/75 leading-[1.65] mb-6">
@@ -808,7 +854,7 @@ export default function ContactView() {
                 </div>
 
                 {/* Your Message */}
-                <div className="mb-2">
+                <div className="mb-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="font-sans text-[9.5px] font-medium tracking-[0.09em] uppercase text-[var(--ds-muted)]">
                       Your message
@@ -820,6 +866,69 @@ export default function ContactView() {
                       placeholder="Size, material, printing, finishes — anything that helps us give you an accurate quote."
                       className="flex w-full rounded-md px-3 font-sans font-normal bg-[#faf8f5] text-[#1a1a1a] border border-[#d8d4cc] placeholder:text-[#aaa6a0] transition-colors duration-150 focus-visible:outline-none focus-visible:border-[#e8732a] focus-visible:ring-2 focus-visible:ring-[#e8732a]/25 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 min-h-[100px] text-[13px] py-2.5 resize-y"
                     />
+                  </div>
+                </div>
+
+                {/* Upload Design File */}
+                <div className="mb-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-sans text-[9.5px] font-medium tracking-[0.09em] uppercase text-[var(--ds-muted)]">
+                      UPLOAD DESIGN FILE <span className="font-normal text-[#aaa6a0] capitalize">Optional</span>
+                    </label>
+                    <div
+                      ref={artworkBoxRef}
+                      tabIndex={-1}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setDragOver(true);
+                      }}
+                      onDragLeave={() => setDragOver(false)}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        setDragOver(false);
+                        const f = e.dataTransfer.files[0];
+                        if (f) setArtwork(f);
+                      }}
+                      onClick={() => fileRef.current?.click()}
+                      className="cursor-pointer rounded-[10px] border-2 border-dashed p-6 sm:p-7 text-center transition-all outline-none"
+                      style={{
+                        borderColor: errors.artwork ? "#ef4444" : "#e8732a",
+                        background: dragOver ? "#fff0e8" : "#faf8f5",
+                      }}
+                    >
+                      <input
+                        ref={fileRef}
+                        type="file"
+                        className="hidden"
+                        accept={ARTWORK_ACCEPT}
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (f) setArtwork(f);
+                          e.target.value = "";
+                        }}
+                      />
+                      {artworkFile ? (
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-[13px] font-medium text-[#1a1a1a]">{artworkFile.name}</span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setArtwork(null);
+                            }}
+                            className="text-[#aaa6a0] hover:text-red-500 p-1"
+                          >
+                            <X size={15} />
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <p className="text-[14px] font-bold text-[#1a1a1a]">Drag and drop your files</p>
+                          <p className="mt-1 text-[12px] text-[#717182]">JPEG, PNG, PDF, and MP4 formats, up to 50MB</p>
+                        </>
+                      )}
+                    </div>
+                    {errors.artwork && <p className="text-[11px] font-medium text-red-500">{errors.artwork}</p>}
                   </div>
                 </div>
 

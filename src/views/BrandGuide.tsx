@@ -252,7 +252,7 @@ const BrandGuide = () => {
       <section className="bg-hero section-padding">
         <div className="container-max text-center text-left">
           <p className="ds-eyebrow text-accent mb-3">Brand Bible</p>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground">
+          <h1 className="font-display font-bold text-primary-foreground [text-wrap:balance] max-w-4xl mx-auto" style={{ fontSize: "clamp(26px, 4.5vw, 48px)", lineHeight: 1.12 }}>
             HOF Pack <span className="text-accent">Brand Guide</span>
           </h1>
           <p className="mt-4 text-primary-foreground/70 max-w-2xl mx-auto text-lg font-sans">

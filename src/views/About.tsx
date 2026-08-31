@@ -93,8 +93,15 @@ const About = ({ cms: initialCms }: AboutProps = {}) => {
               </p>
             )}
             {(a.titleLead || a.titleAccent) && (
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                {a.titleLead} {a.titleAccent && <span className="text-accent">{a.titleAccent}</span>}
+              <h1 className="font-display font-bold text-white [text-wrap:balance] max-w-4xl" style={{ fontSize: "clamp(26px, 4.5vw, 48px)", lineHeight: 1.12 }}>
+                {`${a.titleLead || ""} ${a.titleAccent || ""}`.trim().split(/\s+/).filter(Boolean).length <= 4 ? (
+                  <span>{a.titleLead} {a.titleAccent && <span className="text-accent">{a.titleAccent}</span>}</span>
+                ) : (
+                  <>
+                    <span className="block">{a.titleLead}</span>
+                    {a.titleAccent && <span className="block text-accent mt-1">{a.titleAccent}</span>}
+                  </>
+                )}
               </h1>
             )}
             {a.description && (

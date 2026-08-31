@@ -271,11 +271,12 @@ export default function ArtworkGuidelinesPage() {
         />
         <div className="faq-hero-section faq-hero-text w-full" style={{ maxWidth: "100%" }}>
           <h1
+            className="[text-wrap:balance]"
             style={{
               fontFamily: '"DM Sans", sans-serif',
               fontWeight: 700,
-              fontSize: "clamp(36px, 5.1vw, 73.61px)",
-              lineHeight: "clamp(44px, 5.5vw, 79.5px)",
+              fontSize: "clamp(28px, 4.5vw, 60px)",
+              lineHeight: 1.1,
               letterSpacing: "0px",
               color: "rgb(26, 26, 26)",
               marginBottom: "20px",

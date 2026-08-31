@@ -26,7 +26,7 @@ type ClientLogosBarProps = {
 };
 
 export default function ClientLogosBar({ cms }: ClientLogosBarProps) {
-  const { data } = useCmsHome();
+  const { data } = useCmsHome(cms);
   const liveTrustBar = data?.trustBar || cms?.trustBar;
 
   const prefix = liveTrustBar?.trustedPrefix !== undefined ? liveTrustBar.trustedPrefix : "Trusted by";

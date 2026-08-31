@@ -21,7 +21,7 @@ export default function TrackPage() {
           <Truck className="w-3.5 h-3.5" />
           <span>Real-Time Order Tracking</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1a1a1a]">
+        <h1 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-[#1a1a1a] [text-wrap:balance]">
           Track Your Custom Order
         </h1>
         <p className="ds-body max-w-md mx-auto">

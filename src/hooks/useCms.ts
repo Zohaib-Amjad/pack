@@ -9,6 +9,7 @@ import {
   mergeCmsPortfolio,
   mergeCmsProcess,
 } from "@/lib/cms";
+import type { CmsHome, CmsAbout, CmsProcess, CmsPortfolio, CmsLibrary } from "@/types/cms";
 
 async function fetchCmsValue(key: string): Promise<unknown> {
   try {
@@ -23,47 +24,47 @@ async function fetchCmsValue(key: string): Promise<unknown> {
   }
 }
 
-export function useCmsHome() {
+export function useCmsHome(initialData?: CmsHome) {
   return useQuery({
     queryKey: ["public", "cms", CMS_SETTING_KEYS.home],
     queryFn: async () => mergeCmsHome(await fetchCmsValue(CMS_SETTING_KEYS.home)),
-    placeholderData: mergeCmsHome(null),
+    initialData,
     staleTime: 60_000,
   });
 }
 
-export function useCmsAbout() {
+export function useCmsAbout(initialData?: CmsAbout) {
   return useQuery({
     queryKey: ["public", "cms", CMS_SETTING_KEYS.about],
     queryFn: async () => mergeCmsAbout(await fetchCmsValue(CMS_SETTING_KEYS.about)),
-    placeholderData: mergeCmsAbout(null),
+    initialData,
     staleTime: 60_000,
   });
 }
 
-export function useCmsProcess() {
+export function useCmsProcess(initialData?: CmsProcess) {
   return useQuery({
     queryKey: ["public", "cms", CMS_SETTING_KEYS.process],
     queryFn: async () => mergeCmsProcess(await fetchCmsValue(CMS_SETTING_KEYS.process)),
-    placeholderData: mergeCmsProcess(null),
+    initialData,
     staleTime: 60_000,
   });
 }
 
-export function useCmsPortfolio() {
+export function useCmsPortfolio(initialData?: CmsPortfolio) {
   return useQuery({
     queryKey: ["public", "cms", CMS_SETTING_KEYS.portfolio],
     queryFn: async () => mergeCmsPortfolio(await fetchCmsValue(CMS_SETTING_KEYS.portfolio)),
-    placeholderData: mergeCmsPortfolio(null),
+    initialData,
     staleTime: 60_000,
   });
 }
 
-export function useCmsLibrary() {
+export function useCmsLibrary(initialData?: CmsLibrary) {
   return useQuery({
     queryKey: ["public", "cms", CMS_SETTING_KEYS.library],
     queryFn: async () => mergeCmsLibrary(await fetchCmsValue(CMS_SETTING_KEYS.library)),
-    placeholderData: mergeCmsLibrary(null),
+    initialData,
     staleTime: 60_000,
   });
 }

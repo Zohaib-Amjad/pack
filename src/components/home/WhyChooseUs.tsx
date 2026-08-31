@@ -42,7 +42,7 @@ type WhyChooseUsProps = {
 };
 
 const WhyChooseUs = ({ cms }: WhyChooseUsProps) => {
-  const { data } = useCmsHome();
+  const { data } = useCmsHome(cms);
   const why = data?.whyUs || cms?.whyUs;
 
   const sectionLabel = why?.sectionLabel;

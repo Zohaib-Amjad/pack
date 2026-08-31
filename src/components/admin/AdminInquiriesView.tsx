@@ -200,9 +200,51 @@ export default function AdminInquiriesView() {
   const [selectedAssignee, setSelectedAssignee] = useState("all");
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [inquiries, setInquiries] = useState<InquiryItem[]>(INITIAL_INQUIRIES);
   const [viewingInquiry, setViewingInquiry] = useState<InquiryItem | null>(null);
+
+  // Fetch live inquiries from database
+  const loadInquiries = async (showToast = false) => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/admin/inquiries");
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.inquiries) && data.inquiries.length > 0) {
+          setInquiries(data.inquiries);
+        }
+        if (showToast) {
+          toast({
+            title: "Inquiries Refreshed",
+            description: `Loaded ${data.inquiries?.length || 0} live inquiries.`,
+          });
+        }
+      }
+    } catch (err) {
+      console.warn("Failed to fetch inquiries:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    loadInquiries(false);
+  }, []);
+
+  // Compute live counts
+  const counts = useMemo(() => {
+    return {
+      new: inquiries.filter((i) => i.status === "new").length,
+      resolved: inquiries.filter((i) => i.status === "resolved").length,
+      all: inquiries.length,
+      organic: inquiries.filter((i) => i.type === "Organic").length,
+      landing: inquiries.filter((i) => i.type === "Landing Page").length,
+      cart: inquiries.filter((i) => i.type === "Add to Cart").length,
+      unfilled: inquiries.filter((i) => i.type === "Unfilled Form").length,
+    };
+  }, [inquiries]);
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
@@ -257,19 +299,31 @@ export default function AdminInquiriesView() {
     setSelectedRows(next);
   };
 
-  const handleResolve = (id: string, name: string) => {
+  const handleResolve = async (id: string, name: string) => {
     setInquiries((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, status: "resolved" } : i))
+      prev.map((i) => (i.id === id ? { ...i, status: "resolved", isPulsing: false } : i))
     );
+    try {
+      await fetch("/api/admin/inquiries", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status: "resolved" }),
+      });
+    } catch {}
     toast({
       title: "Inquiry Resolved",
       description: `Marked inquiry from "${name}" as resolved.`,
     });
   };
 
-  const handleDelete = (id: string, name: string) => {
+  const handleDelete = async (id: string, name: string) => {
     if (!confirm(`Are you sure you want to delete inquiry from "${name}"?`)) return;
     setInquiries((prev) => prev.filter((i) => i.id !== id));
+    try {
+      await fetch(`/api/admin/inquiries?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      });
+    } catch {}
     toast({
       title: "Inquiry Deleted",
       description: `Inquiry from "${name}" has been removed.`,
@@ -291,9 +345,11 @@ export default function AdminInquiriesView() {
           }`}
         >
           New Inquiries
-          <span className="inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#e8732a] px-1.5 py-[1px] text-[9px] font-extrabold leading-none text-white">
-            64
-          </span>
+          {counts.new > 0 && (
+            <span className="inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#e8732a] px-1.5 py-[1px] text-[9px] font-extrabold leading-none text-white">
+              {counts.new}
+            </span>
+          )}
           {activeTab === "new" && (
             <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#e8732a] rounded-t-[1px]" />
           )}
@@ -400,9 +456,11 @@ export default function AdminInquiriesView() {
           }`}
         >
           Unfilled Form
-          <span className="inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#e8732a] px-1.5 py-[1px] text-[9px] font-extrabold leading-none text-white">
-            17
-          </span>
+          {counts.unfilled > 0 && (
+            <span className="inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#e8732a] px-1.5 py-[1px] text-[9px] font-extrabold leading-none text-white">
+              {counts.unfilled}
+            </span>
+          )}
           {activeTab === "unfilled" && (
             <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#e8732a] rounded-t-[1px]" />
           )}
@@ -550,15 +608,11 @@ export default function AdminInquiriesView() {
 
               <button
                 type="button"
-                onClick={() => {
-                  toast({
-                    title: "Inquiries Refreshed",
-                    description: "Updated with newest leads.",
-                  });
-                }}
-                className="btn btn-xs h-[32px] p-[0_12px] text-[11px] font-bold text-[#7a7672] hover:text-[#1a1a1a] cursor-pointer inline-flex items-center"
+                disabled={isLoading}
+                onClick={() => loadInquiries(true)}
+                className="btn btn-xs h-[32px] p-[0_12px] text-[11px] font-bold text-[#7a7672] hover:text-[#1a1a1a] cursor-pointer inline-flex items-center disabled:opacity-50"
               >
-                <RefreshCw className="w-3.5 h-3.5 mr-1.5" /> Refresh
+                <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${isLoading ? "animate-spin text-[#e8732a]" : ""}`} /> Refresh
               </button>
             </div>
 

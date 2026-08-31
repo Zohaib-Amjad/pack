@@ -37,7 +37,7 @@ const DEFAULT_MORE_PRODUCTS: HomeProduct[] = [
   },
   {
     id: "more-4",
-    name: "Pendant Boxes ",
+    name: "Pendant Boxes",
     slug: "pendant-boxes",
     images: ["/images/products/6a1e2f5b-075a-4299-947e-dcc4f8c2a51b.jpg"],
   },
@@ -73,7 +73,7 @@ const DEFAULT_MORE_PRODUCTS: HomeProduct[] = [
   },
   {
     id: "more-10",
-    name: "White Corrugated Boxes ",
+    name: "White Corrugated Boxes",
     slug: "white-corrugated-boxes",
     images: ["/images/products/acee933d-82ef-4306-a1a3-808a17017e19.jpg"],
   },
@@ -91,13 +91,60 @@ const DEFAULT_MORE_PRODUCTS: HomeProduct[] = [
   },
 ];
 
+function getSmartProductImage(nameOrSlug: string): string {
+  const s = nameOrSlug.toLowerCase();
+  if (s.includes("luxury pre roll") || s.includes("joint") || s.includes("cannabis pre-roll")) {
+    return "/images/products/cannabis-pre-roll-packaging.jpg";
+  }
+  if (s.includes("pre roll packaging with labels") || s.includes("cone")) {
+    return "/images/products/pre-roll-cone-packaging.jpg";
+  }
+  if (s.includes("delta 8") || s.includes("pre roll display") || s.includes("pre roll") || s.includes("pre-roll")) {
+    return "/images/products/pre-roll-display-boxes.jpg";
+  }
+  if (s.includes("mylar")) {
+    return "/images/products/89e1f25c-2e6b-4176-83fa-97f9f7ce5f23.jpg";
+  }
+  if (s.includes("candle")) {
+    return "/images/products/candle-display-boxes.jpg";
+  }
+  if (s.includes("soap")) {
+    return "/images/products/soap-display-boxes.jpg";
+  }
+  if (s.includes("coffee")) {
+    return "/images/products/coffee-cup-sleeves.jpg";
+  }
+  if (s.includes("cigarette") || s.includes("cigar")) {
+    return "/images/products/blank-cigarette-boxes.jpg";
+  }
+  if (s.includes("jewelry") || s.includes("ring") || s.includes("earring")) {
+    return "/images/products/b22145e1-7afc-43d0-b1ea-3784de7eed89.jpg";
+  }
+  if (s.includes("gable")) {
+    return "/images/products/3d-gable-boxes.jpg";
+  }
+  if (s.includes("pillow")) {
+    return "/images/products/candy-pillow-boxes.jpg";
+  }
+  if (s.includes("tube")) {
+    return "/images/products/black-tube-packaging.jpg";
+  }
+  if (s.includes("mailer") || s.includes("corrugated")) {
+    return "/images/products/corrugated-mailer-boxes.jpg";
+  }
+  if (s.includes("kraft")) {
+    return "/images/products/6ffcc479-5327-4a7a-baca-2135b9bfb47c.jpg";
+  }
+  return "/images/products/89e1f25c-2e6b-4176-83fa-97f9f7ce5f23.jpg";
+}
+
 type HomeMoreProductsProps = {
   cms?: CmsHome;
 };
 
 export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
   const queryClient = useQueryClient();
-  const { data: cmsData } = useCmsHome();
+  const { data: cmsData } = useCmsHome(cms);
   const section = cmsData?.moreProducts || cms?.moreProducts;
 
   const staticCatalog = useMemo(() => getAllProducts(), []);
@@ -114,7 +161,7 @@ export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
       return staticCatalog;
     },
     initialData: staticCatalog,
-    staleTime: 10_000,
+    staleTime: 60_000,
   });
 
   // Listen for admin storage events to re-render in real-time
@@ -159,15 +206,21 @@ export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
           const key = found.slug || found.name;
           if (!used.has(key)) {
             used.add(key);
+            const rawImg = (found as any).image || ((found as any).images && (found as any).images[0]);
+            const finalImg =
+              rawImg && !rawImg.includes("custom-cake-boxes.jpg")
+                ? rawImg
+                : getSmartProductImage(found.name || found.slug);
+
             list.push({
               id: (found as any).id || found.slug || found.name,
               name: found.name,
               slug: found.slug,
-              images: (found as any).image ? [(found as any).image] : (found as any).images || ["/images/products/custom-cake-boxes.jpg"],
+              images: [finalImg],
             });
           }
         } else {
-          // If not in catalog yet, add as custom item so it is NEVER omitted from the UI
+          // If not in catalog yet, add as custom item with instantly matching smart image
           const slug = q.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
           if (!used.has(slug)) {
             used.add(slug);
@@ -175,7 +228,7 @@ export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
               id: `sel-${slug}`,
               name: query,
               slug: slug,
-              images: ["/images/products/custom-cake-boxes.jpg"],
+              images: [getSmartProductImage(query)],
             });
           }
         }
@@ -199,7 +252,7 @@ export default function HomeMoreProducts({ cms }: HomeMoreProductsProps) {
         if (Array.isArray(product.images) && product.images[0]) {
           return product.images[0];
         }
-        return undefined;
+        return getSmartProductImage(product.name || product.slug);
       }}
     />
   );

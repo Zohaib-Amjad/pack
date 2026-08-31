@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TRUSTPILOT_PROFILE_URL } from "@/data/trustpilot-reviews";
 import {
   PRODUCT_GOOGLE_RATING,
@@ -42,28 +42,26 @@ export default function HeroReviewLinks() {
   const score = slide.rating.toFixed(1);
 
   return (
-    <div className="mt-5">
-      <a
-        key={slide.id}
-        href={slide.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group inline-flex items-center gap-2 no-underline animate-in fade-in duration-300"
-        aria-label={`${slide.label} ${score} rating — view reviews`}
-      >
-        <span className="font-sans text-[12.5px] font-medium leading-none text-black sm:text-[13px]">
-          {score} Rating
-        </span>
-        <svg viewBox="0 0 24 24" className="h-[15px] w-[15px] shrink-0 sm:h-4 sm:w-4" aria-hidden>
-          <path
-            fill={slide.starColor}
-            d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-          />
-        </svg>
-        <span className="font-sans text-[12.5px] font-semibold leading-none text-black group-hover:text-accent sm:text-[13px]">
-          {slide.label}
-        </span>
-      </a>
-    </div>
+    <a
+      key={slide.id}
+      href={slide.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/25 hover:bg-black/40 backdrop-blur-md border border-white/15 text-white no-underline transition-all duration-200"
+      aria-label={`${slide.label} ${score} rating — view reviews`}
+    >
+      <span className="font-sans text-[11.5px] sm:text-[12px] font-medium text-white/90">
+        {score} Rating
+      </span>
+      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0" aria-hidden>
+        <path
+          fill={slide.starColor}
+          d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </svg>
+      <span className="font-sans text-[11.5px] sm:text-[12px] font-bold text-white group-hover:text-accent transition-colors">
+        {slide.label}
+      </span>
+    </a>
   );
 }

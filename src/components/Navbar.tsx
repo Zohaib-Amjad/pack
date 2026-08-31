@@ -3,22 +3,44 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { createPublicClient } from "@/utils/supabase/public-client";
-import { withAbortableTimeout } from "@/lib/fetch-utils";
 import { useQuoteModal } from "@/components/QuoteModalContext";
 import { Button } from "@/components/ui/button";
 import {
-  Menu, X, ChevronDown,
-  // Industry
-  Flame, FlameKindling, Coffee, Sparkles, Palette, Droplets, ShoppingBag, ShoppingCart,
-  Shirt, Cpu, Utensils, Croissant, Package,
-  Wine, GlassWater, Truck, Leaf, Gem, Gift, Crown,
-  Pill, PawPrint, Scissors, Gamepad2, Cannabis,
-  Stethoscope, Dumbbell, Cigarette, Microscope, Laptop, Flower2,
+  Menu,
+  X,
+  ChevronDown,
+  Phone,
+  Mail,
+  // Industry icons
+  Flame,
+  Coffee,
+  Sparkles,
+  ShoppingBag,
+  Shirt,
+  Cpu,
+  Utensils,
+  Croissant,
+  Package,
+  Wine,
+  Gem,
+  Gift,
+  Pill,
+  PawPrint,
+  Cannabis,
+  Cigarette,
   Paintbrush,
-  // Material & Style
-  Box, Mail, Mailbox, Monitor, Archive, PackageCheck,
-  Layers, Cylinder, FolderOpen, ScrollText, PackageOpen, Boxes, Tag, Sticker,
+  Droplets,
+  // Material & Style icons
+  Box,
+  Layers,
+  Cylinder,
+  Boxes,
+  Sticker,
+  Archive,
+  Monitor,
+  PackageOpen,
+  PackageCheck,
+  Mailbox,
   type LucideProps,
 } from "lucide-react";
 import type { ComponentType } from "react";
@@ -87,7 +109,6 @@ const CATEGORY_ICONS: Record<string, IconComponent> = {
   weed: Cannabis,
   wine: Wine,
   bottle: Wine,
-  beverage: GlassWater,
   pet: PawPrint,
 
   // Material
@@ -117,34 +138,6 @@ function getCategoryIcon(slug: string): IconComponent {
     if (key !== "default" && lower.includes(key)) return Icon;
   }
   return CATEGORY_ICONS.default;
-}
-
-// Custom PNG images — matched by slug keyword (e.g. style icons)
-const CATEGORY_IMAGES: Record<string, string> = {
-  // Boxes by Style
-  mailer: "/parcel.png",
-  gable: "/lunch-box.png",
-  pillow: "/pillow.png",
-  tube: "/tube.png",
-  tuck: "/packing.png",
-
-  // Boxes by Industry
-  bakery: "/breads.png",
-  bread: "/breads.png",
-  pastry: "/breads.png",
-  candle: "/candel.png",
-  cosmetic: "/cosmetics.png",
-  makeup: "/cosmetics.png",
-  beauty: "/cosmetics.png",
-  soap: "/soap.png",
-};
-
-function getCategoryImage(slug: string): string | null {
-  const lower = slug.toLowerCase();
-  for (const [key, src] of Object.entries(CATEGORY_IMAGES)) {
-    if (lower.includes(key)) return src;
-  }
-  return null;
 }
 
 interface MegaMenuProps {
@@ -290,7 +283,6 @@ const MegaMenuItem = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Trigger */}
       <button
         type="button"
         className="flex items-center gap-1 px-3.5 py-2.5 ds-nav-link text-foreground/85 hover:text-foreground rounded-md transition-colors"
@@ -316,13 +308,11 @@ const MegaMenuItem = ({
           onMouseLeave={handleMouseLeave}
         >
           <div className="bg-background border border-border rounded-2xl shadow-2xl p-4 animate-fade-in">
-            {/* Section header */}
             <p className="px-2 pb-3 font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground/50 border-b border-border/50 mb-3">
               {label}
             </p>
             <div className={`grid gap-1.5 ${isMultiColumn ? "grid-cols-2" : "grid-cols-1"}`}>
               {categories.map((cat) => {
-                const imgSrc = getCategoryImage(cat.slug);
                 const Icon = getCategoryIcon(cat.slug);
                 return (
                   <Link
@@ -333,24 +323,7 @@ const MegaMenuItem = ({
                     className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground border border-transparent hover:border-accent/30 hover:bg-accent/5 transition-all group"
                   >
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent group-hover:bg-accent/20 transition-colors">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      {imgSrc ? (
-                        <img
-                          src={imgSrc}
-                          alt={cat.name}
-                          width={22}
-                          height={22}
-                          style={{
-                            width: 22,
-                            height: 22,
-                            objectFit: "contain",
-                            filter:
-                              "brightness(0) saturate(100%) invert(49%) sepia(100%) saturate(1800%) hue-rotate(346deg) brightness(82%) contrast(1.2)",
-                          }}
-                        />
-                      ) : (
-                        <Icon size={18} strokeWidth={2.2} />
-                      )}
+                      <Icon size={18} strokeWidth={2.2} />
                     </span>
                     <span className="font-sans text-[13.5px] font-normal leading-snug">
                       {cat.name}
@@ -371,12 +344,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const { data: categories = defaultCategories } = useQuery({
     queryKey: ["public", "categories-nav"],
@@ -390,9 +358,7 @@ const Navbar = () => {
         if (list && list.length > 0) {
           return list.filter((c) => c.is_active !== false);
         }
-      } catch {
-        // use defaultCategories
-      }
+      } catch {}
       return defaultCategories;
     },
   });
@@ -466,11 +432,10 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background lg:bg-background/95 lg:backdrop-blur-md">
+    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-border bg-background lg:bg-background/95 lg:backdrop-blur-md w-full">
       {/* ── Top utility bar ── */}
       <div className="hidden lg:block bg-[#2d5c3e] text-white">
-        <div className="container-max flex h-8 items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Left badges */}
+        <div className="container-max flex h-8 items-center justify-between">
           <div className="flex items-center gap-[18px]">
             {utilityBadges.map((badge) => (
               <div key={badge} className="flex items-center gap-[5px] font-sans text-[11px] text-white/80">
@@ -479,7 +444,6 @@ const Navbar = () => {
               </div>
             ))}
           </div>
-          {/* Right contact info */}
           <div className="flex items-center gap-[6px] font-sans text-[11.5px] font-medium text-white/90">
             {settings.contact.email && (
               <>
@@ -510,11 +474,11 @@ const Navbar = () => {
       </div>
 
       {/* ── Main navbar row ── */}
-      <div className="container-max px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 lg:h-20">
+      <div className="container-max">
+        <div className="flex items-center justify-between h-20 lg:h-20 gap-4">
           {/* Logo */}
-          <Link href="/" prefetch={false} className="flex items-center gap-2">
-            <HofPackLogo variant="light" className="h-12 lg:h-16 w-auto" />
+          <Link href="/" prefetch={false} className="flex items-center gap-2 shrink-0">
+            <HofPackLogo variant="light" className="h-10 sm:h-11 lg:h-16 w-auto shrink-0" />
           </Link>
 
           {/* ── Desktop nav links ── */}
@@ -522,8 +486,9 @@ const Navbar = () => {
             <Link
               href="/"
               prefetch={false}
-              className={`px-3.5 py-2.5 ds-nav-link rounded-md transition-colors ${pathname === "/" ? "text-accent font-semibold" : "text-foreground/85 hover:text-foreground"
-                }`}
+              className={`px-3.5 py-2.5 ds-nav-link rounded-md transition-colors ${
+                pathname === "/" ? "text-accent font-semibold" : "text-foreground/85 hover:text-foreground"
+              }`}
             >
               Home
             </Link>
@@ -542,8 +507,9 @@ const Navbar = () => {
             <Link
               href="/contact"
               prefetch={false}
-              className={`px-3.5 py-2.5 ds-nav-link rounded-md transition-colors ${pathname === "/contact" ? "text-accent font-semibold" : "text-foreground/85 hover:text-foreground"
-                }`}
+              className={`px-3.5 py-2.5 ds-nav-link rounded-md transition-colors ${
+                pathname === "/contact" ? "text-accent font-semibold" : "text-foreground/85 hover:text-foreground"
+              }`}
             >
               Contact Us
             </Link>
@@ -565,7 +531,8 @@ const Navbar = () => {
 
           {/* Mobile hamburger */}
           <button
-            className="lg:hidden inline-flex h-9 w-9 items-center justify-center text-foreground hover:text-accent transition-colors"
+            type="button"
+            className="lg:hidden inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border/80 bg-background text-foreground hover:text-accent hover:border-accent/40 active:scale-95 transition-all cursor-pointer shadow-sm ml-auto"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
@@ -576,208 +543,179 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ── Mobile menu version ── */}
+      {/* ── Mobile menu tray ── */}
       {mobileOpen && (
         <div
           id="mobile-nav-tray"
-          className="fixed inset-0 z-[80] bg-background opacity-100 transition-opacity duration-300 ease-out lg:hidden"
+          className="fixed inset-0 z-[120] bg-background opacity-100 transition-opacity duration-300 ease-out lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-          <div
-            className={`absolute inset-0 bg-background transition-transform duration-300 ease-out ${mobileOpen ? "translate-x-0" : "translate-x-full"
-              }`}
-          >
-            <div className="mx-auto flex h-dvh w-full max-w-2xl flex-col bg-background px-4 pb-6 pt-4 sm:px-6">
-              <div className="mb-5 flex items-center justify-between border-b border-border/70 pb-4">
-                <Link href="/" prefetch={false} onClick={() => setMobileOpen(false)}>
-                  <HofPackLogo variant="light" className="h-10 w-auto" />
-                </Link>
-                <button
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-background text-foreground transition-all hover:border-accent/40 hover:text-accent"
-                  onClick={() => setMobileOpen(false)}
-                  aria-label="Close menu"
-                >
-                  <X size={22} />
-                </button>
-              </div>
+          <div className="flex h-dvh w-full flex-col bg-background px-4 pb-6 pt-4 sm:px-6 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-border/70 pb-3.5">
+              <Link href="/" prefetch={false} onClick={() => setMobileOpen(false)}>
+                <HofPackLogo variant="light" className="h-9 w-auto" />
+              </Link>
+              <button
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-background text-foreground transition-all hover:border-accent/40 hover:text-accent cursor-pointer"
+                onClick={() => setMobileOpen(false)}
+                aria-label="Close menu"
+              >
+                <X size={20} />
+              </button>
+            </div>
 
-              <div className="mb-4 rounded-xl border border-border/70 bg-background p-2">
-                <SearchBar mode="inline" onResultSelect={() => setMobileOpen(false)} />
-              </div>
+            {/* Inline search */}
+            <div className="my-3">
+              <SearchBar mode="inline" onResultSelect={() => setMobileOpen(false)} />
+            </div>
 
-              <div className="flex-1 space-y-1 overflow-y-auto pr-1">
-                <Link
-                  href="/"
-                  prefetch={false}
-                  className={`flex min-h-[48px] items-center rounded-lg px-4 py-3 text-[15px] font-medium tracking-[0.02em] transition-colors ${pathname === "/" ? "text-accent font-semibold" : "text-foreground hover:bg-accent/5"
-                    }`}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Home
-                </Link>
+            {/* Main Links */}
+            <div className="flex-1 space-y-1 overflow-y-auto pr-1 [scrollbar-width:thin]">
+              <Link
+                href="/"
+                prefetch={false}
+                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
+                  pathname === "/" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Home
+              </Link>
 
-                {megaMenus.map((menu) => (
-                  <div
-                    key={menu.key}
-                    className="rounded-lg border border-transparent bg-transparent transition-colors hover:border-border/60 hover:bg-background/70"
-                  >
-                    <button
-                      className="flex min-h-[48px] w-full items-center justify-between rounded-lg px-4 py-3 text-left text-[15px] font-medium tracking-[0.02em] text-foreground"
-                      onClick={() =>
-                        setMobileExpanded(
-                          mobileExpanded === menu.key ? null : menu.key,
-                        )
-                      }
-                      aria-expanded={mobileExpanded === menu.key}
-                    >
-                      {menu.label}
-                      <ChevronDown
-                        size={15}
-                        className={`transition-transform ${mobileExpanded === menu.key ? "rotate-180" : ""
-                          }`}
-                      />
-                    </button>
-
-                    {mobileExpanded === menu.key && (
-                      <div className="animate-fade-in space-y-0.5 pb-2 pl-4 pr-2">
-                        {menu.categories.map((cat: any) => {
-                          const imgSrc = getCategoryImage(cat.slug);
-                          const Icon = getCategoryIcon(cat.slug);
-                          return (
-                            <Link
-                              key={cat.slug}
-                              href={`/${cat.slug}`}
-                              prefetch={false}
-                              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent/5 hover:text-accent group"
-                              onClick={() => setMobileOpen(false)}
-                            >
-                              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors">
-                                {imgSrc ? (
-                                  <img
-                                    src={imgSrc}
-                                    alt={cat.name}
-                                    width={16}
-                                    height={16}
-                                    style={{
-                                      width: 16,
-                                      height: 16,
-                                      objectFit: "contain",
-                                      filter:
-                                        "brightness(0) saturate(100%) invert(49%) sepia(100%) saturate(1800%) hue-rotate(346deg) brightness(82%) contrast(1.2)",
-                                    }}
-                                  />
-                                ) : (
-                                  <Icon size={15} strokeWidth={2.2} />
-                                )}
-                              </span>
-                              <span className="font-sans text-[12.5px] font-normal">{cat.name}</span>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                ))}
-
-                <Link
-                  href="/contact"
-                  prefetch={false}
-                  className={`flex min-h-[48px] items-center rounded-lg px-4 py-3 text-[15px] font-medium tracking-[0.02em] transition-colors ${pathname === "/contact" ? "text-accent font-semibold" : "text-foreground hover:bg-accent/5"
-                    }`}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  Contact Us
-                </Link>
-
-                <div className="rounded-lg border border-transparent bg-transparent transition-colors hover:border-border/60 hover:bg-background/70">
+              {megaMenus.map((menu) => (
+                <div key={menu.key} className="rounded-lg border border-transparent">
                   <button
-                    className="flex min-h-[48px] w-full items-center justify-between rounded-lg px-4 py-3 text-left text-[15px] font-medium tracking-[0.02em] text-foreground"
+                    className="flex min-h-[44px] w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-left text-[14px] font-medium text-foreground hover:bg-accent/5 cursor-pointer"
                     onClick={() =>
                       setMobileExpanded(
-                        mobileExpanded === "help-center" ? null : "help-center",
+                        mobileExpanded === menu.key ? null : menu.key,
                       )
                     }
-                    aria-expanded={mobileExpanded === "help-center"}
+                    aria-expanded={mobileExpanded === menu.key}
                   >
-                    Help Center
+                    {menu.label}
                     <ChevronDown
                       size={15}
-                      className={`transition-transform ${mobileExpanded === "help-center" ? "rotate-180" : ""
-                        }`}
+                      className={`transition-transform duration-200 ${
+                        mobileExpanded === menu.key ? "rotate-180 text-accent" : ""
+                      }`}
                     />
                   </button>
 
-                  {mobileExpanded === "help-center" && (
-                    <div className="animate-fade-in space-y-0.5 pb-2 pl-4 pr-2">
-                      {helpCenterLinks.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          prefetch={false}
-                          className="flex items-center rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent/5 hover:text-accent"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          <span className="font-sans text-[12.5px] font-normal">{link.label}</span>
-                        </Link>
-                      ))}
+                  {mobileExpanded === menu.key && (
+                    <div className="space-y-0.5 pb-2 pl-3 pr-2 animate-fade-in">
+                      {menu.categories.map((cat: any) => {
+                        const Icon = getCategoryIcon(cat.slug);
+                        return (
+                          <Link
+                            key={cat.slug}
+                            href={`/${cat.slug}`}
+                            prefetch={false}
+                            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent/5 hover:text-accent group"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors">
+                              <Icon size={15} strokeWidth={2.2} />
+                            </span>
+                            <span className="font-sans text-[12.5px] font-normal">{cat.name}</span>
+                          </Link>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
+              ))}
+
+              <Link
+                href="/artwork-guidelines"
+                prefetch={false}
+                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
+                  pathname === "/artwork-guidelines" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Artwork Guidelines
+              </Link>
+
+              <Link
+                href="/process"
+                prefetch={false}
+                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
+                  pathname === "/process" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Our Process
+              </Link>
+
+              <Link
+                href="/about"
+                prefetch={false}
+                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
+                  pathname === "/about" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                About Us
+              </Link>
+
+              <Link
+                href="/case-studies"
+                prefetch={false}
+                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
+                  pathname === "/case-studies" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Case Studies
+              </Link>
+
+              <Link
+                href="/blog"
+                prefetch={false}
+                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
+                  pathname === "/blog" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Blog
+              </Link>
+
+              <Link
+                href="/contact"
+                prefetch={false}
+                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
+                  pathname === "/contact" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Contact Us
+              </Link>
+            </div>
+
+            {/* Bottom Quick Contact & CTA */}
+            <div className="mt-3 border-t border-border/70 pt-3.5 space-y-2.5 shrink-0">
+              <div className="flex items-center justify-between text-[12px] text-muted-foreground px-1">
+                <a
+                  href={`tel:${settings.contact.phone?.replace(/[^0-9+]/g, "") || "+18884294881"}`}
+                  className="inline-flex items-center gap-1.5 text-foreground hover:text-accent font-medium transition-colors"
+                >
+                  <Phone size={13} className="text-accent" />
+                  {settings.contact.phone || "+1 (888) 429-4881"}
+                </a>
+                <a
+                  href={`mailto:${settings.contact.email || "info@hofpack.com"}`}
+                  className="inline-flex items-center gap-1.5 text-foreground hover:text-accent font-medium transition-colors"
+                >
+                  <Mail size={13} className="text-accent" />
+                  {settings.contact.email || "info@hofpack.com"}
+                </a>
               </div>
 
-              {/* Contact info */}
-              {(settings.contact.email || settings.contact.phone) && (
-                <div className="mt-4 overflow-hidden rounded-2xl border border-border">
-                  <div className="bg-primary px-4 py-3">
-                    <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">Get in Touch</p>
-                  </div>
-                  <div className="divide-y divide-border bg-card">
-                    {settings.contact.email && (
-                      <a
-                        href={`mailto:${settings.contact.email}`}
-                        className="flex items-center gap-3 px-4 py-3.5 no-underline group"
-                      >
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M22 6l-10 7L2 6" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                        <div>
-                          <p className="font-sans text-[10px] text-muted-foreground mb-0.5">Email Us</p>
-                          <p className="font-sans text-[13px] font-semibold text-foreground group-hover:text-accent transition-colors">
-                            {settings.contact.email}
-                          </p>
-                        </div>
-                      </a>
-                    )}
-                    {settings.contact.phone && (
-                      <a
-                        href={`tel:${settings.contact.phone.replace(/[^0-9+]/g, "")}`}
-                        className="flex items-center gap-3 px-4 py-3.5 no-underline group"
-                      >
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.06 2.22 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" stroke="#e8732a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                        <div>
-                          <p className="font-sans text-[10px] text-muted-foreground mb-0.5">Call Us</p>
-                          <p className="font-sans text-[13px] font-semibold text-foreground group-hover:text-accent transition-colors">
-                            {settings.contact.phone}
-                          </p>
-                        </div>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              <div className="mt-3 border-t border-border/70 pt-4">
-                <QuoteButton fullWidth />
-              </div>
+              <QuoteButton fullWidth />
             </div>
           </div>
         </div>

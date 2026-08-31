@@ -52,7 +52,7 @@ type TrendingProductsProps = {
 };
 
 const TrendingProducts = ({ cms }: TrendingProductsProps) => {
-  const { data } = useCmsHome();
+  const { data } = useCmsHome(cms);
   const rp = data?.relatedProducts || cms?.relatedProducts;
 
   const allCatalogProducts = useMemo(() => getAllProducts(), []);

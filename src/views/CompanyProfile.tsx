@@ -130,7 +130,7 @@ const CompanyProfile = () => {
                 className="object-contain"
               />
             </div>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            <h1 className="font-display font-bold text-white [text-wrap:balance] max-w-4xl" style={{ fontSize: "clamp(26px, 4.5vw, 48px)", lineHeight: 1.12 }}>
               Your Reliable <span className="text-accent">Packaging Partner</span>
             </h1>
             <p className="mt-4 text-white/70 text-lg font-sans leading-relaxed">

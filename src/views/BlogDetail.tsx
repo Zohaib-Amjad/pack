@@ -143,7 +143,7 @@ export default function BlogDetail({ slug }: { slug: string }) {
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/15 text-accent font-sans text-[10px] font-bold uppercase tracking-wider mb-5">
               <Tag size={9} /> {post.category || "Packaging"}
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.05]">
+            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-[1.15] [text-wrap:balance] max-w-3xl">
               {post.title}
             </h1>
             {post.excerpt && (

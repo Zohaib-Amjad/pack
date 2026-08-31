@@ -127,9 +127,9 @@ export default function CustomPackagingPage() {
               </span>
             </div>
 
-            <h1 className="max-w-[700px] text-[36px] font-bold leading-[1.03] text-white sm:text-[50px] lg:text-[60px]">
-              Custom Packaging That
-              <span className="block text-[#ee7a1b]">Defines Your Brand</span>
+            <h1 className="max-w-[840px] font-sans text-[26px] sm:text-[38px] lg:text-[48px] font-bold leading-[1.12] text-white [text-wrap:balance]">
+              <span className="block">Custom Packaging That</span>
+              <span className="block text-[#ee7a1b] mt-1">Defines Your Brand</span>
             </h1>
 
             <p className="mt-5 max-w-[560px] text-[14px] leading-[1.65] text-white sm:text-[15px]">

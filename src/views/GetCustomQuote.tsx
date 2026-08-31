@@ -35,11 +35,11 @@ export default function GetCustomQuote() {
             </div>
             <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">HOF PACK — GET A QUOTE</p>
             <h1
-              className="font-sans text-white"
-              style={{ fontSize: "clamp(30px, 5.5vw, 50px)", fontWeight: 700, lineHeight: 1.08, marginBottom: 16 }}
+              className="font-sans text-white [text-wrap:balance]"
+              style={{ fontSize: "clamp(26px, 4.5vw, 46px)", fontWeight: 700, lineHeight: 1.12, marginBottom: 16 }}
             >
-              Get a Custom<br />
-              <span className="text-[#f19a48]">Packaging Quote</span>
+              <span className="block">Get a Custom</span>
+              <span className="block text-[#f19a48] mt-1">Packaging Quote</span>
             </h1>
             <p className="mb-6 max-w-[480px] text-[15px] leading-[1.65] text-white/80">
               Premium custom boxes tailored to your product, brand, and budget. Tell us what you need — we&apos;ll handle the rest.

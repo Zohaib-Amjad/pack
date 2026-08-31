@@ -2,6 +2,7 @@ import { createPublicClient } from "@/utils/supabase/public-client";
 import { withAbortableTimeout } from "@/lib/fetch-utils";
 import { getCategoryBySlug } from "@/data/products";
 import { getCategoryDetailDefaults, COFFEE_RELATED_PRODUCTS, COSMETIC_RELATED_PRODUCTS, JEWELRY_RELATED_PRODUCTS, RETAIL_RELATED_PRODUCTS, WAX_PAPER_RELATED_PRODUCTS, SOAP_RELATED_PRODUCTS, CARDBOARD_RELATED_PRODUCTS, CORRUGATED_RELATED_PRODUCTS, KRAFT_RELATED_PRODUCTS, MYLAR_RELATED_PRODUCTS, RIGID_RELATED_PRODUCTS, STICKERS_RELATED_PRODUCTS, MAILER_RELATED_PRODUCTS, DISPLAY_RELATED_PRODUCTS, GABLE_RELATED_PRODUCTS, PILLOW_RELATED_PRODUCTS, TUBE_RELATED_PRODUCTS, TUCK_RELATED_PRODUCTS } from "@/data/category-defaults";
+import { getCategoryFaqs, toPageFaqs } from "@/data/content-sheet-faqs";
 
 export type CategoryPageData = {
   category: any;
@@ -39,6 +40,10 @@ const STATIC_SLUG_ALIASES: Record<string, string> = {
   "tube-packaging": "custom-tube-packaging",
   "tuck-boxes": "custom-tuck-boxes",
 };
+
+function overlayCategoryFaqs(slug: string, faqs: any[]) {
+  return toPageFaqs(slug, getCategoryFaqs(slug)) || faqs;
+}
 
 const RELATED_PRODUCTS_LIMIT = 12;
 
@@ -153,7 +158,7 @@ export function staticCategoryFallback(categorySlug: string): CategoryPageData |
       staticCat.slug === "custom-rigid-boxes"
         ? filterRigidBoxesProducts(staticProducts)
         : staticProducts,
-    faqs: defaults.faqs,
+    faqs: overlayCategoryFaqs(staticCat.slug, defaults.faqs),
     relatedProducts,
   };
 }
@@ -337,7 +342,7 @@ export async function fetchCategoryPageData(
         category_content: mergedCategoryContent,
       },
       products,
-      faqs: faqData.length > 0 ? faqData : defaults.faqs,
+      faqs: overlayCategoryFaqs(resolvedSlug, faqData.length > 0 ? faqData : defaults.faqs),
       relatedProducts,
     };
   } catch {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect, useId } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -48,6 +48,7 @@ interface ProductPageProps {
 
 export default function ProductPage({ productSlug: propSlug }: ProductPageProps) {
   const params = useParams();
+  const router = useRouter();
   const rawSlug = propSlug || (params?.productSlug as string) || "kraft-paper-tubes";
   const { toast } = useToast();
   const { open: openQuoteModal } = useQuoteModal();
@@ -242,6 +243,8 @@ ${requirements || "No additional notes"}`;
         description: "Thank you! Our packaging specialists will contact you with a free dieline and estimate within 24 hours.",
       });
       trackLeadSubmitted("product_page_quote_form", attribution);
+      const targetPath = product.category?.slug ? `/thank-you/${product.category.slug}` : "/thank-you";
+      router.push(targetPath);
     } catch (err: any) {
       // In case Supabase table is unreachable, still provide success UX to customer
       setSubmitted(true);
@@ -433,7 +436,7 @@ ${requirements || "No additional notes"}`;
                   <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-accent">
                     {product.skuCode || getProductTag(product.slug, product.category?.slug)}
                   </p>
-                  <h1 className="font-display text-[28px] font-semibold leading-[1.05] text-[#1a1a1a] sm:text-[32px]">
+                  <h1 className="font-display text-[26px] sm:text-[30px] lg:text-[32px] font-semibold leading-[1.1] text-[#1a1a1a] [text-wrap:balance]">
                     {product.name}
                   </h1>
 

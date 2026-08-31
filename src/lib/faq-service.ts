@@ -7,8 +7,10 @@ export interface FAQItem {
   question: string;
   answer: string;
   category: string;
-  tab: "global" | "artwork" | "category" | "product";
-  section?: "homepage" | "category" | "artwork" | "product" | "general";
+  tab: "global" | "artwork" | "category" | "product" | "page";
+  section?: "homepage" | "category" | "artwork" | "product" | "general" | "page";
+  page_slug?: string | null;
+  page_name?: string | null;
   category_slug?: string | null;
   category_id?: string | null;
   product_slug?: string | null;
@@ -20,14 +22,17 @@ export interface FAQItem {
 }
 
 export const BASE_FAQS: FAQItem[] = [
+  // ── Home Page FAQs ──
   {
     id: "ba1c9724-18f6-4901-9975-f68f502f9cc7",
     question: "Can I get a sample before a custom order in bulk?",
     answer:
       "Yes, you can get a digital proof to check printing and color quality, or you can request a physical sample of your custom box before finalizing your bulk order. We also provide 2D mockups, 3D mockups, and video mockups for your custom packaging. Check it first, and then approve the final design.",
-    category: "Global Support",
+    category: "Home: Samples & Proofing",
     tab: "global",
     section: "homepage",
+    page_slug: "home",
+    page_name: "Home Page",
     status: "Published",
     order: 1,
   },
@@ -36,9 +41,11 @@ export const BASE_FAQS: FAQItem[] = [
     question: "What are the benefits of custom boxes?",
     answer:
       "With custom boxes, you can enhance your brand recognition with every order and create a consistent brand identity through custom designs and brand logo. They are a perfect way to attract customers, boost your brand sales, create memorable unboxing experiences, improve marketing, and offer the right product fit. This will overall increase your brand awareness and perceived value.",
-    category: "Global Support",
+    category: "Home: Brand Value",
     tab: "global",
     section: "homepage",
+    page_slug: "home",
+    page_name: "Home Page",
     status: "Published",
     order: 2,
   },
@@ -46,10 +53,12 @@ export const BASE_FAQS: FAQItem[] = [
     id: "bb81fb82-957c-4664-9c1d-652f04605f1f",
     question: "What is the minimum order quantity for HOF Pack?",
     answer:
-      "There is no minimum order quantity for the HOF Pack. You can request as few as 500 units for your custom boxes wholesale order. We provide flexibility in order quantity and support small startups and businesses alike, all across the United States.",
-    category: "Global Support",
+      "There is no minimum order quantity for the HOF Pack. You can request as few as 100 units for your custom boxes wholesale order. We provide flexibility in order quantity and support small startups and businesses alike, all across the United States.",
+    category: "Home: Order Quantities",
     tab: "global",
     section: "homepage",
+    page_slug: "home",
+    page_name: "Home Page",
     status: "Published",
     order: 3,
   },
@@ -58,9 +67,11 @@ export const BASE_FAQS: FAQItem[] = [
     question: "What is the turnaround time for an order?",
     answer:
       "On average, we take around 8-10 business days to finalize an order and ship it. However, the turnaround time mainly depends on design complexity, additional finishes, large quantities, and delays in design approvals.",
-    category: "Global Support",
+    category: "Home: Turnaround & Logistics",
     tab: "global",
     section: "homepage",
+    page_slug: "home",
+    page_name: "Home Page",
     status: "Published",
     order: 4,
   },
@@ -68,10 +79,12 @@ export const BASE_FAQS: FAQItem[] = [
     id: "2e25609f-2b4d-47e3-b30a-496cafeae0bd",
     question: "Do you ship all across the USA?",
     answer:
-      "Yes, we ship all across the US and also provide worldwide shipping for your custom printed boxes. We are partnered with DHL, FedEx Corp, and UPS to provide a transparent and smooth shipping experience. You can track your orders online once they are shipped by us. We provide both express shipping, which can take around 12 days, and standard delivery, which takes 2–7 business days for domestic shipments and 7–21 business days for international shipments.",
-    category: "Global Support",
+      "Yes, we ship all across the US and also provide worldwide shipping for your custom printed boxes. We are partnered with DHL, FedEx Corp, and UPS to provide a transparent and smooth shipping experience. You can track your orders online once they are shipped by us.",
+    category: "Home: Shipping Policies",
     tab: "global",
     section: "homepage",
+    page_slug: "home",
+    page_name: "Home Page",
     status: "Published",
     order: 5,
   },
@@ -79,12 +92,150 @@ export const BASE_FAQS: FAQItem[] = [
     id: "208e7843-9efa-4a54-9690-2fc08f86d9db",
     question: "Can I get an instant quote before ordering?",
     answer:
-      "Absolutely, you can get a free quote from our team by providing us with your product details, specifications, and design preferences. Contact our team at info@hofpack.com or call +1 (888) 429-4881 for a free design consultation. We will help you choose the right material and style for your custom packaging.",
-    category: "Global Support",
+      "Absolutely, you can get a free quote from our team by providing us with your product details, specifications, and design preferences. Contact our team at info@hofpack.com or call +1 (888) 429-4881 for a free design consultation.",
+    category: "Home: Quotes & Inquiries",
     tab: "global",
     section: "homepage",
+    page_slug: "home",
+    page_name: "Home Page",
     status: "Published",
     order: 6,
+  },
+
+  // ── Product Detail Pages FAQs ──
+  {
+    id: "pdp-faq-1",
+    question: "How do I determine the right dimensions (L x W x H) for my custom box?",
+    answer:
+      "Measure your item at its widest points and add 1/8\" (0.125\") to each dimension for a snug fit. If you're adding custom foam inserts, bubble wrap, or tissue paper, add 1/4\" to 1/2\" of buffer room so everything sits neatly inside.",
+    category: "Product Detail Pages: Dimensions & Fit",
+    tab: "page",
+    section: "product",
+    page_slug: "product-detail-pages",
+    page_name: "Product Detail Pages",
+    status: "Published",
+    order: 1,
+  },
+  {
+    id: "pdp-faq-2",
+    question: "Can I print on both the interior and exterior of my custom packaging?",
+    answer:
+      "Yes! We offer full CMYK printing on both the outside and inside surfaces of our corrugated mailers, folding cartons, and rigid setup boxes. Interior printing is a great way to include welcome messages, branding, or discount codes for an unforgettable unboxing experience.",
+    category: "Product Detail Pages: Custom Printing",
+    tab: "page",
+    section: "product",
+    page_slug: "product-detail-pages",
+    page_name: "Product Detail Pages",
+    status: "Published",
+    order: 2,
+  },
+  {
+    id: "pdp-faq-3",
+    question: "What cardboard paperboard thickness and materials do you offer?",
+    answer:
+      "We offer a wide range of paperboard stocks including 14pt–24pt SBS (Solid Bleached Sulfate) C1S/C2S paperboard for folding cartons, E-flute and B-flute corrugated cardboard for shipping and mailer boxes, 1.5mm–3mm greyboard for luxury rigid gift boxes, and 100% recyclable Kraft board.",
+    category: "Product Detail Pages: Materials & Stock",
+    tab: "page",
+    section: "product",
+    page_slug: "product-detail-pages",
+    page_name: "Product Detail Pages",
+    status: "Published",
+    order: 3,
+  },
+  {
+    id: "pdp-faq-4",
+    question: "Do you offer custom molded EVA foam, velvet trays, or cardboard dividers?",
+    answer:
+      "Yes, we build custom precision-cut EVA foam inserts, high-density sponge trays, molded pulp dividers, and velvet-flocked platforms tailored to the exact silhouette of your bottles, cosmetics, electronics, or jewelry.",
+    category: "Product Detail Pages: Inserts & Accessories",
+    tab: "page",
+    section: "product",
+    page_slug: "product-detail-pages",
+    page_name: "Product Detail Pages",
+    status: "Published",
+    order: 4,
+  },
+  {
+    id: "pdp-faq-5",
+    question: "What specialty luxury finishes are available on product detail pages?",
+    answer:
+      "You can choose from Matte Soft-Touch Lamination, High-Gloss Finish, Metallic Foil Stamping (Gold, Silver, Rose Gold, Holographic), Spot UV Varnish, Raised Embossing / Debossing, and Magnetic Strip Closures.",
+    category: "Product Detail Pages: Premium Finishes",
+    tab: "page",
+    section: "product",
+    page_slug: "product-detail-pages",
+    page_name: "Product Detail Pages",
+    status: "Published",
+    order: 5,
+  },
+
+  // ── Process Page FAQs ──
+  {
+    id: "process-faq-1",
+    question: "What is the step-by-step production workflow at HOF Pack?",
+    answer:
+      "Our 4-step process includes: 1) Initial Quote & Dimension Consultation, 2) Custom Dieline Template & 3D Mockup Approval, 3) Precision Printing & Manufacturing, 4) Quality Assurance & Fast Tracked Delivery straight to your door.",
+    category: "Process: Manufacturing Steps",
+    tab: "page",
+    section: "general",
+    page_slug: "process",
+    page_name: "Process Page",
+    status: "Published",
+    order: 1,
+  },
+  {
+    id: "process-faq-2",
+    question: "How long does digital 3D proofing take before production begins?",
+    answer:
+      "Once you submit your artwork on our custom dieline template, our structural packaging engineers generate a complimentary 3D interactive mockup within 12 to 24 hours. Production starts only after you give 100% written approval.",
+    category: "Process: Proofing Timeline",
+    tab: "page",
+    section: "general",
+    page_slug: "process",
+    page_name: "Process Page",
+    status: "Published",
+    order: 2,
+  },
+  {
+    id: "process-faq-3",
+    question: "Can I order a physical pre-production sample to test my product fit?",
+    answer:
+      "Yes! We can ship a physical pre-production prototype box (either unprinted plain structural sample or full custom printed sample) so your team can verify structural integrity, weight tolerances, and print vibrancy before mass manufacturing.",
+    category: "Process: Physical Sampling",
+    tab: "page",
+    section: "general",
+    page_slug: "process",
+    page_name: "Process Page",
+    status: "Published",
+    order: 3,
+  },
+
+  // ── About Page FAQs ──
+  {
+    id: "about-faq-1",
+    question: "Are HOF Pack packaging materials eco-friendly and sustainably sourced?",
+    answer:
+      "Yes! Sustainability is core to our manufacturing. We utilize FSC-certified paperboard, biodegradable kraft stocks, water-based non-toxic inks, and fully recyclable corrugated fluting across our entire packaging lineup.",
+    category: "About: Eco Commitment",
+    tab: "page",
+    section: "general",
+    page_slug: "about",
+    page_name: "About Page",
+    status: "Published",
+    order: 1,
+  },
+  {
+    id: "about-faq-2",
+    question: "Where is HOF Pack based and how do you support American businesses?",
+    answer:
+      "HOF Pack is headquartered in the United States with dedicated customer support based in Tucson, Arizona. We provide direct wholesale pricing, free shipping to all US 50 states, dedicated account managers, and zero hidden die-cut fees.",
+    category: "About: Company & Locations",
+    tab: "page",
+    section: "general",
+    page_slug: "about",
+    page_name: "About Page",
+    status: "Published",
+    order: 2,
   },
   {
     id: "1c70f11a-6030-4a0c-a7bc-14b6b5d11170",
@@ -353,6 +504,19 @@ export async function fetchProductFaqs(productSlug: string, productId?: string):
   });
 }
 
+export async function fetchPageFaqs(pageSlug: string): Promise<FAQItem[]> {
+  const all = await fetchAllFaqs();
+  const clean = pageSlug.toLowerCase().trim();
+  return all.filter((f) => {
+    if (f.status === "Draft") return false;
+    if (f.page_slug && f.page_slug.toLowerCase() === clean) return true;
+    if (clean === "home" && (f.tab === "global" || f.section === "homepage")) return true;
+    if (clean === "artwork-guidelines" && (f.tab === "artwork" || f.section === "artwork")) return true;
+    if (clean === "product-detail-pages" && (f.tab === "product" || f.section === "product" || f.page_slug === "product-detail-pages")) return true;
+    return false;
+  });
+}
+
 export async function fetchFaqById(id: string): Promise<FAQItem | null> {
   const all = await fetchAllFaqs();
   return all.find((f) => f.id === id) || null;
@@ -367,7 +531,9 @@ export async function saveFaqRecord(faq: Partial<FAQItem> & { question: string; 
     answer: faq.answer,
     category: faq.category || "Global Support",
     tab: faq.tab || "global",
-    section: faq.section || (faq.tab === "artwork" ? "artwork" : faq.tab === "category" ? "category" : faq.tab === "product" ? "product" : "homepage"),
+    section: faq.section || (faq.tab === "artwork" ? "artwork" : faq.tab === "category" ? "category" : faq.tab === "product" ? "product" : faq.tab === "page" ? "page" : "homepage"),
+    page_slug: faq.page_slug || (faq.tab === "page" ? "product-detail-pages" : null),
+    page_name: faq.page_name || null,
     category_slug: faq.category_slug || null,
     category_id: faq.category_id || null,
     product_slug: faq.product_slug || null,
@@ -389,6 +555,7 @@ export async function saveFaqRecord(faq: Partial<FAQItem> & { question: string; 
         category: record.category,
         tab: record.tab,
         section: record.section,
+        page_slug: record.page_slug,
         category_slug: record.category_slug,
         category_id: record.category_id,
         product_slug: record.product_slug,
@@ -433,6 +600,69 @@ export async function saveFaqRecord(faq: Partial<FAQItem> & { question: string; 
   }
 
   return record;
+}
+
+export async function reorderFaqs(reorderedList: FAQItem[]): Promise<boolean> {
+  const now = new Date().toISOString();
+  const updatedMap = new Map<string, FAQItem>();
+
+  // Fetch current all to preserve items not in current filter
+  const currentAll = await fetchAllFaqs();
+  currentAll.forEach((item) => updatedMap.set(item.id, item));
+
+  // Update order for the reordered items
+  reorderedList.forEach((item, index) => {
+    const updated = {
+      ...item,
+      order: index + 1,
+      updated_at: now,
+    };
+    updatedMap.set(item.id, updated);
+  });
+
+  const fullList = Array.from(updatedMap.values()).sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+
+  // 1. Supabase faqs table
+  try {
+    const supabase = createDataClient();
+    const updates = reorderedList.map((item, index) => ({
+      id: item.id,
+      order: index + 1,
+      updated_at: now,
+    }));
+    for (const u of updates) {
+      await supabase.from("faqs" as any).update({ order: u.order, updated_at: u.updated_at }).eq("id", u.id);
+    }
+  } catch {
+    // ignore
+  }
+
+  // 2. Supabase site_settings
+  try {
+    const supabase = createDataClient();
+    await supabase.from("site_settings" as any).upsert(
+      {
+        key: SETTINGS_KEY,
+        value: fullList,
+        updated_at: now,
+      },
+      { onConflict: "key" }
+    );
+  } catch {
+    // ignore
+  }
+
+  // 3. LocalStorage
+  if (typeof window !== "undefined") {
+    try {
+      localStorage.setItem("hof_custom_faqs_list", JSON.stringify(fullList));
+      window.dispatchEvent(new Event("storage"));
+    } catch {
+      // ignore
+    }
+  }
+
+  return true;
 }
 
 export async function deleteFaqRecord(id: string): Promise<boolean> {

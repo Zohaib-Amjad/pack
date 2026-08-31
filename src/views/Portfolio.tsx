@@ -73,8 +73,15 @@ const Portfolio = ({ cms: initialCms }: PortfolioProps = {}) => {
             </p>
           )}
           {(cms.header?.titleLead || cms.header?.titleAccent) && (
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-              {cms.header.titleLead} {cms.header.titleAccent && <span className="text-accent">{cms.header.titleAccent}</span>}
+            <h1 className="font-display font-bold text-white [text-wrap:balance] max-w-4xl mx-auto" style={{ fontSize: "clamp(26px, 4.5vw, 48px)", lineHeight: 1.12 }}>
+              {`${cms.header?.titleLead || ""} ${cms.header?.titleAccent || ""}`.trim().split(/\s+/).filter(Boolean).length <= 4 ? (
+                <span>{cms.header.titleLead} {cms.header.titleAccent && <span className="text-accent">{cms.header.titleAccent}</span>}</span>
+              ) : (
+                <>
+                  <span className="block">{cms.header.titleLead}</span>
+                  {cms.header.titleAccent && <span className="block text-accent mt-1">{cms.header.titleAccent}</span>}
+                </>
+              )}
             </h1>
           )}
           {cms.header?.description && (

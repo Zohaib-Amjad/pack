@@ -1,6 +1,9 @@
 import React from "react";
+import type { Metadata } from "next";
 import ProductPageView from "@/views/ProductPage";
-import { getAllProducts } from "@/data/products";
+import { getAllProducts, getProductBySlug } from "@/data/products";
+import { FULL_PRODUCTS_DATABASE } from "@/data/product-detail-defaults";
+import { getProductMetaDescription, getProductMetaTitle } from "@/data/content-sheet-meta-titles";
 
 interface PageProps {
   params: Promise<{ productSlug: string }>;
@@ -11,6 +14,27 @@ export async function generateStaticParams() {
   return allProds.slice(0, 20).map((prod) => ({
     productSlug: prod.slug,
   }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { productSlug } = await params;
+  const found = getProductBySlug(productSlug);
+  const title =
+    getProductMetaTitle(productSlug) ||
+    (found?.product.name ? `${found.product.name} | HOF Pack` : "Custom Packaging | HOF Pack");
+  const description =
+    getProductMetaDescription(productSlug) ||
+    FULL_PRODUCTS_DATABASE[productSlug]?.meta_description?.trim() ||
+    undefined;
+
+  return {
+    title: { absolute: title },
+    ...(description ? { description } : {}),
+    openGraph: {
+      title,
+      ...(description ? { description } : {}),
+    },
+  };
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {

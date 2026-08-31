@@ -64,12 +64,8 @@ export function Header() {
 
   const helpItems = [
     { name: "Artwork Guidelines", href: "/artwork-guidelines", desc: "Pre-press dieline & vector artwork specs" },
-    { name: "Packaging Blog", href: "/blog", desc: "Unboxing guides, industry insights & news" },
-    { name: "Resource Library", href: "/library", desc: "Downloadable dieline templates & charts" },
-    { name: "Track Your Order", href: "/track", desc: "Live order lookup & carrier tracking" },
-    { name: "Case Studies", href: "/case-studies", desc: "Client stories & unboxing success metrics" },
-    { name: "Our Process", href: "/process", desc: "From dieline design to doorstep delivery" },
-    { name: "About HOF Pack", href: "/about", desc: "Our story, facilities, and certifications" },
+    { name: "Blog", href: "/blog", desc: "Unboxing guides, industry insights & news" },
+    { name: "Library", href: "/library", desc: "Downloadable dieline templates & charts" },
   ];
 
   return (

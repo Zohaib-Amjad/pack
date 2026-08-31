@@ -8,7 +8,7 @@ type AnnouncementBarProps = {
 };
 
 const AnnouncementBar = ({ cms }: AnnouncementBarProps) => {
-  const { data } = useCmsHome();
+  const { data } = useCmsHome(cms);
   const liveAnnouncement = data?.announcement || cms.announcement;
 
   const segments = (liveAnnouncement?.items || [])

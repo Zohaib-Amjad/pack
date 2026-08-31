@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import CategoryPageView from "@/views/CategoryPage";
 import { fetchCategoryPageData } from "@/lib/category-page-data";
 import { categories, getCategoryBySlug } from "@/data/products";
+import { getCategoryMetaDescription, getCategoryMetaTitle } from "@/data/content-sheet-meta-titles";
 
 interface PageProps {
   params: Promise<{ categorySlug: string }>;
@@ -64,13 +65,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const title = `${cat.name} | Custom Printed Packaging Boxes | HOF Pack`;
+  const title =
+    getCategoryMetaTitle(cat.slug) ||
+    getCategoryMetaTitle(categorySlug) ||
+    `${cat.name} | Custom Printed Packaging Boxes | HOF Pack`;
   const description =
+    getCategoryMetaDescription(cat.slug) ||
+    getCategoryMetaDescription(categorySlug) ||
     cat.description ||
     `Order high-quality custom ${cat.name.toLowerCase()} with low MOQ, wholesale pricing, free design support, and free shipping across the USA.`;
 
   return {
-    title,
+    title: { absolute: title },
     description,
     openGraph: {
       title,

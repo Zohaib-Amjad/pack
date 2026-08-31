@@ -136,19 +136,19 @@ export default function RelatedProductsCarouselSection({
             return (
               <div
                 key={product.id ?? product.slug}
-                className="min-w-0 shrink-0 snap-start basis-[47%] sm:basis-[48%] lg:basis-[31%] xl:basis-[24%]"
+                className="min-w-0 shrink-0 snap-start basis-[46%] sm:basis-[48%] lg:basis-[31%] xl:basis-[24%] self-stretch flex flex-col"
               >
                 <Link
                   href={`/product/${product.slug}`}
-                  className="group block overflow-hidden rounded-xl border border-border bg-card hover-lift"
+                  className="group flex flex-col h-full overflow-hidden rounded-2xl border border-border/80 bg-card hover-lift shadow-sm hover:shadow-md transition-all duration-300"
                 >
-                  <div className="relative aspect-square overflow-hidden bg-muted">
+                  <div className="relative aspect-square w-full overflow-hidden bg-muted shrink-0">
                     {displayImg ? (
                       <Image
                         src={displayImg}
                         alt={product.name}
                         fill
-                        sizes="(max-width: 640px) 85vw, (max-width: 1024px) 48vw, (max-width: 1280px) 31vw, 24vw"
+                        sizes="(max-width: 640px) 46vw, (max-width: 1024px) 48vw, (max-width: 1280px) 31vw, 24vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
@@ -160,11 +160,11 @@ export default function RelatedProductsCarouselSection({
                       </div>
                     )}
                   </div>
-                  <div className="p-3 text-center">
-                    <h3 className="font-display text-sm leading-tight text-foreground transition-colors group-hover:text-accent">
+                  <div className="p-3 sm:p-4 text-center flex-1 flex flex-col justify-between gap-1.5 sm:gap-2">
+                    <h3 className="font-display text-[12.5px] sm:text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-accent line-clamp-2 min-h-[2.4rem] sm:min-h-[2.5rem] flex items-center justify-center">
                       {product.name.replace("Custom ", "")}
                     </h3>
-                    <span className="mt-1.5 inline-block text-xs font-bold text-accent">
+                    <span className="mt-auto inline-flex items-center justify-center gap-1 text-[11px] sm:text-xs font-bold text-accent group-hover:text-[var(--ds-orange-hover)] transition-colors">
                       Get a Quote &rarr;
                     </span>
                   </div>

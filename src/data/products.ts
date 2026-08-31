@@ -120,6 +120,11 @@ const preRollProducts: (Product & { image?: string })[] = [
   { name: "Pre Roll Display Boxes", slug: "pre-roll-display-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-display-boxes.jpg" },
   { name: "Pre Roll Cone Packaging", slug: "pre-roll-cone-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-cone-packaging.jpg" },
   { name: "Cannabis Pre-Roll Packaging", slug: "cannabis-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/cannabis-pre-roll-packaging.jpg" },
+  { name: "Luxury Pre Roll Packaging", slug: "luxury-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/cannabis-pre-roll-packaging.jpg" },
+  { name: "Pre Roll Packaging With Labels", slug: "pre-roll-packaging-with-labels", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-cone-packaging.jpg" },
+  { name: "Delta 8 Pre Roll Boxes", slug: "delta-8-pre-roll-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-display-boxes.jpg" },
+  { name: "Pre Rolled Joint Boxes", slug: "pre-rolled-joint-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/cannabis-pre-roll-packaging.jpg" },
+  { name: "Custom Pre Roll Packaging", slug: "custom-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-cone-packaging.jpg" },
 ];
 
 // ---------- 2. BOXES BY MATERIAL ----------

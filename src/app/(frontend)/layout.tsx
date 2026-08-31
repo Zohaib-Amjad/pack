@@ -62,11 +62,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth font-sans ${dmSans.variable}`}>
-      <body className={`min-h-screen flex flex-col bg-[#f5f3ee] text-[#4a4a4a] antialiased ${dmSans.className}`}>
+    <html lang="en" className={`scroll-smooth font-sans overflow-x-hidden max-w-full ${dmSans.variable}`}>
+      <body className={`min-h-screen flex flex-col bg-[#f5f3ee] text-[#4a4a4a] antialiased overflow-x-hidden w-full max-w-full ${dmSans.className}`}>
         <AppProviders>
           <Navbar />
-          <main className="flex-1 pt-20 lg:pt-[112px]">{children}</main>
+          <main className="flex-1 pt-20 lg:pt-[112px] w-full max-w-full overflow-x-hidden">{children}</main>
           <Footer />
           <WhatsAppButton />
         </AppProviders>

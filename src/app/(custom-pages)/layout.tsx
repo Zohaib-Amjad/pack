@@ -39,11 +39,11 @@ export default function CustomPagesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth font-sans ${dmSans.variable}`}>
-      <body className={`min-h-screen flex flex-col bg-white text-[#2e2e2e] antialiased ${dmSans.className}`}>
+    <html lang="en" className={`scroll-smooth font-sans overflow-x-hidden max-w-full ${dmSans.variable}`}>
+      <body className={`min-h-screen flex flex-col bg-white text-[#2e2e2e] antialiased overflow-x-hidden w-full max-w-full ${dmSans.className}`}>
         <AppProviders>
           <CustomHeader />
-          <main className="flex-1 w-full">{children}</main>
+          <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
           <CustomFooter />
         </AppProviders>
       </body>

@@ -52,6 +52,26 @@ export function buildUnfilledMessage(fields: UnfilledFormFields, formName: strin
   ].join("\n");
 }
 
+export function getGlobalSessionId(): string {
+  if (typeof window === "undefined") return "server-session";
+  const win = window as any;
+  if (!win.__hofpack_session_id) {
+    try {
+      const stored = sessionStorage.getItem("hofpack_unfilled_session_id");
+      if (stored) {
+        win.__hofpack_session_id = stored;
+      } else {
+        const fresh = `sess-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        sessionStorage.setItem("hofpack_unfilled_session_id", fresh);
+        win.__hofpack_session_id = fresh;
+      }
+    } catch {
+      win.__hofpack_session_id = `sess-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    }
+  }
+  return win.__hofpack_session_id;
+}
+
 /**
  * Persist unfilled lead directly to Supabase via server API (service role).
  * No browser storage of form field values.
@@ -62,8 +82,10 @@ export async function sendUnfilledFormCapture(
 ): Promise<boolean> {
   if (!hasUnfilledCaptureData(payload.fields)) return false;
 
+  const unifiedSessionId = getGlobalSessionId();
   const body = JSON.stringify({
     ...payload,
+    sessionId: unifiedSessionId,
     pageUrl: payload.pageUrl || (typeof window !== "undefined" ? window.location.href : undefined),
   });
 

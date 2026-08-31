@@ -41,11 +41,11 @@ export default function ExclusiveOffer() {
 
             {/* Headline */}
             <h1
-              className="font-sans text-white"
-              style={{ fontSize: "clamp(30px, 5.5vw, 50px)", fontWeight: 700, lineHeight: 1.08, marginBottom: 14 }}
+              className="font-sans text-white [text-wrap:balance]"
+              style={{ fontSize: "clamp(26px, 4.5vw, 46px)", fontWeight: 700, lineHeight: 1.12, marginBottom: 14 }}
             >
-              Your First Order,<br />
-              <span className="text-[#ee7a1b]">Done Right.</span>
+              <span className="block">Your First Order,</span>
+              <span className="block text-[#ee7a1b] mt-1">Done Right.</span>
             </h1>
             <p className="mb-6 max-w-[480px] text-[15px] leading-[1.65] text-white/80">
               Claim an exclusive discount on your first custom packaging order with HOF Pack. Premium quality, low minimums, and a team dedicated to making your brand shine.

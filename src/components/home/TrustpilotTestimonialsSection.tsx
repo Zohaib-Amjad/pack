@@ -94,7 +94,7 @@ type TrustpilotTestimonialsSectionProps = {
 
 const TrustpilotTestimonialsSection = ({ cms }: TrustpilotTestimonialsSectionProps) => {
   const { open } = useQuoteModal();
-  const { data } = useCmsHome();
+  const { data } = useCmsHome(cms);
   const tm = data?.testimonials || cms?.testimonials;
 
   const sectionLabel = tm?.sectionLabel !== undefined ? tm.sectionLabel : "Real Reviews";

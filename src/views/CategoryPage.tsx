@@ -370,20 +370,28 @@ const CategoryPage = ({ categorySlug: propSlug, initialData = null }: CategoryPa
         {!catBanner && <div className="absolute inset-0 bg-hero" />}
 
         <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 lg:px-[72px]">
-          <div className="w-full max-w-[580px]">
+          <div className="w-full max-w-[840px]">
             <p className={`ds-eyebrow mb-[14px] ${isRigidBoxesPage ? "text-white/90" : "text-accent"}`}>{sectionLabel}</p>
-            <h1
-              className="font-sans text-white"
-              style={{ fontSize: "clamp(30px, 5vw, 48px)", fontWeight: 700, lineHeight: 1.08, marginBottom: 0 }}
-            >
-              {category.hero_headline_white?.trim() || (isRigidBoxesPage ? "Custom Rigid Boxes" : "Custom")}
-            </h1>
-            <p
-              className="font-sans text-accent"
-              style={{ fontSize: "clamp(30px, 5vw, 48px)", fontWeight: 700, lineHeight: 1.08, marginBottom: 16 }}
-            >
-              {category.hero_headline_accent?.trim() || (isRigidBoxesPage ? "Adds Luxury Touch" : category.name)}
-            </p>
+            {(() => {
+              const lead = category.hero_headline_white?.trim() || (isRigidBoxesPage ? "Custom Rigid Boxes" : "Custom");
+              const accent = category.hero_headline_accent?.trim() || (isRigidBoxesPage ? "Adds Luxury Touch" : category.name);
+              const totalWords = `${lead} ${accent}`.trim().split(/\s+/).filter(Boolean).length;
+              return (
+                <h1
+                  className="font-sans text-white [text-wrap:balance]"
+                  style={{ fontSize: "clamp(26px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.12, marginBottom: 16 }}
+                >
+                  {totalWords <= 4 ? (
+                    <span>{lead} <span className="text-accent">{accent}</span></span>
+                  ) : (
+                    <>
+                      <span className="block">{lead}</span>
+                      <span className="block text-accent mt-1">{accent}</span>
+                    </>
+                  )}
+                </h1>
+              );
+            })()}
             <p
               className="font-sans text-white/75"
               style={{ fontSize: "clamp(13px, 1.5vw, 14px)", lineHeight: 1.7, fontWeight: 300, marginBottom: 28 }}

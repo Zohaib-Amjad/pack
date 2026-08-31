@@ -17,6 +17,7 @@ import { Testimonials } from "./payload/collections/Testimonials";
 import { FAQs } from "./payload/collections/FAQs";
 import { QuoteRequests } from "./payload/collections/QuoteRequests";
 import { ContactSubmissions } from "./payload/collections/ContactSubmissions";
+import { Leads } from "./payload/collections/Leads";
 import { Pages } from "./payload/collections/Pages";
 
 import { HeaderSettings } from "./payload/globals/HeaderSettings";
@@ -57,6 +58,7 @@ export default buildConfig({
     FAQs,
     QuoteRequests,
     ContactSubmissions,
+    Leads,
     Pages,
   ],
   globals: [HeaderSettings, FooterSettings, SiteSEO],

@@ -56,11 +56,10 @@ export default function CustomPackagingSolutions() {
               HOF PACK — CUSTOM PACKAGING
             </p>
             <h1
-              className="font-sans text-white"
-              style={{ fontSize: "clamp(30px, 5.5vw, 50px)", fontWeight: 700, lineHeight: 1.08, marginBottom: 16 }}
+              className="font-sans text-white [text-wrap:balance]"
+              style={{ fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 700, lineHeight: 1.08, marginBottom: 16 }}
             >
-              Custom Packaging<br />
-              <span className="text-[#f19a48]">Solutions</span>
+              Custom Packaging <span className="text-[#f19a48]">Solutions</span>
             </h1>
             <p className="mb-8 max-w-[500px] text-[15px] leading-[1.65] text-white/80">
               Custom packaging designed to strengthen your brand and enhance customer experience. From concept to delivery — we handle everything.

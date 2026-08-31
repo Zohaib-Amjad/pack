@@ -68,11 +68,10 @@ export default function ExclusiveOfferPage() {
             </div>
 
             <h1
-              className="font-sans text-white text-[30px] sm:text-[42px] lg:text-[50px] font-bold leading-[1.08] mb-3.5"
+              className="font-sans text-white text-[26px] sm:text-[38px] lg:text-[46px] font-bold leading-[1.12] mb-3.5 [text-wrap:balance]"
             >
-              Your First Order,
-              <br />
-              <span className="text-[#ee7a1b]">Done Right.</span>
+              <span className="block">Your First Order,</span>
+              <span className="block text-[#ee7a1b] mt-1">Done Right.</span>
             </h1>
 
             <p className="mb-6 max-w-[480px] text-[15px] leading-[1.65] text-white/80">

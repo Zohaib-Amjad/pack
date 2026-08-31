@@ -75,8 +75,15 @@ const Process = ({ cms: initialCms }: ProcessProps = {}) => {
             </p>
           )}
           {(h.titleLead || h.titleAccent) && (
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-              {h.titleLead} {h.titleAccent && <span className="text-accent">{h.titleAccent}</span>}
+            <h1 className="font-display font-bold text-white [text-wrap:balance] max-w-4xl mx-auto" style={{ fontSize: "clamp(26px, 4.5vw, 48px)", lineHeight: 1.12 }}>
+              {`${h.titleLead || ""} ${h.titleAccent || ""}`.trim().split(/\s+/).filter(Boolean).length <= 4 ? (
+                <span>{h.titleLead} {h.titleAccent && <span className="text-accent">{h.titleAccent}</span>}</span>
+              ) : (
+                <>
+                  <span className="block">{h.titleLead}</span>
+                  {h.titleAccent && <span className="block text-accent mt-1">{h.titleAccent}</span>}
+                </>
+              )}
             </h1>
           )}
           {h.description && (

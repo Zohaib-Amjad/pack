@@ -76,11 +76,9 @@ export default function CustomPackagingSolutionsPage() {
             </p>
 
             <h1
-              className="font-sans text-white text-[30px] sm:text-[42px] lg:text-[50px] font-bold leading-[1.08] mb-4"
+              className="font-sans text-white text-[28px] sm:text-[38px] lg:text-[48px] font-bold leading-[1.08] mb-4 [text-wrap:balance]"
             >
-              Custom Packaging
-              <br />
-              <span className="text-[#f19a48]">Solutions</span>
+              Custom Packaging <span className="text-[#f19a48]">Solutions</span>
             </h1>
 
             <p className="mb-8 max-w-[500px] text-[15px] leading-[1.65] text-white/80">
