@@ -24,6 +24,9 @@ export interface InquiryItem {
   dimensions?: string;
   campaign?: string;
   source?: string;
+  attachment_url?: string;
+  attachment_name?: string;
+  attachment_type?: string;
 }
 
 /**
@@ -215,6 +218,9 @@ export async function GET() {
             dimensions: row.dimensions || undefined,
             campaign: row.utm_campaign || undefined,
             source: row.source || undefined,
+            attachment_url: row.attachment_url || undefined,
+            attachment_name: row.attachment_name || undefined,
+            attachment_type: row.attachment_type || undefined,
           });
         }
       }

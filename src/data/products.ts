@@ -54,11 +54,11 @@ const cosmeticProducts: (Product & { image?: string })[] = [
   { name: "Lip Balm Boxes", slug: "lip-balm-boxes", category: "Cosmetic Boxes", section: "industry", image: "/images/products/lip-balm-boxes.jpg" },
   { name: "Eye Shadow Boxes", slug: "eye-shadow-boxes", category: "Cosmetic Boxes", section: "industry", image: "/images/products/eye-shadow-boxes.jpg" },
   { name: "Press On Nail Packaging", slug: "press-on-nail-packaging", category: "Cosmetic Boxes", section: "industry", image: "/images/products/press-on-nail-packaging.jpg" },
-  { name: "Custom Serum Boxes", slug: "serum-boxes", category: "Cosmetic Boxes", section: "industry", image: "/images/products/custom-serum-boxes.jpg" },
+  { name: "Custom Serum Boxes", slug: "serum-boxes", category: "Cosmetic Boxes", section: "industry", image: "/images/products/serum-boxes.jpg" },
   { name: "Lip Balm Tubes", slug: "lip-balm-tubes", category: "Cosmetic Boxes", section: "industry", image: "/images/products/lip-balm-tubes.jpg" },
   { name: "Lip Mask Boxes", slug: "lip-mask-boxes", category: "Cosmetic Boxes", section: "industry", image: "/images/products/lip-mask-boxes.jpg" },
   { name: "Custom Lipstick Packaging", slug: "custom-lipstick-packaging", category: "Cosmetic Boxes", section: "industry", image: "/images/products/custom-lipstick-packaging.jpg" },
-  { name: "Custom Hair Extension Boxes", slug: "hair-extension-boxes", category: "Cosmetic Boxes", section: "industry", image: "/images/products/custom-hair-extension-boxes.jpg" },
+  { name: "Custom Hair Extension Boxes", slug: "hair-extension-boxes", category: "Cosmetic Boxes", section: "industry", image: "/images/products/hair-extension-boxes.jpg" },
 ];
 
 const cigaretteProducts: (Product & { image?: string })[] = [
@@ -79,8 +79,8 @@ const jewelryProducts: (Product & { image?: string })[] = [
   { name: "Custom Bangle Boxes", slug: "custom-bangle-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-bangle-boxes.jpg" },
   { name: "Pendant Boxes", slug: "pendant-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/pendant-boxes.jpg" },
   { name: "Custom Anklet Boxes", slug: "custom-anklet-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/custom-anklet-boxes.jpg" },
-  { name: "Necklace Boxes", slug: "necklace-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/necklace-boxes-1-ef05a5be-36a4-4c15-be73-12b21b29fcdd.jpg" },
-  { name: "Necklace Cards", slug: "necklace-cards", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/necklace-cards-1-b5c0d983-4eb8-4ca9-9b18-b4852d4d71dd.jpg" },
+  { name: "Necklace Boxes", slug: "necklace-boxes", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/necklace-boxes.jpg" },
+  { name: "Necklace Cards", slug: "necklace-cards", category: "Custom Jewelry Boxes", section: "industry", image: "/images/products/necklace-cards.jpg" },
 ];
 
 const retailProducts: (Product & { image?: string })[] = [
@@ -97,7 +97,7 @@ const retailProducts: (Product & { image?: string })[] = [
 
 const waxPaperProducts: (Product & { image?: string })[] = [
   { name: "Custom Cheese Paper", slug: "custom-cheese-paper", category: "Custom Wax Papers", section: "industry", image: "/images/products/custom-cheese-paper.jpg" },
-  { name: "Custom Deli Papers", slug: "custom-deli-papers", category: "Custom Wax Papers", section: "industry", image: "/images/products/custom-deli-papers.png" },
+  { name: "Custom Deli Papers", slug: "custom-deli-papers", category: "Custom Wax Papers", section: "industry", image: "/images/products/custom-deli-papers.jpg" },
   { name: "Custom Greaseproof Paper", slug: "custom-greaseproof-paper", category: "Custom Wax Papers", section: "industry", image: "/images/products/custom-greaseproof-paper.jpg" },
   { name: "Custom Freezer Paper", slug: "custom-freezer-paper", category: "Custom Wax Papers", section: "industry", image: "/images/products/custom-freezer-paper.jpg" },
   { name: "Custom Food Wrapping Paper", slug: "custom-food-wrapping-paper", category: "Custom Wax Papers", section: "industry", image: "/images/products/custom-food-wrapping-paper.jpg" },
@@ -120,9 +120,9 @@ const preRollProducts: (Product & { image?: string })[] = [
   { name: "Pre Roll Display Boxes", slug: "pre-roll-display-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-display-boxes.jpg" },
   { name: "Pre Roll Cone Packaging", slug: "pre-roll-cone-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-cone-packaging.jpg" },
   { name: "Cannabis Pre-Roll Packaging", slug: "cannabis-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/cannabis-pre-roll-packaging.jpg" },
-  { name: "Luxury Pre Roll Packaging", slug: "luxury-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/cannabis-pre-roll-packaging.jpg" },
-  { name: "Pre Roll Packaging With Labels", slug: "pre-roll-packaging-with-labels", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-cone-packaging.jpg" },
-  { name: "Delta 8 Pre Roll Boxes", slug: "delta-8-pre-roll-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-display-boxes.jpg" },
+  { name: "Luxury Pre Roll Packaging", slug: "luxury-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/luxury-pre-roll-packaging.jpg" },
+  { name: "Pre Roll Packaging With Labels", slug: "pre-roll-packaging-with-labels", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-packaging-with-labels.jpg" },
+  { name: "Delta 8 Pre Roll Boxes", slug: "delta-8-pre-roll-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/delta-8-pre-roll-boxes.jpg" },
   { name: "Pre Rolled Joint Boxes", slug: "pre-rolled-joint-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/cannabis-pre-roll-packaging.jpg" },
   { name: "Custom Pre Roll Packaging", slug: "custom-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-cone-packaging.jpg" },
 ];
@@ -159,21 +159,21 @@ const kraftProducts: (Product & { image?: string })[] = [
   { name: "Kraft Boxes With Lids", slug: "kraft-boxes-with-lids", category: "Kraft Boxes", section: "material", image: "/images/products/kraft-boxes-with-lids.jpg" },
   { name: "Kraft Tin Tie Bags", slug: "kraft-tin-tie-bags", category: "Kraft Boxes", section: "material", image: "/images/products/kraft-tin-tie-bags.jpg" },
   { name: "Kraft Gift Boxes", slug: "kraft-gift-boxes", category: "Kraft Boxes", section: "material", image: "/images/products/kraft-gift-boxes.jpg" },
-  { name: "Custom Kraft Window Boxes", slug: "kraft-window-boxes", category: "Kraft Boxes", section: "material", image: "/images/products/custom-kraft-window-boxes.jpg" },
+  { name: "Custom Kraft Window Boxes", slug: "kraft-window-boxes", category: "Kraft Boxes", section: "material", image: "/images/products/kraft-window-boxes.jpg" },
   { name: "Kraft Bakery Boxes", slug: "kraft-bakery-boxes", category: "Kraft Boxes", section: "material", image: "/images/products/kraft-bakery-boxes.jpg" },
   { name: "White Kraft Boxes", slug: "white-kraft-boxes", category: "Kraft Boxes", section: "material", image: "/images/products/white-kraft-boxes.jpg" },
 ];
 
 const mylarProducts: (Product & { image?: string })[] = [
   { name: "Mylar bags for Food Storage", slug: "mylar-bags-for-food-storage", category: "Mylar Bags", section: "material", image: "/images/products/mylar-bags-for-food-storage.jpg" },
-  { name: "3.5 Mylar Bags", slug: "3.5-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/3-5-mylar-bags.jpg" },
+  { name: "3.5 Mylar Bags", slug: "3.5-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/3.5-mylar-bags.jpg" },
   { name: "Child Resistant Mylar Bags", slug: "child-resistant-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/child-resistant-mylar-bags.jpg" },
   { name: "Mylar Vacuum Seal Bags", slug: "mylar-vacuum-seal-bags", category: "Mylar Bags", section: "material", image: "/images/products/mylar-vacuum-seal-bags.jpg" },
   { name: "Kraft Mylar Bags", slug: "kraft-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/kraft-mylar-bags.jpg" },
   { name: "Cookies Mylar Bags", slug: "cookies-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/cookies-mylar-bags.jpg" },
   { name: "Custom Ziplock Mylar Bags", slug: "ziplock-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/ziplock-mylar-bags.jpg" },
   { name: "Custom Stand Up Pouches", slug: "stand-up-pouches", category: "Mylar Bags", section: "material", image: "/images/products/stand-up-pouches.jpg" },
-  { name: "Custom Die Cut Mylar Bags", slug: "die-cut-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/custom-die-cut-mylar-bags.jpg" },
+  { name: "Custom Die Cut Mylar Bags", slug: "die-cut-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/die-cut-mylar-bags.jpg" },
 ];
 
 const rigidProducts: (Product & { image?: string })[] = [

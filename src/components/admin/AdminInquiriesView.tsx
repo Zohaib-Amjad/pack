@@ -15,6 +15,9 @@ import {
   Phone,
   Clock,
   Send,
+  Paperclip,
+  Download,
+  ExternalLink,
 } from "lucide-react";
 import { categories } from "@/data/products";
 import { useToast } from "@/hooks/use-toast";
@@ -35,6 +38,9 @@ interface InquiryItem {
   dimensions?: string;
   campaign?: string;
   source?: string;
+  attachment_url?: string;
+  attachment_name?: string;
+  attachment_type?: string;
 }
 
 const INITIAL_INQUIRIES: InquiryItem[] = [
@@ -872,6 +878,32 @@ export default function AdminInquiriesView() {
                   </div>
                 )}
               </div>
+
+              {viewingInquiry.attachment_url && (
+                <div className="p-3.5 rounded-xl bg-[#fff8f1] border border-[#e8732a]/30 space-y-2">
+                  <span className="text-[10px] font-bold uppercase text-[#e8732a] flex items-center gap-1.5">
+                    <Paperclip className="w-3.5 h-3.5" /> Attached Artwork File
+                  </span>
+                  <div className="flex items-center justify-between gap-3 bg-white p-2.5 rounded-lg border border-[#e0ddd6]">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-bold text-[12px] text-[#1a1a1a] truncate">
+                        {viewingInquiry.attachment_name || "Customer Artwork File"}
+                      </p>
+                      <p className="text-[10px] text-[#7a7672]">
+                        {viewingInquiry.attachment_type || "Document / Image"}
+                      </p>
+                    </div>
+                    <a
+                      href={viewingInquiry.attachment_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#e8732a] hover:bg-[#d4621f] text-white text-[11px] font-bold rounded-md shadow-xs transition-colors shrink-0 no-underline cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3" /> View / Download
+                    </a>
+                  </div>
+                </div>
+              )}
 
               {viewingInquiry.message && (
                 <div>

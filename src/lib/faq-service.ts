@@ -478,7 +478,13 @@ export async function fetchAllFaqs(tabFilter?: string): Promise<FAQItem[]> {
 
 export async function fetchHomepageFaqs(): Promise<FAQItem[]> {
   const all = await fetchAllFaqs();
-  return all.filter((f) => f.status !== "Draft");
+  return all.filter(
+    (f) =>
+      f.status !== "Draft" &&
+      (f.section === "homepage" ||
+        f.page_slug === "home" ||
+        (f.tab === "global" && !f.category_slug && !f.product_slug))
+  );
 }
 
 export async function fetchCategoryFaqs(categorySlug: string, categoryId?: string): Promise<FAQItem[]> {

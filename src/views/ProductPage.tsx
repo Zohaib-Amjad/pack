@@ -41,6 +41,7 @@ import { fetchAllProducts } from "@/lib/product-service";
 import { FULL_PRODUCTS_DATABASE } from "@/data/product-detail-defaults";
 import FeatureItemsRow from "@/components/FeatureItemsRow";
 import { useQuoteModal } from "@/components/QuoteModalContext";
+import { uploadInquiryAttachment } from "@/lib/inquiry-attachment";
 
 interface ProductPageProps {
   productSlug?: string;
@@ -196,12 +197,22 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
 
     setIsSubmitting(true);
     try {
+      let attachment: { url: string; name: string; type: string } | null = null;
+      if (fileAttached) {
+        try {
+          attachment = await uploadInquiryAttachment(fileAttached);
+        } catch (uploadErr) {
+          console.warn("Artwork upload error:", uploadErr);
+        }
+      }
+
       const supabase = createPublicClient();
       const messageContent = `Product: ${product.name}
 Dimensions: ${length || "-"} x ${width || "-"} x ${depth || "-"} ${unit}
 Quantity: ${quantity}
 Color: ${color || "Default"}
-File: ${fileAttached ? fileAttached.name : "None"}
+File: ${attachment ? attachment.name : fileAttached ? fileAttached.name : "None"}
+${attachment ? `File URL: ${attachment.url}` : ""}
 
 Requirements / Notes:
 ${requirements || "No additional notes"}`;
@@ -219,6 +230,9 @@ ${requirements || "No additional notes"}`;
           message: messageContent,
           source: "product_detail",
           status: "new",
+          attachment_url: attachment?.url ?? null,
+          attachment_name: attachment?.name ?? null,
+          attachment_type: attachment?.type ?? null,
           ...attribution,
         } as any)
         .abortSignal(signal) as any)

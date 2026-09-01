@@ -630,61 +630,6 @@ const Navbar = () => {
               ))}
 
               <Link
-                href="/artwork-guidelines"
-                prefetch={false}
-                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
-                  pathname === "/artwork-guidelines" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
-                }`}
-                onClick={() => setMobileOpen(false)}
-              >
-                Artwork Guidelines
-              </Link>
-
-              <Link
-                href="/process"
-                prefetch={false}
-                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
-                  pathname === "/process" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
-                }`}
-                onClick={() => setMobileOpen(false)}
-              >
-                Our Process
-              </Link>
-
-              <Link
-                href="/about"
-                prefetch={false}
-                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
-                  pathname === "/about" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
-                }`}
-                onClick={() => setMobileOpen(false)}
-              >
-                About Us
-              </Link>
-
-              <Link
-                href="/case-studies"
-                prefetch={false}
-                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
-                  pathname === "/case-studies" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
-                }`}
-                onClick={() => setMobileOpen(false)}
-              >
-                Case Studies
-              </Link>
-
-              <Link
-                href="/blog"
-                prefetch={false}
-                className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
-                  pathname === "/blog" ? "text-accent font-semibold bg-accent/5" : "text-foreground hover:bg-accent/5"
-                }`}
-                onClick={() => setMobileOpen(false)}
-              >
-                Blog
-              </Link>
-
-              <Link
                 href="/contact"
                 prefetch={false}
                 className={`flex min-h-[44px] items-center rounded-lg px-3.5 py-2.5 text-[14px] font-medium transition-colors ${
@@ -694,6 +639,45 @@ const Navbar = () => {
               >
                 Contact Us
               </Link>
+
+              {/* Help Center Accordion */}
+              <div className="rounded-lg border border-transparent">
+                <button
+                  className="flex min-h-[44px] w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-left text-[14px] font-medium text-foreground hover:bg-accent/5 cursor-pointer"
+                  onClick={() =>
+                    setMobileExpanded(
+                      mobileExpanded === "help-center" ? null : "help-center"
+                    )
+                  }
+                  aria-expanded={mobileExpanded === "help-center"}
+                >
+                  Help Center
+                  <ChevronDown
+                    size={15}
+                    className={`transition-transform duration-200 ${
+                      mobileExpanded === "help-center" ? "rotate-180 text-accent" : ""
+                    }`}
+                  />
+                </button>
+
+                {mobileExpanded === "help-center" && (
+                  <div className="space-y-0.5 pb-2 pl-3 pr-2 animate-fade-in">
+                    {helpCenterLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        prefetch={false}
+                        className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent/5 hover:text-accent font-sans text-[12.5px] ${
+                          pathname === link.href ? "text-accent font-semibold bg-accent/5" : ""
+                        }`}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        <span className="font-sans text-[12.5px] font-normal">{link.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Bottom Quick Contact & CTA */}

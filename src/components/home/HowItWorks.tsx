@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Bell } from "lucide-react";
 import { useQuoteModal } from "@/components/QuoteModalContext";
 import { useCmsHome } from "@/hooks/useCms";
 import type { CmsHome } from "@/types/cms";
@@ -64,7 +65,7 @@ const HowItWorks = ({ cms }: HowItWorksProps) => {
   const titleLead = how?.titleLead || "From Idea to";
   const titleAccent = how?.titleAccent || "Your Door";
   const subtitle = how?.subtitle || "Four steps. No confusion. No hidden fees.";
-  const ctaLabel = how?.ctaLabel || "Start Your Project";
+  const ctaLabel = how?.ctaLabel || "Talk to a Designer";
 
   const rawSteps = Array.isArray(how?.steps) && how.steps.length > 0 ? how.steps : DEFAULT_STEPS;
   const activeSteps = (rawSteps as any[])
@@ -239,14 +240,15 @@ const HowItWorks = ({ cms }: HowItWorksProps) => {
             <button
               type="button"
               onClick={() => open()}
-              className="inline-flex items-center justify-center gap-2 font-sans font-bold text-white rounded-[5px] flex-shrink-0 transition-colors cursor-pointer border-0 w-full sm:w-auto hover:bg-[#c45a18]"
+              className="inline-flex items-center justify-center gap-2 font-sans font-bold text-white rounded-[6px] flex-shrink-0 transition-colors cursor-pointer border-0 w-full sm:w-auto hover:bg-[#c45a18] shadow-xs"
               style={{
                 background: "rgb(232, 115, 42)",
                 fontSize: "13px",
-                padding: "12px 28px",
+                padding: "12px 24px",
               }}
             >
-              <strong>{ctaLabel} →</strong>
+              <Bell className="w-4 h-4 text-white shrink-0 stroke-[2.2]" />
+              <span>Talk to a Designer</span>
             </button>
           </div>
         </div>

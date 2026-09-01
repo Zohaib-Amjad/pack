@@ -1,20 +1,22 @@
 // Auto-generated comprehensive product details extracted from Supabase
-// Total Products: 164
-// All images downloaded locally to /images/products/
+// Total Products: 153
+// All images stored locally in /images/products/
 
 import type { ProductDetailData } from "./product-defaults";
 
 export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
-  "bakery-boxes-with-window": {
-    "id": "0face232-b407-47ae-abca-6296ecf5887a",
-    "name": "Bakery boxes With Window",
-    "slug": "bakery-boxes-with-window",
+  "pre-roll-display-boxes": {
+    "id": "8b152cb2-9598-4371-a6dd-26c4188c0c2b",
+    "name": "Pre Roll Display Boxes",
+    "slug": "pre-roll-display-boxes",
     "skuCode": "F100 — Custom Packaging",
-    "description": "Custom Bakery boxes With Window engineered with premium materials.",
+    "description": "Pre Roll Display Boxes are countertop merchandising units that hold multiple pre-rolls in one branded footprint. HOF Pack supplies dispensary chains, distributors, and brand field teams placing products at point of sale. One display turns loose inventory into an organized, self-facing SKU block.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775465590/8fb9e85d-521b-4a94-b851-80c3007984f6.jpg"
+      "/images/products/pre-roll-display-boxes.jpg",
+      "https://res.cloudinary.com/dazm20bju/image/upload/v1787681652/4d9c46d1-51be-473f-9b84-0428e6da78db.jpg",
+      "https://res.cloudinary.com/dazm20bju/image/upload/v1787681655/803f0581-6c38-4b12-bfd7-ab12d248fe3f.jpg"
     ],
-    "box_style": "Bakery boxes With Window",
+    "box_style": "Pre Roll Display Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
     "min_quantity": "Starting from 100 Units",
     "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
@@ -24,13 +26,64 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "turnaround_time": "8 to 12 Business Days",
     "shipping_info": "FREE Shipping Worldwide",
     "category": {
-      "name": "Bakery Boxes",
-      "slug": "bakery-boxes"
+      "name": "Pre Roll Boxes",
+      "slug": "pre-roll-boxes"
     },
-    "meta_title": "Custom Bakery Boxes with Window - HOF Pack",
-    "meta_description": "Custom Bakery boxes With Window",
+    "meta_title": "Pre Roll Display Boxes | Custom Printed Packaging",
+    "meta_description": "Custom pre roll display boxes designed to showcase your products and strengthen your brand. Choose custom sizes, printing, finishes, and styles for standout packaging.",
     "meta_keywords": "",
     "product_content": {
+      "perk_items": [
+        "Wholesale Pricing with Free Sample",
+        "8-10 days turnaround",
+        "Free Shipping all Across the US",
+        "Innovative Printing Designs",
+        "Free design consultation",
+        "MOQ as low as 100 units"
+      ],
+      "feature_items": [
+        {
+          "icon": "Cone",
+          "title": "Cone-Specific Tapered Inserts",
+          "description": "Custom die-cut slots engineered to hold single or multi-pack pre-roll cones securely at the tip and filter, preventing bent ends and lost material."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Crush-Proof Rigid & Tube Options",
+          "description": "Rigid cardboard boxes, pop-top joint tubes, and slider boxes built to protect delicate paper cones from crushing during pocket or bag transit."
+        },
+        {
+          "icon": "Sparkles",
+          "title": "Custom Branding & Foil Accents",
+          "description": "Enhance dispensary presence with metallic hot foil stamping, soft-touch matte lamination, and raised spot UV details tailored to your brand style."
+        }
+      ],
+      "content_blocks": [
+        {
+          "alt": "",
+          "body": "Counter real estate is rented, not given. A budtender gives it up only if the unit sells through. custom pre roll display boxes hold a tight SKU block, keep every face forward, and restock in seconds, so the display keeps its spot after the first sell-through.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787681639/775e5d89-38d8-4b25-8583-ed7f2a78a035.jpg",
+          "heading": "Pre Roll Display Boxes That Earn Their Counter Space"
+        },
+        {
+          "alt": "",
+          "body": "Displays fail from the bottom up. Load 40 units into a thin board and the base bows, the front lip splits, and the unit gets pulled. We spec calipers to load weight, so pre roll counter display boxes stay square through repeat fills and daily handling.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787681642/7a2c525c-8534-4589-b777-db66f4076255.jpg",
+          "flipped": true,
+          "heading": "Structure That Holds a Full Restock Without Sagging"
+        },
+        {
+          "alt": "",
+          "body": "Open trays, tiered risers, gravity-feed chutes, and lidded counter units. Detachable headers for strain callouts. We ship pre roll display boxes in runs from 100 pieces for a single-store pilot up to full-pallet programs for chains rolling out across every location at once.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787681646/24cb93fe-85e8-47d3-843e-b830034f8848.jpg",
+          "heading": "Build a Display Sized to Your SKU Count"
+        }
+      ],
+      "material_items": [
+        "Trusted by 5000+ clients",
+        "FSC or ISO Certified",
+        "Eco-friendly material options"
+      ],
       "spec_overrides": {
         "dimension_info": "All Custom Sizes & Shapes",
         "rush_available": true,
@@ -41,7 +94,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "Scored",
           "Perforation"
         ],
-        "turnaround_label": "4-8 Business Days",
+        "turnaround_label": "4–8 Business Days",
         "additional_options": [
           "Eco-Friendly",
           "Recycled Boxes",
@@ -65,8 +118,59 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "Gold / Silver Foiling",
           "Holographic Foiling"
         ]
-      }
-    }
+      },
+      "article_sections": [
+        {
+          "text": "What is a Pre-Roll Display Box?\n",
+          "level": "h2"
+        },
+        {
+          "text": "A pre-roll display box is a printed paperboard unit that organizes multiple pre-rolls at point of sale, so a buyer can see, compare, and grab without a budtender opening a drawer. It is inventory storage and silent salesperson at once.\n",
+          "level": "p"
+        },
+        {
+          "text": "Industries Uses Pre Roll Display Boxes\n",
+          "level": "h2"
+        },
+        {
+          "text": "[HOF Pack ](https://hofpack.com/)provides best quality custom pre-roll display boxes to the following industries for their pre-roll products:\n- Checkout counters\n- Back-bar shelving\n- Distributor field kits\n- Trade shows \n- Strain launches\n- Multi-brand smoke shops ",
+          "level": "p"
+        },
+        {
+          "text": "What Board Grades Do We Run?\n",
+          "level": "h2"
+        },
+        {
+          "text": "The choice of board for pre-roll display boxes makes all the different in pre roll protection and presentation:\n- E-flute corrugated \n- B-flute corrugated \n- Litho-laminated board.\n- Rigid chipboard \n- Kraft and FSC-certified stock \n",
+          "level": "p"
+        },
+        {
+          "text": "Why Do Brands Print Displays Instead of Using Plain Trays?\n",
+          "level": "h2"
+        },
+        {
+          "text": "A plain tray stores products. A printed unit does the selling work of a rep who is not in the room. Brands buying pre roll display boxes wholesale are paying for a retail presence they control across every account. That unit cost is marketing spend that ships with the order. We offer you the following printing options: \n- Flexographic \n- Digital\n- PMS spot-color matching \n",
+          "level": "p"
+        },
+        {
+          "text": "Color, Coating, and Header Options\n",
+          "level": "h2"
+        },
+        {
+          "text": "Print inside and out. The interior face shows once units sell down, so most brands run color there too. Add matte, gloss, or soft-touch lamination, spot UV on the header, metallic foil, or uncoated kraft. Die-cut windows and locking tabs are standard.\n",
+          "level": "p"
+        },
+        {
+          "text": "Order Pre Roll Display Boxes from HOF Pack\n",
+          "level": "h2"
+        },
+        {
+          "text": "Send your unit count, tube spec, and store count. We quote, sample, and hand the account to one project manager who runs it through every reorder. Email info@hofpack.com or call +1 (888) 429-4881.\n",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
   },
   "ecommerce-packaging": {
     "id": "a5ed7606-2373-4e02-80ef-8fe7e5a12d2a",
@@ -75,7 +179,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Ecommerce packaging isn't just boxes and tape, it's the tool for every online order you ship, from warehouse shelf to doorstep. Get our 3-ply (single wall) ecommerce packaging for light weight products under 5 lbs and 5-ply double wall shipping boxes to protect heavy goods without hassle. HOF Pack does not just provide a packaging solution but a walking billboard that advertises who you are. Order today!\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786475812/e9cd876b-15a7-4372-bffe-2cc09b40ca82.jpg",
+      "/images/products/ecommerce-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786475815/0ab6b054-41e2-4886-a83b-f4efff3bfb34.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786475819/59f69967-7f9e-4e1c-a5d3-bbd0f222b83e.jpg"
     ],
@@ -220,181 +324,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
-  },
-  "fg": {
-    "id": "1d3187b7-8279-40f9-9d83-cdb731af5a2e",
-    "name": "fg",
-    "slug": "fg",
-    "skuCode": "F100 — Custom Packaging",
-    "description": "Corrugated mailer boxes are designed for safe and reliable product shipping. Made from durable and strong corrugated cardboard, these boxes provide excellent product protection while keeping your packaging lightweight and easy to handle. Ideal for delicate retail and e-commerce products that need safe handling. ",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777666852/a927ece1-49b4-4f66-ad15-5739ac2d9bf9.jpg"
-    ],
-    "box_style": "Corrugated Mailer Box ",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Custom Mailer Boxes",
-      "slug": "custom-mailer-boxes"
     },
-    "meta_title": "Custom Corrugated Mailer Boxes | Custom Packaging USA",
-    "meta_description": "Get custom corrugated mailer boxes for secure shipping and enhanced product protection. Durable, lightweight, and ideal for e-commerce and wholesale packaging.\n",
-    "meta_keywords": " corrugated mailer boxes , custom corrugated mailer packaging, wholesale corrugated boxes",
-    "product_content": {
-      "perk_items": [
-        "Wholesale Pricing with Free Sample",
-        "8-10 days turnaround",
-        "Free Shipping all Across the US",
-        "Innovative Printing Designs",
-        "Free design consultation",
-        "MOQ as low as 100 units"
-      ],
-      "feature_items": [
-        {
-          "icon": "Palette",
-          "title": "Vibrant Print & Branding",
-          "description": "High-quality CMYK printing that brings bold colors, sharp graphics, and strong brand identity to life."
-        },
-        {
-          "icon": "Shield",
-          "title": "Efficient & Protective Design",
-          "description": "Smart structure built for easy assembly, secure closure, and safe product delivery."
-        },
-        {
-          "icon": "Leaf",
-          "title": "Sustainable Material Options",
-          "description": "Eco-friendly, recyclable materials, including FSC-certified paperboard for responsible packaging."
-        }
-      ],
-      "content_blocks": [
-        {
-          "alt": "",
-          "body": "Shipping requires packaging that can handle pressure, movement, and stacking. Corrugated cardboard mailer boxes are designed to protect products during transit. Their layered structure reduces the risk of damage. This makes them ideal for e-commerce businesses and brands to ship products across long distances.\n",
-          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1777666825/275e098d-45b5-45f1-a40f-5fa645f50305.jpg",
-          "heading": "Built for Safe Shipping"
-        },
-        {
-          "alt": "",
-          "body": "Corrugated mailer boxes offer a perfect balance between strength and weight. They are sturdy enough to protect products while remaining lightweight for cost-efficient shipping. This makes them suitable for a wide range of products, from retail goods to subscription boxes and online e-commerce orders.\n",
-          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1777666830/f85db853-5a56-4eaa-b75f-5ba7ef85d591.jpg",
-          "flipped": true,
-          "heading": "Sturdy Yet Lightweight Packaging"
-        },
-        {
-          "alt": "",
-          "body": "At HOF Pack, we design custom corrugated mailer boxes to match your product size and branding. From plain shipping boxes to fully printed packaging, you can create a solution that fits your business.\n\n\n",
-          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1777666835/66459e74-c1f2-475e-9e06-f7808b8c6140.jpg",
-          "heading": "Customize Corrugated Mailer Box For Every Need",
-          "linkLabel": "Start Customizing with Us!"
-        }
-      ],
-      "material_items": [
-        "Trusted by 500+ clients",
-        "FSC or ISO Certified",
-        "Eco-friendly Kraft Material"
-      ],
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      },
-      "article_sections": [
-        {
-          "text": "Why Businesses Use Corrugated Mailer Boxes?\n",
-          "level": "h2"
-        },
-        {
-          "text": "Did you know that almost 70% of the DTC (direct-to-customers) businesses use corrugated boxes for shipping because of their rigid structure and functionality?\n\nBusinesses usually prefer corrugated mailer boxes because they provide strong protection during shipping. The multi-layered structure helps prevent damage caused by external pressure and accidental drops. They are also easy to store, stack, and transport, making them a practical choice for growing e-commerce and retail brands. \n\nMostly, food/beverage industries, cosmetic brands, and electronic companies use custom corrugated mailing boxes for their durability, easy assembly, and recyclability. \n",
-          "level": "p"
-        },
-        {
-          "text": "",
-          "level": "divider"
-        },
-        {
-          "text": "Pack With Strength & Durability With Corrugated Mailer Boxes\n",
-          "level": "h2"
-        },
-        {
-          "text": "Corrugated mailer boxes are made using fluted layers between flat boards. This multi-layer structure increases their strength and durability without adding extra weight. They are specifically designed to protect products from external impact and rough handling, ensuring safe delivery to customers.\n",
-          "level": "p"
-        },
-        {
-          "text": "",
-          "level": "divider"
-        },
-        {
-          "text": "Cost-Effective & Easy-Fold Corrugated Mailers",
-          "level": "h2"
-        },
-        {
-          "text": "These [custom mailer boxes](https://hofpack.com/custom-mailer-boxes) are shipped flat, which saves storage space and reduces shipping costs. Their foldable design allows quick and easy assembly without additional tools or materials. If you’re a brand owner in the U.S., looking to scale your packaging game while keeping the budget under control, corrugated mailer boxes wholesale are the ideal solution for you. Explore our high-quality printing and unlimited design and color customization options at HOF Pack.",
-          "level": "p"
-        },
-        {
-          "text": "",
-          "level": "divider"
-        },
-        {
-          "text": "Choose HOF Pack Today!\n",
-          "level": "h2"
-        },
-        {
-          "text": "Explore our custom-printed corrugated mailers at [HOF Pack](https://hofpack.com/) to have an idea of our work process and product quality. These eco-friendly and recyclable packaging boxes offer a reliable shipping solution for all brands. \n\n",
-          "level": "p"
-        },
-        {
-          "text": "Contact our team at info@hofpack.com or call us +1 (888) 429-4881 to get a free design and size consultation for your custom corrugated shipping box. \n",
-          "level": "p"
-        }
-      ]
-    }
+    "faqs": []
   },
   "two-piece-candle-boxes": {
     "id": "791f6d1f-513a-4935-afb0-b224387b9a6a",
     "name": "Two Piece Candle Boxes",
     "slug": "two-piece-candle-boxes",
-    "skuCode": "F102 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Two piece candle boxes are premium packaging solutions made with a separate lid and base structure. This rigid style is commonly used for high-end candles that require both protection and elegant presentation. They are ideal for retail display, gifting, and luxury candle collections.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779723405/6f373ad8-e21e-4e1b-9f8a-d7270076a66e.jpg"
+      "/images/products/two-piece-candle-boxes.jpg"
     ],
     "box_style": "Two Piece Candle Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -580,16 +520,151 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
+  },
+  "delta-8-pre-roll-boxes": {
+    "id": "9af1b9a3-09ee-4949-bfda-4fc2721e3d4e",
+    "name": "Delta 8 Pre Roll Boxes",
+    "slug": "delta-8-pre-roll-boxes",
+    "skuCode": "F100 — Custom Packaging",
+    "description": "Delta 8 pre roll boxes are printed folding cartons built for hemp-derived pre-rolls sold through smoke shops, distributors and online storefronts. HOF Pack produces them at volume for US brands, sized around your pre-roll with the label panel already planned.\n",
+    "images": [
+      "/images/products/delta-8-pre-roll-boxes.jpg",
+      "/images/products/delta-8-pre-roll-boxes-2.jpg",
+      "/images/products/delta-8-pre-roll-boxes-3.jpg"
+    ],
+    "box_style": "Delta 8 Pre Roll Boxes",
+    "size_info": "Fully Customizable (All dimensions available)",
+    "min_quantity": "Starting from 100 Units",
+    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
+    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
+    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
+    "proof_info": "2D Flat View, 3D Digital Mockup",
+    "turnaround_time": "8 to 12 Business Days",
+    "shipping_info": "FREE Shipping Worldwide",
+    "category": {
+      "name": "Pre Roll Boxes",
+      "slug": "pre-roll-boxes"
+    },
+    "meta_title": "Get Branded Delta 8 Pre Roll Packaging | HOF Pack",
+    "meta_description": "Buy printed Delta 8 pre roll boxes for hemp brands, smoke shops and distributors. We provide 100-box MOQ, wholesale price breaks, and free shipping in USA.\n",
+    "meta_keywords": "",
+    "product_content": {
+      "perk_items": [
+        "Wholesale Pricing with Free Sample",
+        "8-10 days turnaround",
+        "Free Shipping all Across the US",
+        "Innovative Printing Designs",
+        "Free design consultation",
+        "MOQ as low as 100 units"
+      ],
+      "feature_items": [
+        {
+          "icon": "Cone",
+          "title": "Cone-Specific Tapered Inserts",
+          "description": "Custom die-cut slots engineered to hold single or multi-pack pre-roll cones securely at the tip and filter, preventing bent ends and lost material."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Crush-Proof Rigid & Tube Options",
+          "description": "Rigid cardboard boxes, pop-top joint tubes, and slider boxes built to protect delicate paper cones from crushing during pocket or bag transit."
+        },
+        {
+          "icon": "Sparkles",
+          "title": "Custom Branding & Foil Accents",
+          "description": "Enhance dispensary presence with metallic hot foil stamping, soft-touch matte lamination, and raised spot UV details tailored to your brand style."
+        }
+      ],
+      "content_blocks": [
+        {
+          "alt": "",
+          "body": "A shop clerk never sees your website. Your boxes do that job. Therefore, it needs to be engaging enough to grab all attention. We print custom Delta 8 THC boxes that hang square on a peg wall. These custom delta 8 pre-roll boxes with logos give a first-time buyer a reason to trust an unfamiliar name.\n",
+          "image": "/images/products/delta-8-pre-roll-boxes-block-1.jpg",
+          "heading": "Stand Out in the Display Case with Delta 8 Pre Roll Boxes"
+        },
+        {
+          "alt": "",
+          "body": "Pre-rolls snap under case weight. Our delta 8 pre roll wholesale boxes use heavier caliper boards and a locking tuck that survives pallet stacking and last-mile handling. The same panel carries batch code, QR and warning copy, with no sticker over your artwork.\n",
+          "image": "/images/products/delta-8-pre-roll-boxes-block-2.jpg",
+          "heading": "Crush Protection and a Compliance Panel in One Carton"
+        },
+        {
+          "alt": "",
+          "body": "Pick any style of Delta 8 pre roll box from sleeve, straight tuck, reverse tuck, rigid or window construction. Or get help from our design experts. We will bring the best concepts to make your pre roll boxes elegant yet attractive enough to get noticed. Our runs begin at 100 and scale into pallet programs.\n",
+          "image": "/images/products/delta-8-pre-roll-boxes-block-3.jpg",
+          "heading": "We Design Delta 8 Pre Roll Boxes That Strikes"
+        }
+      ],
+      "material_items": [
+        "Trusted by 5000+ clients",
+        "FSC or ISO Certified",
+        "Eco-friendly material options"
+      ],
+      "spec_overrides": {
+        "dimension_info": "All Custom Sizes & Shapes",
+        "rush_available": true,
+        "quantities_info": "No Minimum MOQ Required",
+        "included_options": [
+          "Die Cutting",
+          "Gluing",
+          "Scored",
+          "Perforation"
+        ],
+        "turnaround_label": "4–8 Business Days",
+        "additional_options": [
+          "Eco-Friendly",
+          "Recycled Boxes",
+          "Biodegradable"
+        ],
+        "printing_options_list": [
+          "No Printing",
+          "CMYK",
+          "CMYK + 1 PMS color",
+          "CMYK + 2 PMS colors"
+        ],
+        "finishing_options_list": [
+          "Gloss Lamination",
+          "Matte Lamination",
+          "Gloss AQ",
+          "Gloss UV",
+          "Matte UV",
+          "Spot UV",
+          "Embossing",
+          "Debossing",
+          "Gold / Silver Foiling",
+          "Holographic Foiling"
+        ]
+      },
+      "article_sections": [
+        {
+          "text": "Why Brands Rely on Custom Delta-8 Boxes\n",
+          "level": "h2"
+        },
+        {
+          "text": "HOF Pack makes the best quality Delta-8 pre-roll boxes that are heavy-duty. We use custom-printed paperboard to protect hemp-derived joints from crushing. Our pre roll boxes keep your pre roll fresh, and display all required compliance copies. \nWe make these boxes in a way that efficiently improves the shelf real estate and drives retail conversions. Our boxes serve every level of the supply chain:\n- Hemp and Delta-8 brands\n- Smoke shop chains\n- Distributors and wholesalers \n- Private-label manufacturers\n- Online storefronts \n- Vape and convenience programs ",
+          "level": "p"
+        },
+        {
+          "text": "What Materials and Grades Do We Use?\n",
+          "level": "h2"
+        },
+        {
+          "text": "HOF Pack creates your Delta 8 pre roll boxes with 100% post-consumer recycled paperboard. We make retail-ready, high-converting FSC-Certified packaging that precisely aligns with your brand requirements.\nGet anything from budget-friendly short runs with a low 100-unit MOQ to high-impact drops and durable shipping setups. Our material lineup delivers true wholesale pricing, custom print flexibility, and free US shipping on every order.\n- SBS Paperboard (16–22pt)\n- Recycled Kraft\n- E-Flute Corrugated\n- Litho-Laminated Board\n- Rigid Wrapped Chipboard\nAt [HOF Pack](https://hofpack.com/) you can get various box dimensions or get them customized according to your exclusive business needs. We provide delta 8 pre roll 10 packs, delta 8 pre roll packaging boxes  and a lot more. Get in touch with us to find what HOF Pack holds for you. Place your order with us today and get free shipping nationwide!\n",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
   },
   "retail-display-boxes": {
     "id": "a98a9d3b-1423-4c7d-ad21-a191cf9805ac",
     "name": "Retail Display Boxes",
     "slug": "retail-display-boxes",
-    "skuCode": "F110 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Retail display boxes are designed to showcase your products and increase their visibility in a way that attracts customer attention and drives sales. From countertops to store aisles, these display packaging solutions help organize products while improving visibility in high-traffic retail environments.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777563631/242724a8-f244-4128-be00-e6e601b35f3d.jpg"
+      "/images/products/retail-display-boxes.jpg"
     ],
     "box_style": "Retail Box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -769,7 +844,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "candle-shipping-boxes": {
     "id": "fd6e27d4-7962-4013-908e-d007dcb7e7c7",
@@ -778,7 +854,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Candle shipping boxes are custom-designed boxes made from corrugated cardboard to safely handle and ship your fragile candles, especially glass candle jars, pillar candles, taper candles, and wax shapes. They are a specialized packaging solution built to protect your products from external damage. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780317291/7ea0cb00-7257-43ee-8776-f6311c3298e3.jpg"
+      "/images/products/candle-shipping-boxes.jpg"
     ],
     "box_style": "Candle Shipping Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -940,7 +1016,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "luxury-candle-packaging": {
     "id": "d77796bd-f9bb-4ad3-b97e-b375850497dc",
@@ -949,7 +1026,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Luxury candle packaging is designed to elevate the presentation of your candles while ensuring product safety. Whether for retail shelves or gifting, premium candle packaging adds a refined touch that reflects the quality of your product and enhances customer experience.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779715650/ecd4e826-5095-4d9c-be92-ab7c2e305092.jpg"
+      "/images/products/luxury-candle-packaging.jpg"
     ],
     "box_style": "Candle Box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -1117,16 +1194,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "candle-display-boxes": {
     "id": "3b733cb6-32b4-4abf-92dd-cd4bedd6497c",
     "name": "Candle Display Boxes",
     "slug": "candle-display-boxes",
-    "skuCode": "F112 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Candle display boxes are designed to showcase your products in a way that attracts attention and enhances visibility. Whether placed on retail shelves, countertops, or promotional displays, these boxes help present candles in an organized and visually appealing manner.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777565311/5f720473-6b0e-480b-8262-4dfd67e8f798.jpg"
+      "/images/products/candle-display-boxes.jpg"
     ],
     "box_style": "Candle Display Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -1297,16 +1375,168 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
+  },
+  "pre-roll-packaging-with-labels": {
+    "id": "f7e655ea-ed1f-4e7b-b6c6-a3745cf411e8",
+    "name": "Pre Roll Packaging With Labels",
+    "slug": "pre-roll-packaging-with-labels",
+    "skuCode": "F100 — Custom Packaging",
+    "description": "First impressions of your products decides your sales in the booming dispensary market. HOF Pack makes it easier with our stunning custom pre roll packaging with labels. We use high-definition labels to instantly communicate product quality, get attention on crowded retail shelves, and turn casual buyers into loyal brand advocates through unforgettable unboxing experiences. Order the best pre roll packaging with labels today!\n",
+    "images": [
+      "/images/products/pre-roll-packaging-with-labels.jpg",
+      "https://res.cloudinary.com/dazm20bju/image/upload/v1787945734/e1a271f3-940f-48ec-9ca6-700f19285fcc.jpg",
+      "https://res.cloudinary.com/dazm20bju/image/upload/v1787945744/9726829c-6b65-4d4d-a450-c92fe2399557.jpg",
+      "https://res.cloudinary.com/dazm20bju/image/upload/v1787945780/032234f3-e21e-49c0-b95d-776887b22334.jpg"
+    ],
+    "box_style": "Pre Roll Packaging With Labels",
+    "size_info": "Fully Customizable (All dimensions available)",
+    "min_quantity": "Starting from 100 Units",
+    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
+    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
+    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
+    "proof_info": "2D Flat View, 3D Digital Mockup",
+    "turnaround_time": "8 to 12 Business Days",
+    "shipping_info": "FREE Shipping Worldwide",
+    "category": {
+      "name": "Pre Roll Boxes",
+      "slug": "pre-roll-boxes"
+    },
+    "meta_title": "Premium Pre-Roll Packaging Labels & Custom Boxes | HOF Pack",
+    "meta_description": "Stand out in dispensaries with custom pre-roll packaging with labels. Get child-resistant, crush-proof, and fully compliant packaging with a low minimum.\n",
+    "meta_keywords": "",
+    "product_content": {
+      "perk_items": [
+        "Wholesale Pricing with Free Sample",
+        "8-10 days turnaround",
+        "Free Shipping all Across the US",
+        "Innovative Printing Designs",
+        "Free design consultation",
+        "MOQ as low as 100 units"
+      ],
+      "feature_items": [
+        {
+          "icon": "Cone",
+          "title": "Cone-Specific Tapered Inserts",
+          "description": "Custom die-cut slots engineered to hold single or multi-pack pre-roll cones securely at the tip and filter, preventing bent ends and lost material."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Crush-Proof Rigid & Tube Options",
+          "description": "Rigid cardboard boxes, pop-top joint tubes, and slider boxes built to protect delicate paper cones from crushing during pocket or bag transit."
+        },
+        {
+          "icon": "Sparkles",
+          "title": "Custom Branding & Foil Accents",
+          "description": "Enhance dispensary presence with metallic hot foil stamping, soft-touch matte lamination, and raised spot UV details tailored to your brand style."
+        }
+      ],
+      "content_blocks": [
+        {
+          "alt": "",
+          "body": "Navigating complex cannabis packaging regulations shouldn’t hold back your business growth. Our custom pre-roll solutions integrate certified child-resistant closures (PPPA compliant), tamper-evident safety seals, and state-mandated lab labeling—ensuring your products remain safe, legally compliant, and consumer-trusted across all US markets.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787945751/cae43b06-e8e9-4cc5-a003-4ee9365143c5.jpg",
+          "heading": "Complete State Compliance & Child Safety"
+        },
+        {
+          "alt": "",
+          "body": "Dry, or damaged pre roll joints ruin customer satisfaction. It can damage your brand reputation. We manufacture protective packaging with airtight seals. Our pre roll packaging with labels has odor-resistant barriers, and crush-proof outer structures. Both of these lock in moisture and essential terpene profiles. It makes sure that your every pre-roll reaches the end customer fresh, potent, and perfectly intact.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787945754/35619e04-a8d7-4477-a95e-db18d321f5b6.jpg",
+          "heading": "Maximum Terpene Freshness & Product Security"
+        },
+        {
+          "alt": "",
+          "body": "Whether launching a craft boutique strain or scaling high-volume dispensary supply across state lines, we support your production needs. We offer low minimum order quantities with just 100 empty pre roll packaging with labels, and fast 8–12 day production turnarounds. You can also request free 3D digital mockups, and direct wholesale pricing to keep your margins healthy.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787945758/34f8cbfa-c4b5-4726-9aa1-084db84c8d95.jpg",
+          "heading": "Scalable Wholesale Packaging Without Boundaries"
+        }
+      ],
+      "material_items": [
+        "Trusted by 5000+ clients",
+        "FSC or ISO Certified",
+        "Eco-friendly material options"
+      ],
+      "spec_overrides": {
+        "dimension_info": "All Custom Sizes & Shapes",
+        "rush_available": true,
+        "quantities_info": "No Minimum MOQ Required",
+        "included_options": [
+          "Die Cutting",
+          "Gluing",
+          "Scored",
+          "Perforation"
+        ],
+        "turnaround_label": "4–8 Business Days",
+        "additional_options": [
+          "Eco-Friendly",
+          "Recycled Boxes",
+          "Biodegradable"
+        ],
+        "printing_options_list": [
+          "No Printing",
+          "CMYK",
+          "CMYK + 1 PMS color",
+          "CMYK + 2 PMS colors"
+        ],
+        "finishing_options_list": [
+          "Gloss Lamination",
+          "Matte Lamination",
+          "Gloss AQ",
+          "Gloss UV",
+          "Matte UV",
+          "Spot UV",
+          "Embossing",
+          "Debossing",
+          "Gold / Silver Foiling",
+          "Holographic Foiling"
+        ]
+      },
+      "article_sections": [
+        {
+          "text": "What is Pre Roll Packaging with Labels?\n",
+          "level": "h2"
+        },
+        {
+          "text": "Pre roll packaging with labels is a specialized housing system. It keeps pre-rolled joints, blunts, and cones secure throughout the storage of shipping phase. HOF Pack makes these pre-roll packaging with custom-printed adhesive labels. You can use these labels to provide vital visual branding. At the same time, it is helpful to display legally required information including \n- THC/CBD potency\n- Strain genetics\n- Batch numbers\n- Net weight\n- Ingredients\n- Government health warnings\n",
+          "level": "p"
+        },
+        {
+          "text": "Why Does Your Cannabis Business Need Custom Pre-Roll Packaging?\n",
+          "level": "h2"
+        },
+        {
+          "text": "Your products need more than just a quality product in order to stand out in the US cannabis market. Both dispensary buyers and your consumers view your products based on its professional presentation. They precisely check its safety compliance. \nWe make your premium pre-roll packaging labels strong enough to protect delicate flowers from physical crushing. They keep it safe from light degradation, moisture loss, and odor leakage during distribution. \n",
+          "level": "p"
+        },
+        {
+          "text": "What Pre-Roll Packaging Options Does HOF Pack Offer?\n",
+          "level": "h2"
+        },
+        {
+          "text": "HOF Pack supplies a complete catalog of styles. We customize pre roll packaging with labels to retail dispensaries and wholesale distributors:\n- Joint & Pre-Roll Tubes: \nGet our pop-top plastic tubes, glass doob tubes, and eco-friendly cardboard tubes.\n- Slide & Drawer Boxes\nTry our premium rigid or paperboard custom pre-roll packaging labels that come with custom die-cut inserts.\n- Child-Resistant Packaging: \nWe provide push-and-turn pre roll packaging labels, squeeze-and-turn boxes, and button-locking rigid structures that keep children away from products..\n- Mylar Bags & Pouches\nYou can get these long-lasting and easy to use pinch-and-slide resealable pouches/ These are ideal for multi-packs.\n- Custom Printed Labels\nLabels make all the difference in your branding and marketing. Get our high-tack vinyl, matte, gloss, clear, metallic, and kraft adhesive labels that match any tube or box layout.\n",
+          "level": "p"
+        },
+        {
+          "text": "Materials, Features, and Customization Options for US B2B Buyers\n",
+          "level": "h2"
+        },
+        {
+          "text": "[HOF Pack](https://hofpack.com/) provides end-to-end customization options for pre roll packaging with labels to ensure your brand stands out and remains fully compliant:\n- Premium Stocks & Materials: \n10pt–28pt SBS Cardstock, Recyclable Kraft Paper, Rigid Board, Glass, Heavy-Duty Plastics, and Recycled Materials.\n- Printing & Color Matching\nVibrant CMYK full-color process and precise Pantone (PMS) ink matching using eco-friendly, soy-based inks.\nOrder your weatherproof pre-roll packaging with labels with HOF Pack now!\n",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
   },
   "cardboard-display-boxes": {
     "id": "1b345239-414c-49d4-ba66-dbfb67b86e9b",
     "name": "Cardboard Display Boxes",
     "slug": "cardboard-display-boxes",
-    "skuCode": "F102 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Getting your items noticed on a busy retail counter can be tough. High-quality cardboard display boxes are the perfect tool to lift your products and catch the eye of every passing customer. Instead of letting your items sit flat on a regular shelf, these open containers act like little billboard signs that highlight your brand name and make shopping fast and fun.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1783015515/8b53e39e-835c-497c-8533-5a0d3ddf5543.jpg",
+      "/images/products/cardboard-display-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783015519/b861cd7b-cb28-4e1d-ac05-ed184efe664e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783015521/ecb089be-49eb-4837-9c0f-425dc3c84bd7.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783015525/e1861acb-bb39-4413-9674-c7709e69e47d.jpg"
@@ -1465,16 +1695,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-cake-boxes": {
     "id": "850d0415-0f4b-4ea8-9b5b-4a3070e031eb",
     "name": "Custom Cake Boxes",
     "slug": "custom-cake-boxes",
-    "skuCode": "F101 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Custom cake boxes are designed to protect, present, and transport your baked items with style & care. Whether for single-tier cakes, custom cake orders, or bulk bakery products, these food-grade, eco-friendly boxes offer the right balance of structure, safety, and visual appeal for your brand.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778672323/f3bbb27e-f243-4211-82d1-5213e5090671.jpg"
+      "/images/products/custom-cake-boxes.jpg"
     ],
     "box_style": "Cake Box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -1674,18 +1905,21 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
-  "pink-bakery-boxes": {
-    "id": "57ae3d14-aeed-4247-a2ef-40cb7a2dfbf4",
-    "name": "Pink Bakery Boxes",
-    "slug": "pink-bakery-boxes",
-    "skuCode": "F102 — Custom Packaging",
-    "description": "Custom Pink Bakery Boxes engineered with premium materials.",
+  "luxury-pre-roll-packaging": {
+    "id": "418fe5d7-ad6c-46c0-ae62-0dc0af2bd613",
+    "name": "Luxury Pre Roll Packaging",
+    "slug": "luxury-pre-roll-packaging",
+    "skuCode": "F100 — Custom Packaging",
+    "description": "In today's boutique market, standard tuck-tops no longer justify top-shelf pricing. Custom Luxury Pre Roll Packaging builds immediate prestige, transforming everyday joints into collector-level luxury items. With sleek structural silhouettes and high-impact tactile finishes, our custom boxes grab consumer focus, project uncompromising quality, and command maximum retail margins.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775464586/37c35de6-ba8e-4837-b2c3-4f486a6de114.jpg"
+      "/images/products/luxury-pre-roll-packaging.jpg",
+      "https://res.cloudinary.com/dazm20bju/image/upload/v1787946955/ae6e2f44-7d55-4377-9ac1-ed1f207a6735.jpg",
+      "https://res.cloudinary.com/dazm20bju/image/upload/v1787946959/741c5f27-a7e4-47d6-9275-add686a1bcbe.jpg"
     ],
-    "box_style": "Pink Bakery Boxes",
+    "box_style": "Luxury Pre Roll Packaging",
     "size_info": "Fully Customizable (All dimensions available)",
     "min_quantity": "Starting from 100 Units",
     "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
@@ -1695,76 +1929,63 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "turnaround_time": "8 to 12 Business Days",
     "shipping_info": "FREE Shipping Worldwide",
     "category": {
-      "name": "Bakery Boxes",
-      "slug": "bakery-boxes"
+      "name": "Pre Roll Boxes",
+      "slug": "pre-roll-boxes"
     },
-    "meta_title": "Custom Pink Bakery Boxes - HOF Pack",
-    "meta_description": "Custom Pink Bakery Boxes",
-    "meta_keywords": "Pink Bakery Boxes , Wholesale Pink Bakery Packaging",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
-  },
-  "custom-cookie-boxes": {
-    "id": "aa4928bc-8b1e-4eff-8dd4-69d141823508",
-    "name": "custom Cookie Boxes",
-    "slug": "custom-cookie-boxes",
-    "skuCode": "F106 — Custom Packaging",
-    "description": "Custom custom Cookie Boxes engineered with premium materials.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775465319/c7c28788-4b6d-4ecd-b8e9-432a92615168.jpg"
-    ],
-    "box_style": "custom Cookie Boxes",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Bakery Boxes",
-      "slug": "bakery-boxes"
-    },
-    "meta_title": "Custom Cookie Boxes | Wholesale Cookie Packaging ",
-    "meta_description": "Custom custom Cookie Boxes",
+    "meta_title": "Best Luxury Pre Roll Packaging Box Designs | HOF Pack",
+    "meta_description": "Elevate your brand with custom luxury pre roll packaging. Magnetic boxes, child-resistant locks, soft-touch finishes, and direct factory pricing.",
     "meta_keywords": "",
     "product_content": {
+      "perk_items": [
+        "Wholesale Pricing with Free Sample",
+        "8-10 days turnaround",
+        "Free Shipping all Across the US",
+        "Innovative Printing Designs",
+        "Free design consultation",
+        "MOQ as low as 100 units"
+      ],
+      "feature_items": [
+        {
+          "icon": "Cone",
+          "title": "Cone-Specific Tapered Inserts",
+          "description": "Custom die-cut slots engineered to hold single or multi-pack pre-roll cones securely at the tip and filter, preventing bent ends and lost material."
+        },
+        {
+          "icon": "ShieldCheck",
+          "title": "Crush-Proof Rigid & Tube Options",
+          "description": "Rigid cardboard boxes, pop-top joint tubes, and slider boxes built to protect delicate paper cones from crushing during pocket or bag transit."
+        },
+        {
+          "icon": "Sparkles",
+          "title": "Custom Branding & Foil Accents",
+          "description": "Enhance dispensary presence with metallic hot foil stamping, soft-touch matte lamination, and raised spot UV details tailored to your brand style."
+        }
+      ],
+      "content_blocks": [
+        {
+          "alt": "",
+          "body": "High-end packaging shouldn't destroy your profit margins. HOF Pack brings you luxury pre roll packaging at affordable rates directly from factory floors. By leveraging streamlined manufacturing and direct bulk sourcing, we deliver elite structural engineering and premium unboxing aesthetics at true Luxury pre roll packaging wholesale rates for brands scaling across dispensary networks.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787946938/2f0a1d47-976f-4f10-8590-322b0ff2c416.jpg",
+          "heading": "B2B Wholesale Pricing Without Compromise"
+        },
+        {
+          "alt": "",
+          "body": "The unboxing ritual dictates whether a customer returns. Our flagship Luxury pre roll packaging box lines feature smooth magnetic flip-open lids, precision-built rigid slide drawers, and satisfying click-to-close latches. Paired with custom velvet or high-density foam inserts, every pre-roll stays individually aligned, secure, and ready for a flawless visual presentation.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787946942/c848079b-f4e0-4d56-9098-e44730d6cde8.jpg",
+          "heading": "Sophisticated Magnetics & Drawer Engineering"
+        },
+        {
+          "alt": "",
+          "body": "Compliance does not have to look industrial. We seamlessly embed hidden push-and-release safety locks, certified child-resistant (CR) latches, and discreet tamper seals directly into high-end rigid paperboard frames. You get total peace of mind in strict US dispensary jurisdictions without compromising on the sleek, elevated look of the Best luxury pre roll packaging.\n",
+          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1787946945/86731039-b6a3-4158-8eec-2b05f802c498.jpg",
+          "heading": "Certified Child Resistance Meets Luxe Design"
+        }
+      ],
+      "material_items": [
+        "Trusted by 5000+ clients",
+        "FSC or ISO Certified",
+        "Eco-friendly material options"
+      ],
       "spec_overrides": {
         "dimension_info": "All Custom Sizes & Shapes",
         "rush_available": true,
@@ -1775,7 +1996,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "Scored",
           "Perforation"
         ],
-        "turnaround_label": "4-8 Business Days",
+        "turnaround_label": "4–8 Business Days",
         "additional_options": [
           "Eco-Friendly",
           "Recycled Boxes",
@@ -1799,17 +2020,52 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "Gold / Silver Foiling",
           "Holographic Foiling"
         ]
-      }
-    }
+      },
+      "article_sections": [
+        {
+          "text": "What is Luxury Pre Roll Packaging?\n",
+          "level": "h2"
+        },
+        {
+          "text": "Luxury is something pleasurable and screamingly expensive. HOF Pack provides pre roll packaging which gives you an upgraded version of standard packaging. It gives your products a high-spec presentation with enclosure specifically for premium joints, multi-packs, infused blunts, and craft cones. \nOur high-end packaging is made of ultra-thick rigid chipboard that keeps your pre-rolls safe and secure throughout the transit. Unlike generic packaging, we provide our luxury packaging with custom dividers, soft-touch laminates, and magnetic closures.\n",
+          "level": "p"
+        },
+        {
+          "text": "Why Does Your Cannabis Business Need High-End Packaging?\n",
+          "level": "h2"
+        },
+        {
+          "text": "Connoisseur consumers judge the quality of top-shelf flowers by its presentation. A standard packaging gives an impression of some low quality flowers, while luxury packaging itself declares it premium. You can get a premium price for your products if it is packaged in luxury packaging.\n",
+          "level": "p"
+        },
+        {
+          "text": "What Luxury Pre-Roll Packaging Options Does HOF Pack Offer?\n",
+          "level": "h2"
+        },
+        {
+          "text": "HOF Pack produces different premium structural formats. Our creative professionals design it for top-tier cannabis and hemp producers. We offer you the following options: \n- Rigid Magnetic Closure Boxes\n- Slide-Out Drawer & Sleeve Boxes\n- Child-Resistant Luxury Rigid Boxes\n- Custom Metal Pre-Roll Tins\n- Custom Glass Tube Sets\n",
+          "level": "p"
+        },
+        {
+          "text": "Materials, Features, and Customization Options for US B2B Marketers\n",
+          "level": "h2"
+        },
+        {
+          "text": "HOF Pack gives wholesale buyers complete freedom to customize every structural and aesthetic detail:\n- Substrates & Structural Boards: \n600gsm to 1800gsm Rigid Chipboard, Textured Linen Paper, Metallic Foil Paperboard, Black Velvet Wraps, and Eco-Friendly Recycled Board.\n- Precision Finishing & FX: \nMatte/Gloss Soft-Touch Velvet Lamination, Holographic Foil Stamping, Spot UV, Raised Embossing, and Metallic Ink Accents.\n- Custom Interior Tray Options: \nHigh-density EVA foam, die-cut cardstock dividers, molded pulp trays, and velvet-lined slots.\n- Regulatory & Security Extras: \nCustom tamper-evident hologram stickers, compliant QR code labeling, and hidden child-proof locking latches.\n",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
   },
   "stand-up-coffee-pouches": {
     "id": "e090f4db-23d9-4d99-9557-16415b764530",
     "name": "Stand Up Coffee Pouches",
     "slug": "stand-up-coffee-pouches",
-    "skuCode": "F102 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Stand-up coffee pouches are one of the most popular coffee packaging options for tea & coffee brands in the United States today. They are designed with a bottom gusset and sealed sides that allow the pouch to stand upright on shelves. This makes them ideal for both retail display and storage, while also keeping your coffee fresh for a long time.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779120412/69242008-f271-4264-95f3-651f28529196.jpg"
+      "/images/products/stand-up-coffee-pouches.jpg"
     ],
     "box_style": "Stand Up Coffee Bag",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -1999,7 +2255,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "magnetic-closure-boxes": {
     "id": "b0341697-3d09-4f73-9383-4317eacf5b46",
@@ -2008,7 +2265,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Want packaging that feels premium and secure? Our magnetic closure boxes offer a sleek, durable solution perfect for luxury products and high-end brand presentation. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1776956310/de8ff4d5-7cba-4cb8-a660-42c6fc368dc4.jpg",
+      "/images/products/magnetic-closure-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777985313/2c40b08e-8a05-4caf-88bd-dcb5aad1e43b.jpg"
     ],
     "box_style": "Magnetic Closure Boxes",
@@ -2245,7 +2502,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "soap-wrapping-paper": {
     "id": "93fcf0f4-3b4e-40b7-8d4d-928ca7e29d86",
@@ -2254,7 +2512,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Soap wrapping paper​gives soap makers, cosmetic brands, and retail lines a clean, premium way to protect and brand every bar. HOF Pack makes custom soap wrapping paper​ that holds scent and lets bars breathe, from kraft and thick linen paper for soap wrap box builds to smooth printable soap wrap paper. Order Soap Wrap\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785444174/4be1b99f-9572-4194-88b0-449ae9dd6108.jpg",
+      "/images/products/soap-wrapping-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785444179/c01d5c76-f588-485a-929e-2c21ca2ce2e2.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785444184/8ef16e34-49b3-4f43-b3b2-80966b81544b.jpg"
     ],
@@ -2419,16 +2677,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "candle-dust-covers": {
     "id": "4eb00c59-699b-4d49-91ca-5f595c49e062",
     "name": "Candle Dust Covers",
     "slug": "candle-dust-covers",
-    "skuCode": "F106 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Candle dust covers are a simple yet effective packaging accessory designed mainly to protect candles from dust, dirt, and external exposure. These covers sit on top of the candle jar or container to keep it clean before or between uses. Commonly used for retail and gifting purposes, they help maintain product quality and presentation.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775476241/7ad4a28c-96ed-47b2-80b6-9853082108bd.jpg",
+      "/images/products/candle-dust-covers.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1779721235/731c1b9f-a752-4cbe-ae3e-243ecaa94e37.jpg"
     ],
     "box_style": "Candle Dust Covers",
@@ -2530,16 +2789,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "reverse-tuck-boxes": {
     "id": "c82242ac-f2e0-4285-b20e-5876ebbe1fbe",
     "name": "Reverse Tuck Boxes",
     "slug": "reverse-tuck-boxes",
-    "skuCode": "F101 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Custom reverse tuck boxes offer a practical and efficient packaging solution for retail products. Designed with top and bottom flaps that tuck in opposite directions, these boxes ensure easy handling, secure closure, and a clean presentation.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777454870/b109f2d6-af8e-4b5c-9f12-04f70ec47e34.jpg",
+      "/images/products/reverse-tuck-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777454875/0f99ff25-dddf-44c9-bf84-89a5d92ffcf2.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777454886/a5210e70-18b7-4450-8ffa-163fa0d39831.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777454903/80229a4a-0495-4562-9636-b50044af3956.jpg"
@@ -2710,70 +2970,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
-  },
-  "bath-bomb-boxes": {
-    "id": "d531ed01-01e7-4f80-8eac-e9ad56d0c854",
-    "name": "Bath Bomb Boxes",
-    "slug": "bath-bomb-boxes",
-    "skuCode": "F105 — Custom Packaging",
-    "description": "Custom Bath Bomb Boxes engineered with premium materials.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775482452/8823552c-aba2-4c26-a476-0d61e99e4200.jpg"
-    ],
-    "box_style": "Bath Bomb Boxes",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Soap Boxes",
-      "slug": "custom-soap-boxes"
     },
-    "meta_title": "Custom Bath Bomb Boxes - HOF Pack ",
-    "meta_description": "Custom Bath Bomb Boxes",
-    "meta_keywords": "",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
+    "faqs": []
   },
   "makeup-packaging": {
     "id": "632634b2-91bf-4a3b-be49-b266bac85e99",
@@ -2782,7 +2980,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom makeup packaging is designed to elevate the look of your brand through customized branded boxes that showcase your logo, ingredient list, company messaging, and FDA requirements. They offer a beautiful home to your makeup products and keep them safe from outside contamination and handling pressures during transit. Whether you’re selling lipsticks, foundations, concealers, eyeshadow palettes, mascaras, or complete beauty kits, custom makeup packaging can help your products stand out in a crowded market.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781120929/c92c55c2-36c3-4b97-af76-8f85b77290f0.jpg",
+      "/images/products/makeup-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781120949/bde3c6a0-960b-4153-aa0b-64b372c8fdd2.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781120970/0b6533dc-9653-4947-8026-786fc821cf68.jpg"
     ],
@@ -2918,7 +3116,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-ring-boxes": {
     "id": "50e28122-5765-4c18-b85c-1dab5b338662",
@@ -2927,7 +3126,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Find the best selection of the jewelry ring boxes which are created to protect and display your best jewelry items. From luxe versions and everyday cases, a special ring box for the purpose adds value to your ring and provides great protection.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787168509/f0ddde8c-bd56-43f0-885a-d38af8d8ab20.jpg",
+      "/images/products/custom-ring-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787168512/664114da-b3ec-4681-8714-4fa60171ce2e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787168515/a4ea3307-b25c-4423-9e6e-a44b87116806.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787168520/f6c9fac3-6e0d-4bfd-8fa8-b47398958726.jpg"
@@ -3043,196 +3242,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
-  },
-  "window-soap-boxes": {
-    "id": "e089fb09-ebbb-4378-a609-5a7de53cd59d",
-    "name": "Window Soap Boxes",
-    "slug": "window-soap-boxes",
-    "skuCode": "F111 — Custom Packaging",
-    "description": "Custom Window Soap Boxes engineered with premium materials.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775482661/577b15d1-d556-4a90-994d-81cb94af3825.jpg"
-    ],
-    "box_style": "Window Soap Boxes",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Soap Boxes",
-      "slug": "custom-soap-boxes"
     },
-    "meta_title": "Window Soap Boxes | Custom Packaging",
-    "meta_description": "Custom Window Soap Boxes",
-    "meta_keywords": "",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
-  },
-  "soap-bar-labels": {
-    "id": "c837424d-32a2-4548-abc0-6dcb1b0a6733",
-    "name": "Soap Bar Labels",
-    "slug": "soap-bar-labels",
-    "skuCode": "F110 — Custom Packaging",
-    "description": "Custom Soap Bar Labels engineered with premium materials.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775483675/d5c4d1f3-9caa-42ab-b0fa-1c41b55110d3.jpg"
-    ],
-    "box_style": "Soap Bar Labels",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Soap Boxes",
-      "slug": "custom-soap-boxes"
-    },
-    "meta_title": "Soap Bar Labels | Custom Packaging",
-    "meta_description": "Custom Soap Bar Labels",
-    "meta_keywords": "",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
-  },
-  "mylar-weed-bags": {
-    "id": "97982d15-802c-41c6-a4aa-0ad7b2105a07",
-    "name": "Mylar Weed Bags",
-    "slug": "mylar-weed-bags",
-    "skuCode": "F100 — Custom Packaging",
-    "description": "Custom Mylar Weed Bags engineered with premium materials.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775487839/59b88464-2129-4469-b729-645df9e38276.jpg"
-    ],
-    "box_style": "Mylar Weed Bags",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Mylar Bags",
-      "slug": "custom-mylar-bags"
-    },
-    "meta_title": "Mylar Weed Bags | Custom Packaging",
-    "meta_description": "Custom Mylar Weed Bags",
-    "meta_keywords": "",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
+    "faqs": []
   },
   "custom-paper-cups": {
     "id": "d72a09a5-2c1b-4215-b30a-2698f8e120e3",
@@ -3241,7 +3252,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Get custom paper cups designed to store and hold beverages, coffee, gourmet teas, and ice creams. Customized with a brand logo, high-quality printing, and premium finishes, you can elevate the whole look of your brand. Made from paperboard and cardboard materials, customized paper cups tell your brand story.  ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780588809/bd2da2f6-8754-4392-a506-38b1eb66bfe0.jpg",
+      "/images/products/custom-paper-cups.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780588816/7ff203ec-1194-4b6e-945d-aaa1b56a3511.jpg"
     ],
     "box_style": "Custom Paper Cups ",
@@ -3481,16 +3492,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "window-bakery-boxes": {
     "id": "949b698d-27f7-47d9-a8c8-07d92d71131c",
     "name": "Window Bakery Boxes",
     "slug": "window-bakery-boxes",
-    "skuCode": "F109 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Custom bakery boxes with window allow customers to see the product inside, which instantly builds trust and enhances appeal. Whether it’s cakes, cupcakes, or cookies, a clear polypropylene film window adds a premium touch to your packaging. Explore window bakery boxes at HOF Pack for affordable and eco-friendly packaging. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778677816/e56daa26-0bfc-4be3-a687-f36ebeb6a562.jpg"
+      "/images/products/window-bakery-boxes.jpg"
     ],
     "box_style": "Window bakery boxes ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -3647,16 +3659,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "playing-card-boxes": {
     "id": "5721baf4-c1b7-461d-bc5c-c44b05d1b038",
     "name": "Playing Card Boxes",
     "slug": "playing-card-boxes",
-    "skuCode": "F104 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Playing card boxes are designed to store, protect, and present card decks in a fun, clean, organized, and professional way. Whether you’re selling poker cards, flash cards, trading cards, collectible decks, or promotional card games, custom playing card boxes help keep your cards organized while creating a memorable first impression. At HOF Pack, we manufacture custom playing card boxes in different sizes, styles, and materials as per your preferences to match your product and brand identity.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780590422/43519b31-0676-4f6d-9ef6-88b73d5716c1.jpg"
+      "/images/products/playing-card-boxes.jpg"
     ],
     "box_style": "Playing Card Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -3822,7 +3835,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-boxes-with-lids": {
     "id": "98f8c1fb-3ab3-4378-acf4-701f99271120",
@@ -3831,7 +3845,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Tired of damaged packaging? Get our kraft boxes with lids for a sturdy, durable, and rigid alternative to standard packaging. Our kraft paper boxes with lids provide a functional and aesthetic packaging solution that will upscale your small-scale business into a brand. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778852411/20c20026-81fd-4c59-9f93-68b40015c9a1.jpg"
+      "/images/products/kraft-boxes-with-lids.jpg"
     ],
     "box_style": "Kraft Box with Lids ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -4081,7 +4095,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-gift-boxes": {
     "id": "0be20dcd-8ab3-490c-ae1d-f02cc0459c63",
@@ -4090,7 +4105,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Stop struggling with gift packaging that looks cheap or damages your products. Our Kraft Gift Boxes offer a clean, eco-friendly, and sturdy solution for every brand. Designed for gifting, retail, and events, these boxes protect your items while giving them a natural, premium look that customers value.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775574593/caec6940-af3b-4081-b766-fa9f78fa8725.jpg"
+      "/images/products/kraft-gift-boxes.jpg"
     ],
     "box_style": "Kraft Gift Boxes ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -4372,7 +4387,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-tin-tie-bags": {
     "id": "50a6f72d-2d31-4fa1-9511-edbf2eca2f03",
@@ -4381,7 +4397,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom Kraft Tin Tie Bags engineered with premium materials.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777029628/d8efd675-eaef-420e-a49f-85d408303d55.jpg"
+      "/images/products/kraft-tin-tie-bags.jpg"
     ],
     "box_style": "Kraft Tin Tie Bags",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -4396,21 +4412,22 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
       "name": "Kraft Boxes",
       "slug": "custom-kraft-boxes"
     },
-    "meta_title": "Kraft Tin Tie Bags | Custom Packaging",
+    "meta_title": "Kraft Tin Tie Bags | Wholesale Custom Boxes - HOF Pack",
     "meta_description": "Custom Kraft Tin Tie Bags",
     "meta_keywords": "",
     "product_content": {
       "spec_overrides": {}
-    }
+    },
+    "faqs": []
   },
   "kraft-window-boxes": {
     "id": "82e7cfb0-a789-4af3-ae84-74cff4e6acd7",
     "name": "Custom Kraft Window Boxes",
     "slug": "kraft-window-boxes",
-    "skuCode": "F101 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Get custom kraft window boxes that will increase the perceived value of your product by strengthening your brand’s eco-friendly image. The window cut design increases product visibility and creates a peekaboo effect for customers to sneak a peek. Avail the benefits of wholesale kraft paper packaging for a visually appealing, affordable, and sustainable packaging look to stand out from your competitors. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778767974/db87231c-7bac-42ea-af2d-717dae46fcad.jpg"
+      "/images/products/kraft-window-boxes.jpg"
     ],
     "box_style": "Kraft Window Box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -4637,7 +4654,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "white-kraft-boxes": {
     "id": "cc3c3324-5606-41fe-88ce-c0723c2e66c6",
@@ -4646,7 +4664,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Want to upscale your packaging look? Explore our custom white kraft boxes for a durable, sustainable, and aesthetically appealing packaging that meets your product presentation needs. The simple, clean white kraft offers a sustainable yet pleasant look. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775575428/dae63e62-b339-4047-b6ef-cf395b5dc13f.jpg"
+      "/images/products/white-kraft-boxes.jpg"
     ],
     "box_style": "White Kraft Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -4661,7 +4679,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
       "name": "Kraft Boxes",
       "slug": "custom-kraft-boxes"
     },
-    "meta_title": "White Kraft Boxes | Custom Packaging",
+    "meta_title": "White Kraft Boxes | Wholesale Custom Boxes - HOF Pack",
     "meta_description": "Want to upscale your packaging look? Explore our custom white kraft boxes for a durable, sustainable, and aesthetically appealing packaging that meets your product presentation needs. The simple, clean white kraft offers a sustainable yet pleasant look. ",
     "meta_keywords": "",
     "product_content": {
@@ -4880,16 +4898,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-mailer-boxes": {
     "id": "14ec7013-d242-4bfd-a88b-97abfe947563",
     "name": "Kraft Mailer Boxes",
     "slug": "kraft-mailer-boxes",
-    "skuCode": "F105 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Shipping damage, high costs, and boring packaging can hurt your brand. Our custom kraft mailer boxes solve all three problems for you. With our packaging, built strong, easy to assemble, and designed for branding boxes. These customizable shipping boxes protect your products while enhancing your customer experience.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777666915/ebbb0947-f40f-4ca1-b308-51d843cfe163.jpg"
+      "/images/products/kraft-mailer-boxes.jpg"
     ],
     "box_style": "Kraft Mailer Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -5151,7 +5170,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "square-soap-boxes": {
     "id": "bdd64228-7d30-40a9-bc78-df943fec7865",
@@ -5160,7 +5180,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Square soap boxes are designed to provide a clean and compact packaging solution for soap products. Their structured shape ensures a perfect fit for square or simple soap bars, helps maintain product quality, and enhances overall presentation. These boxes are widely used for handmade, organic, and retail soaps due to their simple yet functional design.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778237641/5dd62307-3380-4511-8a43-3c5f8d38dae5.jpg"
+      "/images/products/square-soap-boxes.jpg"
     ],
     "box_style": "Square Soap Box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -5320,16 +5340,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "soap-sleeve-packaging": {
     "id": "280dd01c-19da-4960-9c3a-d5282fa1064e",
     "name": "Soap Sleeve Packaging",
     "slug": "soap-sleeve-packaging",
-    "skuCode": "F106 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Soap sleeve packaging is a simple and effective way to wrap and present your soap bars. Instead of full boxes, a sleeve covers the center of the soap while leaving the sides partially visible. This style is widely used for handmade, organic, and artisanal soaps where aesthetics, product visibility, and branding matter.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778238983/707c4439-0314-4685-bcae-eeba4f9004bd.jpg"
+      "/images/products/soap-sleeve-packaging.jpg"
     ],
     "box_style": "Soap Sleeve Packaging",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -5481,16 +5502,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "coffee-bag-sleeves": {
     "id": "c987d3f4-ead0-4cb9-9fbd-6814a0bd791c",
     "name": "Coffee Bag Sleeves",
     "slug": "coffee-bag-sleeves",
-    "skuCode": "F107 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Coffee bag sleeves are a simple yet effective way to upgrade your coffee packaging. These outer wraps slide over your coffee bags and add an extra layer of branding without changing the bag itself. They are widely used by coffee brands because of their flexibility in maintaining a clean and professional look.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779113773/9cba4a5c-c588-4dae-a001-6f7eb1195229.jpg"
+      "/images/products/coffee-bag-sleeves.jpg"
     ],
     "box_style": "Mylar Bag ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -5627,7 +5649,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-holographic-boxes": {
     "id": "05c3dc54-3c1c-4d22-9cf8-4b367698c2f3",
@@ -5636,7 +5659,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom holographic boxes are designed to make products impossible to ignore. Their reflective surface creates a colorful, light-shifting effect that instantly grabs attention and gives packaging a premium appearance. Whether you’re launching a beauty product, gift collection, subscription box, or promotional campaign, holographic packaging helps your brand stand out on shelves and online.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780949336/1cc93182-90c4-4acf-a0ab-fb785816f127.jpg",
+      "/images/products/custom-holographic-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780949372/6d736b64-85d8-4880-a6d5-e57a42a883b9.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780949394/99001a1a-372e-4aff-b8b7-38a702fb8379.jpg"
     ],
@@ -5788,16 +5811,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-pillow-boxes": {
     "id": "5be5146c-ee79-4a64-9c10-ae5ed5c001c8",
     "name": "Kraft Pillow Boxes",
     "slug": "kraft-pillow-boxes",
-    "skuCode": "F103 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Kraft pillow boxes offer a sleek, compact, and eco-friendly solution for lightweight products. These custom kraft pillow boxes are easy to assemble, stylish, and perfect for soaps, retail, gifts, and small items. Don’t waste your time and money on packaging that looks dull, wastes space, and does not reflect your brand. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778848530/d0fff8f0-f9fe-4173-812b-11a806d9ac12.jpg",
+      "/images/products/kraft-pillow-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1778848536/f2222d05-3ac3-4994-b476-d35962394f24.jpg"
     ],
     "box_style": "Kraft Pillow Boxes",
@@ -5983,16 +6007,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "collapsible-rigid-boxes": {
     "id": "b575f315-652a-4173-912f-495c4e0bf8fe",
     "name": "Collapsible Rigid Boxes",
     "slug": "collapsible-rigid-boxes",
-    "skuCode": "F101 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "If you’re struggling with bulky packaging and high shipping costs, collapsible rigid boxes offer a space-saving, cost-effective, and durable packaging solution for luxury brands and retail stores, while still keeping the premium touch.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777042635/1e84cc9a-18ae-4349-85c2-81039b5859de.jpg",
+      "/images/products/collapsible-rigid-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777993103/d1e8d99f-ede1-4851-8cde-fb1c0b768a59.jpg"
     ],
     "box_style": "Collapsible Rigid Boxes",
@@ -6149,16 +6174,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "luxury-soap-packaging": {
     "id": "8a26aec1-5c07-43fd-95da-9026dd117c80",
     "name": "Luxury Soap Packaging",
     "slug": "luxury-soap-packaging",
-    "skuCode": "F109 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Get luxury soap packaging designed with premium presentation, high-end finishes, custom designs, and durable materials for handmade and retail soaps.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778503397/55a399ed-20fb-4476-8c61-42518899aa44.jpg"
+      "/images/products/luxury-soap-packaging.jpg"
     ],
     "box_style": "Luxury Soap Packaging",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -6333,7 +6359,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "3.5-mylar-bags": {
     "id": "ad1ca01f-a64d-438a-82e2-b1794919d8fc",
@@ -6342,7 +6369,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Need small packaging that not only protects your product but also looks professional? 3.5g Mylar bags are designed exactly for that. They offer secure, compact, and visually appealing packaging with their multi-layer design. These custom mylar bags wholesale protect your products from air, odor, and moisture, while enhancing shelf appeal and shelf life.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782162652/89e1f25c-2e6b-4176-83fa-97f9f7ce5f23.jpg",
+      "/images/products/3.5-mylar-bags.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782162657/20649e55-b39a-4b01-992a-bcee7753c78b.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782162663/796807aa-734f-46ef-bb32-eb1ca8616912.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782162669/2e4c1af9-f9da-4284-a1b4-41f8b7917dc1.jpg"
@@ -6523,16 +6550,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "soap-display-boxes": {
     "id": "3d8b2b08-437e-46f0-b538-a7560863c2cc",
     "name": "Soap Display Boxes",
     "slug": "soap-display-boxes",
-    "skuCode": "F101 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Soap display boxes are designed to showcase your products in retail spaces. They keep your soaps organized, highly visible, and easy to access for customers. From countertops to retail shelves, these boxes help improve product presentation and also support safe storage.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778515020/31caf013-8b7a-4220-8007-8296751ab492.jpg"
+      "/images/products/soap-display-boxes.jpg"
     ],
     "box_style": "Soap Box ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -6703,16 +6731,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "child-resistant-mylar-bags": {
     "id": "c60f0d84-8f36-42ea-9a5d-c822efba4f65",
     "name": "Child Resistant Mylar Bags",
     "slug": "child-resistant-mylar-bags",
-    "skuCode": "F102 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Safety is no longer optional, especially for products that require controlled access. Our custom child resistant mylar bags are designed to prevent accidental opening while keeping your products fresh, secure, and FDA compliant. These custom mylar bags with child lock combine safety with premium packaging.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777037391/4b814f63-638c-451f-8080-1f8a87952ce0.jpg",
+      "/images/products/child-resistant-mylar-bags.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1778166863/79060430-4964-490b-9671-97c1126a751b.jpg"
     ],
     "box_style": "Child Resistant Mylar Bags",
@@ -6937,207 +6966,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
-  },
-  "smell-proof-mylar-bags": {
-    "id": "9b9c3c45-56df-4658-ae87-65423e327cc1",
-    "name": "Smell Proof Mylar Bags",
-    "slug": "smell-proof-mylar-bags",
-    "skuCode": "F109 — Custom Packaging",
-    "description": "Do you know unwanted odors can ruin your product quality and affect your customers’ trust? Our multi-layered smell proof mylar bags are custom-designed with an aluminium-based layer to lock in odors while preserving freshness and product quality. These custom mylar bags provide a safe, secure, and professional packaging solution for businesses that need reliable odor control with FDA compliance.\n",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1776072128/36aea815-89a1-48e0-9008-500bea8ff95e.jpg"
-    ],
-    "box_style": "Smell Proof Mylar Bags",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Mylar Bags",
-      "slug": "custom-mylar-bags"
     },
-    "meta_title": "Custom Smell Proof Mylar Bags | Odor-Proof & Secure Packages",
-    "meta_description": "Get smell proof Mylar bags with airtight sealing and odor-blocking layers. These custom mylar bags are ideal for secure, discreet, and fresh product packaging.",
-    "meta_keywords": "mylar bags smell proof, custom Smell Proof Mylar Bags, wholesale Smell Proof Mylar Bags, smell proof mylar bags wholesale, ",
-    "product_content": {
-      "perk_items": [
-        "Free Design Support",
-        "Fast Turnaround time",
-        "Competitive wholesale pricing",
-        "No Minimums",
-        "High Maximums",
-        "Reliable Service",
-        "High-quality printing",
-        "No hassle, no unannounced delays"
-      ],
-      "feature_items": [
-        {
-          "icon": "Palette",
-          "title": "Visually Appealing Color Palette ",
-          "description": "We provide digital and offset printing with CMYK for full-color graphics and PMS for exact color matching."
-        },
-        {
-          "icon": "Feather",
-          "title": "Lightweight Packaging",
-          "description": "Explore our lightweight packaging bags that are space-efficient and easy to transit."
-        },
-        {
-          "icon": "Leaf",
-          "title": "Refined Materials",
-          "description": "We use refined food-grade materials to keep your products safe from humidity, air, and UV"
-        }
-      ],
-      "content_blocks": [
-        {
-          "alt": "",
-          "body": "Standard packaging often fails to contain strong scents, leading to leakage and contamination. Our smell proof mylar bags are built with high-barrier, multi-layered PTE materials that effectively trap odors inside the packaging. We also provide vacuum sealing and oxygen absorbers for long-term odor control.\n",
-          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1776071659/ece89bf2-c82a-460f-8fae-18821539adca.jpg",
-          "heading": "Aluminium-Based Barrier for Effective Odor-Control "
-        },
-        {
-          "alt": "",
-          "body": "Many businesses struggle to balance sensitive packaging with strong branding. Our custom smell proof mylar bags allow you to do both. At HOF Pack, we provide mylar bags whose airtight seal ensures that no external air enters and no internal smell escapes. This makes them ideal for industries where freshness and containment are necessary.\n",
-          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1776071696/1276f919-8262-4328-b2a2-db80320f961c.jpg",
-          "flipped": true,
-          "heading": "Custom Packaging With the Perfect Blend of Compliance & Branding"
-        },
-        {
-          "alt": "",
-          "body": "Are you ready to customize wholesale Smell Proof Mylar bags for your brand? Because HOF Pack is ready to deliver. Order any size, style, finishing touch, or printing style, and we will deliver your customized pouches to your door.\n",
-          "image": "",
-          "heading": "Ready to Order Your Custom Smell Proof Mylar Bag?",
-          "linkLabel": "Start Customizing With Us!"
-        }
-      ],
-      "material_items": [
-        "Airtight & Leak-Resistant Seal",
-        "Odor-Control Barrier Layers",
-        "Resealable Zip Lock Options",
-        "Ideal for Sensitive or Aromatic Products"
-      ],
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      },
-      "article_sections": [
-        {
-          "text": "Why Brands Choose Custom Smell Proof Mylar Bags?",
-          "level": "h2"
-        },
-        {
-          "text": "Choosing the right packaging directly impacts product quality and customer experience. At <a href=\"https://hofpack.com/\">HOF Pack</a>, our smell proof custom mylar bags wholesale offer:\n",
-          "level": "p"
-        },
-        {
-          "text": "High PTE or aluminium barrier for odor-locking \nAirtight sealing or Vaccuum sealing for maximum protection\nMulti-layered, durable, puncture-resistant structure\nMoisture, air, and light (UV) resistance\nHeat-resistance and Oxygen absorbers \nPrinting, including PMS and CMYK colors\nCustom branding options\nLightweight and cost-effective bulk packaging\n",
-          "level": "p"
-        },
-        {
-          "text": "",
-          "level": "divider"
-        },
-        {
-          "text": "Preserve Freshness, Potency & Product Quality\n",
-          "level": "h4"
-        },
-        {
-          "text": "Odor control is not enough; your packaging must also protect the product. Our smell proof mylar bags are engineered to guard against moisture, humidity, oxygen exposure, light damage, flavor, and aroma loss. This multi-functional quality of our custom mylar bags ensures that your products remain fresh and shelf-ready for longer durations, making them one of the best mylar bags for food storage.\n",
-          "level": "p"
-        },
-        {
-          "text": "Customize Your Mylar Bags with HOF Pack\n",
-          "level": "h4"
-        },
-        {
-          "text": "You can fully customize size, design, colors, and finishes while maintaining odor-blocking functionality. With HOF Pack, create packaging that not only protects but also markets your product effectively.\n",
-          "level": "p"
-        },
-        {
-          "text": "",
-          "level": "divider"
-        },
-        {
-          "text": "Custom Sizes: 3.5g, 7g, 1oz. \nDimensions: Range varies from small 2\" x 3\" pouches for single items to large 16\" x 20\" bags for bulk storage.\nPrinting: Digital, offset, rotogravure, heat transfer, screen printing.\nFinishes: matte, gloss, embossing, debossing, soft touch, holographic\nClosure: zipper or resealable closures \nStyles: Stand up gusset pouches or Lay Flat pouches.",
-          "level": "p"
-        },
-        {
-          "text": "Ideal For Industries That Require Odor Control & Freshness\n",
-          "level": "h4"
-        },
-        {
-          "text": "Our smell proof mylar bags are widely used across industries where scent control and product protection are essential:",
-          "level": "p"
-        },
-        {
-          "text": "Cannabis & Hemp Industry: Prevents odor leakage while ensuring discreet storage and compliance.\n",
-          "level": "p"
-        },
-        {
-          "text": "Specialty Edibles & Beverages: Preserves aroma and flavor for coffee, spices, snacks, and THC or CBD infused products.\n",
-          "level": "p"
-        },
-        {
-          "text": "Pharmaceuticals & Nutraceuticals: Protects sensitive formulas and medicines from environmental exposure.\n",
-          "level": "p"
-        },
-        {
-          "text": "Cosmetics & Personal Care: Ideal for fragranced or chemical-based products requiring containment.\n",
-          "level": "p"
-        },
-        {
-          "text": "Pet Food & Treats: Keeps strong smells contained while maintaining the freshness of your pet's food.\n",
-          "level": "p"
-        },
-        {
-          "text": "Retail & E-commerce: Ensures safe shipping without any odor leakage that can damage other products.\n",
-          "level": "p"
-        },
-        {
-          "text": "Why do U.S. Brands Trust HOF Pack?\n",
-          "level": "h2"
-        },
-        {
-          "text": "At HOF Pack, we provide Smell proof mylar bags wholesale for quality, durability, and safety that meet FDA standards. \n",
-          "level": "p"
-        }
-      ]
-    }
+    "faqs": []
   },
   "two-piece-rigid-boxes": {
     "id": "4e9680fa-4ae1-4f18-abe2-f4fa91ca39db",
@@ -7146,7 +6976,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Tired of packaging that feels ordinary and lacks impact? Our two-piece rigid boxes deliver a clean, premium look with robust protection, ideal for retail, e-commerce, and luxury brands. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777980864/a3b646cf-0b2b-4602-b09f-9ae6379dc806.jpg"
+      "/images/products/two-piece-rigid-boxes.jpg"
     ],
     "box_style": "Rigid Box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -7410,16 +7240,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cbd-display-boxes": {
     "id": "7dfc8fa7-13cf-434d-848f-52de9b44f0c2",
     "name": "CBD Display Boxes ",
     "slug": "cbd-display-boxes",
-    "skuCode": "F103 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Get custom CBD display boxes for retail shelves for increased visibility and a clean, easy-to-assemble structure. Ideal for oils, gummies, and CBD products.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777562655/900e4f60-d343-4caf-bb06-61a339c2d6e0.jpg"
+      "/images/products/cbd-display-boxes.jpg"
     ],
     "box_style": "CBD Display Box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -7595,7 +7426,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-donut-boxes": {
     "id": "c7a170da-565e-42d4-bfc3-a62d99f5c760",
@@ -7604,7 +7436,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Get custom printed donut boxes with logos, patterns, and creative artwork that resonates with your audience and strengthens your brand’s look. The right packaging can boost your sales and improve your branding.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778671933/1a85517a-a2b8-4eb1-a909-b4beca048165.jpg"
+      "/images/products/custom-donut-boxes.jpg"
     ],
     "box_style": "Custom Donut Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -7836,7 +7668,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "black-tube-packaging": {
     "id": "482517e8-34c1-4b19-8fed-72ea895a1626",
@@ -7845,7 +7678,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Black tube packaging is designed for brands that want a bold and refined look. With its deep color and smooth cylindrical structure, it instantly gives products a more premium appearance. It is commonly used for food packaging, candles, cosmetics, apparel accessories, and high-end retail items. Give your products a touch of “luxury” with black paper tube packaging. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779292627/87b17739-33e7-484c-b955-5c367d976ccb.jpg"
+      "/images/products/black-tube-packaging.jpg"
     ],
     "box_style": "Black Tube Packaging ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -8002,7 +7835,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "pre-roll-cone-packaging": {
     "id": "3b34363f-d823-4db4-991e-03206daa0d45",
@@ -8011,7 +7845,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Pre Roll Cone Packaging is secondary packaging that holds pre-rolled cones upright, intact, and retail-ready. We supply pre-roll packaging to dispensaries, cannabis brands, and white-label co-packers. Cones ship straight, shelve clean, and carry your branding from the fill room to the counter.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787592709/0045f0ae-bb12-4e64-b533-3d6c6055fd16.jpg",
+      "/images/products/pre-roll-cone-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787592712/fb9cdbec-c379-49d3-9451-2348026c8b24.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787592715/01052045-a48e-4a3a-a5d5-fb6db8d2837c.jpg"
     ],
@@ -8160,16 +7994,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cookie-tube-packaging": {
     "id": "448b75f7-796e-4b1c-856a-bbc0147f26c9",
     "name": "Cookie Tube Packaging",
     "slug": "cookie-tube-packaging",
-    "skuCode": "F104 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Cookie tube packaging is a creative and protective way to pack cookies using cylindrical containers. These tubes are designed to keep cookies safe while offering a unique and modern presentation. They are ideal for both individual cookie packaging and multi-cookie sets for retail or gifting.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779291802/8c160f99-9b5f-4084-a04b-390cf554b026.jpg"
+      "/images/products/cookie-tube-packaging.jpg"
     ],
     "box_style": "Cookie Tube Packaging",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -8335,16 +8170,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "vented-coffee-bags": {
     "id": "a13f4c6c-517f-412c-acc8-79a0ee46a89a",
     "name": "Vented Coffee Bags",
     "slug": "vented-coffee-bags",
-    "skuCode": "F101 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Vented coffee bags are specially designed packaging solutions that help preserve the freshness and aroma of coffee. These bags come with a built-in valve that allows gases to escape while keeping air out. They are ideal for freshly roasted coffee beans and ground coffee because they ensure product quality from packaging to consumption.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779112663/6a336607-fe3b-436a-a2f6-634671700f6d.jpg"
+      "/images/products/vented-coffee-bags.jpg"
     ],
     "box_style": "Vented Coffee Bags",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -8519,7 +8355,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "press-on-nail-packaging": {
     "id": "b4944b2e-6461-49c5-9915-a0e7037cf4be",
@@ -8528,7 +8365,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Press on nails have become one of the fastest-growing beauty products. Customers love their convenience, affordability, and stylish designs. To match that appeal, brands need packaging that looks professional and protects the product inside. Our custom press on nail packaging boxes are designed to keep nail sets safe while helping your brand stand out on shelves and online stores. Whether you’re selling luxury nail collections or everyday nail kits, we can create packaging that reflects your brand.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781118447/8dbc8e53-c5b5-4d9a-b9f2-65a870d63dc4.jpg",
+      "/images/products/press-on-nail-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781118468/29aa137b-7112-4380-ac83-12ece1c7af3e.jpg"
     ],
     "box_style": " Press On Nail Packaging",
@@ -8647,7 +8484,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-tuck-end-boxes": {
     "id": "8d3655c3-b3f9-4cf4-a7a2-09f2308c1c7c",
@@ -8656,7 +8494,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom tuck end boxes are designed for efficient packaging, easy handling, and clean product presentation. Their fold able structure and secure tuck closures make them a reliable choice for retail packaging across multiple industries.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777322652/466f9c05-43a1-4928-802d-325b9f90e9d2.jpg",
+      "/images/products/custom-tuck-end-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777455487/6a3a5ce4-c652-4800-b1b3-12fa8fb04442.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777455493/08015b82-3797-4145-b5b8-47f64feb5617.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777455509/82d57472-9b02-4458-bce9-15b5d8b5bc1a.jpg"
@@ -8846,16 +8684,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "coffee-kraft-bags": {
     "id": "7bd416f0-d4d4-4962-bdeb-16cdd6458af0",
     "name": "Coffee Kraft Bags",
     "slug": "coffee-kraft-bags",
-    "skuCode": "F103 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Coffee kraft bags are a practical and eco-friendly packaging solution designed for both coffee brands and cafes that want a natural look with product presentation. Made from kraft paper with a layered barrier and food-grade materials, these coffee bags are suitable for storing coffee beans and ground coffee. They offer a clean, minimal look while maintaining product safety.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779112990/edd5a371-9cbf-4c82-8236-c048283ba573.jpg"
+      "/images/products/coffee-kraft-bags.jpg"
     ],
     "box_style": "Coffee kraft bags",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -9030,16 +8869,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-pastry-boxes": {
     "id": "44ec459c-c99a-4a89-9fbe-6dc2b98401fb",
     "name": "Custom Pastry Boxes",
     "slug": "custom-pastry-boxes",
-    "skuCode": "F104 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Pastry boxes are designed to protect and present delicate baked goods with care & style. Whether you’re packaging puff pastries, cupcakes, or layered desserts, these boxes provide a secure and visually appealing solution for bakeries and retail displays.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778677489/3d495855-3098-49b1-a8fe-c621f33e247e.jpg"
+      "/images/products/custom-pastry-boxes.jpg"
     ],
     "box_style": "Pastry Boxes ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -9199,7 +9039,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "serum-boxes": {
     "id": "a6628d79-9696-4c84-ab73-9d665255d8ea",
@@ -9208,7 +9049,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Serums are considered premium skincare products. That’s why they need packaging that reflects their value. Custom serum boxes are ideal to justify your product value. They help protect delicate glass bottles while creating a professional and trustworthy brand image. Whether you’re selling face serums, vitamin C serums, eye serums, hair serums, or eyelash serums, the right packaging can help your products stand out on crowded shelves and online marketplaces.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781289384/ad9b5c43-0163-4d0e-b3df-e718cd35a639.jpg",
+      "/images/products/serum-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781289401/60836435-e869-47a6-a44d-c6186d0b83e0.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781289405/bc0dfb00-23ee-4d8f-890f-a2f410103a74.jpg"
     ],
@@ -9327,7 +9168,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "underwear-packaging": {
     "id": "acda5ad0-bc09-412b-9f5b-cb4b48531d0d",
@@ -9336,7 +9178,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Retail presentation dictates the perceived luxury of intimate apparel. Our custom underwear packaging is engineered to showcase the precise contours and premium fabrics of modern undergarments. From minimalist, high-end retail boxes modeled after iconic CK underwear packaging to heavy-duty e-commerce mailers, we deliver structural designs that protect waistbands from losing elasticity and ensure your product commands attention on the shelf.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780951048/25c539ce-abe6-41aa-980a-ee7a4890ef2f.jpg",
+      "/images/products/underwear-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780951064/f855e6f1-70da-4b45-9c27-1e11cc61ffec.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780951086/52a7ed0d-3524-4bb2-b22f-b96c9376725c.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780951102/fccc1629-f424-4f0b-b73d-8c99f7262cdb.jpg"
@@ -9486,7 +9328,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "lip-balm-tubes": {
     "id": "e3e82426-1fb0-46ef-90c2-876bcea7eee2",
@@ -9495,7 +9338,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Paperboard lip balm tubes are a sustainable alternative to traditional plastic packaging. They are made from 100% recyclable, sturdy paper-based materials. These tubes are designed to hold lip balms securely and support the eco-friendly packaging goals of modern brands. They are widely used by cosmetic brands in the United States that want to reduce plastic usage without compromising on functionality.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779289694/9dd01063-e3f0-4e00-87d5-125866123ec1.jpg"
+      "/images/products/lip-balm-tubes.jpg"
     ],
     "box_style": "Lip Balm Tubes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -9668,7 +9511,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-cylinder-packaging": {
     "id": "3f93bbae-e8c2-4f10-885d-657dd0e6c28a",
@@ -9677,7 +9521,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Leave a lasting first impression on your customers’ minds through custom cylinder packaging. This cylindrical design safeguards your product with sturdy materials, premium finishes, and unlimited customization, ideal for cosmetics, candles, and brands that want to stand out on shelves. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781548166/74f5ea19-60d1-4d12-a84f-0067cb929382.jpg",
+      "/images/products/custom-cylinder-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781548185/00e9b3ee-fcbf-42eb-a42c-bdcb96c304ab.jpg"
     ],
     "box_style": "Cylinder Packaging ",
@@ -9847,7 +9691,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cardboard-cigarette-boxes": {
     "id": "899379eb-91b3-483d-8fb7-89a0d30bb45c",
@@ -9856,7 +9701,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Cardboard cigarette boxes are the perfect blend of sustainability, branding, convenience, and functionality. These boxes are custom designed to reflect your brand’s identity and are made of recycled materials, like cardboard for an eco-friendly packaging appeal. They will not only make your cigarettes look stylish but also increase your brand’s value & potential sales.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779459329/b6b604eb-d974-4156-86a6-10a0dc6202bc.jpg"
+      "/images/products/cardboard-cigarette-boxes.jpg"
     ],
     "box_style": "Cardboard Cigarette Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -9998,7 +9843,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-bra-boxes": {
     "id": "07731f60-c498-44b4-b170-deb3543c3c13",
@@ -10007,7 +9853,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Premium intimate apparel requires structurally protective presentation. Our custom bra boxes are engineered to do more than display a logo. They preserve the delicate, molded anatomy of high-end lingerie items. From lightweight retail cartons to structural custom bra packaging boxes, we design custom dimensions that ensure your products arrive pristine, crease-free, and completely shelf-ready.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780672503/d24d03fd-533a-4d6b-ae6c-4008e4d1f040.jpg"
+      "/images/products/custom-bra-boxes.jpg"
     ],
     "box_style": "Custom Bra Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -10193,7 +10039,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-lighter-boxes": {
     "id": "3636380d-e74d-4e92-85ca-99cde86187e0",
@@ -10202,7 +10049,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Lighter boxes are important for safe handling and product protection. Whereas custom lighter boxes are important for your brand to make an unforgettable customer experience. With a custom printed logo and high-quality printing and materials, create a premium custom packaging solution for your lighters. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779462440/dac9c835-14f8-4322-a7d1-67bdb0b812de.jpg"
+      "/images/products/custom-lighter-boxes.jpg"
     ],
     "box_style": "Custom Lighter Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -10357,7 +10204,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-lipstick-packaging": {
     "id": "07fd115c-7199-4f9b-9c79-4aca5a602b01",
@@ -10366,7 +10214,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Lipstick packaging is designed to provide a beautiful home to your lip products. Our custom lipstick packaging solutions provide cosmetic brands with high-durability protection (10pt to 28pt paperboard) and luxury brand customization. We engineer tailored structures including straight-tuck boxes, luxury rigid magnetic boxes, and eco-friendly Kraft lip balm sleeves with full CMYK and Pantone color replication. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780675296/d74cae8a-de1f-494e-84b3-9d3d0925cb4b.jpg",
+      "/images/products/custom-lipstick-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780675300/fdf64260-e7e6-4c24-9f27-b20cf7c4c21c.jpg"
     ],
     "box_style": "Custom Lipstick Packaging",
@@ -10601,7 +10449,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "screen-printing-boxes": {
     "id": "077b8ef0-25d9-4f36-8e81-697abde2fd7c",
@@ -10610,7 +10459,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Screen printing doesn't sit on top of a box, instead it lays into it. Ink is pressed through a mesh stencil in thick, saturated layers, giving screen printing boxes a depth and vibrancy digital printing can't touch. Solid colors stay solid, no dithering, no washout, even on raw kraft or heavy corrugated. If your brand lives or dies on a bold logo, this is the method built for it.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786558513/9d53ae8e-d0c5-4e9d-aa06-eff0cfa89235.jpg",
+      "/images/products/screen-printing-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786558517/741cc43b-8009-4f1f-bc13-3e621b0b928c.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786558520/f87eaf77-16da-4641-9f68-cba5ceabb77b.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786558524/dacf135c-c272-4f36-8720-b315de19de83.jpg"
@@ -10739,7 +10588,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "lip-mask-boxes": {
     "id": "e7982959-e0af-4bf3-9110-5ad5949ef335",
@@ -10748,7 +10598,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Lip masks are designed to nourish, hydrate, and repair lips. Their packaging should communicate the same level of care and quality. Custom lip mask boxes help beauty brands present their products professionally while protecting them from damage during storage, shipping, and retail display. Whether you’re launching a new skincare line or expanding an existing collection, custom cosmetic packaging helps create a stronger connection with customers from the very first glance.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781034760/b24f6b9d-9821-41eb-8ace-429a32f895da.jpg",
+      "/images/products/lip-mask-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781034965/edc5a78e-0dd1-44f2-924a-813716532749.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781035047/e1720b49-c21d-4394-9cf4-5b1c5e3ffb00.jpg"
     ],
@@ -10888,7 +10738,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "single-wall-paper-cups": {
     "id": "aaeecdbf-7027-48fe-8180-4b707c4d57b0",
@@ -10897,7 +10748,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Single wall paper cups are one of the most popular choices for serving beverages, such as coffee, tea, hot chocolate, and cold drinks. They are lightweight, affordable, and easy to customize with your logo and branding elements. Whether you run a coffee shop, restaurant, food truck, or catering business, custom single wall paper cups are a budget-friendly option and a great alternative to plastic cups.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780676011/9b3b917c-e757-4ec6-a06c-868a2b489dd3.jpg"
+      "/images/products/single-wall-paper-cups.jpg"
     ],
     "box_style": "Single Wall Paper Cups",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -11079,7 +10930,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "votive-candle-boxes": {
     "id": "b74e7f33-3ff6-4487-b2b7-89b663aee1c7",
@@ -11088,7 +10940,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "A votive candle box is specially designed to hold small-sized votive candles with style while keeping them protected and presentable. These compact boxes are ideal for either single votive candle packaging or a box of votive candles for both retail and gifting purposes. Enhance the shelf appeal with a neat and organized way to package delicate candle products.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780086721/2b405319-b7d0-4d3f-9041-b09c609a2594.jpg"
+      "/images/products/votive-candle-boxes.jpg"
     ],
     "box_style": "Votive Candle Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -11258,7 +11110,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "pillow-gift-boxes": {
     "id": "e4e7e65d-7b23-41ef-9093-9fc64e13f5fa",
@@ -11267,7 +11120,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Gift pillow boxes are elegant and compact packaging solutions designed to enhance the presentation of small gifts and retail products. Their curved pillow-style shape creates a luxurious and stylish appearance, making them perfect for gifting, event favors, jewelry, cosmetics, candies, and promotional items. These boxes combine functionality with aesthetic appeal to create a memorable unboxing experience.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780497528/93706515-e0b6-46b1-8b82-8d8b4189e652.jpg"
+      "/images/products/pillow-gift-boxes.jpg"
     ],
     "box_style": "Pillow Gift Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -11460,7 +11313,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "blunt-packaging": {
     "id": "374c8fda-4ab8-4094-8d3d-64001f2c0a72",
@@ -11469,7 +11323,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Blunt packaging is designed to enhance the presentation and shelf appeal of your pre rolls, blunt wraps, and smoking products. It also acts as a protective shield for them. From individual pre rolls packaging to premium custom blunt wrap packaging, customization helps these cannabis products remain secure, fresh, and visually appealing.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779377250/1a64ecc7-eb56-48b1-b439-add175ad2fda.jpg",
+      "/images/products/blunt-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1784549907/04692df6-5b6e-4931-9bea-42d2a11ec2d8.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1784549923/1b2f5749-d951-47bc-9aa1-9abb2589ffdd.jpg"
     ],
@@ -11615,16 +11469,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-shoulder-boxes": {
     "id": "5178feea-1b00-4c70-900b-550263695ae4",
     "name": "Custom Shoulder Boxes",
     "slug": "custom-shoulder-boxes",
-    "skuCode": "F115 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Explore custom shoulder boxes for luxury packaging solutions with the perfect blend of durability, storytelling, and minimalistic aesthetics. If you’re tired of those boring traditional rectangular or square boxes, the shoulder neck design is perfect for you. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781547843/eeb5c077-2330-4011-b87c-41c7a62a2ce1.jpg",
+      "/images/products/custom-shoulder-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781547854/47ae7582-6efd-48ac-bd01-2f26fdd7b459.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781547857/1a17432e-1508-4321-bb22-42cd46011cec.jpg"
     ],
@@ -11747,7 +11602,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "pantyhose-packaging": {
     "id": "7adb5790-51fc-4f3a-8b04-7809db7d8c1b",
@@ -11756,7 +11612,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "When launching a hosiery line, every brand owner should know that the right pantyhose packaging does more than protect delicate fabric. It defines your brand’s value, the era you’re replicating, and your product’s shelf presence. Whether you are seeking a minimalist, modern pantyhose package or replicating iconic, retro aesthetics with custom vintage pantyhose packaging, HOF Pack ensures your legwear remains pristine, unwrinkled, and retail-ready.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780921173/6c7fedc0-1bb2-41c0-9c2c-4e4bbfec435b.jpg",
+      "/images/products/pantyhose-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780921324/11fb45cd-f86e-47ba-80c5-2a9e9fd93c75.jpg"
     ],
     "box_style": "Pantyhose Packaging",
@@ -11915,7 +11771,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-greaseproof-paper": {
     "id": "14c4eb8a-a19a-4a12-9309-ff4f444453c6",
@@ -11924,7 +11781,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Say goodbye to scraping burnt-on messes off your trays. Greaseproof paper releases baked goods clean every time, so cakes lift out whole and pans wipe down in seconds. Dual-coated and food-safe, it keeps oil where it belongs, letting your team bake faster and clean less through every busy shift.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785965184/56af4934-1f1a-42d2-9d6f-cb0824733e54.jpg",
+      "/images/products/custom-greaseproof-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785965187/575e1e00-e7e8-4822-a089-8e30ff98205e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785965192/5916f0ba-f1a6-4030-9658-6760f1fae25b.jpg"
     ],
@@ -12065,7 +11922,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cardboard-pillow-boxes": {
     "id": "bec32ce2-b4bd-4e09-b5b2-163c279fcbcd",
@@ -12074,7 +11932,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Cardboard pillow packaging is a stylish and practical solution for brands looking to combine product protection with premium presentation. They are designed like a pillow, ideal for packaging gifts, small retail items, cosmetics, jewelry items, candies, gummies, apparel accessories, and promotional products. Their lightweight structure, durability, and attractive appearance make them a popular choice in the retail market across the United States",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780502010/34fcc20d-f2bb-41b2-91f0-2ed73317ca4c.jpg"
+      "/images/products/cardboard-pillow-boxes.jpg"
     ],
     "box_style": "Cardboard Pillow boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -12272,16 +12130,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "corrugated-tuck-top-boxes": {
     "id": "dcc088b8-1535-4759-9614-e32d37328133",
     "name": "Corrugated Tuck Top Boxes",
     "slug": "corrugated-tuck-top-boxes",
-    "skuCode": "F108 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "At HOF Pack, our corrugated tuck top boxes give brands dependable, tape-free packaging that ships flat and assembles in seconds. Every box protects what's inside, from delicate cosmetics to heavier retail goods, while presenting your brand cleanly on arrival. Searching for tuck top boxes that survive transit and look sharp?\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786559094/08639f51-77df-47b9-8b3e-de74625cb319.jpg",
+      "/images/products/corrugated-tuck-top-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786559098/e1b5a4d5-e755-494f-b6e8-37b1b6d99fd6.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786559101/0488bbcb-b949-4b58-8d8e-fb5f55c5706e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786559106/564e0b29-bd49-45bb-b977-52d10a27ceed.jpg"
@@ -12445,7 +12304,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-earring-boxes": {
     "id": "f9a31ce1-9d79-4293-87ca-7af58a13d621",
@@ -12454,7 +12314,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Get premium earring gift boxes that transform the unboxing into a captivating moment. We make your boxes with protective cushions and fine ribbons. These enclosures shield delicate studs and dangling chandeliers while conveying true sophistication, making every personal present or retail purchase feel extraordinarily valuable and cherished.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787265772/b22145e1-7afc-43d0-b1ea-3784de7eed89.jpg",
+      "/images/products/custom-earring-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787265779/43188363-aac5-4513-ad89-f623eee162e2.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787265782/9a79cbb2-a563-4426-8709-c02d793e573c.jpg"
     ],
@@ -12613,16 +12473,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-booklet-boxes": {
     "id": "078b8263-f2aa-428a-a987-9382b31bdc1a",
     "name": "Custom Booklet Boxes",
     "slug": "custom-booklet-boxes",
-    "skuCode": "F122 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Your packaging shouldn’t just hold the product; it should communicate your brand’s story. Explore our custom booklet boxes to turn your ordinary package into luxury booklet packaging that holds value to your customers. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781287419/3d50b2f1-2758-4a3a-bcb8-b92b3c561a06.jpg",
+      "/images/products/custom-booklet-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781287429/dac0c892-989f-45df-8bda-00e18007fca5.jpg"
     ],
     "box_style": "Custom Booklet Boxes",
@@ -12775,7 +12636,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cardboard-pencil-boxes": {
     "id": "c8ea7c6f-67b8-4991-883c-fef6a85f6115",
@@ -12784,7 +12646,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "A pencil box does more than store pencils. It keeps stationery organized, protects supplies, and gives your product a neat, professional look. Whether you’re selling pencils, colored pencils, pens, markers, or school kits, a sturdy cardboard pencil box is a practical packaging choice. At HOF Pack, we create custom cardboard pencil boxes that are strong, lightweight, and easy to customize. Add your logo, artwork, or brand colors to create packaging that stands out on store shelves.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785265383/f03e13b1-d52d-49d0-aa83-1036ab674a7b.jpg",
+      "/images/products/cardboard-pencil-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785265396/85a61f8b-3c37-4980-82e9-6df7be7a689d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785265402/22ac7a29-9903-4d2d-883e-377c177538fb.jpg"
     ],
@@ -12956,7 +12818,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cardboard-shoe-boxes": {
     "id": "d3b6928e-b51b-456b-8013-277369c4d34d",
@@ -12965,7 +12828,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Shoes deserve packaging that protects them and presents them well. A good cardboard shoe box keeps shoes safe from dust, moisture, and damage while making your brand look more professional. Whether you’re selling sneakers, boots, heels, or children’s shoes, the right packaging helps create a better customer experience. At HOF Pack, we manufacture custom cardboard shoe boxes in different sizes, styles, and finishes. From simple kraft boxes to premium printed packaging, we’ll help you create boxes that fit your products perfectly.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785267151/cd251568-7d89-4cc0-b8f4-71d6f9da3839.jpg",
+      "/images/products/cardboard-shoe-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785267158/f4b12c3d-9a40-48d7-9373-5c49273ffeb1.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785267167/2d6e0443-e78e-4e86-aaa1-b62727748b7c.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785267173/b7539046-6ff9-4b89-a3c7-25e73296b153.jpg"
@@ -13124,7 +12987,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-freezer-paper": {
     "id": "9faa4839-e3d5-4d81-9e03-063264682227",
@@ -13133,7 +12997,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Freezer burn always ruins good meat, its taste and quality. Cheap wrap invites it in and shatters your brand reputation. We provide freezer paper for meat that has a poly-coated moisture barrier. It seals out air and locks in juices of your beef, pork, poultry, and fish . You can store these items for longer. Order today and get free nationwide delivery!\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785965640/efe0eddb-d749-4dd8-942e-ba32adf4d085.jpg",
+      "/images/products/custom-freezer-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785965643/8158956a-17c2-4e34-8a79-acc0c592d2e6.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785965646/f30b56a9-786a-4fe0-9f3d-d3871832487d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785965649/ba922425-4909-4439-a4ef-9f768092dd14.jpg"
@@ -13275,7 +13139,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "white-corrugated-boxes": {
     "id": "66155d5c-e6b1-4509-a179-be7267d8ff88",
@@ -13284,7 +13149,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "HOF Pack manufactures white corrugated boxes for retail & gifts, and ecommerce sellers across the United States. Each box ships products safely while presenting a clean, premium white exterior at unboxing. Built for daily fulfillment volume, these boxes handle warehouse handling and last-mile delivery without failure.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786560238/acee933d-82ef-4306-a1a3-808a17017e19.jpg",
+      "/images/products/white-corrugated-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786560242/5492c795-ed00-45f3-9c49-5d55cdfdb201.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786560282/349adebc-b9d8-4846-85ad-5961673c6cc5.jpg"
     ],
@@ -13301,7 +13166,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
       "name": "Corrugated Boxes",
       "slug": "custom-corrugated-boxes"
     },
-    "meta_title": "White Corrugated Boxes  | Custom Packaging",
+    "meta_title": "White Corrugated Boxes  | Wholesale Custom Boxes - HOF Pack",
     "meta_description": "HOF Pack manufactures white corrugated boxes for retail & gifts, and ecommerce sellers across the United States. Each box ships products safely while presenting a clean, premium white exterior at unboxing. Built for daily fulfillment volume, these boxes handle warehouse handling and last-mile delivery without failure.\n",
     "meta_keywords": "",
     "product_content": {
@@ -13441,7 +13306,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "bracelet-boxes": {
     "id": "39aaec9d-2305-40f7-b831-89ad6b7df82e",
@@ -13450,7 +13316,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "A bracelet box already made an impression on customers even before they unbox. A flimsy, generic box can never convince them for repeat purchase. HOF Pack provides premium quality custom bracelet packaging for jewelry brands, boutiques, and online sellers who want their unboxing to feel like part of the gift. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787344302/187352f3-133e-4782-a3db-ca7a2a095a83.jpg",
+      "/images/products/bracelet-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787344313/9d003c08-9df6-40bd-9b44-f7444a2aeea4.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787344318/41b81907-89f9-4948-b1a8-9f9c32646289.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787344326/0997d451-ea9b-4145-ae39-f4fda4effafe.jpg"
@@ -13592,7 +13458,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-business-labels": {
     "id": "dfd52874-0d0b-4654-a932-c605ff66b451",
@@ -13601,7 +13468,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "First impressions matter in retail, and high-quality business labels are the easiest way to make your products stand out. Whether you need sleek custom business labels for retail store shelves or tough, everyday business sticker labels for mailer boxes, we create high-resolution designs that look great and stick perfectly. We help companies of all sizes turn plain jars, bottles, and bags into professional, branded packages that customers trust.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781638103/f53b3df7-621d-4c67-97f8-1713e03183af.jpg",
+      "/images/products/custom-business-labels.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781638108/d2f1b0d0-c74e-46c1-9a0d-8d1e23437581.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781638111/846d8a79-fef2-488c-bf21-8beb31183783.jpg"
     ],
@@ -13804,16 +13671,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cardboard-tube-packaging": {
     "id": "a85809ac-53b7-48ed-85cd-1628256d44d3",
     "name": "Cardboard Tube Packaging",
     "slug": "cardboard-tube-packaging",
-    "skuCode": "F101 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Cardboard tube packaging is a great choice if you want your product to stand out and add a unique touch to your packaging, rather than those standard square boxes. Its round shape gives products a premium look while protecting them during storage and shipping. At HOF Pack, we make custom cardboard tube packaging for businesses across the USA. Whether you’re packaging candles, cosmetics, coffee, tea, snacks, or gifts, we’ll help you create packaging that looks good and keeps your products safe.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785267927/17c64deb-5c78-4a4c-b747-6a800f085482.jpg",
+      "/images/products/cardboard-tube-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785267934/dd823153-7b5b-4187-b1f6-70c3ae16d134.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785267938/4007ea90-128e-4582-b8e1-108d14a6b2a3.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785267942/6002eb4b-2beb-4176-b045-4e6529a69e10.jpg"
@@ -13971,7 +13839,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-food-wrapping-paper": {
     "id": "b4be6fca-cfb2-4f67-8fc1-58d91a62a4ae",
@@ -13980,7 +13849,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Each food item like sandwiches, pastries, burgers, fried favorites deserves the right wrap. HoF Pack makes the top-quality food wrapping paper that covers your whole menu. Get light deli sheets and sturdy greaseproof liners that keeps your food items secure and clean. We offer food wrap paper that fits the job.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785966302/442bd222-857d-4af1-9517-0975431024f1.jpg",
+      "/images/products/custom-food-wrapping-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785966305/c1a18cc1-3d82-4b8a-b190-84d98e7ec6fa.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785966309/dff9de74-7dc4-41bb-9dd2-521eb4238299.jpg"
     ],
@@ -14122,7 +13991,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-hot-paper": {
     "id": "738d9d3a-3dab-45a5-bcd2-99433911a7f1",
@@ -14131,7 +14001,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Nobody wants lukewarm takeout. Hot Paper is engineered to lock in heat, so burgers, wraps, and fries reach your customer as hot and fresh as they left your kitchen. It won't melt, burn, or curl under steam, giving every order the professional finish your customers expect, every single time.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785966871/bdcd8602-4d50-4e7f-a192-10d0ba20ea62.jpg",
+      "/images/products/custom-hot-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785966876/c4df11de-6577-4e9e-bfad-ad667d288e32.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785966879/6b355b8c-c0bc-4ad5-856b-c505ad8b31ba.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785966882/54466bbf-e029-4321-b9d2-6cf5f9549c3d.jpg"
@@ -14285,7 +14155,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "corrugated-cake-boxes": {
     "id": "8fa7544e-c481-478b-a4bc-996697930c32",
@@ -14294,7 +14165,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Corrugated cake boxes are the best choice to keep your delicate cake safe during shipping. HOF Pack provides heavy-duty corrugated packaging to commercial bakeries, cake studios, and catering companies with excellent structural stability. Get a range of exciting corrugated cardboard cake boxes with low MOQs and fast US shipping. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786561192/902f7e5a-7b03-4970-90a2-aed810617baa.jpg",
+      "/images/products/corrugated-cake-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786561195/1ca9a6ba-8965-47c3-8930-3f8e084fc1a6.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786561199/33df630f-c216-4e78-b69a-60126ba8fcae.jpg"
     ],
@@ -14451,7 +14322,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cannabis-pre-roll-packaging": {
     "id": "23672dba-161b-4a1a-9a3b-73ae89b814c3",
@@ -14460,7 +14332,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "HOF Pack supplies custom cannabis pre roll packaging to licensed cannabis brands nationwide. We produce custom-printed tubes, cartons, sleeves, and mailers for high-volume operations using durable, commercial-grade materials. All with low 100-unit minimums to fit your production runs. Our top sellers include 116mm king, 98mm tubes, and standard boxes.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787592165/fc9ba6f2-b244-4c77-a5d2-f90e5bcf09a4.jpg",
+      "/images/products/cannabis-pre-roll-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787592170/fbb339ea-63a7-40c4-8e99-78bb1a6ebdb1.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787592176/9b52f4c9-e8ff-467d-9c69-30a3dc2f0414.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787592185/40ed9d29-a8e4-464d-9570-47356651f483.jpg"
@@ -14610,7 +14482,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "rigid-setup-boxes": {
     "id": "d975bd58-358e-4e8e-826e-f57abe6f7b25",
@@ -14619,7 +14492,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom rigid setup boxes give your products a sturdy, high-end packaging solution to give them the presentation they deserve. Stop compromising with packaging that fails to reflect your brand’s value and explore rigid boxes for an elevated look.  ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781287253/2aaeff7e-11ed-4573-9df2-c4f1d0ac0fc1.jpg",
+      "/images/products/rigid-setup-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781287270/6c4dc381-22cb-44a7-9882-780053f761f1.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781287282/db4077a9-325a-46db-8220-b02c40e9a752.jpg"
     ],
@@ -14803,7 +14676,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "tuck-top-boxes": {
     "id": "040b16ae-ed43-4f84-b198-67057b82ec18",
@@ -14812,7 +14686,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom tuck top boxes offer a sturdy and reliable packaging solution for retail brands. Featuring a tuck-in top flap and a secure snap-lock bottom base, these boxes are designed for easy assembly, reliable product protection, and a clean, organized shelf presence.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777478194/5be6087f-1004-4b46-935d-c7ad7eadfc96.jpg"
+      "/images/products/tuck-top-boxes.jpg"
     ],
     "box_style": "Tuck Top box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -14972,7 +14846,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cookies-mylar-bags": {
     "id": "10def812-dfa9-4bb7-b2ed-d624998dff8b",
@@ -14981,7 +14856,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Cookies mylar bags are designed to protect cookies and other edible products from moisture, air, and external exposure while maintaining freshness for longer periods. Their flexible yet durable structure makes them suitable for retail shelves, storage, and delivery packaging. These bags are widely used for food packaging because of their lightweight feel and strong barrier protection.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781812857/d86acd51-9e40-4b91-84e4-da147681a117.jpg",
+      "/images/products/cookies-mylar-bags.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781812862/dbfb05f7-06e2-44aa-9c5c-ff9639209c01.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781812869/548082a3-a6be-423f-9434-fd4f0ca88a89.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781812876/b2a43c36-b401-4614-aa44-60e45e1e9396.jpg"
@@ -15154,7 +15029,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-shipping-boxes": {
     "id": "10308db7-01f3-4c14-8f39-c86370b45d44",
@@ -15163,7 +15039,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom shipping boxes are corrugated boxes cut to your product's exact size and printed with your brand. HOF Pack matches the board to how each order travels, so units arrive whole instead of crushed. More than 5,000 brands already ship in ours.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786400403/3c87ee0d-ed6b-41f1-baf0-b1b6c340d6b9.jpg",
+      "/images/products/custom-shipping-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786400406/44895ad3-0cfb-4a94-bf5d-3e2073646dd5.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786561321/bfbf27b1-df4d-4de0-95b7-e08cf07b822e.jpg"
     ],
@@ -15343,7 +15219,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-circle-stickers": {
     "id": "820948c0-0a98-4f58-837f-d47b4f382eae",
@@ -15352,7 +15229,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "When you are building a small brand, you want your packaging to look as premium as possible. Custom circle stickers do the job just right. They transform a simple box into a branded, customized box, ideal for small businesses who are trying to upscale their packaging look. Having a perfectly balanced and symmetrical structure, they offer a very clean and professional look. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781973850/70f7d130-f05b-4550-b203-a7d4d6b96351.jpg",
+      "/images/products/custom-circle-stickers.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781973855/368134a5-9fcf-43e9-a041-8c56aad2a08d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781973860/4a94fd84-dd07-49d0-9b7a-3af4af4c46fd.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781973866/400dc129-9c9c-4b0b-b115-20248758a461.jpg"
@@ -15516,7 +15393,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "stand-up-pouches": {
     "id": "85a1c3f6-1e08-4b38-a4e1-6b9093557efc",
@@ -15525,7 +15403,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Stand up pouches offer a space-saving, lightweight, and retail-ready solution that keeps your product fresh while maximizing brand visibility on shelves and online. They are shipped flat and allow bulk packaging, which reduces shipping costs, making them an economical option. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782162020/ff2a167d-25f8-467a-956f-f12589e94a37.jpg",
+      "/images/products/stand-up-pouches.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782162026/aa503931-25c8-4e17-94c2-d6f21bbfb2c3.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782162031/7ec6564a-284a-4701-bd36-20f75a6e62da.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782162036/23d8a0ac-3152-41cd-8657-2901d5938e7c.jpg"
@@ -15682,7 +15560,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-pandasew-packaging": {
     "id": "6f5c00ac-9635-46c2-8539-4552d00ab7e5",
@@ -15691,7 +15570,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Cardboard tells a customer \"here's your order.\" Fabric tells them \"here's something worth keeping.\" That's the whole case for Pandasew Packaging. HOF Pack provides velvet, microfiber, or vegan leather pouches that you can pair with a rigid presentation box. Our custom pandasew packaging gives an expensive  feel to your products. Order now!\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787088269/2bb393fe-5154-4cf2-9633-6ef1430013fb.jpg",
+      "/images/products/custom-pandasew-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787088272/6ecd8348-3d45-4f5d-b899-f06a4139dd01.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787088275/cc451baf-6183-45bb-b56c-4eb33e2bba9d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787088280/9e6616b5-ea48-476a-ac53-f4133c6d6883.jpg"
@@ -15832,7 +15711,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "gable-box-with-window": {
     "id": "9f01be5a-5583-4be3-86a5-f23dab87b7e8",
@@ -15841,7 +15721,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Shoppers love to see what they are buying before they spend their money. A gable box with window packaging design is the perfect way to show off your products. This box mixes a strong carrying handle with a clear plastic viewing cutout. It is great for bakery items, colorful candies, bath bombs, and holiday gifts. It protects your items while giving customers a sneak peek inside.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782387117/82dda42f-d099-4fbf-b2dd-70c820e78601.jpg",
+      "/images/products/gable-box-with-window.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782387124/373406e7-9396-4096-947f-24c678e3b4db.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782387129/0d027f1a-f831-494a-bb3f-629230c2a511.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782387133/15d682bc-0485-4d36-9a46-ab0a6e37a3fe.jpg"
@@ -15992,7 +15872,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "rigid-jewellery-boxes": {
     "id": "3085c6a2-8c6b-4f51-92a8-8d67a8421d70",
@@ -16001,7 +15882,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom rigid jewelry boxes are the perfect premium packaging solution for a secure and luxurious product presentation. These rigid set-up boxes are made from heavy-duty chipboard (typically 800gsm to 1500gsm) wrapped in premium paper. Unlike folding cartons, they are shipped fully assembled, providing structural protection and a luxury unboxing experience for fine ornaments like rings, necklaces, earrings, and bracelets.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781552506/2d1b90e4-4c16-4dd9-8a8e-e9a5495ead42.jpg",
+      "/images/products/rigid-jewellery-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781552511/9b30d3db-8cb4-44f3-b18d-2e420071244e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781552518/14db9b6b-90d3-4df9-a26e-a2c5344cead0.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781552523/2823522f-d388-495e-9559-5e8962dbfa29.jpg"
@@ -16153,16 +16034,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "christmas-gable-boxes": {
     "id": "1357700f-2146-4216-9cf2-86825e393623",
     "name": "Christmas Gable Boxes",
     "slug": "christmas-gable-boxes",
-    "skuCode": "F110 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "The holiday season is the busiest time of year for retail and gift-giving brands. Choosing a Christmas gable box is the easiest way to make your festive products look cheerful and exciting. This house-shaped box style features a built-in carrying handle at the top, making it an excellent choice for holiday bakery treats, corporate gift sets, and retail items. It keeps your goods secure while spreading holiday cheer instantly through its unique style.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782390579/2c5af262-3080-4175-87ad-99833675ebab.jpg",
+      "/images/products/christmas-gable-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782390584/56a060ed-1577-42b3-9599-a36a018ce200.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782390588/b3c5a8d8-bf11-40d8-aeb5-d2f7028ad456.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782390593/f4178d42-527e-4083-99e5-ae05306f03be.jpg"
@@ -16381,7 +16263,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-butter-paper": {
     "id": "cb83a2d7-0f66-4d72-9f47-05a1ee5750d4",
@@ -16390,7 +16273,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Keep your products fresh and your brand top of mind with HOF Pack’s custom-printed butter paper. Engineered to hold up against butter, oil, and moisture, our premium grease-resistant sheets ensure your cheese, pastries, and chocolates look immaculate from counter to customer. Shop Custom Butter Paper Now!\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785353437/2730f3a1-7dd1-4599-98f1-796cc092fe28.jpg",
+      "/images/products/custom-butter-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785353444/ce5ecfd2-31d4-4cc9-a463-7cf5adcc4ae7.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785353447/8059fe65-a279-48cb-8353-9a695dd42cde.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785353453/ebbc345e-6968-4ae7-921f-2446268db8ec.jpg"
@@ -16564,7 +16447,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "necklace-boxes": {
     "id": "d8115739-817c-4ae0-9676-b7890fa72220",
@@ -16573,7 +16457,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "A necklace box is the rigid or folding carton that holds a chain flat, protects the clasp, and hands the buyer your brand at the same time. HOF Pack supplies necklace gift boxes to jewelry brands, boutiques, and online sellers across the United States. Request a quote.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787590260/ef05a5be-36a4-4c15-be73-12b21b29fcdd.jpg",
+      "/images/products/necklace-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787590265/2e56cd77-5fc6-4105-bd23-bd9e45d939db.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787590270/f827d376-9558-4e5f-b091-e167ef8f2016.jpg"
     ],
@@ -16722,16 +16606,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "3d-gable-boxes": {
     "id": "7d33e602-a4d5-4ca9-af47-e4e29de23b72",
     "name": "3D Gable Boxes",
     "slug": "3d-gable-boxes",
-    "skuCode": "F105 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Traditional flat packaging can easily get lost on crowded retail shelves. 3D gable boxes solve this by adding real physical depth and geometric style to your product presentation. Custom gable boxes offer a spacious rectangular base that curves into a house-shaped roof. It offers enough room to pack all your items and a built-in handle for an easy carrying solution. It is an all-in-one packaging solution that makes unboxing fun.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782392855/1eb4411f-e0aa-4c23-a37d-0ac361b88861.jpg",
+      "/images/products/3d-gable-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782392859/2df3d221-b4a6-4d69-92ba-1b0fdd647f8c.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782392862/d682bbda-583f-4125-8faf-28cd02cc3dd6.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782392867/065d509f-0095-4fef-bea0-6d6cdff7eb2c.jpg"
@@ -16912,7 +16797,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-air-float-boxes": {
     "id": "79bb4617-1b01-4106-ab5f-b6219202c435",
@@ -16921,7 +16807,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Fragile, high-value, and delicate products still arrive damaged, even when the box is packed with padding. Your business needs an air float box with a clear suspension film that holds your product floating in the center of the box. HOF Pack builds custom air float boxes that come with a film that absorbs the shock, so items land safely and look premium the moment the box is opened.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786399300/3e9e71a1-f743-40dc-85c7-49e6338d5013.jpg",
+      "/images/products/custom-air-float-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786399304/8a2d21d9-d6d5-4a6f-8e41-636dc13601d8.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786399308/f3230934-eb8d-4d0c-b1cb-fd79b8f0d46f.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786399314/4de6e297-df12-4b96-85ae-090a0af1deb0.jpg"
@@ -17102,7 +16988,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-fry-paper": {
     "id": "771405fa-9699-4aff-86e5-f48da6d95a4a",
@@ -17111,7 +16998,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom fry paper gives food trucks, burger joints, and fried-chicken spots a food-grade, grease-resistant way to serve and wrap everything from the fryer. HOF Pack's greaseproof sheets stand up to oil, salt, and steam so fries and wings stay hot and crisp, while your logo sells every order. Order Printed Fry Paper Today!\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785354105/f6ae35c4-b935-4b04-a26e-7b8dccdcda40.jpg",
+      "/images/products/custom-fry-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785354109/a7bfae91-1343-4b29-8e3a-aa6c79259501.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785354120/88be52de-6a4b-4fb2-b6fc-634737fb55fd.jpg"
     ],
@@ -17269,7 +17156,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-bangle-boxes": {
     "id": "f34843cd-7d99-4a31-85f8-b62e35474a54",
@@ -17278,7 +17166,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "A bangle doesn't sit still. Toss it in a pouch with four others and it rolls, clinks, and scratches every piece it touches before a customer even opens the package. Most packaging suppliers treat a bangle box like a smaller ring box. Same shape, same insert, just resized. Get custom fit boxes from HOF Pack that deliver elegance.\nHOF Pack builds bangle boxes around that one problem first. Here's how.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786907039/845f7796-6e0e-4b96-98c4-358177dcda7c.jpg",
+      "/images/products/custom-bangle-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786907043/f496418e-3a89-4375-963d-e7fc373139ae.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786907046/8b0ca40f-c4bb-4787-8780-19b5904fadd7.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786907050/27333477-b19a-4925-8584-090b3a21e3eb.jpg"
@@ -17460,16 +17348,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "gable-gift-boxes": {
     "id": "fded2213-a26b-490f-a723-259db9d7f3cb",
     "name": "Gable Gift Boxes",
     "slug": "gable-gift-boxes",
-    "skuCode": "F108 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Gable boxes are specifically designed to offer versatility, functionality, convenience, and increased customer retention. These uniquely styled boxes have a flat square base and a house-shaped tapered roof with a built-in handle for easy carrying and portability. They instantly make your items look gift-ready without needing any extra wrapping materials.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782393872/00f5645e-583c-4058-8963-6bd26b6cf9c3.jpg",
+      "/images/products/gable-gift-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782393877/3055fcca-1f96-445b-8e73-e531b3f13f5e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782393881/6a8fcd3d-7052-4663-83aa-446c8a0d5282.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782393888/258d2c11-fbb7-4920-bf5a-1222c43e8223.jpg"
@@ -17644,7 +17533,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "pendant-boxes": {
     "id": "84bbfb17-1128-4e38-955f-9775858e2efd",
@@ -17653,7 +17543,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Are you looking for pendant boxes that securely hold every piece, and its chain to its place? Try our premium box for pendant that makes unboxing a wholesome experience for your pretty customers. HOF Pack builds every pendant gift box so that reveal actually lands, instead of your customer digging a necklace out of bubble wrap.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787167248/6a1e2f5b-075a-4299-947e-dcc4f8c2a51b.jpg",
+      "/images/products/pendant-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787167252/de01ddba-e757-4fba-bf9c-244731b656c6.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787167255/37cff46c-aa3f-4405-987d-bc37db4c7531.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787167258/2d996fca-3c76-4800-822a-b105294bf75a.jpg"
@@ -17795,16 +17685,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "coffee-capsule-packaging": {
     "id": "5c111671-8150-491b-bad4-420ac47b8bcf",
     "name": "Coffee Capsule Packaging",
     "slug": "coffee-capsule-packaging",
-    "skuCode": "F111 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Coffee capsules have become one of the most popular ways to enjoy coffee. These small, sealed pods contain a pre-measured amount of roasted and ground coffee that works with compatible coffee machines. They make brewing quick, clean, and consistent, whether at home, in offices, or cafés. Because coffee capsules are a premium product, they need packaging that protects their freshness while making a strong first impression. At HOF Pack, we manufacture custom coffee capsule packaging that keeps every capsule secure and helps your brand stand out on store shelves and online.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782757346/b0cbdced-6d32-43aa-a368-785999c0c160.jpg",
+      "/images/products/coffee-capsule-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782757350/983d93a6-c4ce-4667-8aa7-ab6c812bc09c.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782757355/939994bb-2989-45d7-ae5b-fc3769a55044.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782757361/b921930e-2508-46eb-8eb0-ab813895ac9f.jpg"
@@ -17959,16 +17850,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "coffee-filter-packaging": {
     "id": "e8413925-1761-461e-a365-32cb96145fa0",
     "name": "Coffee Filter Packaging",
     "slug": "coffee-filter-packaging",
-    "skuCode": "F106 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "If you sell coffee filter packs, your packaging does more than hold the product. It keeps the coffee fresh. It protects the filter. And it gives customers a reason to pick your brand over someone else's. At HOF Pack, we make custom coffee filter packaging for coffee brands of all sizes. Whether you sell coffee filter bags, filter coffee packs, or pre-measured coffee packets, we'll help you create packaging that's practical, attractive, and ready for retail.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782758556/dfe38c93-e648-41f3-8df8-9b2467015149.jpg",
+      "/images/products/coffee-filter-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782758561/c39c80f1-6b09-4b26-ad04-db909500133e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782758566/fc992b44-bc56-4f31-bf25-4a3a348192fd.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782758570/4b14827e-14fb-41f7-87ef-816c74a9578b.jpg"
@@ -18119,7 +18011,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "paper-coffee-cups": {
     "id": "6e87b3c9-ddaf-4a91-b9c3-648ef39e6c87",
@@ -18128,7 +18021,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "A great cup of coffee deserves great packaging. Custom paper coffee cups help cafes, coffee shops, restaurants, and beverage brands serve drinks while promoting their business. Every cup becomes a small advertisement that customers carry through offices, parks, shopping centers, and city streets. At HOF Pack, we manufacture custom paper coffee cups that combine quality, functionality, and attractive branding. Whether you need cups for hot espresso drinks or large takeaway coffees, we can create packaging that reflects your brand.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782756075/7fab0078-4dcc-4238-84e9-0c964101bb0b.jpg",
+      "/images/products/paper-coffee-cups.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782756079/03838742-81a8-4f7c-858c-801bb9a3c422.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782756083/bed54b62-1da4-458e-888d-0536092b6c90.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782756087/76f27f89-3899-4472-a654-98490ea2bcb2.jpg"
@@ -18279,7 +18172,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "gusseted-coffee-bags": {
     "id": "557d8c6c-e406-4c49-a74f-f8797c3bc015",
@@ -18288,7 +18182,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Looking for coffee packaging that holds more and looks professional? Gusseted coffee bags are a popular choice for coffee brands because they offer extra storage space while keeping coffee fresh. The expandable side panels allow the bag to stand neatly when filled, making it ideal for retail shelves and online orders. At HOF Pack, we manufacture custom gusseted coffee bags for whole beans, ground coffee, and specialty blends. Whether you need a simple kraft bag or premium printed packaging, we'll help you create a bag that fits your brand.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782762263/8e9ec8fe-8a36-4315-b952-89989ff5655b.jpg",
+      "/images/products/gusseted-coffee-bags.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782762267/8f814c0f-ba04-4a66-b459-4e6f6dfcdfb5.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782762271/4a507bd8-6ed7-43bc-b024-255eaa977e5f.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782762275/eaeb2d2a-47db-475d-bbb5-d13c4935a753.jpg"
@@ -18420,7 +18314,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "white-gable-boxes": {
     "id": "cc2bd65d-0f30-4c31-84a0-c6a1b271d447",
@@ -18429,7 +18324,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "White gable boxes are a simple yet stylish packaging solution for businesses that want both functionality and presentation. Their built-in handle makes them easy to carry, while the clean white finish creates a neat and professional look. Whether you're packing bakery items, gifts, party favors, takeaway meals, or retail products, custom white gable boxes offer a practical packaging solution that customers love. Add your logo, brand colors, or custom artwork to create packaging that leaves a lasting impression.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782929446/50683354-f30f-4839-9379-f4cfd0d5608a.jpg",
+      "/images/products/white-gable-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782929450/b0282584-7cef-4a91-9f8e-aaf687aa174d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782929453/a6c405db-e405-48c5-bfb3-b9863be55b02.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782929457/4899ab7a-fd8b-493c-8c4a-6b1799142baa.jpg"
@@ -18587,7 +18482,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-butcher-paper": {
     "id": "e0e4ec3f-5e80-40cc-b0fe-16f8121e519e",
@@ -18596,7 +18492,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Our premium Butcher Paper gives you the clean, breathable wrap the pros swear by. Food-safe, sturdy, and leak-resistant, it locks in smoke and moisture without steaming your bark. Whether you run a barbecue joint or a backyard smoker, this is the wrap that respects the cook.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785442017/b1e2a6b7-7501-4953-a6df-f072655328c8.jpg",
+      "/images/products/custom-butcher-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785442021/a11dc04b-d7eb-452e-adb2-7e0e1bf81e11.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785442024/3be8e4a3-859a-4b00-8aa4-1efc0f5333ec.jpg"
     ],
@@ -18737,16 +18633,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "corrugated-mailer-boxes": {
     "id": "925be627-409d-4bc0-b96f-779103175e6b",
     "name": "Corrugated Mailer Boxes",
     "slug": "corrugated-mailer-boxes",
-    "skuCode": "F102 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "A colored mailer box is a corrugated shipping box finished in full brand color, not a logo stamped on plain brown stock. They turn e-commerce packaging, subscription boxes, and product launches into something worth photographing. We offer multiple sizes (1/16\" E-Flute, 1/8\" B-Flute) and Pantone-matched to your brand. Order corrugated mailer boxes now!\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786469620/9be149d0-56f0-4673-b369-eda9ac105f4e.jpg",
+      "/images/products/corrugated-mailer-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786469625/bdadea13-316a-4ac4-9df4-b1e0c52bb065.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786469631/6b33b3b9-db4a-4122-8670-bb5506279b3d.jpg"
     ],
@@ -18903,191 +18800,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
-  },
-  "cardboard-box-with-window": {
-    "id": "91ac5807-ba34-43a6-82c5-44cead4ffcdd",
-    "name": "Cardboard Box with Window",
-    "slug": "cardboard-box-with-window",
-    "skuCode": "F100 — Custom Packaging",
-    "description": "Letting your customers see what is inside your packaging is the fastest way to build trust. A high-quality cardboard box with window cutout combines strong structural protection with an open display. Instead of hiding your premium items inside a plain brown box, these specialized containers allow you to show off your products while keeping them perfectly safe from dust, smudges, and damage.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782938168/57967441-fe5d-4e27-90ea-02c9b48cd2dd.jpg",
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782938174/3461070c-a4ee-45bd-a035-218379f862d5.jpg",
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782938177/96fcd192-9df9-433d-9d00-174c6eda800b.jpg",
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782938180/1efbb861-1c66-4b8b-8258-25ebd473296a.jpg"
-    ],
-    "box_style": "Cardboard Box with Window",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Cardboard Boxes",
-      "slug": "cardboard-boxes"
     },
-    "meta_title": "Cardboard Box with Window | Free Shipping & Design",
-    "meta_description": "Order custom cardboard boxes with windows for your brand. High-quality display boxes with clear plastic lenses. Low MOQs and free shipping across the US.\n",
-    "meta_keywords": "",
-    "product_content": {
-      "perk_items": [
-        "Wholesale Pricing with Free Sample",
-        "8-10 days turnaround",
-        "Free Shipping all Across the US",
-        "Innovative Printing Designs",
-        "Free design consultation",
-        "MOQ as low as 100 units"
-      ],
-      "feature_items": [
-        {
-          "icon": "Palette",
-          "title": "Bold color output",
-          "description": "Expressive, striking, vibrant colors through the use of our high-quality water-based inks and advanced print buttons."
-        },
-        {
-          "icon": "Feather",
-          "title": "Low-weight packaging",
-          "description": "Maintain light packaging without sacrificing security, effectively lowering your shipping expenses."
-        },
-        {
-          "icon": "Leaf",
-          "title": "Earth-friendly choices",
-          "description": "Minimise your ecological footprint through FSC-certified, sustainable paperboard made from recycled fibres."
-        }
-      ],
-      "content_blocks": [
-        {
-          "alt": "cardboard-box-with-window",
-          "body": "Shoppers love to look at a product before they make a final purchase decision. Our cardboard boxes with window setups are engineered to act like a mini retail storefront for your brand. Whether you sell colorful bath bombs, handmade soaps, or artisanal retail goods, a cardboard box with display window panels draws the eye immediately and makes your items stand out on crowded store shelves.\n",
-          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1782938043/a65b016b-2288-4e65-b0cf-74913a7a685c.jpg",
-          "heading": "Perfect Presentation for Retail Shelves"
-        },
-        {
-          "alt": "cardboard-boxes-with-window",
-          "body": "You never have to compromise on safety to get a beautiful look. Our cardboard boxes for packaging with PVC window sheets use clear, tough, and scratch-resistant plastic layers. The cardboard box with plastic window film is glued tightly to the inner frame. This protective shield keeps moisture, dirt, and fingerprints away from your merchandise while giving buyers a crystal-clear look at the goods inside.\n",
-          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1782938049/1f58aae4-c642-4327-bc9a-348b942e0291.jpg",
-          "flipped": true,
-          "heading": "Safe, Sturdy, and Clean Display Design"
-        },
-        {
-          "alt": "cardboard-box-with-clear-window",
-          "body": "Elevate your small business and boost your retail sales with professional packaging from HOF Pack. We offer top-tier cardboard window boxes at affordable wholesale prices to fit your exact budget. From small treat containers to large gift displays, we handle it all. With low minimum order quantities, fast turnarounds, and free design assistance, we make custom packaging simple.\n",
-          "image": "https://res.cloudinary.com/dazm20bju/image/upload/v1782938055/5f231f23-a51c-4405-9a68-770b6aaa665d.jpg",
-          "heading": "Ready to Customize Display Boxes Wholesale?",
-          "linkLabel": "Start Customizing with Us!"
-        }
-      ],
-      "material_items": [
-        "Trusted by 5000+ clients",
-        "FSC or ISO Certified",
-        "Eco-friendly material options"
-      ],
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      },
-      "article_sections": [
-        {
-          "text": "Why Use a Cardboard Box with a Clear Window?\n",
-          "level": "h2"
-        },
-        {
-          "text": "When you pack your products in a standard closed box, you have to rely completely on your labels or pictures to explain what is inside. A cardboard box with clear window film changes everything. It creates an instant connection with the buyer. When people see the texture, vibrant colors, and exact quality of your items with their own eyes, they feel much more confident buying from your brand.\n",
-          "level": "p"
-        },
-        {
-          "text": "Clean and Durable Plastic Window Film options\n",
-          "level": "h2"
-        },
-        {
-          "text": "We use premium materials to ensure your products look amazing and stay clean:\n- **Airtight Security:** The clear plastic sheet forms a complete shield against outside dust and humidity.\n- **Scratch-Resistant Surface: **The high-clarity viewing lens stays smooth and free of scuffs during shipping.\n- **Secure Glueing:** We use food-safe, strong adhesives to lock the window firmly to the interior cardboard walls, ensuring it never peels or pops loose.\n",
-          "level": "p"
-        },
-        {
-          "text": "The Ultimate Choice for Bakeries and Confectioneries\n",
-          "level": "h2"
-        },
-        {
-          "text": "If you run a local bakery or a gourmet snack brand, presentation is everything. Using a dedicated cardboard cookie box with window design lets your beautiful frostings, sprinkles, and baked textures act as their own decoration. Our food-grade materials keep your cookies, donuts, macarons, and small pastries fresh as new, while the cardboard boxes with clear window openings invite hungry shoppers to take a bite.\n",
-          "level": "p"
-        },
-        {
-          "text": "Cardboard Box with Window Lid: \n",
-          "level": "h4"
-        },
-        {
-          "text": "Excellent for gift sets, apparel, and bakeries where the top cover lifts open completely.\n",
-          "level": "p"
-        },
-        {
-          "text": "One-Piece Tuck Top Display Boxes: ",
-          "level": "h4"
-        },
-        {
-          "text": "Ideal for counter checkout lanes, cosmetics, and small retail electronics.\n",
-          "level": "p"
-        },
-        {
-          "text": " Slide-Out Drawer Boxes: ",
-          "level": "h4"
-        },
-        {
-          "text": "Features a clear viewing window on an outer sleeve that slides open smoothly for a premium luxury feel.\n",
-          "level": "p"
-        },
-        {
-          "text": "Sustainable Materials for Modern Green Businesses\n",
-          "level": "h2"
-        },
-        {
-          "text": "Today's consumers care deeply about protecting the planet. Our boxes are made from 100% recycled, sustainably sourced paper fibers. They are completely biodegradable and easy for your customers to recycle at home after use. By combining natural, eco-friendly kraft paperboard with clean display elements, your brand can show its commitment to green business practices while maintaining a highly professional retail look.\n",
-          "level": "p"
-        },
-        {
-          "text": "Why Choose HOF Pack for Your Custom Window Packaging?\n",
-          "level": "h2"
-        },
-        {
-          "text": "[HOFPACK](https://hofpack.com/) remove the confusion from the packaging supply chain. Our team provides factory-direct wholesale pricing, fast turnarounds, and expert help to guide you through every step of the design process. Contact our team at info@hofpack.com or call +1 (888) 429-4881 for a free consultation.\n",
-          "level": "p"
-        }
-      ]
-    }
+    "faqs": []
   },
   "cardboard-box-with-lid": {
     "id": "28f4c6a4-80fc-48d5-9b82-d883bf3d1e91",
@@ -19096,7 +18810,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Finding a reliable way to pack, ship, or store your items should never be complicated. A classic cardboard box with lid design gives you a clean and secure setup for any product. Instead of dealing with open totes or messy flaps, choosing standard cardboard boxes with lids keeps your items completely safe from dust, light, and outside damage while making your brand look tidy and professional.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782938835/991229e5-4393-471a-8546-e0dcc8e9cff0.jpg",
+      "/images/products/cardboard-box-with-lid.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782938838/1f038c37-21da-4035-9bbb-78aadc33fb83.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782938842/d0ecdb2a-5d11-4872-b483-a343dbbec45d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782938845/dda4fc57-9b12-4b69-b498-f8ad40c27214.jpg"
@@ -19271,7 +18985,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "corrugated-boxes-with-lids": {
     "id": "58969a69-be86-4fb0-8a54-705a82066afa",
@@ -19280,7 +18995,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "A fitted lid changes everything a flap-top box can't fix. Our custom corrugated boxes with lids close flush and seal tight, so there's no flex at the seams. Find your boxes with the best plyboard. Our corrugated boxes lids are easy to stack four high and the load stays square. Order today and get free design support and shipping across the USA.  \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786470323/3bcc07c7-bf78-42cb-bb63-d675a89b2b81.jpg",
+      "/images/products/corrugated-boxes-with-lids.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786470326/57b8f510-3669-4477-8f2b-b539b0829551.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786470331/96a6cab0-48df-46ea-80c5-f3cb70ffa37c.jpg"
     ],
@@ -19445,7 +19160,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-anklet-boxes": {
     "id": "4f892b6e-07c4-4a8d-82a3-1a5d2474b7d7",
@@ -19454,7 +19170,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "The HOF Pack provides custom anklet boxes for packing your anklets, chains, or also charm sets for jewelry retailers, small trades, or craft-making shops. Firstly, the anklet boxes come shipped flat making it easy to put together quickly and keeping the small jewelry secured.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786907641/de8efc4c-3f4c-4047-804f-4306c163a956.jpg",
+      "/images/products/custom-anklet-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786907645/d449e2d0-98ee-485d-a853-31571e507b69.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786907654/0ef0d2f2-3931-490d-818b-744b74965650.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786907658/19770c1b-33e7-49cb-b538-1d2127828212.jpg"
@@ -19619,7 +19335,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "necklace-cards": {
     "id": "63c986c8-8435-4b37-8801-7f741ae09298",
@@ -19628,7 +19345,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "A necklace card is the printed board a chain hangs from on a peg hook, a rack, or a market table. HOF Pack prints custom necklace cards for makers, boutiques, and wholesale jewelry lines across the United States. Get your quote.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787590735/b5c0d983-4eb8-4ca9-9b18-b4852d4d71dd.jpg",
+      "/images/products/necklace-cards.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787590738/be2e102c-9709-4652-af27-165ad35ea761.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787590742/428128ac-3373-44ba-97e7-bf58c8d09593.jpg"
     ],
@@ -19777,16 +19494,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-perfume-boxes": {
     "id": "084c8987-183d-41c0-92c6-eccb518e5e04",
     "name": "Custom Perfume Boxes",
     "slug": "custom-perfume-boxes",
-    "skuCode": "F108 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Custom perfume bottles are designed to give your perfume bottles a snug fit home that will not only elevate their whole look, but will also protect your glass bottles from breaking and give them a luxury feel for a “wow” unboxing experience. Made from luxury rigid materials, these boxes will stand out on retail shelves and enhance your gift experiences. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781545395/33f0220c-d370-4e7a-a0fa-570f1cce19a6.jpg",
+      "/images/products/custom-perfume-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781545409/a6b9235e-7d91-4601-b615-abf9a740da54.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781545461/fb5d97a1-058c-4297-be0d-bef1789fc833.jpg"
     ],
@@ -19953,143 +19671,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
-  },
-  "custom-pie-boxes": {
-    "id": "67058a92-679c-4892-82b0-204f8fe3d1ec",
-    "name": "Custom Pie Boxes",
-    "slug": "custom-pie-boxes",
-    "skuCode": "F105 — Custom Packaging",
-    "description": "Custom Custom Pie Boxes engineered with premium materials.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775465800/25265ef3-838c-42ca-a822-c7a5b80d566e.jpg"
-    ],
-    "box_style": "Custom Pie Boxes",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Bakery Boxes",
-      "slug": "bakery-boxes"
     },
-    "meta_title": "Custom Pie Boxes - HOF Pack ",
-    "meta_description": "Custom Custom Pie Boxes",
-    "meta_keywords": "",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
-  },
-  "marshmallow-mylar-bags": {
-    "id": "32ea65d6-dc3d-4933-9d17-dc7624c0f37a",
-    "name": "Marshmallow Mylar Bags",
-    "slug": "marshmallow-mylar-bags",
-    "skuCode": "F103 — Custom Packaging",
-    "description": "Custom Marshmallow Mylar Bags engineered with premium materials.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775484558/33a61d17-ac0e-4864-8b34-0bae2fbee3f8.jpg"
-    ],
-    "box_style": "Marshmallow Mylar Bags",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Mylar Bags",
-      "slug": "custom-mylar-bags"
-    },
-    "meta_title": "Marshmallow Mylar Bags | Custom Packaging",
-    "meta_description": "Custom Marshmallow Mylar Bags",
-    "meta_keywords": "",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      },
-      "article_sections": []
-    }
+    "faqs": []
   },
   "candle-tube-packaging": {
     "id": "8ab1a242-f2f6-4f6d-a23f-d6cfe983a7ca",
     "name": "Candle Tube Packaging",
     "slug": "candle-tube-packaging",
-    "skuCode": "F109 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Candle tube packaging is a modern and protective way to package candles. They are cylindrical containers/tubes designed to hold candles securely while offering a clean and minimal look. They are commonly used for both retail display and gifting, especially for brands that prefer a unique packaging style rather than the traditional box look.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777037237/04989907-bb4f-4fd7-a3c3-6fc6908ec8bd.jpg",
+      "/images/products/candle-tube-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1779283566/b9ea8252-a602-48a6-9400-70086839f7ca.jpg"
     ],
     "box_style": "Candle Tube Packaging",
@@ -20269,7 +19861,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "paper-cigarette-boxes": {
     "id": "68779f37-da4d-44bd-93fd-6853d778a5dc",
@@ -20278,7 +19871,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Paper Cigarette Boxes are made of recyclable, FDA-approved paper material like paperboard, cardboard, or kraft. These custom boxes, whether hinge-lid pack or flip-top pack, are made to enhance the appearance of your cigarettes. Don’t just sell smoking materials in a box; sell an experience to your customers with custom-printed boxes.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779458583/f3e5d9ee-ad7a-4b29-b448-05f7c8d439b5.jpg"
+      "/images/products/paper-cigarette-boxes.jpg"
     ],
     "box_style": "Paper Cigarette Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -20457,16 +20050,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "candle-gift-boxes": {
     "id": "4fe121ea-c560-41fc-a85c-64314108a3c2",
     "name": "Candle Gift Boxes",
     "slug": "candle-gift-boxes",
-    "skuCode": "F111 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Candle gift boxes are specially designed as luxury candle holders, perfect for every occasion. Give your buyers boxed candle gifts with high-quality printing and finishes that elevate your brand image and product presentation.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775475350/c6aeece8-71ef-44ed-9a9f-05ec0eaeec98.jpg",
+      "/images/products/candle-gift-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780083266/303ef451-1da8-413b-a459-2d62dfac12b7.jpg"
     ],
     "box_style": "Candle Gift Boxes",
@@ -20662,16 +20256,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "counter-display-boxes": {
     "id": "b4700361-aa8e-4769-bc0b-f81528d5e75f",
     "name": "Counter Display Boxes",
     "slug": "counter-display-boxes",
-    "skuCode": "F107 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Counter display boxes are small and compact retail display packaging solutions designed to showcase products on countertops and checkout areas at shopping malls, retail shops, and stores. These boxes help position products at eye level, making them easy to notice and access for customers.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777546697/b0c90148-e8b7-463e-aaad-187574ccc3a6.jpg"
+      "/images/products/counter-display-boxes.jpg"
     ],
     "box_style": "Counter Display Box",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -20834,7 +20429,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "tea-gift-boxes": {
     "id": "0ff6e707-0954-43f1-a6d6-ad8b7a22acb6",
@@ -20843,7 +20439,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Tea gift boxes transform a simple tea collection into a memorable gifting experience. Packaging loose-leaf tea sets, herbal blends, green tea gift boxes, or a tea assortment gift box can feel overwhelming. But a beautifully designed tea gift box adds value before the first cup is even brewed. These luxury gift sets are ideal for gourmet tea & coffee brands, specialty retailers, corporate gifting, and promotional sets. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780587316/d56e8b3d-94b3-4a1f-8da9-e533032be217.jpg",
+      "/images/products/tea-gift-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1780587321/dc9c2556-339c-41c5-8a82-7ac5037f9d11.jpg"
     ],
     "box_style": "Tea Gift Boxes ",
@@ -21084,144 +20680,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
-  },
-  "custom-shoulder-neck-rigid-boxes": {
-    "id": "e3242e86-0487-4a1d-b99f-3d626d60a166",
-    "name": "Custom Shoulder Neck Rigid Boxes",
-    "slug": "custom-shoulder-neck-rigid-boxes",
-    "skuCode": "F100 — Custom Packaging",
-    "description": "Tired of boring rectangular or square boxes? Explore our custom shoulder boxes for luxury packaging solutions with the perfect blend of durability, storytelling, and minimalistic aesthetics.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775136226/b7922e2a-1890-4a24-959e-bcf5668f924a.jpg",
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775136232/7c8f3229-9c25-4986-a714-36ba173142a6.jpg",
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775136241/4358c0f7-f809-44bf-a569-4d222e7992f8.jpg"
-    ],
-    "box_style": "Shoulder Neck Rigid Box",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Rigid Boxes",
-      "slug": "custom-rigid-boxes"
     },
-    "meta_title": "Custom Shoulder Neck Rigid Boxes | HOF Pack ",
-    "meta_description": "Turn your ordinary rectangular box into a luxury shoulder-neck rigid box with the perfect blend of durability, storytelling, and minimalistic aesthetics.",
-    "meta_keywords": "Custom Shoulder Neck Rigid Boxes, wholesale Shoulder Neck Rigid Boxes",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
-  },
-  "christmas-candle-boxes": {
-    "id": "f01e7cfc-cc61-4f49-bc6e-632be7080909",
-    "name": "Christmas Candle Boxes",
-    "slug": "christmas-candle-boxes",
-    "skuCode": "F101 — Custom Packaging",
-    "description": "Make your holiday candles feel extra special with custom Christmas candle boxes. These customized boxes are designed for festive presentation and secure packaging specifically for gifting purposes. Whether you sell scented candles, soy candles, jar candles, or holiday candle gift sets, these boxes help create a warm and memorable unboxing experience for your customers. ",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775476402/047780d0-1ca7-4a93-8e8c-762b50ad5e6c.jpg"
-    ],
-    "box_style": "Christmas Candle Boxes",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Candle Boxes",
-      "slug": "custom-candle-boxes"
-    },
-    "meta_title": "Christmas Candle Boxes | Holiday Candle Packaging Wholesale",
-    "meta_description": "Get custom Christmas candle boxes for holiday gift sets, retail displays, and festive packaging. Premium & durable custom candle packaging wholesale in the USA.",
-    "meta_keywords": "Christmas candle packaging , wholesale Christmas candle boxes , printed custom Christmas candle packaging , Christmas candle boxes bulk ",
-    "product_content": {
-      "feature_items": [],
-      "content_blocks": [
-        {
-          "alt": "",
-          "body": "Candles are one of the most popular holiday gifts in the USA. Do you know why? Because they give the feel of comfort, warmth, and relaxation during the festive season. Exactly what people need on holidays. Premium Christmas candle packaging adds emotional value to your products while helping them stand out on crowded retail shelves. Studies show that customers are more likely to purchase seasonal packaging because it creates a stronger emotional connection during holidays.\n",
-          "image": "",
-          "heading": "Turn Holiday Candles Into Meaningful Gifts"
-        }
-      ],
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
+    "faqs": []
   },
   "cardboard-jewelry-boxes": {
     "id": "ca2333a6-03cf-4c0d-89aa-cd0309f43a32",
@@ -21230,7 +20690,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Finding a safe and beautiful way to pack your rings, necklaces, and bracelets is very important. High-quality cardboard jewelry boxes give your items a warm, professional home. Instead of letting your delicate pieces scratch or tangle in plain plastic bags, using a structural cardboard jewelry box keeps your inventory clean, safe, and ready to show off.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1783016896/2ff6f2ea-b8dc-46a1-b2c3-3dd6fe9b8c58.jpg",
+      "/images/products/cardboard-jewelry-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783016901/1dcfc6ff-cfbc-4c09-be07-87bf2ba99081.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783016904/b8d2a211-21d0-4c2d-9649-4460b3ae4cd7.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783016907/6eed7f60-948a-43da-9673-7dc52ff38631.jpg"
@@ -21388,7 +20848,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "mylar-bags-for-food-storage": {
     "id": "6f125ec8-ae7c-405c-881e-a162bd05de4f",
@@ -21397,7 +20858,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Struggling with food going stale, losing flavor, or getting exposed to moisture? Our Mylar bags for food storage are designed to lock in freshness and protect your products from air, light, and humidity. Whether you’re storing dry foods, tea, coffee, or cannabis items, these food storage Mylar bags ensure longer shelf life and better product quality.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778166438/b4d92d90-904d-4161-ada3-9b620e67adcd.jpg"
+      "/images/products/mylar-bags-for-food-storage.jpg"
     ],
     "box_style": "Mylar bags for Food Storage",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -21627,7 +21088,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-bread-bags": {
     "id": "61f7a16b-3f1c-4224-bdd2-1bfcaac2f96b",
@@ -21636,7 +21098,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom bread bags are important because they keep baked goods fresh and offer a clean and professional look. These bags are commonly used by bakeries for packaging bread, sourdough loaves, and other baked items. They provide a simple yet effective way to protect your freshly baked items while showcasing your brand look.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778674280/34c0464b-ad3d-42c0-80b2-a632c5e57b7d.jpg"
+      "/images/products/custom-bread-bags.jpg"
     ],
     "box_style": "Bread Bags ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -21827,7 +21289,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-deli-papers": {
     "id": "3305644d-7596-47a5-82bc-1adfbf721c1e",
@@ -21836,7 +21299,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Every sandwich you serve is a billboard waiting to happen. Custom deli paper wraps your food in your logo, your colors, and your personality, so your brand travels with every order. From the counter to the coffee table, custom printed deli paper turns a simple meal into a moment your customers remember.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785964646/eda37c5c-5a35-4846-b533-c7ddc6171536.png",
+      "/images/products/custom-deli-papers.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785964655/e81d9c73-bfaf-4a8b-bb0f-21a660d639e4.png",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785964686/6f4683a5-6830-468a-ba0f-b1aae702b2c6.png"
     ],
@@ -21976,16 +21439,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "candle-jar-boxes": {
     "id": "1eb3953b-44d8-4a65-8b35-d6fb5576ef5c",
     "name": "Candle Jar Boxes",
     "slug": "candle-jar-boxes",
-    "skuCode": "F104 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Custom candle jar boxes are custom-designed, tailored for every brand, to safely hold and present candle jars. These boxes provide the support needed to protect fragile glass jars while maintaining a clean and attractive look to upscale your packaging. They are widely used for retail display, gifting, and e-commerce packaging.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780316614/dfa8b54f-382f-4bca-8523-0453ae008230.jpg"
+      "/images/products/candle-jar-boxes.jpg"
     ],
     "box_style": "Candle Jar Boxes ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -22188,70 +21652,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
-  },
-  "kraft-soap-boxes": {
-    "id": "33c2cf50-a451-4bd7-abcb-e94f26b9c69f",
-    "name": "Kraft Soap Boxes",
-    "slug": "kraft-soap-boxes",
-    "skuCode": "F100 — Custom Packaging",
-    "description": "Custom Kraft Soap Boxes engineered with premium materials.",
-    "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775481989/87e32d1b-ee8f-432f-adad-bdddab0485c4.jpg"
-    ],
-    "box_style": "Kraft Soap Boxes",
-    "size_info": "Fully Customizable (All dimensions available)",
-    "min_quantity": "Starting from 100 Units",
-    "stock_info": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",
-    "printing_options": "CMYK, PMS, No Printing, Offset High Fidelity",
-    "finishing_options": "Gloss, Matte, Aqua Coating, Foil Stamping, Spot UV",
-    "proof_info": "2D Flat View, 3D Digital Mockup",
-    "turnaround_time": "8 to 12 Business Days",
-    "shipping_info": "FREE Shipping Worldwide",
-    "category": {
-      "name": "Soap Boxes",
-      "slug": "custom-soap-boxes"
     },
-    "meta_title": "Kraft Soap Boxes | Custom Packaging",
-    "meta_description": "Custom Kraft Soap Boxes",
-    "meta_keywords": "",
-    "product_content": {
-      "spec_overrides": {
-        "dimension_info": "All Custom Sizes & Shapes",
-        "rush_available": true,
-        "quantities_info": "No Minimum MOQ Required",
-        "included_options": [
-          "Die Cutting",
-          "Gluing",
-          "Scored",
-          "Perforation"
-        ],
-        "turnaround_label": "4-8 Business Days",
-        "additional_options": [
-          "Eco-Friendly",
-          "Recycled Boxes",
-          "Biodegradable"
-        ],
-        "printing_options_list": [
-          "No Printing",
-          "CMYK",
-          "CMYK + 1 PMS color",
-          "CMYK + 2 PMS colors"
-        ],
-        "finishing_options_list": [
-          "Gloss Lamination",
-          "Matte Lamination",
-          "Gloss AQ",
-          "Gloss UV",
-          "Matte UV",
-          "Spot UV",
-          "Embossing",
-          "Debossing",
-          "Gold / Silver Foiling",
-          "Holographic Foiling"
-        ]
-      }
-    }
+    "faqs": []
   },
   "coffee-cup-sleeves": {
     "id": "552190d4-b4ad-474e-aa8b-b336073e9f79",
@@ -22260,7 +21662,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Coffee cup sleeves are a versatile and unique branding element with maximum functionality. Customized for your brand, they offer logo printing options for a stylish coffee cup design, and made from cardboard, these sleeves improve the grip of your hot coffee cups through an insulating effect. Whether you run a bustling cafe or want customized branding solutions to make your coffee cups stylish, printed coffee cup sleeves are the perfect solution.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782939982/be80f567-1f2b-4785-96d7-89b5d8840acb.jpg",
+      "/images/products/coffee-cup-sleeves.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782939985/d4033f23-dcd0-44cb-ae49-e60aef53e1e1.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782939990/07fe03a5-a796-4367-a62e-46a3f8c807bd.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782939995/fb8748eb-2f64-4038-9e81-0782b78ab5be.jpg"
@@ -22415,16 +21817,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-paper-tubes": {
     "id": "ac93a225-6180-4258-886d-d883b20a1c59",
     "name": "Kraft Paper Tubes",
     "slug": "kraft-paper-tubes",
-    "skuCode": "F112 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Tired of packaging that looks basic or fails to protect your products? Kraft paper tubes are durable, cylindrical packaging solutions designed for brands looking for protective yet eco-conscious packaging. Their natural kraft appearance creates a clean and minimal presentation while offering reliable structural strength for retail and shipping purposes. These tubes are commonly used for candles, cosmetics, food items, apparel accessories, and gift packaging.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778850274/8dffc711-913a-42f7-8487-370ec897939e.jpg"
+      "/images/products/kraft-paper-tubes.jpg"
     ],
     "box_style": "Kraft Paper Tubes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -22677,16 +22080,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "colored-mailer-boxes": {
     "id": "fa55d267-277a-4a9d-817f-0f46600763b6",
     "name": "Colored Mailer Boxes | Custom Shipping Boxes Wholesale",
     "slug": "colored-mailer-boxes",
-    "skuCode": "F101 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Colored Mailer boxes are designed in multiple visually striking colors and patterns to elevate the look of your packaging box. These durable, versatile, and functional boxes provide product safety along with enhanced customer convenience, along with an amazing unboxing experience. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777665756/ab2be935-ef93-4d31-8404-e6354cc313f1.jpg"
+      "/images/products/colored-mailer-boxes.jpg"
     ],
     "box_style": "Colored Mailer Boxes | Custom Shipping Boxes Wholesale",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -22942,7 +22346,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "child-resistant-boxes": {
     "id": "16d8de2b-d8d0-48f8-beb4-601ce8881ce6",
@@ -22951,7 +22356,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Child resistant rigid boxes offer a secure and durable packaging solution, perfect for medications and sensitive products. They ensure safety without compromising quality. Get the same luxury look rigid boxes provide, but with child-resistant qualities that will keep the curious little hands away!",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777044614/bd8811ff-88b1-423d-9fae-db224e2da705.jpg",
+      "/images/products/child-resistant-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1777984811/a5a65cdb-e86b-4129-b363-89b6ac50ca1b.jpg"
     ],
     "box_style": "Child Resistant Rigid Boxes",
@@ -23177,7 +22582,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-cheese-paper": {
     "id": "9e6e022c-8429-4259-a991-b8267ba542e6",
@@ -23186,7 +22592,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Cheese is a widely popular food item that is used globally at massive scale. It needs protection. Nothing can beat custom cheese paper when it comes to protection and maintaining freshness.\nHoF Pack provides premium two-ply custom cheese paper that balances humidity regulation and aeration. It lets cheese release moisture without drying, preserving peak flavor from counter to customer\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785873453/a067ea18-d885-4b96-ad58-31a3c0c8f601.jpg",
+      "/images/products/custom-cheese-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785873458/1a31c6f6-97cb-4ea7-abb4-f7cde9fefb20.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785873462/9be7646f-d571-4555-b02c-a6b45b8633a1.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785873468/f0e7b1d1-4797-465f-86db-7f3fbd6b8810.jpg"
@@ -23380,7 +22786,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "lip-balm-boxes": {
     "id": "4702a8aa-dd75-4cbe-a3af-fc9a475ca1f7",
@@ -23389,7 +22796,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Your Lip balm deserves customized packaging that makes a big impression. Lip balm is one of the hot-selling beauty products in the United States because it is unisex (used by both men and women) and suitable in extreme heat or cold environments. Custom lip balm boxes help beauty brands present their products professionally while protecting them from damage during storage, shipping, and retail display. Whether you’re selling organic lip balms, tinted balms, medicated lip care products, or luxury beauty collections, the right packaging design can help your product stand out and attract more customers. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781288064/5a8f4afd-62f3-4633-ae1b-54248326560a.jpg",
+      "/images/products/lip-balm-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781288067/b0cbb81b-92a1-4990-9c07-bcd9b3907a28.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781288070/0ea1101f-c300-47ac-b565-5f7c8e874547.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781288093/41109664-7daa-40bd-b364-0ac89aff2f0d.jpg"
@@ -23505,16 +22912,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "tuck-top-mailer-boxes": {
     "id": "78c5d761-b1cd-4eff-8400-479942165f1c",
     "name": "Tuck Top Mailer Boxes",
     "slug": "tuck-top-mailer-boxes",
-    "skuCode": "F109 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Tuck top mailer boxes are a versatile and durable packaging design ideal for shipping and storage for retail and e-commerce businesses. These auto-lock boxes with top tuck flaps offer secure packaging to enhance product safety and presentation for branding purposes. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1777667148/e851296f-a23a-40f5-a6f7-664753516b6d.jpg"
+      "/images/products/tuck-top-mailer-boxes.jpg"
     ],
     "box_style": "Tuck Top Mailer Box ",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -23662,7 +23070,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "blank-cigarette-boxes": {
     "id": "6b676c9a-94cf-4369-a624-f5e3df71cb5e",
@@ -23671,7 +23080,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Blank cigarette boxes are plain white, black, or kraft brown color boxes with no logo, text, or branding. These are unbranded packaging solutions ideal for storing loose cigarettes. These boxes are ideal for retail brands in the US seeking a minimal look with customization options. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1779465087/77ffb43c-6cbe-4fed-a272-41bc8a6f0ba9.jpg"
+      "/images/products/blank-cigarette-boxes.jpg"
     ],
     "box_style": "Blank Cigarette Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -23821,7 +23230,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-bulk-jewelry-boxes": {
     "id": "c780d509-e66f-4272-aba0-a94927bbe29e",
@@ -23830,7 +23240,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Kraft got popular because it works, not because it's trendy. It's sturdy, it prints well, and it doesn't need a shiny coating to look intentional. HOF Pack manufactures kraft bulk jewelry boxes on that logic. We make sure function first, aesthetic second, and both done properly.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1787087816/6ffcc479-5327-4a7a-baca-2135b9bfb47c.jpg",
+      "/images/products/kraft-bulk-jewelry-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787087820/9debb54b-9c94-48be-80db-8543c6b7d9f0.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787087823/f95cb919-afe8-43ba-86a7-6995bef41fbd.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1787087843/d596d3e7-6f8c-4290-82ff-66d5ef4817c5.jpg"
@@ -23980,16 +23390,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-bakery-boxes": {
     "id": "811acc4f-46a7-4add-a6f1-fdaac5bee2f2",
     "name": "Kraft Bakery Boxes",
     "slug": "kraft-bakery-boxes",
-    "skuCode": "F106 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Struggling with bakery packaging that gets greasy, collapses, or looks cheap? Our kraft bakery boxes are designed to keep your baked goods fresh, safe, and presentable. These custom kraft bakery boxes are strong, eco-friendly, and perfect for bakeries, cafes, and home-based businesses. ",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1775575190/99003f72-0f73-45e7-b6ab-01d76805a064.jpg"
+      "/images/products/kraft-bakery-boxes.jpg"
     ],
     "box_style": "Kraft Bakery Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -24267,7 +23678,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "eye-shadow-boxes": {
     "id": "edd4e64f-bb49-4340-933a-221dc36b3bdf",
@@ -24276,7 +23688,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Eye shadow is one of the most visually attractive products in the beauty industry. Customers often choose palettes based on colors, presentation, and overall aesthetic appeal that comes with packaging. That’s why your packaging matters just as much as the product itself. Customized eye shadow boxes are designed to create a premium brand experience. Whether you’re launching a single shade collection or a full palette line, create custom packaging that captures attention at first glance.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781122813/28a1f510-7c1c-4a51-bf50-edc9dc90be8d.jpg",
+      "/images/products/eye-shadow-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781122825/ba6e7868-b70c-4817-8884-0fdafdbe2497.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781122838/0f435c61-5340-45a9-9f1c-217e6bf5c127.jpg"
     ],
@@ -24512,7 +23924,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-sticker-sheets": {
     "id": "243a8f6e-34c7-4c81-8970-7045f5ed6238",
@@ -24521,7 +23934,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "If you are looking for a fun, creative, and affordable way to brand your products, custom sticker sheets are the perfect choice. Instead of dealing with loose individual stickers that are easy to lose, a sticker sheet keeps multiple designs cleanly organized on a single page. They are incredibly easy to peel and apply, making them a favorite tool for business owners who want to add a professional, personal touch to their retail boxes, tissue paper, or mailer bags.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781640261/f48e7080-08f7-418a-8906-2fa0d941f17a.jpg",
+      "/images/products/custom-sticker-sheets.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781640266/526a8462-a809-490b-8fa9-94953644598e.jpg"
     ],
     "box_style": "Sticker Sheets",
@@ -24655,7 +24068,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-vinyl-stickers": {
     "id": "1c71d534-3946-41f8-b560-4967bacd4438",
@@ -24664,7 +24078,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Custom Vinyl stickers are made from durable, heavy-duty vinyl material designed to withstand daily wear and tear. Unlike ordinary paper stickers, they offer stronger adhesion, better print quality, and longer-lasting performance. Whether you’re promoting your business, decorating products, labeling packaging, or creating merchandise, custom vinyl stickers provide a professional and reliable solution. They can be printed in virtually any shape, size, or design to match your branding needs.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781896645/be0a7584-2dbf-4ea1-9494-9cddef64bf2c.jpg",
+      "/images/products/custom-vinyl-stickers.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781896652/5f158c95-a38f-454a-a544-ca5e78f38f8e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781896660/6a458e0a-d7ad-46a2-9a30-599a4e009213.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781896665/8521619b-510f-4d58-a022-c7f7270e0ccb.jpg"
@@ -24796,7 +24210,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "mylar-vacuum-seal-bags": {
     "id": "18085dec-f766-4741-bf20-88a4094bbb95",
@@ -24805,7 +24220,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Struggling with food spoilage, moisture damage, or reduced shelf life? Our Mylar Vacuum Seal bags are designed to completely remove air, oxidation, and moisture to lock in freshness for long-term food storage. These custom mylar vacuum seal bags provide an airtight, durable solution for businesses that need maximum product protection and extended usability.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778168864/53f91011-c33d-4125-bc38-81d4e7af8354.jpg"
+      "/images/products/mylar-vacuum-seal-bags.jpg"
     ],
     "box_style": "Mylar Vacuum Seal Bags​",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -25057,16 +24472,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-mylar-bags": {
     "id": "bb6dad82-31fb-482f-b27b-6485e87c38b1",
     "name": "Kraft Mylar Bags",
     "slug": "kraft-mylar-bags",
-    "skuCode": "F120 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Balancing sustainability with maximum product presentation is a challenge. We understand your struggle. Most eco packaging lacks durability, while plastic packaging hurts brand perception. That is why HOF Pack offers kraft mylar bags to solve this by combining a natural kraft exterior with high-barrier Mylar layers inside, giving you both eco appeal and airtight protection in one solution.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1778080860/3b3a2db5-e4d3-44f2-a5ec-b78a62cb78be.jpg"
+      "/images/products/kraft-mylar-bags.jpg"
     ],
     "box_style": "Kraft Mylar Bags",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -25233,7 +24649,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cannabis-mylar-bags": {
     "id": "9f7b8b0a-9282-4dd8-b010-b7d4823a3361",
@@ -25242,7 +24659,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Cannabis Mylar bags are one of the most popular packaging solutions for dispensaries, CBD, joint, and cannabis brands. These pouches are designed for product freshness, branding, and convenience. They offer a lightweight yet durable packaging option for a wide range of cannabis products. Their flexible structure, premium appearance, and customizable design make them a preferred choice for modern cannabis packaging across the United States and the globe.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780659502/1a5b6f05-34c6-424e-b454-5a67e9f56805.jpg"
+      "/images/products/cannabis-mylar-bags.jpg"
     ],
     "box_style": "Cannabis Mylar Bags",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -25423,7 +24840,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "hair-extension-boxes": {
     "id": "3059306e-5ff6-45d0-86c1-5a071c89e403",
@@ -25432,7 +24850,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Hair extensions are a beauty investment. Your packaging should reflect that value. Custom hair extension boxes help beauty brands present their products professionally while keeping extensions protected from dust, tangling, and damage. Whether you’re selling human hair extensions, synthetic hair extensions, clip-ins, tape-ins, or box braid hair extensions, the right packaging helps create a strong first impression and enhances the customer experience.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781547570/b1b16a62-1c96-4459-a70c-df1c97b5a203.jpg",
+      "/images/products/hair-extension-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781547574/250bd770-f560-4831-b615-3e0046c1a702.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781547579/b031807a-3e29-4a40-969a-e634d1935a9b.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781547582/86f247fc-9cbd-4e87-b5be-0045a1bde0be.jpg"
@@ -25552,7 +24970,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-lenticular-stickers": {
     "id": "2ff6ffae-adb3-4286-a9d3-77d1a2dbf5c1",
@@ -25561,7 +24980,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Want your stickers to do more than just sit there? Then custom lenticular stickers are the perfect fit. These custom stickers create a 3D motion or animation visual effect that appears to be moving, flipping, zooming, or displaying depth with a raster or stereo effect (when viewed from different angles). Unlike traditional stickers, these interactive designs grab attention instantly, compelling customers to engage and play with your product/sticker and thus creating a memorable experience for them.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781635975/c752619b-3534-4497-b895-6a8ccaf3834a.jpg",
+      "/images/products/custom-lenticular-stickers.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781635979/bc2a2ab2-4f12-4637-9e22-03869a5d2bd0.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781635984/7f469497-a79d-4f4f-8efb-c5d58d6ff71c.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781635989/46e5a2fe-df5c-4841-ada9-058f105e31e6.jpg"
@@ -25709,7 +25128,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "candy-pillow-boxes": {
     "id": "060de8fe-13e6-4d64-a711-7d013e92c7bd",
@@ -25718,7 +25138,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Candy pillow boxes are small, curved, pillow-shaped boxes used for packaging sweets. Their curved pillow shape gives packaging a unique and elegant appearance while keeping products lightweight, secure, and easy to carry. Perfect for retail shelves, party favors, festive gifting, and promotional packaging, these boxes help create a memorable customer experience.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1780498906/41ef4e25-3be0-4a41-9e32-66833231bdb2.jpg"
+      "/images/products/candy-pillow-boxes.jpg"
     ],
     "box_style": "Candy Pillow Boxes",
     "size_info": "Fully Customizable (All dimensions available)",
@@ -25886,7 +25306,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "eco-safe-stickers": {
     "id": "cb856511-7611-4de9-8500-cf49493aa13f",
@@ -25895,7 +25316,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Showing your customers that you care about the planet starts with your packaging. Our eco safe stickers offer a clean, green way to brand your products without creating unnecessary plastic waste. Made from sustainable, plant-based materials, these stickers give your boxes, bags, and jars a beautiful, natural look while keeping your business environmentally friendly.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781721163/42499ca4-b4f8-4dcd-b444-668c496a387d.jpg",
+      "/images/products/eco-safe-stickers.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781721168/9a164ba2-fad1-48e2-87a8-400c65384c2e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781721172/63f10fe1-9d31-43ea-8204-856d3dc054ee.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781721177/ccbce03e-7bac-4f63-b476-36f7118cc5cb.jpg"
@@ -26027,16 +25448,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "ziplock-mylar-bags": {
     "id": "80681d18-3b25-48a1-a966-5aaa718d6623",
     "name": "Custom Ziplock Mylar Bags",
     "slug": "ziplock-mylar-bags",
-    "skuCode": "F121 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Struggling with torn packages that can’t be reused, failing to keep products fresh after opening? Ziplock mylar bags combine resealable convenience with durable barrier protection for modern retail and storage packaging. These flexible pouches are designed to help preserve product freshness while making repeated opening and closing easier for customers. They are commonly used for snacks, coffee, herbs, supplements, powders, and other retail products.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782160921/79ab7526-44f0-4e90-ba11-dca2953bd13b.jpg",
+      "/images/products/ziplock-mylar-bags.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782160930/f0f77106-2870-496c-8a54-ea015b46a015.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782160953/30f10d13-24f9-490e-b017-4ea86b57e79d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782160959/41cea979-6e2c-4152-af57-16cc1a27b5c5.jpg"
@@ -26148,16 +25570,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "kraft-gable-boxes": {
     "id": "112bf2bc-d499-46d3-869d-12b00c2018c5",
     "name": "Kraft Gable Boxes",
     "slug": "kraft-gable-boxes",
-    "skuCode": "F104 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Choosing a kraft gable box is the easiest way to give your brand an organic, authentic feel. Modern consumers love the rustic natural packaging that is good for the environment. Gable boxes are classic, house-shaped containers containing a flat base with a built-in handle at the top. It is the ultimate choice for eco-conscious businesses that want to package items safely while showing their commitment to green living.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782389296/6d43e73b-2afa-40df-a97e-89ff62538e9a.jpg",
+      "/images/products/kraft-gable-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782389304/e5d77911-9b64-4c8e-a1dd-c79a8dd7b76d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782389307/acdc5634-be08-4ecb-93f0-f1c5c5a2aa10.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782389312/2a57693a-ac7f-4787-8943-7250d327fd04.jpg"
@@ -26398,7 +25821,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-holographic-stickers": {
     "id": "5b89efba-e589-4e91-bde6-bf0eccc9e3f1",
@@ -26407,7 +25831,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "If you want your branding to truly stand out, holographic stickers are the ultimate way to catch a customer's eye. These unique stickers feature a premium metallic layer that changes color and shimmers in the light, creating a beautiful rainbow effect. Whether you are labeling high-end retail products, sealing shipping boxes, or handing out promotional swag, custom holographic stickers transform ordinary graphics into unforgettable, hypnotic designs.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1781643412/fd27add1-8516-4548-a1de-3843e1fcc305.jpg",
+      "/images/products/custom-holographic-stickers.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781643415/8b7ac2c0-8330-4e78-8a9c-e807d4a4fc67.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781643427/14a20586-03c6-4681-bfdd-fbfe130d8aeb.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1781643433/43bccbb5-5d16-4882-9ec3-08f91c24d472.jpg"
@@ -26571,7 +25995,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-cardboard-can-carriers": {
     "id": "73667711-bf3e-4c41-a04a-a59410cc2085",
@@ -26580,7 +26005,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Cardboard can carriers give craft breweries, beverage producers, and retail brands a high-grip, and eco-friendly way to bundle canned drinks. We make custom can carriers that hold standard 12 oz, 16 oz tallboys, and sleek cans without tearing. Our paperboard cardboard can carriers replace single-use plastic multi-pack rings entirely. We provide structured design that keeps cans locked in place during transport, while the printable surface turns every 4-pack or 6-pack into a mobile billboard for your brand. Add your custom logo, full-color graphics, and high-impact finishes to create multi-pack packaging that catches eyes on crowded retail shelves.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785268904/78111c43-81bd-4423-93d1-7ef6d4a868aa.jpg",
+      "/images/products/custom-cardboard-can-carriers.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785268908/d73ce44c-2c07-4d82-a5a9-e00dc517189a.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785268912/8e97870f-daef-48fa-b208-854a6e26759d.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785268916/bb1f468d-b2f6-4773-b83a-2c74c14c8e3a.jpg"
@@ -26767,7 +26192,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "cardboard-gable-boxes": {
     "id": "3dccdb71-9f8d-4cb2-a3a5-d855f76208bc",
@@ -26776,7 +26202,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Get cardboard gable boxes that deliver the perfect mix of heavy-duty protection and retail style. Standard paper bags can rip, and basic square cartons are awkward to hold. These uniquely shaped boxes feature a reinforced, flat rectangular base that narrows into an integrated top handle. They give your merchandise a premium shelf presence while offering maximum structural strength for shipping and transit.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782394959/de427831-ce8c-4cf9-b53f-a05ac0967a77.jpg",
+      "/images/products/cardboard-gable-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782394964/7deab42c-1bf9-48ce-8860-9f4ad55f3011.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782394970/bddc6ebd-065d-4f82-87d0-75abbe4be9f5.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782394975/5171f6cb-75df-4807-867e-41ba86fab371.jpg"
@@ -26951,16 +26377,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "die-cut-mylar-bags": {
     "id": "8efea0a7-e0ef-43e8-abf3-31c568372fdb",
     "name": "Custom Die Cut Mylar Bags",
     "slug": "die-cut-mylar-bags",
-    "skuCode": "F119 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Make your packaging stand out on crowded shelves with custom die cut mylar bags, instead of standard bags, which often fail to grab attention. Custom die cut mylar bags are specifically engineered & designed in unique shapes to instantly attract customers and protect your products. With PTE and tear-resistant films, these custom Mylar bags combine creativity with durability to give your brand a competitive edge.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782163303/9703ab30-4150-443e-b9bd-35416cdeecad.jpg",
+      "/images/products/die-cut-mylar-bags.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782163307/97a42d02-cc40-48d5-9cff-61135685c9d9.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782163312/96e3abf2-b044-4cc2-9dd0-3653e3e72e79.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782163317/71bc8a2d-2aee-4195-b294-90fef4ff3aa9.jpg",
@@ -27126,7 +26553,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "double-wall-corrugated-boxes": {
     "id": "3908beb7-004b-43ae-8ce0-526fe0e2b766",
@@ -27135,7 +26563,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Heavy, fragile, and export-bound products crush and break in transit when the box gives out first. A single wall board handles light retail, but it can easily collapse under stacking pressure and long-haul.One collapsed carton takes the whole shipment down with it. HOF Pack builds custom double wall corrugated boxes with two layers of fluting between three liners for maximum stacking and crush resistance. \n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1786392267/764a182c-5385-44fc-a422-0c8f2be9530e.jpg",
+      "/images/products/double-wall-corrugated-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786392271/bd66445f-fe51-4375-b90b-01a8cd72fd9a.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786392275/7a762221-ce03-4e4f-ae9c-e7fccc73e9e1.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1786392279/c3017498-5af2-431f-9549-0eb5d3d08f2f.jpg"
@@ -27340,7 +26768,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-bakery-wax-paper": {
     "id": "0d1c3d38-9c07-4b68-b9cc-67048a6b04d6",
@@ -27349,7 +26778,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "That croissant looks incredible until grease bleeds through the box on the drive home. Bakery wax paper USA bakeries trust stops that cold. HOF Pack prints food-grade sheets that lock in butter and oil while your logo rides along on every wrap, tray, and takeout order. Shop Bakery Paper\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785442684/5abe61ac-9ad7-442b-931e-a7eab0073c0d.jpg",
+      "/images/products/custom-bakery-wax-paper.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785442688/7fd67c16-7447-4a24-94b2-eb90145949ee.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785442692/e86ff321-8254-4f29-a067-d37b505aadec.jpg"
     ],
@@ -27505,7 +26934,8 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "custom-cardboard-ammo-boxes": {
     "id": "2939b2bb-bfb6-49b1-933c-af1cad736357",
@@ -27514,7 +26944,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Cardboard ammo boxes give ammunition manufacturers, reloaders, private-label brands, and firearms retailers a sturdy, retail-ready way to package and sell loose rounds. HOF Pack makes custom ammo boxes that hold pistol, rifle, rimfire, and shotshell cartridges without shifting or rattling. A fitted inner tray seats every round in its own slot, locking cartridges in place through handling and transport. The printable surface carries your logo, caliber, load details, and safety information in full color.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1785269721/299ab1be-f5e1-42dd-827d-815d6b1ee713.jpg",
+      "/images/products/custom-cardboard-ammo-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785269743/f0776ac6-a464-4eba-b59a-1ef6022bb1e6.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785269748/1ae35de7-f5b0-4b26-8370-9fa81616cb8f.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1785269754/c8e325b8-d8a9-46af-8baf-d6d0abdfeda5.jpg"
@@ -27701,16 +27131,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "large-gable-boxes": {
     "id": "6c1afce6-3c6e-45c4-a313-2e36d064fc2d",
     "name": "Large Gable Boxes",
     "slug": "large-gable-boxes",
-    "skuCode": "F104 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Finding packaging that is both spacious and easy to carry can be tricky for retail brands. Large gable boxes solve this problem by offering a roomy storage base with an integrated roof handle. This unique gable box shape provides plenty of vertical space, making it perfect for bulky items like complete apparel sets, multi-course meal takeouts, and corporate gift bundles.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782391815/725d0a57-e616-462f-a690-cb66690c1d87.jpg",
+      "/images/products/large-gable-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782391819/6add0374-635e-4beb-95d4-b85d48a1f3c2.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782391822/e75c4296-c37e-4df7-a965-749bd5386018.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782391825/309a0967-9068-4c7c-84e2-5ed0c651f183.jpg"
@@ -27877,16 +27308,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "coffee-bean-packaging": {
     "id": "0fd14ae9-7106-4191-9cd6-82228b77be6e",
     "name": "Coffee Bean Packaging",
     "slug": "coffee-bean-packaging",
-    "skuCode": "F109 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Fresh coffee starts with the right packaging. Roasted coffee beans begin to lose their aroma as soon as they're exposed to air. That's why good coffee bean packaging is so important. It helps protect the beans from moisture, oxygen, light, and heat while keeping them fresh for longer. At HOF Pack, we create custom packaging for coffee beans that looks great and works even better. Whether you need coffee bean packaging bags, custom coffee bags, or personalised coffee bags, we'll help you create packaging that protects your product and represents your brand.",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1782761111/03755147-1284-4af5-9a1f-96f0d9430266.jpg",
+      "/images/products/coffee-bean-packaging.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782761115/3d5d1bd1-b5e8-452c-b939-6a9a2ae97824.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782761119/93617f2c-3dc0-49ca-8a22-4238ff9a9416.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782761123/b1e6f067-3d8b-46f1-9720-714bb608e4e4.jpg"
@@ -28045,16 +27477,17 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   },
   "white-cardboard-boxes": {
     "id": "1ede31df-56c3-4474-b3cf-92322ce5d261",
     "name": "White Cardboard Boxes",
     "slug": "white-cardboard-boxes",
-    "skuCode": "F102 — Custom Packaging",
+    "skuCode": "F100 — Custom Packaging",
     "description": "Finding packaging that looks pristine while protecting your products is essential for modern businesses. Premium white cardboard boxes offer a clean, professional canvas that instantly elevates your brand identity. Unlike traditional brown kraft containers, a crisp white cardboard box makes your printed logos pop, gives an upscale retail presentation, and ensures your items look high-end from the second they arrive.\n",
     "images": [
-      "https://res.cloudinary.com/dazm20bju/image/upload/v1783014787/35f64e8d-54d7-4505-85c2-3bdd8c5d9ca9.jpg",
+      "/images/products/white-cardboard-boxes.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783014791/8fa15f38-6674-4e08-ba39-11aed3061b79.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783014794/abfa9d97-5699-42d7-8c22-e1450861345e.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1783014798/3d023ce8-42b4-423d-8f65-de4514ff4edb.jpg"
@@ -28203,6 +27636,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
           "level": "p"
         }
       ]
-    }
+    },
+    "faqs": []
   }
 };

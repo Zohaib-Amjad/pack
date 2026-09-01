@@ -263,7 +263,7 @@ can be recycled or composted, and we never test on animals.`,
         active: true,
       },
     ],
-    ctaLabel: "Start Your Project",
+    ctaLabel: "Talk to a Designer",
   },
   testimonials: {
     sectionLabel: "Real Reviews",

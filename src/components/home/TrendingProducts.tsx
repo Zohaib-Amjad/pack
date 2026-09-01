@@ -299,7 +299,7 @@ const TrendingProducts = ({ cms }: TrendingProductsProps) => {
               href={viewAllHref}
               style={{ background: "#2d5c3e", fontSize: 13 }}
             >
-              <span>{viewAllLabel}</span>
+              <span>See All Products</span>
               <ArrowRight size={14} color="#e8732a" />
             </Link>
           </div>
