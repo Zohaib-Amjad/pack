@@ -38,6 +38,7 @@ import { useAbandonedFormCapture } from "@/hooks/useAbandonedFormCapture";
 import { getProductDetailDefaults, ProductDetailData } from "@/data/product-defaults";
 import { getProductBySlug, getProductTag, getAllProducts } from "@/data/products";
 import { fetchAllProducts } from "@/lib/product-service";
+import { fetchProductFaqs } from "@/lib/faq-service";
 import { FULL_PRODUCTS_DATABASE } from "@/data/product-detail-defaults";
 import FeatureItemsRow from "@/components/FeatureItemsRow";
 import { useQuoteModal } from "@/components/QuoteModalContext";
@@ -122,7 +123,10 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
     queryKey: ["product-detail", rawSlug],
     queryFn: async () => {
       try {
-        const allItems = await fetchAllProducts();
+        const [allItems, liveFaqs] = await Promise.all([
+          fetchAllProducts(),
+          fetchProductFaqs(rawSlug),
+        ]);
         const customItem = allItems.find((p) => p.slug === rawSlug);
 
         if (customItem) {
@@ -138,6 +142,13 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
             (customItem.category || "custom-boxes").toLowerCase().replace(/\s+/g, "-"),
             customImg
           );
+
+          const mappedFaqs = liveFaqs.map((f) => ({
+            id: f.id,
+            question: f.question,
+            answer: f.answer,
+            display_order: f.order ?? 0,
+          }));
 
           return {
             ...defaults,
@@ -159,6 +170,20 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
               (customItem.specs as any)?.printingOptions || defaults.printing_options,
             finishing_options:
               (customItem.specs as any)?.finishingOptions || defaults.finishing_options,
+            faqs: mappedFaqs.length > 0 ? mappedFaqs : defaults.faqs,
+          };
+        }
+
+        if (liveFaqs.length > 0) {
+          const defaults = getProductDetailDefaults(rawSlug);
+          return {
+            ...defaults,
+            faqs: liveFaqs.map((f) => ({
+              id: f.id,
+              question: f.question,
+              answer: f.answer,
+              display_order: f.order ?? 0,
+            })),
           };
         }
       } catch {
@@ -171,7 +196,7 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
     refetchOnMount: true,
   });
 
-  const product = productData || getProductDetailDefaults(rawSlug);
+  const product: any = productData || getProductDetailDefaults(rawSlug);
   const images = product.images;
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -421,7 +446,7 @@ ${requirements || "No additional notes"}`;
                 {/* Thumbnails Row */}
                 {images.length > 1 && (
                   <div className="m-0 flex gap-0 overflow-x-auto p-0 custom-scrollbar border-t border-[#e0ddd6]">
-                    {images.map((imgUrl, idx) => (
+                    {images.map((imgUrl: string, idx: number) => (
                       <button
                         key={idx}
                         type="button"
@@ -979,7 +1004,7 @@ ${requirements || "No additional notes"}`;
               <FeatureItemsRow items={product.product_content?.feature_items || []} />
 
               {/* 3 Storytelling Blocks */}
-              {(product.product_content?.content_blocks || []).map((block, idx) => (
+              {(product.product_content?.content_blocks || []).map((block: any, idx: number) => (
                 <div key={idx} className="grid items-center gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
                   <div className={block.flipped ? "order-2 lg:order-2" : "order-2 lg:order-1"}>
                     <div className="flex flex-col gap-4">
@@ -1128,7 +1153,7 @@ ${requirements || "No additional notes"}`;
                         {/* Material chips */}
                         {product.product_content.material_items && product.product_content.material_items.length > 0 && (
                           <div className="flex flex-wrap gap-2 mt-4">
-                            {product.product_content.material_items.map((item) => (
+                            {product.product_content.material_items.map((item: string) => (
                               <div
                                 key={item}
                                 className="inline-flex items-center gap-2 rounded-[10px] border border-ds-input-border bg-ds-input-bg px-4 py-2 text-ds-product font-medium text-ds-body"
@@ -1143,7 +1168,7 @@ ${requirements || "No additional notes"}`;
                         {/* Perks Grid */}
                         {product.product_content.perk_items && product.product_content.perk_items.length > 0 && (
                           <div className="grid overflow-hidden rounded-[12px] border border-[#e0ddd6] sm:grid-cols-2 mt-4">
-                            {product.product_content.perk_items.map((item, index) => (
+                            {product.product_content.perk_items.map((item: string, index: number) => (
                               <div
                                 key={item}
                                 className={`flex items-center gap-2.5 px-4 py-3 text-ds-body text-ds-body ${index % 2 === 0 ? "border-r border-[#e0ddd6]" : ""
@@ -1174,7 +1199,7 @@ ${requirements || "No additional notes"}`;
                 </h2>
               </div>
               <div className="divide-y divide-[#e0ddd6]">
-                {product.faqs.map((faq, idx) => {
+                {product.faqs.map((faq: any, idx: number) => {
                   const isOpen = openFaq === idx;
                   return (
                     <div key={faq.id || idx}>
@@ -1239,7 +1264,7 @@ ${requirements || "No additional notes"}`;
                 id="related-products-slider"
                 className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-5 lg:gap-6"
               >
-                {(randomRelatedProducts.length > 0 ? randomRelatedProducts : (product.relatedProducts || [])).map((rel) => (
+                {(randomRelatedProducts.length > 0 ? randomRelatedProducts : (product.relatedProducts || [])).map((rel: any) => (
                   <div
                     key={rel.slug}
                     className="min-w-0 shrink-0 snap-start basis-[47%] sm:basis-[48%] lg:basis-[31%] xl:basis-[24%]"

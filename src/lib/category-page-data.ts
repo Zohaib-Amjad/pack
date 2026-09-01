@@ -42,6 +42,9 @@ const STATIC_SLUG_ALIASES: Record<string, string> = {
 };
 
 function overlayCategoryFaqs(slug: string, faqs: any[]) {
+  if (Array.isArray(faqs) && faqs.length > 0) {
+    return faqs;
+  }
   return toPageFaqs(slug, getCategoryFaqs(slug)) || faqs;
 }
 

@@ -4,12 +4,18 @@ import { useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchHomepageFaqs, type FAQItem } from "@/lib/faq-service";
 
-const FAQSection = ({ cms }: { cms?: any } = {}) => {
+interface FAQSectionProps {
+  cms?: any;
+  initialFaqs?: FAQItem[];
+}
+
+const FAQSection = ({ cms, initialFaqs = [] }: FAQSectionProps) => {
   const [openId, setOpenId] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  const { data: faqs = [] } = useQuery<FAQItem[]>({
+  const { data: faqs = initialFaqs } = useQuery<FAQItem[]>({
     queryKey: ["faqs", "homepage"],
+    initialData: initialFaqs.length > 0 ? initialFaqs : undefined,
     staleTime: 0,
     refetchOnMount: true,
     refetchOnWindowFocus: true,

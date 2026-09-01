@@ -200,10 +200,11 @@ export default function AdminLayout({
           <div>
             <Link href="/admin" className="block shrink-0">
               <Image
-                src="/Green and Orange.png"
+                src="/images/brand/logo-green-orange.png"
                 alt="HOF Pack"
                 width={140}
                 height={40}
+                style={{ width: "auto", height: "auto" }}
                 className="h-10 w-auto block shrink-0"
                 priority
               />

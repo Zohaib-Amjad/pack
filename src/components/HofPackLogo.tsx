@@ -21,7 +21,8 @@ const HofPackLogo = ({
       height={154}
       sizes="(min-width: 1024px) 140px, 100px"
       priority={priority}
-      quality={65}
+      quality={75}
+      style={{ width: "auto", height: "auto" }}
       className={cn("block h-10 w-auto shrink-0", className)}
     />
   );

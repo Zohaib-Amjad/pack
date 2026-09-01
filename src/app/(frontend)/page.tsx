@@ -12,6 +12,7 @@ import FAQSection from "@/components/home/FAQSection";
 import HomeMoreProducts from "@/components/home/HomeMoreProducts";
 import TrustpilotTestimonialsSection from "@/components/home/TrustpilotTestimonialsSection";
 import { fetchCmsHomeServer } from "@/lib/cms-server";
+import { fetchHomepageFaqs } from "@/lib/faq-service";
 import { SITE_CONFIG } from "@/data/seed-data";
 
 export const revalidate = 300;
@@ -22,7 +23,10 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const cmsHome = await fetchCmsHomeServer();
+  const [cmsHome, initialFaqs] = await Promise.all([
+    fetchCmsHomeServer(),
+    fetchHomepageFaqs(),
+  ]);
 
   return (
     <div className="flex flex-col">
@@ -54,7 +58,7 @@ export default async function HomePage() {
       <HomeQuoteSection />
 
       {/* 10. Common Questions (FAQ Section) */}
-      <FAQSection cms={cmsHome} />
+      <FAQSection cms={cmsHome} initialFaqs={initialFaqs} />
 
       {/* 11. More Products Carousel */}
       <HomeMoreProducts cms={cmsHome} />

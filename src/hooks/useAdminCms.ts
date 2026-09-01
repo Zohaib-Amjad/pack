@@ -12,6 +12,20 @@ import {
 import type { CmsAbout, CmsHome, CmsLibrary, CmsPortfolio, CmsProcess } from "@/types/cms";
 
 async function fetchSettingValue(key: string): Promise<unknown> {
+  // 1. Try Admin API route (Full service-role access)
+  if (typeof window !== "undefined") {
+    try {
+      const res = await fetch(`/api/admin/cms?key=${encodeURIComponent(key)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.value) return data.value;
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  // 2. Direct Supabase read
   try {
     const supabase = createDataClient();
     const { data, error } = await withAbortableTimeout((signal) =>
@@ -24,7 +38,7 @@ async function fetchSettingValue(key: string): Promise<unknown> {
     console.warn(`[useAdminCms] fetchSettingValue remote error for ${key}:`, err);
   }
 
-  // Fallback to local storage if available
+  // 3. Fallback to local storage if available
   if (typeof window !== "undefined") {
     try {
       const stored = localStorage.getItem("cms_" + key);
@@ -50,7 +64,23 @@ async function upsertSetting(key: string, value: unknown) {
     }
   }
 
-  // 2. Persist to Supabase site_settings
+  // 2. Persist to Supabase site_settings via Admin API
+  if (typeof window !== "undefined") {
+    try {
+      const res = await fetch("/api/admin/cms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key, value }),
+      });
+      if (res.ok) {
+        return;
+      }
+    } catch (err) {
+      console.warn(`[useAdminCms] /api/admin/cms post error for ${key}:`, err);
+    }
+  }
+
+  // 3. Direct Supabase fallback
   try {
     const supabase = createDataClient();
     const { error } = await supabase
