@@ -4177,6 +4177,276 @@ export const PRODUCT_SPEC_TABLE_DATA: Record<string, ProductSpecTableData> = {
     "turnaroundTime": "8 to 12 Business Days",
     "specOverrides": {}
   },
+  "paperboard-lip-balm-tubes": {
+    "name": "Paperboard Lip Balm Tubes",
+    "stockInfo": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "sizeInfo": "All Custom Sizes & Shapes",
+    "minQuantity": "No Minimum MOQ Required",
+    "printingOptions": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishingOptions": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proofInfo": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaroundTime": "4–8 Business Days",
+    "specOverrides": {
+      "dimension_info": "All Custom Sizes & Shapes",
+      "rush_available": true,
+      "quantities_info": "No Minimum MOQ Required",
+      "included_options": [
+        "Die Cutting",
+        "Gluing",
+        "Scored",
+        "Perforation"
+      ],
+      "turnaround_label": "4–8 Business Days",
+      "additional_options": [
+        "Eco-Friendly",
+        "Recycled Boxes",
+        "Biodegradable"
+      ],
+      "printing_options_list": [
+        "No Printing",
+        "CMYK",
+        "CMYK + 1 PMS color",
+        "CMYK + 2 PMS colors"
+      ],
+      "finishing_options_list": [
+        "Gloss Lamination",
+        "Matte Lamination",
+        "Gloss AQ",
+        "Gloss UV",
+        "Matte UV",
+        "Spot UV",
+        "Embossing",
+        "Debossing",
+        "Gold / Silver Foiling",
+        "Holographic Foiling"
+      ]
+    }
+  },
+  "custom-kraft-gable-boxes": {
+    "name": "Custom Kraft Gable Boxes",
+    "stockInfo": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "sizeInfo": "All Custom Sizes & Shapes",
+    "minQuantity": "No Minimum MOQ Required",
+    "printingOptions": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishingOptions": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proofInfo": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaroundTime": "4–8 Business Days",
+    "specOverrides": {
+      "dimension_info": "All Custom Sizes & Shapes",
+      "rush_available": true,
+      "quantities_info": "No Minimum MOQ Required",
+      "included_options": [
+        "Die Cutting",
+        "Gluing",
+        "Scored",
+        "Perforation"
+      ],
+      "turnaround_label": "4–8 Business Days",
+      "additional_options": [
+        "Eco-Friendly",
+        "Recycled Boxes",
+        "Biodegradable"
+      ],
+      "printing_options_list": [
+        "No Printing",
+        "CMYK",
+        "CMYK + 1 PMS color",
+        "CMYK + 2 PMS colors"
+      ],
+      "finishing_options_list": [
+        "Gloss Lamination",
+        "Matte Lamination",
+        "Gloss AQ",
+        "Gloss UV",
+        "Matte UV",
+        "Spot UV",
+        "Embossing",
+        "Debossing",
+        "Gold / Silver Foiling",
+        "Holographic Foiling"
+      ]
+    }
+  },
+  "window-gable-boxes": {
+    "name": "Window Gable Boxes",
+    "stockInfo": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "sizeInfo": "All Custom Sizes & Shapes",
+    "minQuantity": "No Minimum MOQ Required",
+    "printingOptions": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishingOptions": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proofInfo": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaroundTime": "4–8 Business Days",
+    "specOverrides": {
+      "dimension_info": "All Custom Sizes & Shapes",
+      "rush_available": true,
+      "quantities_info": "No Minimum MOQ Required",
+      "included_options": [
+        "Die Cutting",
+        "Gluing",
+        "Scored",
+        "Perforation"
+      ],
+      "turnaround_label": "4–8 Business Days",
+      "additional_options": [
+        "Eco-Friendly",
+        "Recycled Boxes",
+        "Biodegradable"
+      ],
+      "printing_options_list": [
+        "No Printing",
+        "CMYK",
+        "CMYK + 1 PMS color",
+        "CMYK + 2 PMS colors"
+      ],
+      "finishing_options_list": [
+        "Gloss Lamination",
+        "Matte Lamination",
+        "Gloss AQ",
+        "Gloss UV",
+        "Matte UV",
+        "Spot UV",
+        "Embossing",
+        "Debossing",
+        "Gold / Silver Foiling",
+        "Holographic Foiling"
+      ]
+    }
+  },
+  "smell-proof-mylar-bags": {
+    "name": "Smell Proof Mylar Bags",
+    "stockInfo": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "sizeInfo": "All Custom Sizes & Shapes",
+    "minQuantity": "No Minimum MOQ Required",
+    "printingOptions": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishingOptions": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proofInfo": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaroundTime": "4–8 Business Days",
+    "specOverrides": {
+      "dimension_info": "All Custom Sizes & Shapes",
+      "rush_available": true,
+      "quantities_info": "No Minimum MOQ Required",
+      "included_options": [
+        "Die Cutting",
+        "Gluing",
+        "Scored",
+        "Perforation"
+      ],
+      "turnaround_label": "4–8 Business Days",
+      "additional_options": [
+        "Eco-Friendly",
+        "Recycled Boxes",
+        "Biodegradable"
+      ],
+      "printing_options_list": [
+        "No Printing",
+        "CMYK",
+        "CMYK + 1 PMS color",
+        "CMYK + 2 PMS colors"
+      ],
+      "finishing_options_list": [
+        "Gloss Lamination",
+        "Matte Lamination",
+        "Gloss AQ",
+        "Gloss UV",
+        "Matte UV",
+        "Spot UV",
+        "Embossing",
+        "Debossing",
+        "Gold / Silver Foiling",
+        "Holographic Foiling"
+      ]
+    }
+  },
+  "christmas-candle-boxes": {
+    "name": "Christmas Candle Boxes",
+    "stockInfo": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "sizeInfo": "All Custom Sizes & Shapes",
+    "minQuantity": "No Minimum MOQ Required",
+    "printingOptions": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishingOptions": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proofInfo": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaroundTime": "4–8 Business Days",
+    "specOverrides": {
+      "dimension_info": "All Custom Sizes & Shapes",
+      "rush_available": true,
+      "quantities_info": "No Minimum MOQ Required",
+      "included_options": [
+        "Die Cutting",
+        "Gluing",
+        "Scored",
+        "Perforation"
+      ],
+      "turnaround_label": "4–8 Business Days",
+      "additional_options": [
+        "Eco-Friendly",
+        "Recycled Boxes",
+        "Biodegradable"
+      ],
+      "printing_options_list": [
+        "No Printing",
+        "CMYK",
+        "CMYK + 1 PMS color",
+        "CMYK + 2 PMS colors"
+      ],
+      "finishing_options_list": [
+        "Gloss Lamination",
+        "Matte Lamination",
+        "Gloss AQ",
+        "Gloss UV",
+        "Matte UV",
+        "Spot UV",
+        "Embossing",
+        "Debossing",
+        "Gold / Silver Foiling",
+        "Holographic Foiling"
+      ]
+    }
+  },
+  "bath-bomb-boxes": {
+    "name": "Bath Bomb Boxes",
+    "stockInfo": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "sizeInfo": "All Custom Sizes & Shapes",
+    "minQuantity": "No Minimum MOQ Required",
+    "printingOptions": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishingOptions": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proofInfo": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaroundTime": "4–8 Business Days",
+    "specOverrides": {
+      "dimension_info": "All Custom Sizes & Shapes",
+      "rush_available": true,
+      "quantities_info": "No Minimum MOQ Required",
+      "included_options": [
+        "Die Cutting",
+        "Gluing",
+        "Scored",
+        "Perforation"
+      ],
+      "turnaround_label": "4–8 Business Days",
+      "additional_options": [
+        "Eco-Friendly",
+        "Recycled Boxes",
+        "Biodegradable"
+      ],
+      "printing_options_list": [
+        "No Printing",
+        "CMYK",
+        "CMYK + 1 PMS color",
+        "CMYK + 2 PMS colors"
+      ],
+      "finishing_options_list": [
+        "Gloss Lamination",
+        "Matte Lamination",
+        "Gloss AQ",
+        "Gloss UV",
+        "Matte UV",
+        "Spot UV",
+        "Embossing",
+        "Debossing",
+        "Gold / Silver Foiling",
+        "Holographic Foiling"
+      ]
+    }
+  },
   "lip-balm-tubes": {
     "name": "Lip Balm Tubes",
     "stockInfo": "10pt to 28pt Kraft, Corrugated, Rigid, Cardstock",

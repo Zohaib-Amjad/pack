@@ -1,6 +1,14 @@
 // Auto-generated Product Galleries from live Supabase / Cloudinary catalog
 // All images downloaded locally to /images/products/
 
+import { getCategoryImageSrcs } from "./categoryImages";
+
+const tubePackagingSrcs = getCategoryImageSrcs("custom-tube-packaging");
+const gableBoxSrcs = getCategoryImageSrcs("custom-gable-boxes");
+const mylarBagSrcs = getCategoryImageSrcs("custom-mylar-bags");
+const candleBoxSrcs = getCategoryImageSrcs("custom-candle-boxes");
+const soapBoxSrcs = getCategoryImageSrcs("custom-soap-boxes");
+
 export const PRODUCT_GALLERIES: Record<string, string[]> = {
   "custom-booklet-boxes": [
     "/images/products/custom-booklet-boxes-1-3d50b2f1-2758-4a3a-bcb8-b92b3c561a06.jpg",
@@ -281,6 +289,36 @@ export const PRODUCT_GALLERIES: Record<string, string[]> = {
   "lip-balm-tubes": [
     "/images/products/lip-balm-tubes-1-9dd01063-e3f0-4e00-87d5-125866123ec1.jpg"
   ],
+  "paperboard-lip-balm-tubes": [
+    tubePackagingSrcs[1] || tubePackagingSrcs[0],
+    tubePackagingSrcs[2] || tubePackagingSrcs[0],
+    tubePackagingSrcs[0],
+  ].filter((src, index, list): src is string => Boolean(src) && list.indexOf(src) === index),
+  "window-gable-boxes": [
+    gableBoxSrcs[0],
+    gableBoxSrcs[1] || gableBoxSrcs[0],
+    gableBoxSrcs[2] || gableBoxSrcs[0],
+  ].filter((src, index, list): src is string => Boolean(src) && list.indexOf(src) === index),
+  "custom-kraft-gable-boxes": [
+    gableBoxSrcs[1] || gableBoxSrcs[0],
+    gableBoxSrcs[2] || gableBoxSrcs[0],
+    gableBoxSrcs[0],
+  ].filter((src, index, list): src is string => Boolean(src) && list.indexOf(src) === index),
+  "smell-proof-mylar-bags": [
+    mylarBagSrcs[0],
+    mylarBagSrcs[1] || mylarBagSrcs[0],
+    mylarBagSrcs[2] || mylarBagSrcs[0],
+  ].filter((src, index, list): src is string => Boolean(src) && list.indexOf(src) === index),
+  "christmas-candle-boxes": [
+    candleBoxSrcs[1] || candleBoxSrcs[0],
+    candleBoxSrcs[2] || candleBoxSrcs[0],
+    candleBoxSrcs[0],
+  ].filter((src, index, list): src is string => Boolean(src) && list.indexOf(src) === index),
+  "bath-bomb-boxes": [
+    soapBoxSrcs[2] || soapBoxSrcs[0],
+    soapBoxSrcs[0],
+    soapBoxSrcs[1] || soapBoxSrcs[0],
+  ].filter((src, index, list): src is string => Boolean(src) && list.indexOf(src) === index),
   "custom-bra-boxes": [
     "/images/products/custom-bra-boxes-1-d24d03fd-533a-4d6b-ae6c-4008e4d1f040.jpg"
   ],

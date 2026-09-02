@@ -1,7 +1,7 @@
 import { createPublicClient } from "@/utils/supabase/public-client";
 import { createDataClient } from "@/utils/supabase/data-client";
 import { withAbortableTimeout } from "@/lib/fetch-utils";
-import { getAllProducts, categories, type Product } from "@/data/products";
+import { getAllProducts, categories, isRemovedProductSlug, type Product } from "@/data/products";
 
 const SETTINGS_KEY = "custom_products_list";
 const STATUS_OVERRIDES_KEY = "product_status_overrides";
@@ -71,6 +71,7 @@ export async function fetchAllProducts(): Promise<CustomProductRecord[]> {
         updated_at: item.updated_at,
         specs: item.specs || {},
         faqs: Array.isArray(item.faqs) ? item.faqs : [],
+        product_content: item.product_content || undefined,
       }));
     }
   } catch {
@@ -151,15 +152,17 @@ export async function fetchAllProducts(): Promise<CustomProductRecord[]> {
   ];
 
   // Apply overrides
-  return mergedList.map((p) => {
-    const override = overrides[p.slug];
-    if (!override) return p;
-    return {
-      ...p,
-      is_active: override.is_active !== undefined ? override.is_active : p.is_active,
-      is_trending: override.is_trending !== undefined ? override.is_trending : p.is_trending,
-    };
-  });
+  return mergedList
+    .filter((p) => !isRemovedProductSlug(p.slug))
+    .map((p) => {
+      const override = overrides[p.slug];
+      if (!override) return p;
+      return {
+        ...p,
+        is_active: override.is_active !== undefined ? override.is_active : p.is_active,
+        is_trending: override.is_trending !== undefined ? override.is_trending : p.is_trending,
+      };
+    });
 }
 
 export async function saveProduct(product: CustomProductRecord): Promise<void> {

@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
-import { Star, Building2, ShieldCheck } from "lucide-react";
+import React, { useMemo } from "react";
+import { Star, ShieldCheck } from "lucide-react";
 import type { CmsHome } from "@/types/cms";
 import { useCmsHome } from "@/hooks/useCms";
 
@@ -19,7 +18,28 @@ const DEFAULT_BRAND_LOGOS = [
   { alt: "Woosh", src: "/images/brand/b234ce64-2b35-4fdc-af62-ef6d50c0956b.png", text: "Woosh" },
   { alt: "Rare Beauty", src: "/images/brand/5ca043b3-ab32-4348-9cfa-48f5505bd720.png", text: "Rare Beauty" },
   { alt: "Subtl", src: "/images/brand/028d5bd8-177b-4f7a-8612-6f643f9dc05d.png", text: "Subtl" },
-];
+] as const;
+
+type BrandLogo = { alt: string; src: string; text: string };
+
+function uniqueLogos(items: BrandLogo[]): BrandLogo[] {
+  const seen = new Set<string>();
+  const logos: BrandLogo[] = [];
+  for (const item of items) {
+    const key = (item.src || item.text).trim().toLowerCase();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    logos.push(item);
+    if (logos.length === 12) break;
+  }
+  return logos;
+}
+
+function twelveUniqueLogos(items: BrandLogo[]): BrandLogo[] {
+  const unique = uniqueLogos(items);
+  if (unique.length >= 12) return unique;
+  return uniqueLogos([...unique, ...DEFAULT_BRAND_LOGOS]);
+}
 
 type ClientLogosBarProps = {
   cms?: CmsHome;
@@ -35,28 +55,50 @@ export default function ClientLogosBar({ cms }: ClientLogosBarProps) {
   const ratingLine = liveTrustBar?.ratingText !== undefined ? liveTrustBar.ratingText : "3.9 on Google";
   const usaBadge = liveTrustBar?.usaBadge !== undefined ? liveTrustBar.usaBadge : "USA Registered";
 
-  // Build active marquee items
-  const activeItems = (liveTrustBar?.brandMarqueeItems || []).filter(
-    (it) => it.active !== false && ((it.text && it.text.trim().length > 0) || (it.logoUrl && it.logoUrl.trim().length > 0))
+  const displayLogos = useMemo(() => {
+    const activeItems = (liveTrustBar?.brandMarqueeItems || []).filter(
+      (it) =>
+        it.active !== false &&
+        ((it.text && it.text.trim().length > 0) || (it.logoUrl && it.logoUrl.trim().length > 0)),
+    );
+
+    const fromCms: BrandLogo[] = activeItems.map((it) => ({
+      alt: it.text || "Brand Logo",
+      src: it.logoUrl || "",
+      text: it.text || "",
+    }));
+
+    return twelveUniqueLogos(fromCms.length > 0 ? fromCms : [...DEFAULT_BRAND_LOGOS]);
+  }, [liveTrustBar?.brandMarqueeItems]);
+
+  const renderLogo = (logo: BrandLogo, key: string) => (
+    <span
+      key={key}
+      className="inline-flex items-center justify-center whitespace-nowrap"
+      style={{ padding: "0 clamp(28px, 4.5vw, 52px)" }}
+    >
+      {logo.src ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          alt={logo.alt}
+          loading="lazy"
+          width={320}
+          height={128}
+          className="h-12 sm:h-16 md:h-20 w-auto max-w-[280px] object-contain"
+          style={{ color: "transparent", background: "transparent" }}
+          src={logo.src}
+        />
+      ) : (
+        <span className="font-sans font-bold text-[22px] sm:text-[26px] text-[#1a1a1a]/40 tracking-wider">
+          {logo.text}
+        </span>
+      )}
+    </span>
   );
 
-  const displayLogos =
-    activeItems.length > 0
-      ? activeItems.map((it) => ({
-        alt: it.text || "Brand Logo",
-        src: it.logoUrl || "",
-        text: it.text || "",
-      }))
-      : DEFAULT_BRAND_LOGOS;
-
-  // Seamless loop by duplicating items
-  const logos = [...displayLogos, ...displayLogos];
-
   return (
-    <div className="bg-[#f5f3ee] border-b border-[#e0ddd6] py-4 sm:py-6 select-none">
-      {/* ── Top trust metrics line ── */}
-      <div className="container-max px-4 sm:px-6 mb-3 sm:mb-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center">
-        {/* Trusted by [count] [suffix] */}
+    <div className="bg-[#f5f3ee] border-b border-[#e0ddd6] py-6 sm:py-8 select-none">
+      <div className="container-max px-4 sm:px-6 mb-4 sm:mb-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center">
         {(prefix || count || suffix) && (
           <p
             className="font-sans font-semibold uppercase text-[#7a7672]"
@@ -68,7 +110,6 @@ export default function ClientLogosBar({ cms }: ClientLogosBarProps) {
           </p>
         )}
 
-        {/* Rating Line */}
         {ratingLine && (
           <div className="inline-flex items-center gap-1.5 font-sans text-[11px] font-semibold text-[#7a7672] uppercase tracking-wider">
             <span className="text-white/40 hidden sm:inline">•</span>
@@ -83,7 +124,6 @@ export default function ClientLogosBar({ cms }: ClientLogosBarProps) {
           </div>
         )}
 
-        {/* USA Badge */}
         {usaBadge && (
           <div className="inline-flex items-center gap-1.5 font-sans text-[11px] font-bold text-[#2d5c3e] uppercase tracking-wider bg-[#edf7f1] border border-[#b8dfc8] px-2.5 py-0.5 rounded-full">
             <ShieldCheck size={12} className="text-[#2d5c3e]" />
@@ -92,7 +132,6 @@ export default function ClientLogosBar({ cms }: ClientLogosBarProps) {
         )}
       </div>
 
-      {/* ── Brand Logos Marquee ── */}
       <div className="overflow-hidden relative">
         <div
           className="absolute top-0 bottom-0 left-0 z-10 pointer-events-none"
@@ -103,30 +142,10 @@ export default function ClientLogosBar({ cms }: ClientLogosBarProps) {
           style={{ width: "80px", background: "linear-gradient(to left, #f5f3ee, transparent)" }}
         />
         <div className="flex items-center animate-marquee-slow" style={{ width: "max-content" }}>
-          {logos.map((logo, i) => (
-            <span
-              key={`${logo.alt}-${i}`}
-              className="inline-flex items-center justify-center whitespace-nowrap"
-              style={{ padding: "0 clamp(20px, 4vw, 36px)" }}
-            >
-              {logo.src ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  alt={logo.alt}
-                  loading="lazy"
-                  width={240}
-                  height={96}
-                  className="h-14 sm:h-16 w-auto max-w-[180px] object-contain"
-                  style={{ color: "transparent", background: "transparent" }}
-                  src={logo.src}
-                />
-              ) : (
-                <span className="font-sans font-bold text-[16px] sm:text-[18px] text-[#1a1a1a]/40 tracking-wider">
-                  {logo.text}
-                </span>
-              )}
-            </span>
-          ))}
+          {displayLogos.map((logo, i) => renderLogo(logo, `${logo.src || logo.alt}-${i}`))}
+          <span aria-hidden="true" className="inline-flex items-center">
+            {displayLogos.map((logo, i) => renderLogo(logo, `loop-${logo.src || logo.alt}-${i}`))}
+          </span>
         </div>
       </div>
     </div>

@@ -385,8 +385,10 @@ export function getProductDetailDefaults(
 
   if (FULL_PRODUCTS_DATABASE[slug]) {
     const dbProduct = FULL_PRODUCTS_DATABASE[slug];
+    const gallery = PRODUCT_GALLERIES[slug];
     return {
       ...dbProduct,
+      images: gallery && gallery.length > 0 ? gallery : dbProduct.images,
       skuCode: calculatedTag,
       category: {
         name: dbProduct.category?.name || resolvedCatName,

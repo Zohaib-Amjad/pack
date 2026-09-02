@@ -22,7 +22,7 @@ import { withAbortableTimeout } from "@/lib/fetch-utils";
 import { trackLeadSubmitted } from "@/lib/analytics";
 import { submitWebQuote } from "@/lib/submit-web-quote";
 import { buildInquiryAttribution, isFromPaidTraffic } from "@/lib/attribution";
-import SmsConsentLabel from "@/components/SmsConsentLabel";
+import SmsConsentLabel, { useSmsConsent } from "@/components/SmsConsentLabel";
 import {
   PHONE_NATIONAL_DIGITS,
   sanitizePhoneInput,
@@ -105,7 +105,7 @@ function QuoteModalDialog({
   const [boxType, setBoxType] = useState("");
   const [company, setCompany] = useState("");
   const [details, setDetails] = useState("");
-  const [smsConsent, setSmsConsent] = useState(false);
+  const [smsConsent, setSmsConsent] = useSmsConsent();
 
   // Validation
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -129,7 +129,7 @@ function QuoteModalDialog({
   useEffect(() => {
     if (isOpen) {
       if (initialCategory) setBoxType(initialCategory);
-      if (initialProduct) setDetails(`Inquiry for: ${initialProduct}\n\n`);
+      setDetails("");
       setCaptcha({
         n1: Math.floor(Math.random() * 9) + 1,
         n2: Math.floor(Math.random() * 9) + 1,
@@ -283,7 +283,6 @@ function QuoteModalDialog({
       setBoxType("");
       setCompany("");
       setDetails("");
-      setSmsConsent(false);
 
       const targetPath = initialCategory ? `/thank-you/${initialCategory}` : "/thank-you";
       onClose();
@@ -303,11 +302,14 @@ function QuoteModalDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl p-0 gap-0 overflow-hidden border-border bg-card">
+      <DialogContent
+        overlayClassName="inset-x-0 bottom-0 top-20 z-[90] lg:top-[112px]"
+        className="flex top-[calc(5rem+12px)] z-[90] max-h-[calc(100dvh-5rem-24px)] w-[calc(100%-1.5rem)] max-w-4xl translate-y-0 flex-col gap-0 overflow-y-auto overscroll-contain border-border bg-card p-0 data-[state=open]:slide-in-from-top-2 data-[state=closed]:slide-out-to-top-2 lg:top-[calc(112px+12px)] lg:max-h-[calc(100dvh-112px-24px)]"
+      >
         <DialogTitle className="sr-only">Get a Free Quote</DialogTitle>
-        <div className="grid md:grid-cols-5">
+        <div className="grid min-h-0 md:grid-cols-5">
           {/* Left image panel */}
-          <div className="hidden md:block md:col-span-2 relative">
+          <div className="relative hidden min-h-[280px] md:col-span-2 md:block">
             <Image
               src={heroImg}
               alt="Custom packaging"
@@ -334,7 +336,7 @@ function QuoteModalDialog({
           </div>
 
           {/* Right form panel */}
-          <div className="md:col-span-3 p-6 sm:p-8">
+          <div className="p-6 sm:p-8 md:col-span-3">
 
             {submitted ? (
               <div className="flex flex-col items-center justify-center h-full py-12 text-center">
@@ -496,7 +498,11 @@ function QuoteModalDialog({
                       Project Details
                     </label>
                     <Textarea
-                      placeholder="Provide detailed packaging specifications including dimensions, materials, weight restrictions, and design references..."
+                      placeholder={
+                        initialProduct
+                          ? `Inquiry for: ${initialProduct}`
+                          : "Provide detailed packaging specifications including dimensions, materials, weight restrictions, and design references..."
+                      }
                       rows={3}
                       maxLength={1000}
                       value={details}

@@ -1,7 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import ProductPageView from "@/views/ProductPage";
-import { getAllProducts, getProductBySlug } from "@/data/products";
+import { getAllProducts, getProductBySlug, isRemovedProductSlug } from "@/data/products";
 import { FULL_PRODUCTS_DATABASE } from "@/data/product-detail-defaults";
 import { getProductMetaDescription, getProductMetaTitle } from "@/data/content-sheet-meta-titles";
 
@@ -18,6 +19,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { productSlug } = await params;
+  if (isRemovedProductSlug(productSlug)) {
+    notFound();
+  }
   const found = getProductBySlug(productSlug);
   const title =
     getProductMetaTitle(productSlug) ||
@@ -39,5 +43,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductDetailPage({ params }: PageProps) {
   const { productSlug } = await params;
+  if (isRemovedProductSlug(productSlug)) {
+    notFound();
+  }
   return <ProductPageView productSlug={productSlug} />;
 }

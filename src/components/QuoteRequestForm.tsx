@@ -3,7 +3,7 @@
 import { useState, useRef, type RefObject } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle, X } from "lucide-react";
-import SmsConsentLabel from "@/components/SmsConsentLabel";
+import SmsConsentLabel, { useSmsConsent } from "@/components/SmsConsentLabel";
 import { createPublicClient } from "@/utils/supabase/public-client";
 import { withAbortableTimeout } from "@/lib/fetch-utils";
 import { sendQuoteEmail } from "@/lib/send-quote-email";
@@ -142,7 +142,7 @@ export default function QuoteRequestForm({
   const [quantity, setQuantity] = useState("");
 
   const [requirements, setRequirements] = useState("");
-  const [smsConsent, setSmsConsent] = useState(false);
+  const [smsConsent, setSmsConsent] = useSmsConsent();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Same capture path as header QuoteModal — watch controlled fields so a lead
@@ -220,7 +220,6 @@ export default function QuoteRequestForm({
     setQuantity("");
     setRequirements("");
     setArtworkFile(null);
-    setSmsConsent(false);
     setErrors({});
   };
 

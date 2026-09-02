@@ -27,6 +27,7 @@ const bakeryProducts: (Product & { image?: string })[] = [
 ];
 
 const candleProducts: (Product & { image?: string })[] = [
+  { name: "Christmas Candle Boxes", slug: "christmas-candle-boxes", category: "Candle Boxes", section: "industry", image: "/images/products/candle-gift-boxes.jpg" },
   { name: "Two Piece Candle Boxes", slug: "two-piece-candle-boxes", category: "Candle Boxes", section: "industry", image: "/images/products/two-piece-candle-boxes.jpg" },
   { name: "Candle Gift Boxes", slug: "candle-gift-boxes", category: "Candle Boxes", section: "industry", image: "/images/products/candle-gift-boxes.jpg" },
   { name: "Luxury Candle Packaging", slug: "luxury-candle-packaging", category: "Candle Boxes", section: "industry", image: "/images/products/luxury-candle-packaging.jpg" },
@@ -109,6 +110,7 @@ const waxPaperProducts: (Product & { image?: string })[] = [
 ];
 
 const soapProducts: (Product & { image?: string })[] = [
+  { name: "Bath Bomb Boxes", slug: "bath-bomb-boxes", category: "Soap Boxes", section: "industry", image: "/images/products/soap-display-boxes.jpg" },
   { name: "Soap Wrapping Paper", slug: "soap-wrapping-paper", category: "Soap Boxes", section: "industry", image: "/images/products/soap-wrapping-paper.jpg" },
   { name: "Square Soap Boxes", slug: "square-soap-boxes", category: "Soap Boxes", section: "industry", image: "/images/products/square-soap-boxes.jpg" },
   { name: "Soap Sleeve Packaging", slug: "soap-sleeve-packaging", category: "Soap Boxes", section: "industry", image: "/images/products/soap-sleeve-packaging.jpg" },
@@ -123,8 +125,6 @@ const preRollProducts: (Product & { image?: string })[] = [
   { name: "Luxury Pre Roll Packaging", slug: "luxury-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/luxury-pre-roll-packaging.jpg" },
   { name: "Pre Roll Packaging With Labels", slug: "pre-roll-packaging-with-labels", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-packaging-with-labels.jpg" },
   { name: "Delta 8 Pre Roll Boxes", slug: "delta-8-pre-roll-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/delta-8-pre-roll-boxes.jpg" },
-  { name: "Pre Rolled Joint Boxes", slug: "pre-rolled-joint-boxes", category: "Pre Roll Boxes", section: "industry", image: "/images/products/cannabis-pre-roll-packaging.jpg" },
-  { name: "Custom Pre Roll Packaging", slug: "custom-pre-roll-packaging", category: "Pre Roll Boxes", section: "industry", image: "/images/products/pre-roll-cone-packaging.jpg" },
 ];
 
 // ---------- 2. BOXES BY MATERIAL ----------
@@ -165,6 +165,7 @@ const kraftProducts: (Product & { image?: string })[] = [
 ];
 
 const mylarProducts: (Product & { image?: string })[] = [
+  { name: "Smell Proof Mylar Bags", slug: "smell-proof-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/mylar-bags-for-food-storage.jpg" },
   { name: "Mylar bags for Food Storage", slug: "mylar-bags-for-food-storage", category: "Mylar Bags", section: "material", image: "/images/products/mylar-bags-for-food-storage.jpg" },
   { name: "3.5 Mylar Bags", slug: "3.5-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/3.5-mylar-bags.jpg" },
   { name: "Child Resistant Mylar Bags", slug: "child-resistant-mylar-bags", category: "Mylar Bags", section: "material", image: "/images/products/child-resistant-mylar-bags.jpg" },
@@ -214,7 +215,9 @@ const displayProducts: (Product & { image?: string })[] = [
 ];
 
 const gableProducts: (Product & { image?: string })[] = [
-  { name: "Gable Box With Window", slug: "gable-box-with-window", category: "Gable Boxes", section: "style", image: "/images/products/gable-box-with-window.jpg" },
+  { name: "Window Gable Boxes", slug: "window-gable-boxes", category: "Gable Boxes", section: "style", image: "/images/products/gable-box-with-window.jpg" },
+  { name: "Custom Kraft Gable Boxes", slug: "custom-kraft-gable-boxes", category: "Gable Boxes", section: "style", image: "/images/categories/cat-gable-boxes-v2.jpg" },
+  { name: "Gable Box With Window", slug: "gable-box-with-window", category: "Gable Boxes", section: "style", image: "/images/products/gable-box-with-window-2-373406e7-9396-4096-947f-24c678e3b4db.jpg" },
   { name: "Kraft Gable Boxes", slug: "kraft-gable-boxes", category: "Gable Boxes", section: "style", image: "/images/products/kraft-gable-boxes.jpg" },
   { name: "Christmas Gable Boxes", slug: "christmas-gable-boxes", category: "Gable Boxes", section: "style", image: "/images/products/christmas-gable-boxes.jpg" },
   { name: "Large Gable Boxes", slug: "large-gable-boxes", category: "Gable Boxes", section: "style", image: "/images/products/large-gable-boxes.jpg" },
@@ -235,6 +238,7 @@ const tubeProducts: (Product & { image?: string })[] = [
   { name: "Black Tube Packaging", slug: "black-tube-packaging", category: "Tube Packaging", section: "style", image: "/images/products/black-tube-packaging.jpg" },
   { name: "Cookie Tube Packaging", slug: "cookie-tube-packaging", category: "Tube Packaging", section: "style", image: "/images/products/cookie-tube-packaging.jpg" },
   { name: "Candle Tube Packaging", slug: "candle-tube-packaging", category: "Tube Packaging", section: "style", image: "/images/products/candle-tube-packaging.jpg" },
+  { name: "Paperboard Lip Balm Tubes", slug: "paperboard-lip-balm-tubes", category: "Tube Packaging", section: "style", image: "/images/products/lip-balm-tubes.jpg" },
 ];
 
 const tuckProducts: (Product & { image?: string })[] = [
@@ -405,6 +409,27 @@ export const categories: Category[] = [
   },
 ];
 
+/** Product slugs that must 404 and stay out of catalogs, sitemaps, and CMS overlays. */
+export const REMOVED_PRODUCT_SLUGS = new Set([
+  "e-cigarette-boxes",
+  "disposable-cigarette-boxes",
+  "custom-pre-roll-packaging",
+  "custom-pre-roll-boxes",
+  "clear-pillow-boxes",
+  "child-resistant-rigid-boxes",
+  "cardboard-pillow-packaging",
+  "cardboard-box-with-window",
+  "empty-paper-flip-top-cigarette-boxes",
+  "custom-shoulder-neck-rigid-boxes",
+  "gift-pillow-boxes",
+  "pre-rolled-joint-boxes",
+]);
+
+export function isRemovedProductSlug(slug?: string | null) {
+  if (!slug) return false;
+  return REMOVED_PRODUCT_SLUGS.has(slug.toLowerCase().trim());
+}
+
 // Helper functions
 export const getCategoryBySlug = (slug: string) => {
   if (!slug) return undefined;
@@ -427,6 +452,7 @@ export const getCategoryBySlug = (slug: string) => {
 };
 
 export const getProductBySlug = (slug: string) => {
+  if (isRemovedProductSlug(slug)) return null;
   for (const cat of categories) {
     const product = cat.products.find((p) => p.slug === slug);
     if (product) return { product, category: cat };
@@ -469,7 +495,9 @@ export const getAllProducts = (): (Product & { image?: string })[] => {
     }
   });
 
-  return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+  return Array.from(map.values())
+    .filter((p) => !isRemovedProductSlug(p.slug))
+    .sort((a, b) => a.name.localeCompare(b.name));
 };
 
 import { PRODUCT_TAGS_MAP } from "./product-tags";

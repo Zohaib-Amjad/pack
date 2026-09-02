@@ -17,13 +17,11 @@ const HofPackLogo = ({
     <Image
       src="/images/brand/logo-green-orange.png"
       alt="HOF Pack"
-      width={256}
-      height={154}
-      sizes="(min-width: 1024px) 140px, 100px"
+      width={160}
+      height={48}
+      sizes="120px"
       priority={priority}
-      quality={75}
-      style={{ width: "auto", height: "auto" }}
-      className={cn("block h-10 w-auto shrink-0", className)}
+      className={cn("block h-12 w-auto object-contain object-left shrink-0", className)}
     />
   );
 };

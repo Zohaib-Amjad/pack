@@ -32,21 +32,40 @@ import { createPublicClient } from "@/utils/supabase/public-client";
 import { withAbortableTimeout } from "@/lib/fetch-utils";
 import { useQuery } from "@tanstack/react-query";
 import PageLoader from "@/components/PageLoader";
-import { trackLeadSubmitted } from "@/lib/analytics";
+import NotFound from "./NotFound";
+import { trackLeadSubmitted, pushDataLayerEvent } from "@/lib/analytics";
 import { buildInquiryAttribution } from "@/lib/attribution";
 import { useAbandonedFormCapture } from "@/hooks/useAbandonedFormCapture";
 import { getProductDetailDefaults, ProductDetailData } from "@/data/product-defaults";
-import { getProductBySlug, getProductTag, getAllProducts } from "@/data/products";
+import { getProductBySlug, getProductTag, getAllProducts, isRemovedProductSlug } from "@/data/products";
 import { fetchAllProducts } from "@/lib/product-service";
 import { fetchProductFaqs } from "@/lib/faq-service";
 import { FULL_PRODUCTS_DATABASE } from "@/data/product-detail-defaults";
 import FeatureItemsRow from "@/components/FeatureItemsRow";
 import { useQuoteModal } from "@/components/QuoteModalContext";
 import { uploadInquiryAttachment } from "@/lib/inquiry-attachment";
+import SmsConsentLabel, { useSmsConsent } from "@/components/SmsConsentLabel";
+import {
+  addToCart,
+  consumeDynamicStock,
+  formatUsd,
+  getDynamicStock,
+  resolveProductUnitPrice,
+  shouldShowAddToCart,
+} from "@/lib/google-shopping";
 
 interface ProductPageProps {
   productSlug?: string;
 }
+
+const LOCKED_LOCAL_PRODUCT_SLUGS = new Set([
+  "paperboard-lip-balm-tubes",
+  "window-gable-boxes",
+  "custom-kraft-gable-boxes",
+  "smell-proof-mylar-bags",
+  "christmas-candle-boxes",
+  "bath-bomb-boxes",
+]);
 
 export default function ProductPage({ productSlug: propSlug }: ProductPageProps) {
   const params = useParams();
@@ -78,6 +97,9 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileAttached, setFileAttached] = useState<File | null>(null);
+  const [smsConsent, setSmsConsent] = useSmsConsent();
+  const [showGoogleCart, setShowGoogleCart] = useState(false);
+  const [stockLeft, setStockLeft] = useState<number | null>(null);
 
   useEffect(() => {
     setMathProblem({
@@ -102,7 +124,7 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
     const pool: { name: string; slug: string; image: string }[] = [];
 
     for (const item of [...allDbProducts, ...staticProds]) {
-      if (item.slug !== rawSlug && !seen.has(item.slug)) {
+      if (item.slug !== rawSlug && !isRemovedProductSlug(item.slug) && !seen.has(item.slug)) {
         seen.add(item.slug);
         pool.push(item);
       }
@@ -113,6 +135,22 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
     setRandomRelatedProducts(shuffled.slice(0, 12));
   }, [rawSlug]);
 
+  useEffect(() => {
+    setShowGoogleCart(shouldShowAddToCart());
+  }, [rawSlug]);
+
+  useEffect(() => {
+    if (!showGoogleCart || !rawSlug) {
+      setStockLeft(null);
+      return;
+    }
+    setStockLeft(getDynamicStock(rawSlug));
+    const id = window.setInterval(() => {
+      setStockLeft(getDynamicStock(rawSlug));
+    }, 15_000);
+    return () => window.clearInterval(id);
+  }, [showGoogleCart, rawSlug]);
+
   const { track: trackUnfilled, flushNow: flushUnfilled } = useAbandonedFormCapture({
     formName: "product-detail-quote-form",
     enabled: !submitted && !isSubmitting,
@@ -121,6 +159,7 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
 
   const { data: productData, isLoading: loading } = useQuery<ProductDetailData>({
     queryKey: ["product-detail", rawSlug],
+    enabled: !isRemovedProductSlug(rawSlug),
     queryFn: async () => {
       try {
         const [allItems, liveFaqs] = await Promise.all([
@@ -130,6 +169,7 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
         const customItem = allItems.find((p) => p.slug === rawSlug);
 
         if (customItem) {
+          const lockedLocal = LOCKED_LOCAL_PRODUCT_SLUGS.has(rawSlug);
           const customImg =
             customItem.image ||
             (customItem.images && customItem.images[0]) ||
@@ -139,7 +179,8 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
             rawSlug,
             customItem.name,
             customItem.category,
-            (customItem.category || "custom-boxes").toLowerCase().replace(/\s+/g, "-"),
+            FULL_PRODUCTS_DATABASE[rawSlug]?.category?.slug ||
+              (customItem.category || "custom-boxes").toLowerCase().replace(/\s+/g, "-"),
             customImg
           );
 
@@ -150,26 +191,54 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
             display_order: f.order ?? 0,
           }));
 
+          const cmsImages = (Array.isArray(customItem.images) ? customItem.images : [])
+            .filter((img): img is string => typeof img === "string" && img.trim().length > 0)
+            .filter((img) => !img.includes("custom-cake-boxes.jpg"));
+          const cmsContent = (customItem as any).product_content;
+          const cmsHasRichContent =
+            cmsContent &&
+            typeof cmsContent === "object" &&
+            ((Array.isArray(cmsContent.content_blocks) && cmsContent.content_blocks.length > 0) ||
+              (Array.isArray(cmsContent.article_sections) && cmsContent.article_sections.length > 0) ||
+              (Array.isArray(cmsContent.feature_items) && cmsContent.feature_items.length > 0));
+
           return {
             ...defaults,
             id: customItem.id || `prod-${rawSlug}`,
-            name: customItem.name,
-            description: customItem.description || defaults.description,
+            name: customItem.name || defaults.name,
+            description:
+              (lockedLocal ? defaults.description : customItem.description) ||
+              customItem.description ||
+              defaults.description,
             images:
-              customItem.images && customItem.images.length > 0
-                ? customItem.images
-                : [customImg],
-            category: {
-              name: customItem.category || "Custom Boxes",
-              slug: (customItem.category || "custom-boxes")
-                .toLowerCase()
-                .replace(/\s+/g, "-"),
-            },
-            stock_info: (customItem.specs as any)?.stockInfo || defaults.stock_info,
-            printing_options:
-              (customItem.specs as any)?.printingOptions || defaults.printing_options,
-            finishing_options:
-              (customItem.specs as any)?.finishingOptions || defaults.finishing_options,
+              lockedLocal && defaults.images?.length
+                ? defaults.images
+                : cmsImages.length > 0
+                  ? cmsImages
+                  : defaults.images?.length
+                    ? defaults.images
+                    : [customImg],
+            category: lockedLocal && defaults.category?.slug
+              ? defaults.category
+              : {
+                  name: customItem.category || "Custom Boxes",
+                  slug: (customItem.category || "custom-boxes")
+                    .toLowerCase()
+                    .replace(/\s+/g, "-"),
+                },
+            stock_info: lockedLocal
+              ? defaults.stock_info
+              : (customItem.specs as any)?.stockInfo || defaults.stock_info,
+            printing_options: lockedLocal
+              ? defaults.printing_options
+              : (customItem.specs as any)?.printingOptions || defaults.printing_options,
+            finishing_options: lockedLocal
+              ? defaults.finishing_options
+              : (customItem.specs as any)?.finishingOptions || defaults.finishing_options,
+            product_content:
+              lockedLocal || !cmsHasRichContent
+                ? defaults.product_content
+                : cmsContent,
             faqs: mappedFaqs.length > 0 ? mappedFaqs : defaults.faqs,
           };
         }
@@ -206,6 +275,15 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
       toast({
         title: "Required Fields Missing",
         description: "Please fill out all required contact and specification details.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!smsConsent) {
+      toast({
+        title: "Consent Required",
+        description: "Please agree to the privacy notice to continue.",
         variant: "destructive",
       });
       return;
@@ -405,6 +483,10 @@ ${requirements || "No additional notes"}`;
     },
   ];
 
+  if (isRemovedProductSlug(rawSlug)) {
+    return <NotFound />;
+  }
+
   return (
     <Layout>
       <div className="bg-background min-h-screen font-sans text-foreground">
@@ -538,6 +620,65 @@ ${requirements || "No additional notes"}`;
                 </div>
 
                 <div className="my-3.5 h-px bg-[#e0ddd6]" />
+
+                {showGoogleCart && (
+                  <div className="mb-4 space-y-3">
+                    <p className="text-[15px] font-semibold text-[#c62828]">
+                      Price : {formatUsd(resolveProductUnitPrice())}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const unitPrice = resolveProductUnitPrice();
+                          const qty = 1;
+                          const image =
+                            Array.isArray(product?.images) && product.images[0]
+                              ? product.images[0]
+                              : null;
+                          addToCart({
+                            productId: String(product?.id || rawSlug),
+                            slug: rawSlug,
+                            name: product?.name || rawSlug,
+                            price: unitPrice,
+                            quantity: qty,
+                            image,
+                          });
+                          setStockLeft(consumeDynamicStock(rawSlug, qty));
+                          pushDataLayerEvent("add_to_cart", {
+                            currency: "USD",
+                            value: unitPrice * qty,
+                            items: [
+                              {
+                                item_id: rawSlug,
+                                item_name: product?.name || rawSlug,
+                                price: unitPrice,
+                                quantity: qty,
+                              },
+                            ],
+                          });
+                          sessionStorage.setItem("hofpack_cart_just_added", "1");
+                          router.push("/cart");
+                        }}
+                        className="h-11 min-w-[180px] shrink-0 rounded-[8px] bg-[#2563eb] px-5 text-[14px] font-semibold text-white hover:bg-[#1d4ed8]"
+                      >
+                        Add to Cart
+                      </button>
+                      {stockLeft != null && (
+                        <p
+                          className="ml-auto inline-flex items-center gap-2 text-[13px] font-semibold text-[#1b7a3d]"
+                          aria-live="polite"
+                        >
+                          <span className="relative flex h-2.5 w-2.5">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#22c55e] opacity-60" />
+                            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#16a34a]" />
+                          </span>
+                          In stock — only {stockLeft} left
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 {/* Instant Quote Form */}
                 {submitted ? (
@@ -766,6 +907,18 @@ ${requirements || "No additional notes"}`;
                         />
                       </label>
                     </div>
+
+                    <label className="flex cursor-pointer items-start gap-2.5 rounded-[8px] p-1">
+                      <input
+                        type="checkbox"
+                        checked={smsConsent}
+                        onChange={(e) => setSmsConsent(e.target.checked)}
+                        className="mt-[2px] h-4 w-4 shrink-0 rounded border accent-[#e8732a]"
+                      />
+                      <span className="text-[12px] leading-[1.55] text-[#4a4a4a]">
+                        <SmsConsentLabel />
+                      </span>
+                    </label>
 
                     {/* Captcha + Submit Button */}
                     <div className="mt-auto flex flex-col gap-3 border-t border-[#e0ddd6] pt-4 md:flex-row md:items-start md:justify-between">
@@ -1052,13 +1205,22 @@ ${requirements || "No additional notes"}`;
                 Real Trustpilot reviews from brands who package with HOF Pack.
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-3">
-                <a
-                  href="#quote-form"
+                <button
+                  type="button"
+                  onClick={() =>
+                    openQuoteModal({
+                      product: product.name,
+                      category:
+                        typeof product.category === "string"
+                          ? product.category
+                          : product.category?.name,
+                    })
+                  }
                   className="inline-flex items-center justify-center gap-2 rounded-[8px] bg-accent px-5 py-3 font-sans text-[12.5px] font-semibold text-white transition-colors hover:bg-[#c45a18]"
                 >
                   Customize now
                   <ArrowRight size={14} />
-                </a>
+                </button>
                 <Link
                   className="inline-flex items-center justify-center rounded-[8px] border border-[#c5d6ca] bg-white px-5 py-3 font-sans text-[12.5px] font-semibold text-[#1a1a1a] no-underline transition-colors hover:border-[#a8c4b0] hover:bg-[#f7fbf8]"
                   href="/our-products"

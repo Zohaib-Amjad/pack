@@ -9514,6 +9514,1145 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     },
     "faqs": []
   },
+  "paperboard-lip-balm-tubes": {
+    "id": "prod-paperboard-lip-balm-tubes",
+    "name": "Paperboard Lip Balm Tubes",
+    "slug": "paperboard-lip-balm-tubes",
+    "skuCode": "F107 — Custom Packaging",
+    "description": "Premium custom paperboard lip balm tubes by HofPack.",
+    "images": [
+      "/images/products/lip-balm-tubes.jpg"
+    ],
+    "box_style": "Paperboard Lip Balm Tubes",
+    "size_info": "All Custom Sizes & Shapes",
+    "min_quantity": "No Minimum MOQ Required",
+    "stock_info": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "printing_options": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishing_options": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proof_info": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaround_time": "4–8 Business Days",
+    "shipping_info": "FREE Shipping Worldwide",
+    "category": {
+      "name": "Tube Packaging",
+      "slug": "custom-tube-packaging"
+    },
+    "meta_title": "Paperboard Lip Balm Tubes | Eco-Friendly Cosmetic Packaging USA",
+    "meta_description": "Get paperboard lip balm tubes designed for sustainable cosmetic packaging and lip care packaging bulk, ideal for modern and eco-friendly cosmetic brands.",
+    "meta_keywords": "paperboard lip balm tubes, paper lip balm tube packaging, custom lip balm tube, wholesale lip balm tube packaging",
+    "product_content": {
+      "perk_items": [
+        "Free design support",
+        "Flexible MOQ",
+        "Competitive bulk discounts",
+        "Wholesale pricing facility",
+        "Fast production turnaround",
+        "Startup-friendly packaging",
+        "Innovative design ideas",
+        "No red tape mechanism"
+      ],
+      "feature_items": [
+        {
+          "icon": "Palette",
+          "title": "Bold color output",
+          "description": "Expressive, striking, vibrant colors through the use of our high-quality water-based inks and advanced print buttons."
+        },
+        {
+          "icon": "Feather",
+          "title": "Low-weight packaging",
+          "description": "Maintain light packaging without sacrificing security, effectively lowering your shipping expenses."
+        },
+        {
+          "icon": "Leaf",
+          "title": "Earth-friendly choices",
+          "description": "Minimise your ecological footprint through FSC-certified, sustainable paperboard made from recycled fibres."
+        }
+      ],
+      "content_blocks": [
+        {
+          "heading": "Stand Out on Retail Shelves with Premium Custom Paperboard Lip Balm Tubes",
+          "body": "Most brands miss this and regret it. Your packaging should catch your customers' attention even before they see the product. Through our custom paperboard lip balm tubes, we provide a distinctive, modern look that immediately helps your brand stand apart. This is why brands trust HOF Pack with premium packaging that feels elevated from the first glance.",
+          "image": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Premium rigid packaging",
+          "flipped": false
+        },
+        {
+          "heading": "Order Wholesale Paperboard Lip Balm Tubes with Flexible MOQ",
+          "body": "Are you a small business struggling to get low MOQ customisation options? You are at the right place. HOF Pack understands the challenges your startup or growing brand may be facing and helps you create paperboard lip balm tubes with flexible order quantities and wholesale support.",
+          "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Wholesale rigid packaging",
+          "flipped": true
+        },
+        {
+          "heading": "Ready to Create Paperboard Lip Balm Tubes That Customers Love",
+          "body": "With a sleek, refined shape and robust build, our packaging delivers both visual appeal and reliable product protection. Create an out-of-the-box experience your customers will remember and enjoy.",
+          "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Custom rigid packaging customers love",
+          "linkLabel": "Get a Packaging Report",
+          "flipped": false
+        }
+      ],
+      "material_items": [
+        "Rigid Board for Luxury Strength",
+        "Eco-Conscious Kraft Packaging Options",
+        "High-Density Paperboard Printing Surfaces"
+      ],
+      "spec_overrides": {
+        "dimension_info": "All Custom Sizes & Shapes",
+        "rush_available": true,
+        "quantities_info": "No Minimum MOQ Required",
+        "included_options": [
+          "Die Cutting",
+          "Gluing",
+          "Scored",
+          "Perforation"
+        ],
+        "turnaround_label": "4–8 Business Days",
+        "additional_options": [
+          "Eco-Friendly",
+          "Recycled Boxes",
+          "Biodegradable"
+        ],
+        "printing_options_list": [
+          "No Printing",
+          "CMYK",
+          "CMYK + 1 PMS color",
+          "CMYK + 2 PMS colors"
+        ],
+        "finishing_options_list": [
+          "Gloss Lamination",
+          "Matte Lamination",
+          "Gloss AQ",
+          "Gloss UV",
+          "Matte UV",
+          "Spot UV",
+          "Embossing",
+          "Debossing",
+          "Gold / Silver Foiling",
+          "Holographic Foiling"
+        ]
+      },
+      "article_sections": [
+        {
+          "text": "Why Brands Are Switching to Paperboard Lip Balm Tubes",
+          "level": "h3"
+        },
+        {
+          "text": "Whether launching a new product or refining your packaging approach, paperboard lip balm tubes add a premium feel that boosts your brand’s perceived value. Many industries trust premium packaging to blend elegance, durability, and storytelling into a single standout solution.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "A Unique Shape That Captures Attention Instantly",
+          "level": "h4"
+        },
+        {
+          "text": "Our unique packaging style gives your brand a distinctive look compared to more traditional options. The shape naturally commands more shelf space and draws the eye, making your brand harder to ignore in crowded retail environments.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Brands frequently use this packaging for limited-edition gifts, promotional products, and festive collections. Order gift-ready and promotional packaging with the same luxury feel customers love.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Gift and Promotional Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "Brands frequently use premium boxes for limited-edition gifts, promotional products, and festive packaging collections. Order packaging that carries the same luxury presentation your audience expects.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Premium Materials Used for Custom Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "High-quality materials play a crucial role in the durability and appearance of packaging. At HOF Pack, we manufacture custom packaging using premium materials that maintain both structural integrity and visual appeal.",
+          "level": "p"
+        },
+        {
+          "text": "These materials provide excellent strength while offering smooth printing surfaces for branding and finishing. Brands that prioritise sustainability can also choose recyclable and eco-friendly materials.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Why Brands Across the USA Choose HOF Pack",
+          "level": "h4"
+        },
+        {
+          "text": "At HOF Pack, we do not compromise on quality. We prefer premium-looking finishes and dependable service for every order. We offer:",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
+  },
+  "window-gable-boxes": {
+    "id": "prod-window-gable-boxes",
+    "name": "Window Gable Boxes",
+    "slug": "window-gable-boxes",
+    "skuCode": "F100 — Custom Packaging",
+    "description": "Premium custom window gable boxes by HofPack.",
+    "images": [
+      "/images/products/gable-box-with-window.jpg"
+    ],
+    "box_style": "Window Gable Boxes",
+    "size_info": "All Custom Sizes & Shapes",
+    "min_quantity": "No Minimum MOQ Required",
+    "stock_info": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "printing_options": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishing_options": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proof_info": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaround_time": "4–8 Business Days",
+    "shipping_info": "FREE Shipping Worldwide",
+    "category": {
+      "name": "Gable Boxes",
+      "slug": "custom-gable-boxes"
+    },
+    "meta_title": "Window Gable Boxes | Custom Gable Boxes with Clear Window",
+    "meta_description": "Get custom window gable boxes with built-in handles and a clear viewing panel. Flexible MOQs, wholesale pricing, and free design support from HOF Pack.",
+    "meta_keywords": "window gable boxes, gable boxes with window, custom window gable boxes, wholesale window gable boxes",
+    "product_content": {
+      "perk_items": [
+        "Free design support",
+        "Flexible MOQ",
+        "Competitive bulk discounts",
+        "Wholesale pricing facility",
+        "Fast production turnaround",
+        "Startup-friendly packaging",
+        "Innovative design ideas",
+        "No red tape mechanism"
+      ],
+      "feature_items": [
+        {
+          "icon": "Palette",
+          "title": "Bold color output",
+          "description": "Expressive, striking, vibrant colors through the use of our high-quality water-based inks and advanced print buttons."
+        },
+        {
+          "icon": "Feather",
+          "title": "Low-weight packaging",
+          "description": "Maintain light packaging without sacrificing security, effectively lowering your shipping expenses."
+        },
+        {
+          "icon": "Leaf",
+          "title": "Earth-friendly choices",
+          "description": "Minimise your ecological footprint through FSC-certified, sustainable paperboard made from recycled fibres."
+        }
+      ],
+      "content_blocks": [
+        {
+          "heading": "Stand Out on Retail Shelves with Premium Custom Window Gable Boxes",
+          "body": "Most brands miss this and regret it. Your packaging should catch your customers' attention even before they see the product. Through our custom window gable boxes, we provide a distinctive, modern look that immediately helps your brand stand apart. This is why brands trust HOF Pack with premium packaging that feels elevated from the first glance.",
+          "image": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Premium rigid packaging",
+          "flipped": false
+        },
+        {
+          "heading": "Order Wholesale Window Gable Boxes with Flexible MOQ",
+          "body": "Are you a small business struggling to get low MOQ customisation options? You are at the right place. HOF Pack understands the challenges your startup or growing brand may be facing and helps you create window gable boxes with flexible order quantities and wholesale support.",
+          "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Wholesale rigid packaging",
+          "flipped": true
+        },
+        {
+          "heading": "Ready to Create Window Gable Boxes That Customers Love",
+          "body": "With a sleek, refined shape and robust build, our packaging delivers both visual appeal and reliable product protection. Create an out-of-the-box experience your customers will remember and enjoy.",
+          "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Custom rigid packaging customers love",
+          "linkLabel": "Get a Packaging Report",
+          "flipped": false
+        }
+      ],
+      "material_items": [
+        "Rigid Board for Luxury Strength",
+        "Eco-Conscious Kraft Packaging Options",
+        "High-Density Paperboard Printing Surfaces"
+      ],
+      "spec_overrides": {
+        "dimension_info": "All Custom Sizes & Shapes",
+        "rush_available": true,
+        "quantities_info": "No Minimum MOQ Required",
+        "included_options": [
+          "Die Cutting",
+          "Gluing",
+          "Scored",
+          "Perforation"
+        ],
+        "turnaround_label": "4–8 Business Days",
+        "additional_options": [
+          "Eco-Friendly",
+          "Recycled Boxes",
+          "Biodegradable"
+        ],
+        "printing_options_list": [
+          "No Printing",
+          "CMYK",
+          "CMYK + 1 PMS color",
+          "CMYK + 2 PMS colors"
+        ],
+        "finishing_options_list": [
+          "Gloss Lamination",
+          "Matte Lamination",
+          "Gloss AQ",
+          "Gloss UV",
+          "Matte UV",
+          "Spot UV",
+          "Embossing",
+          "Debossing",
+          "Gold / Silver Foiling",
+          "Holographic Foiling"
+        ]
+      },
+      "article_sections": [
+        {
+          "text": "Why Brands Are Switching to Window Gable Boxes",
+          "level": "h3"
+        },
+        {
+          "text": "Whether launching a new product or refining your packaging approach, window gable boxes add a premium feel that boosts your brand’s perceived value. Many industries trust premium packaging to blend elegance, durability, and storytelling into a single standout solution.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "A Unique Shape That Captures Attention Instantly",
+          "level": "h4"
+        },
+        {
+          "text": "Our unique packaging style gives your brand a distinctive look compared to more traditional options. The shape naturally commands more shelf space and draws the eye, making your brand harder to ignore in crowded retail environments.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Brands frequently use this packaging for limited-edition gifts, promotional products, and festive collections. Order gift-ready and promotional packaging with the same luxury feel customers love.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Gift and Promotional Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "Brands frequently use premium boxes for limited-edition gifts, promotional products, and festive packaging collections. Order packaging that carries the same luxury presentation your audience expects.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Premium Materials Used for Custom Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "High-quality materials play a crucial role in the durability and appearance of packaging. At HOF Pack, we manufacture custom packaging using premium materials that maintain both structural integrity and visual appeal.",
+          "level": "p"
+        },
+        {
+          "text": "These materials provide excellent strength while offering smooth printing surfaces for branding and finishing. Brands that prioritise sustainability can also choose recyclable and eco-friendly materials.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Why Brands Across the USA Choose HOF Pack",
+          "level": "h4"
+        },
+        {
+          "text": "At HOF Pack, we do not compromise on quality. We prefer premium-looking finishes and dependable service for every order. We offer:",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
+  },
+  "custom-kraft-gable-boxes": {
+    "id": "prod-custom-kraft-gable-boxes",
+    "name": "Custom Kraft Gable Boxes",
+    "slug": "custom-kraft-gable-boxes",
+    "skuCode": "F101 — Custom Packaging",
+    "description": "Premium custom custom kraft gable boxes by HofPack.",
+    "images": [
+      "/images/categories/cat-gable-boxes-v2.jpg"
+    ],
+    "box_style": "Custom Kraft Gable Boxes",
+    "size_info": "All Custom Sizes & Shapes",
+    "min_quantity": "No Minimum MOQ Required",
+    "stock_info": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "printing_options": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishing_options": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proof_info": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaround_time": "4–8 Business Days",
+    "category": {
+      "name": "Gable Boxes",
+      "slug": "custom-gable-boxes"
+    },
+    "meta_title": "Custom Kraft Gable Boxes | Wholesale Kraft Gable Packaging",
+    "meta_description": "Get custom kraft gable boxes with built-in handles, flexible MOQs, wholesale pricing, and free design support from HOF Pack.",
+    "meta_keywords": "custom kraft gable boxes, kraft gable boxes, wholesale kraft gable boxes, custom gable boxes",
+    "product_content": {
+      "perk_items": [
+        "Free design support",
+        "Flexible MOQ",
+        "Competitive bulk discounts",
+        "Wholesale pricing facility",
+        "Fast production turnaround",
+        "Startup-friendly packaging",
+        "Innovative design ideas",
+        "No red tape mechanism"
+      ],
+      "feature_items": [
+        {
+          "icon": "Palette",
+          "title": "Bold color output",
+          "description": "Expressive, striking, vibrant colors through the use of our high-quality water-based inks and advanced print buttons."
+        },
+        {
+          "icon": "Feather",
+          "title": "Low-weight packaging",
+          "description": "Maintain light packaging without sacrificing security, effectively lowering your shipping expenses."
+        },
+        {
+          "icon": "Leaf",
+          "title": "Earth-friendly choices",
+          "description": "Minimise your ecological footprint through FSC-certified, sustainable paperboard made from recycled fibres."
+        }
+      ],
+      "content_blocks": [
+        {
+          "heading": "Stand Out on Retail Shelves with Premium Custom Custom Kraft Gable Boxes",
+          "body": "Most brands miss this and regret it. Your packaging should catch your customers' attention even before they see the product. Through our custom custom kraft gable boxes, we provide a distinctive, modern look that immediately helps your brand stand apart. This is why brands trust HOF Pack with premium packaging that feels elevated from the first glance.",
+          "image": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Premium rigid packaging",
+          "flipped": false
+        },
+        {
+          "heading": "Order Wholesale Custom Kraft Gable Boxes with Flexible MOQ",
+          "body": "Are you a small business struggling to get low MOQ customisation options? You are at the right place. HOF Pack understands the challenges your startup or growing brand may be facing and helps you create custom kraft gable boxes with flexible order quantities and wholesale support.",
+          "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Wholesale rigid packaging",
+          "flipped": true
+        },
+        {
+          "heading": "Ready to Create Custom Kraft Gable Boxes That Customers Love",
+          "body": "With a sleek, refined shape and robust build, our packaging delivers both visual appeal and reliable product protection. Create an out-of-the-box experience your customers will remember and enjoy.",
+          "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Custom rigid packaging customers love",
+          "linkLabel": "Get a Packaging Report",
+          "flipped": false
+        }
+      ],
+      "material_items": [
+        "Rigid Board for Luxury Strength",
+        "Eco-Conscious Kraft Packaging Options",
+        "High-Density Paperboard Printing Surfaces"
+      ],
+      "spec_overrides": {
+        "dimension_info": "All Custom Sizes & Shapes",
+        "rush_available": true,
+        "quantities_info": "No Minimum MOQ Required",
+        "included_options": [
+          "Die Cutting",
+          "Gluing",
+          "Scored",
+          "Perforation"
+        ],
+        "turnaround_label": "4–8 Business Days",
+        "additional_options": [
+          "Eco-Friendly",
+          "Recycled Boxes",
+          "Biodegradable"
+        ],
+        "printing_options_list": [
+          "No Printing",
+          "CMYK",
+          "CMYK + 1 PMS color",
+          "CMYK + 2 PMS colors"
+        ],
+        "finishing_options_list": [
+          "Gloss Lamination",
+          "Matte Lamination",
+          "Gloss AQ",
+          "Gloss UV",
+          "Matte UV",
+          "Spot UV",
+          "Embossing",
+          "Debossing",
+          "Gold / Silver Foiling",
+          "Holographic Foiling"
+        ]
+      },
+      "article_sections": [
+        {
+          "text": "Why Brands Are Switching to Custom Kraft Gable Boxes",
+          "level": "h3"
+        },
+        {
+          "text": "Whether launching a new product or refining your packaging approach, custom kraft gable boxes add a premium feel that boosts your brand’s perceived value. Many industries trust premium packaging to blend elegance, durability, and storytelling into a single standout solution.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "A Unique Shape That Captures Attention Instantly",
+          "level": "h4"
+        },
+        {
+          "text": "Our unique packaging style gives your brand a distinctive look compared to more traditional options. The shape naturally commands more shelf space and draws the eye, making your brand harder to ignore in crowded retail environments.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Brands frequently use this packaging for limited-edition gifts, promotional products, and festive collections. Order gift-ready and promotional packaging with the same luxury feel customers love.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Gift and Promotional Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "Brands frequently use premium boxes for limited-edition gifts, promotional products, and festive packaging collections. Order packaging that carries the same luxury presentation your audience expects.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Premium Materials Used for Custom Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "High-quality materials play a crucial role in the durability and appearance of packaging. At HOF Pack, we manufacture custom packaging using premium materials that maintain both structural integrity and visual appeal.",
+          "level": "p"
+        },
+        {
+          "text": "These materials provide excellent strength while offering smooth printing surfaces for branding and finishing. Brands that prioritise sustainability can also choose recyclable and eco-friendly materials.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Why Brands Across the USA Choose HOF Pack",
+          "level": "h4"
+        },
+        {
+          "text": "At HOF Pack, we do not compromise on quality. We prefer premium-looking finishes and dependable service for every order. We offer:",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
+  },
+  "smell-proof-mylar-bags": {
+    "id": "prod-smell-proof-mylar-bags",
+    "name": "Smell Proof Mylar Bags",
+    "slug": "smell-proof-mylar-bags",
+    "skuCode": "F109 — Custom Packaging",
+    "description": "Premium custom smell proof mylar bags by HofPack.",
+    "images": [
+      "/images/products/mylar-bags-for-food-storage.jpg"
+    ],
+    "box_style": "Smell Proof Mylar Bags",
+    "size_info": "All Custom Sizes & Shapes",
+    "min_quantity": "No Minimum MOQ Required",
+    "stock_info": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "printing_options": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishing_options": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proof_info": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaround_time": "4–8 Business Days",
+    "shipping_info": "FREE Shipping Worldwide",
+    "category": {
+      "name": "Mylar Bags",
+      "slug": "custom-mylar-bags"
+    },
+    "meta_title": "Custom Smell Proof Mylar Bags | Odor-Proof & Secure Packages",
+    "meta_description": "Get smell proof Mylar bags with airtight sealing and odor-blocking layers. These custom mylar bags are ideal for secure, discreet, and fresh product packaging.",
+    "meta_keywords": "smell proof mylar bags, odor proof mylar bags, custom smell proof bags, wholesale mylar bags",
+    "product_content": {
+      "perk_items": [
+        "Free design support",
+        "Flexible MOQ",
+        "Competitive bulk discounts",
+        "Wholesale pricing facility",
+        "Fast production turnaround",
+        "Startup-friendly packaging",
+        "Innovative design ideas",
+        "No red tape mechanism"
+      ],
+      "feature_items": [
+        {
+          "icon": "Palette",
+          "title": "Bold color output",
+          "description": "Expressive, striking, vibrant colors through the use of our high-quality water-based inks and advanced print buttons."
+        },
+        {
+          "icon": "Feather",
+          "title": "Low-weight packaging",
+          "description": "Maintain light packaging without sacrificing security, effectively lowering your shipping expenses."
+        },
+        {
+          "icon": "Leaf",
+          "title": "Earth-friendly choices",
+          "description": "Minimise your ecological footprint through FSC-certified, sustainable paperboard made from recycled fibres."
+        }
+      ],
+      "content_blocks": [
+        {
+          "heading": "Stand Out on Retail Shelves with Premium Custom Smell Proof Mylar Bags",
+          "body": "Most brands miss this and regret it. Your packaging should catch your customers' attention even before they see the product. Through our custom smell proof mylar bags, we provide a distinctive, modern look that immediately helps your brand stand apart. This is why brands trust HOF Pack with premium packaging that feels elevated from the first glance.",
+          "image": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Premium rigid packaging",
+          "flipped": false
+        },
+        {
+          "heading": "Order Wholesale Smell Proof Mylar Bags with Flexible MOQ",
+          "body": "Are you a small business struggling to get low MOQ customisation options? You are at the right place. HOF Pack understands the challenges your startup or growing brand may be facing and helps you create smell proof mylar bags with flexible order quantities and wholesale support.",
+          "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Wholesale rigid packaging",
+          "flipped": true
+        },
+        {
+          "heading": "Ready to Create Smell Proof Mylar Bags That Customers Love",
+          "body": "With a sleek, refined shape and robust build, our packaging delivers both visual appeal and reliable product protection. Create an out-of-the-box experience your customers will remember and enjoy.",
+          "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Custom rigid packaging customers love",
+          "linkLabel": "Get a Packaging Report",
+          "flipped": false
+        }
+      ],
+      "material_items": [
+        "Rigid Board for Luxury Strength",
+        "Eco-Conscious Kraft Packaging Options",
+        "High-Density Paperboard Printing Surfaces"
+      ],
+      "spec_overrides": {
+        "dimension_info": "All Custom Sizes & Shapes",
+        "rush_available": true,
+        "quantities_info": "No Minimum MOQ Required",
+        "included_options": [
+          "Die Cutting",
+          "Gluing",
+          "Scored",
+          "Perforation"
+        ],
+        "turnaround_label": "4–8 Business Days",
+        "additional_options": [
+          "Eco-Friendly",
+          "Recycled Boxes",
+          "Biodegradable"
+        ],
+        "printing_options_list": [
+          "No Printing",
+          "CMYK",
+          "CMYK + 1 PMS color",
+          "CMYK + 2 PMS colors"
+        ],
+        "finishing_options_list": [
+          "Gloss Lamination",
+          "Matte Lamination",
+          "Gloss AQ",
+          "Gloss UV",
+          "Matte UV",
+          "Spot UV",
+          "Embossing",
+          "Debossing",
+          "Gold / Silver Foiling",
+          "Holographic Foiling"
+        ]
+      },
+      "article_sections": [
+        {
+          "text": "Why Brands Are Switching to Smell Proof Mylar Bags",
+          "level": "h3"
+        },
+        {
+          "text": "Whether launching a new product or refining your packaging approach, smell proof mylar bags add a premium feel that boosts your brand’s perceived value. Many industries trust premium packaging to blend elegance, durability, and storytelling into a single standout solution.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "A Unique Shape That Captures Attention Instantly",
+          "level": "h4"
+        },
+        {
+          "text": "Our unique packaging style gives your brand a distinctive look compared to more traditional options. The shape naturally commands more shelf space and draws the eye, making your brand harder to ignore in crowded retail environments.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Brands frequently use this packaging for limited-edition gifts, promotional products, and festive collections. Order gift-ready and promotional packaging with the same luxury feel customers love.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Gift and Promotional Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "Brands frequently use premium boxes for limited-edition gifts, promotional products, and festive packaging collections. Order packaging that carries the same luxury presentation your audience expects.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Premium Materials Used for Custom Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "High-quality materials play a crucial role in the durability and appearance of packaging. At HOF Pack, we manufacture custom packaging using premium materials that maintain both structural integrity and visual appeal.",
+          "level": "p"
+        },
+        {
+          "text": "These materials provide excellent strength while offering smooth printing surfaces for branding and finishing. Brands that prioritise sustainability can also choose recyclable and eco-friendly materials.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Why Brands Across the USA Choose HOF Pack",
+          "level": "h4"
+        },
+        {
+          "text": "At HOF Pack, we do not compromise on quality. We prefer premium-looking finishes and dependable service for every order. We offer:",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
+  },
+  "christmas-candle-boxes": {
+    "id": "prod-christmas-candle-boxes",
+    "name": "Christmas Candle Boxes",
+    "slug": "christmas-candle-boxes",
+    "skuCode": "F101 — Custom Packaging",
+    "description": "Premium custom christmas candle boxes by HofPack.",
+    "images": [
+      "/images/products/candle-gift-boxes.jpg"
+    ],
+    "box_style": "Christmas Candle Boxes",
+    "size_info": "All Custom Sizes & Shapes",
+    "min_quantity": "No Minimum MOQ Required",
+    "stock_info": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "printing_options": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishing_options": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proof_info": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaround_time": "4–8 Business Days",
+    "shipping_info": "FREE Shipping Worldwide",
+    "category": {
+      "name": "Candle Boxes",
+      "slug": "custom-candle-boxes"
+    },
+    "meta_title": "Christmas Candle Boxes | Custom Holiday Candle Packaging",
+    "meta_description": "Get custom Christmas candle boxes with festive printing, flexible MOQs, wholesale pricing, and free design support from HOF Pack.",
+    "meta_keywords": "christmas candle boxes, holiday candle packaging, custom christmas candle boxes, wholesale christmas candle boxes",
+    "product_content": {
+      "perk_items": [
+        "Free design support",
+        "Flexible MOQ",
+        "Competitive bulk discounts",
+        "Wholesale pricing facility",
+        "Fast production turnaround",
+        "Startup-friendly packaging",
+        "Innovative design ideas",
+        "No red tape mechanism"
+      ],
+      "feature_items": [
+        {
+          "icon": "Palette",
+          "title": "Bold color output",
+          "description": "Expressive, striking, vibrant colors through the use of our high-quality water-based inks and advanced print buttons."
+        },
+        {
+          "icon": "Feather",
+          "title": "Low-weight packaging",
+          "description": "Maintain light packaging without sacrificing security, effectively lowering your shipping expenses."
+        },
+        {
+          "icon": "Leaf",
+          "title": "Earth-friendly choices",
+          "description": "Minimise your ecological footprint through FSC-certified, sustainable paperboard made from recycled fibres."
+        }
+      ],
+      "content_blocks": [
+        {
+          "heading": "Stand Out on Retail Shelves with Premium Custom Christmas Candle Boxes",
+          "body": "Most brands miss this and regret it. Your packaging should catch your customers' attention even before they see the product. Through our custom christmas candle boxes, we provide a distinctive, modern look that immediately helps your brand stand apart. This is why brands trust HOF Pack with premium packaging that feels elevated from the first glance.",
+          "image": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Premium rigid packaging",
+          "flipped": false
+        },
+        {
+          "heading": "Order Wholesale Christmas Candle Boxes with Flexible MOQ",
+          "body": "Are you a small business struggling to get low MOQ customisation options? You are at the right place. HOF Pack understands the challenges your startup or growing brand may be facing and helps you create christmas candle boxes with flexible order quantities and wholesale support.",
+          "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Wholesale rigid packaging",
+          "flipped": true
+        },
+        {
+          "heading": "Ready to Create Christmas Candle Boxes That Customers Love",
+          "body": "With a sleek, refined shape and robust build, our packaging delivers both visual appeal and reliable product protection. Create an out-of-the-box experience your customers will remember and enjoy.",
+          "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Custom rigid packaging customers love",
+          "linkLabel": "Get a Packaging Report",
+          "flipped": false
+        }
+      ],
+      "material_items": [
+        "Rigid Board for Luxury Strength",
+        "Eco-Conscious Kraft Packaging Options",
+        "High-Density Paperboard Printing Surfaces"
+      ],
+      "spec_overrides": {
+        "dimension_info": "All Custom Sizes & Shapes",
+        "rush_available": true,
+        "quantities_info": "No Minimum MOQ Required",
+        "included_options": [
+          "Die Cutting",
+          "Gluing",
+          "Scored",
+          "Perforation"
+        ],
+        "turnaround_label": "4–8 Business Days",
+        "additional_options": [
+          "Eco-Friendly",
+          "Recycled Boxes",
+          "Biodegradable"
+        ],
+        "printing_options_list": [
+          "No Printing",
+          "CMYK",
+          "CMYK + 1 PMS color",
+          "CMYK + 2 PMS colors"
+        ],
+        "finishing_options_list": [
+          "Gloss Lamination",
+          "Matte Lamination",
+          "Gloss AQ",
+          "Gloss UV",
+          "Matte UV",
+          "Spot UV",
+          "Embossing",
+          "Debossing",
+          "Gold / Silver Foiling",
+          "Holographic Foiling"
+        ]
+      },
+      "article_sections": [
+        {
+          "text": "Why Brands Are Switching to Christmas Candle Boxes",
+          "level": "h3"
+        },
+        {
+          "text": "Whether launching a new product or refining your packaging approach, christmas candle boxes add a premium feel that boosts your brand’s perceived value. Many industries trust premium packaging to blend elegance, durability, and storytelling into a single standout solution.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "A Unique Shape That Captures Attention Instantly",
+          "level": "h4"
+        },
+        {
+          "text": "Our unique packaging style gives your brand a distinctive look compared to more traditional options. The shape naturally commands more shelf space and draws the eye, making your brand harder to ignore in crowded retail environments.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Brands frequently use this packaging for limited-edition gifts, promotional products, and festive collections. Order gift-ready and promotional packaging with the same luxury feel customers love.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Gift and Promotional Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "Brands frequently use premium boxes for limited-edition gifts, promotional products, and festive packaging collections. Order packaging that carries the same luxury presentation your audience expects.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Premium Materials Used for Custom Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "High-quality materials play a crucial role in the durability and appearance of packaging. At HOF Pack, we manufacture custom packaging using premium materials that maintain both structural integrity and visual appeal.",
+          "level": "p"
+        },
+        {
+          "text": "These materials provide excellent strength while offering smooth printing surfaces for branding and finishing. Brands that prioritise sustainability can also choose recyclable and eco-friendly materials.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Why Brands Across the USA Choose HOF Pack",
+          "level": "h4"
+        },
+        {
+          "text": "At HOF Pack, we do not compromise on quality. We prefer premium-looking finishes and dependable service for every order. We offer:",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
+  },
+  "bath-bomb-boxes": {
+    "id": "prod-bath-bomb-boxes",
+    "name": "Bath Bomb Boxes",
+    "slug": "bath-bomb-boxes",
+    "skuCode": "F105 — Custom Packaging",
+    "description": "Premium custom bath bomb boxes by HofPack.",
+    "images": [
+      "/images/products/soap-display-boxes.jpg"
+    ],
+    "box_style": "Bath Bomb Boxes",
+    "size_info": "All Custom Sizes & Shapes",
+    "min_quantity": "No Minimum MOQ Required",
+    "stock_info": "Ranging from 60lb C1S/C2S to 400lb C1S/C2S card stock, kraft, e-flute corrugated, bux board, rigid, and Mylar bags.",
+    "printing_options": "No Printing, CMYK, CMYK + 1 PMS color, CMYK + 2 PMS colors",
+    "finishing_options": "Gloss Lamination, Matte Lamination, Gloss AQ, Gloss UV, Matte UV, Spot UV, Embossing, Debossing, Gold / Silver Foiling, Holographic Foiling",
+    "proof_info": "Flat View · 3D Mock-up · Physical Sampling (On request)",
+    "turnaround_time": "4–8 Business Days",
+    "shipping_info": "FREE Shipping Worldwide",
+    "category": {
+      "name": "Soap Boxes",
+      "slug": "custom-soap-boxes"
+    },
+    "meta_title": "Bath Bomb Boxes | Custom Bath Bomb Packaging USA",
+    "meta_description": "Get custom bath bomb boxes designed for protection and premium presentation. Ideal for retail, gifting, and subscription packaging.",
+    "meta_keywords": "bath bomb boxes, custom bath bomb packaging, wholesale bath bomb boxes, soap boxes",
+    "product_content": {
+      "perk_items": [
+        "Free design support",
+        "Flexible MOQ",
+        "Competitive bulk discounts",
+        "Wholesale pricing facility",
+        "Fast production turnaround",
+        "Startup-friendly packaging",
+        "Innovative design ideas",
+        "No red tape mechanism"
+      ],
+      "feature_items": [
+        {
+          "icon": "Palette",
+          "title": "Bold color output",
+          "description": "Expressive, striking, vibrant colors through the use of our high-quality water-based inks and advanced print buttons."
+        },
+        {
+          "icon": "Feather",
+          "title": "Low-weight packaging",
+          "description": "Maintain light packaging without sacrificing security, effectively lowering your shipping expenses."
+        },
+        {
+          "icon": "Leaf",
+          "title": "Earth-friendly choices",
+          "description": "Minimise your ecological footprint through FSC-certified, sustainable paperboard made from recycled fibres."
+        }
+      ],
+      "content_blocks": [
+        {
+          "heading": "Stand Out on Retail Shelves with Premium Custom Bath Bomb Boxes",
+          "body": "Most brands miss this and regret it. Your packaging should catch your customers' attention even before they see the product. Through our custom bath bomb boxes, we provide a distinctive, modern look that immediately helps your brand stand apart. This is why brands trust HOF Pack with premium packaging that feels elevated from the first glance.",
+          "image": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Premium rigid packaging",
+          "flipped": false
+        },
+        {
+          "heading": "Order Wholesale Bath Bomb Boxes with Flexible MOQ",
+          "body": "Are you a small business struggling to get low MOQ customisation options? You are at the right place. HOF Pack understands the challenges your startup or growing brand may be facing and helps you create bath bomb boxes with flexible order quantities and wholesale support.",
+          "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Wholesale rigid packaging",
+          "flipped": true
+        },
+        {
+          "heading": "Ready to Create Bath Bomb Boxes That Customers Love",
+          "body": "With a sleek, refined shape and robust build, our packaging delivers both visual appeal and reliable product protection. Create an out-of-the-box experience your customers will remember and enjoy.",
+          "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1200&q=85&auto=format&fit=crop",
+          "alt": "Custom rigid packaging customers love",
+          "linkLabel": "Get a Packaging Report",
+          "flipped": false
+        }
+      ],
+      "material_items": [
+        "Rigid Board for Luxury Strength",
+        "Eco-Conscious Kraft Packaging Options",
+        "High-Density Paperboard Printing Surfaces"
+      ],
+      "spec_overrides": {
+        "dimension_info": "All Custom Sizes & Shapes",
+        "rush_available": true,
+        "quantities_info": "No Minimum MOQ Required",
+        "included_options": [
+          "Die Cutting",
+          "Gluing",
+          "Scored",
+          "Perforation"
+        ],
+        "turnaround_label": "4–8 Business Days",
+        "additional_options": [
+          "Eco-Friendly",
+          "Recycled Boxes",
+          "Biodegradable"
+        ],
+        "printing_options_list": [
+          "No Printing",
+          "CMYK",
+          "CMYK + 1 PMS color",
+          "CMYK + 2 PMS colors"
+        ],
+        "finishing_options_list": [
+          "Gloss Lamination",
+          "Matte Lamination",
+          "Gloss AQ",
+          "Gloss UV",
+          "Matte UV",
+          "Spot UV",
+          "Embossing",
+          "Debossing",
+          "Gold / Silver Foiling",
+          "Holographic Foiling"
+        ]
+      },
+      "article_sections": [
+        {
+          "text": "Why Brands Are Switching to Bath Bomb Boxes",
+          "level": "h3"
+        },
+        {
+          "text": "Whether launching a new product or refining your packaging approach, bath bomb boxes add a premium feel that boosts your brand’s perceived value. Many industries trust premium packaging to blend elegance, durability, and storytelling into a single standout solution.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "A Unique Shape That Captures Attention Instantly",
+          "level": "h4"
+        },
+        {
+          "text": "Our unique packaging style gives your brand a distinctive look compared to more traditional options. The shape naturally commands more shelf space and draws the eye, making your brand harder to ignore in crowded retail environments.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Brands frequently use this packaging for limited-edition gifts, promotional products, and festive collections. Order gift-ready and promotional packaging with the same luxury feel customers love.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Gift and Promotional Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "Brands frequently use premium boxes for limited-edition gifts, promotional products, and festive packaging collections. Order packaging that carries the same luxury presentation your audience expects.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Premium Materials Used for Custom Packaging",
+          "level": "h4"
+        },
+        {
+          "text": "High-quality materials play a crucial role in the durability and appearance of packaging. At HOF Pack, we manufacture custom packaging using premium materials that maintain both structural integrity and visual appeal.",
+          "level": "p"
+        },
+        {
+          "text": "These materials provide excellent strength while offering smooth printing surfaces for branding and finishing. Brands that prioritise sustainability can also choose recyclable and eco-friendly materials.",
+          "level": "p"
+        },
+        {
+          "text": "",
+          "level": "divider"
+        },
+        {
+          "text": "Why Brands Across the USA Choose HOF Pack",
+          "level": "h4"
+        },
+        {
+          "text": "At HOF Pack, we do not compromise on quality. We prefer premium-looking finishes and dependable service for every order. We offer:",
+          "level": "p"
+        }
+      ]
+    },
+    "faqs": []
+  },
   "custom-cylinder-packaging": {
     "id": "3f93bbae-e8c2-4f10-885d-657dd0e6c28a",
     "name": "Custom Cylinder Packaging",
@@ -15721,7 +16860,7 @@ export const FULL_PRODUCTS_DATABASE: Record<string, ProductDetailData> = {
     "skuCode": "F100 — Custom Packaging",
     "description": "Shoppers love to see what they are buying before they spend their money. A gable box with window packaging design is the perfect way to show off your products. This box mixes a strong carrying handle with a clear plastic viewing cutout. It is great for bakery items, colorful candies, bath bombs, and holiday gifts. It protects your items while giving customers a sneak peek inside.",
     "images": [
-      "/images/products/gable-box-with-window.jpg",
+      "/images/products/gable-box-with-window-2-373406e7-9396-4096-947f-24c678e3b4db.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782387124/373406e7-9396-4096-947f-24c678e3b4db.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782387129/0d027f1a-f831-494a-bb3f-629230c2a511.jpg",
       "https://res.cloudinary.com/dazm20bju/image/upload/v1782387133/15d682bc-0485-4d36-9a46-ab0a6e37a3fe.jpg"

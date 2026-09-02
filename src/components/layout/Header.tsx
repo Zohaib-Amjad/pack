@@ -155,7 +155,7 @@ export function Header() {
               width={256}
               height={154}
               decoding="async"
-              className="block shrink-0 h-12 lg:h-16 w-auto"
+              className="block shrink-0 h-12 lg:h-[52px] w-auto object-contain"
               style={{ color: "transparent" }}
               src="/images/brand/logo-green-orange.png"
             />

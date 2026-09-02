@@ -1,6 +1,6 @@
 import { createPublicClient } from "@/utils/supabase/public-client";
 import { withAbortableTimeout } from "@/lib/fetch-utils";
-import { getCategoryBySlug } from "@/data/products";
+import { getCategoryBySlug, isRemovedProductSlug } from "@/data/products";
 import { getCategoryDetailDefaults, COFFEE_RELATED_PRODUCTS, COSMETIC_RELATED_PRODUCTS, JEWELRY_RELATED_PRODUCTS, RETAIL_RELATED_PRODUCTS, WAX_PAPER_RELATED_PRODUCTS, SOAP_RELATED_PRODUCTS, CARDBOARD_RELATED_PRODUCTS, CORRUGATED_RELATED_PRODUCTS, KRAFT_RELATED_PRODUCTS, MYLAR_RELATED_PRODUCTS, RIGID_RELATED_PRODUCTS, STICKERS_RELATED_PRODUCTS, MAILER_RELATED_PRODUCTS, DISPLAY_RELATED_PRODUCTS, GABLE_RELATED_PRODUCTS, PILLOW_RELATED_PRODUCTS, TUBE_RELATED_PRODUCTS, TUCK_RELATED_PRODUCTS } from "@/data/category-defaults";
 import { getCategoryFaqs, toPageFaqs } from "@/data/content-sheet-faqs";
 
@@ -89,13 +89,15 @@ export function staticCategoryFallback(categorySlug: string): CategoryPageData |
     return null;
   }
 
-  const staticProducts = (staticCat.products || []).map((p) => ({
-    id: `static-${p.slug}`,
-    name: p.name,
-    slug: p.slug,
-    images: (p as any).image ? [(p as any).image] : ["/images/products/69242008-f271-4264-95f3-651f28529196.jpg"],
-    category_id: `static-${staticCat.slug}`,
-  }));
+  const staticProducts = (staticCat.products || [])
+    .filter((p) => !isRemovedProductSlug(p.slug))
+    .map((p) => ({
+      id: `static-${p.slug}`,
+      name: p.name,
+      slug: p.slug,
+      images: (p as any).image ? [(p as any).image] : ["/images/products/69242008-f271-4264-95f3-651f28529196.jpg"],
+      category_id: `static-${staticCat.slug}`,
+    }));
 
   const relatedSource =
     staticCat.slug === "custom-cosmetic-boxes" || staticCat.slug === "cosmetic-boxes"
@@ -287,6 +289,7 @@ export async function fetchCategoryPageData(
     const prodData = prodRes.error ? [] : prodRes.data || [];
     const faqData = faqRes.error ? [] : faqRes.data || [];
     let relatedProducts: any[] = relatedRes.error ? [] : relatedRes.data || [];
+    relatedProducts = relatedProducts.filter((p: any) => !isRemovedProductSlug(p.slug));
 
     // If no products found in Supabase for this category, populate from static catalog
     let finalProducts = prodData;
@@ -324,9 +327,10 @@ export async function fetchCategoryPageData(
         .slice(0, RELATED_PRODUCTS_LIMIT);
     }
 
-    const products = isRigidBoxesPage
+    const products = (isRigidBoxesPage
       ? filterRigidBoxesProducts(finalProducts)
-      : finalProducts;
+      : finalProducts
+    ).filter((p) => !isRemovedProductSlug(p.slug));
 
     const defaults = getCategoryDetailDefaults(resolvedSlug, catData.name, catData.section);
     const mergedCategoryContent = catData.category_content && Object.keys(catData.category_content).length > 0

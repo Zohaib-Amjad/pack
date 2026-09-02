@@ -68,12 +68,21 @@ export const getCategoryImage = (slug: string): string | undefined => {
   return typeof img === 'string' ? img : (img as any).src;
 };
 
+const srcOf = (img: string | StaticImageData): string =>
+  typeof img === "string" ? img : img.src;
+
+// All image variants for a category, as URL strings
+export const getCategoryImageSrcs = (slug: string): string[] => {
+  const variants = categoryImageVariants[slug];
+  if (!variants || variants.length === 0) return [];
+  return variants.map(srcOf);
+};
+
 // Get a variant image for a product based on its index within the category
 export const getProductImage = (categorySlug: string, productIndex: number): string | undefined => {
-  const variants = categoryImageVariants[categorySlug];
-  if (!variants || variants.length === 0) return undefined;
-  const img = variants[productIndex % variants.length];
-  return typeof img === 'string' ? img : (img as any).src;
+  const variants = getCategoryImageSrcs(categorySlug);
+  if (variants.length === 0) return undefined;
+  return variants[productIndex % variants.length];
 };
 
 export default categoryImageVariants;

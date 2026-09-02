@@ -905,24 +905,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
       "answer": "On average, our turnaround time is 8-10 business days. We are partnered with DHL, FedEx Corp, and UPS and offer both standard shipping (12-20 business days) and express shipping (7-10 days)."
     }
   ],
-  "cardboard-box-with-window": [
-    {
-      "question": "What is the window material made of?",
-      "answer": "The clear viewing window is made from a thin, high-clarity PVC or PET plastic sheet. This material is lightweight, completely transparent, and scratch-resistant, giving your buyers an open view while blocking dust and fingerprints."
-    },
-    {
-      "question": "Can I get a custom shape for the viewing window?",
-      "answer": "Yes, absolutely. While standard square and rectangular windows are highly popular, we can use custom die-cutting to create windows shaped like circles, hearts, stars, or even your custom brand logo."
-    },
-    {
-      "question": "Do these boxes require tape or glue to assemble?",
-      "answer": "No tools, tape, or glue are needed for assembly. The boxes feature smart interlocking tabs and pre-scored folding lines that click together securely by hand in seconds, keeping your packaging lines moving fast."
-    },
-    {
-      "question": "Should your window box be wider than your window frame?",
-      "answer": "Yes, to make a proper cardboard box with window, the box needs to be wider than the PVC plastic sheet. A window frame can either be a simple square-shaped or rectangular-shaped window, or it can be a die-cut window cutout."
-    }
-  ],
   "cardboard-cigarette-boxes": [
     {
       "question": "How to make a cigarette box out of cardboard?",
@@ -1026,28 +1008,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
     }
   ],
   "cardboard-pillow-boxes": [
-    {
-      "question": "Are cardboard pillow boxes suitable for retail products?",
-      "answer": "Yes, they are widely used for cosmetics, accessories, jewelry, candles, and boutique retail items because they create a distinctive shelf presence."
-    },
-    {
-      "question": "Can I add a window to my pillow box packaging?",
-      "answer": "Yes, window cut-outs are a popular option for brands that want to showcase products while maintaining the pillow box shape."
-    },
-    {
-      "question": "What’s the difference between kraft and premium pillow boxes?",
-      "answer": "Kraft pillow boxes offer a natural, eco-friendly appearance, while premium coated boards support luxury finishes like foil stamping, embossing, and soft-touch lamination."
-    },
-    {
-      "question": "Are cardboard pillow boxes eco-friendly?",
-      "answer": "Most cardboard pillow boxes can be produced using recyclable materials and sustainable paperboard stocks, making them a more environmentally responsible packaging option."
-    },
-    {
-      "question": "What products fit best inside pillow boxes?",
-      "answer": "They are ideal for small to medium-sized products such as jewelry, cosmetics, candles, chocolates, gift cards, and promotional items."
-    }
-  ],
-  "cardboard-pillow-packaging": [
     {
       "question": "Are cardboard pillow boxes suitable for retail products?",
       "answer": "Yes, they are widely used for cosmetics, accessories, jewelry, candles, and boutique retail items because they create a distinctive shelf presence."
@@ -1183,28 +1143,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
       "answer": "Yes, at HOF Pack, we provide bulk mylar bags options with MOQs as low as 500 units and competitive pricing."
     }
   ],
-  "child-resistant-rigid-boxes": [
-    {
-      "question": "What industries should use child resistant rigid boxes?",
-      "answer": "Custom child resistant rigid boxes are used for pharmaceuticals, cosmetics, chemicals, detergents, and CBDs, etc."
-    },
-    {
-      "question": "Do you offer customized child resistant rigid boxes?",
-      "answer": "Yes, we have personalized options for rigid child resistant packaging. Get a free consultation from our team that is 24/7 available at your service."
-    },
-    {
-      "question": "Do you offer customized stickers along with the custom rigid boxes?",
-      "answer": "Absolutely, you can also order customized stickers along with our custom rigid boxes of any size, print design, and style."
-    },
-    {
-      "question": "Do you offer a bulk order option?",
-      "answer": "Yes, we do offer wholesale child resistant rigid boxes and bulk orders, along with different discount options, with fast turnaround and good quality."
-    },
-    {
-      "question": "Why are child resistant rigid boxes important?",
-      "answer": "Child resistant rigid boxes are important to keep your children away from accidental poisoning."
-    }
-  ],
   "christmas-candle-boxes": [
     {
       "question": "What are the best box styles for Christmas candle gift packaging?",
@@ -1247,28 +1185,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
     {
       "question": "What size is a gable box template?",
       "answer": "There is no single template size because it changes based on your product dimensions. When you order from HOF Pack, our team provides a free, custom-sized flat dieline template matching your exact width, length, and height requirements. Just tell us about your product dimensions and design preferences; the rest is on us."
-    }
-  ],
-  "clear-pillow-boxes": [
-    {
-      "question": "What are clear pillow boxes used for?",
-      "answer": "Clear pillow boxes are commonly used for packaging candies, jewelry, cosmetics, soaps, chocolates, wedding favors, and promotional gift packaging. They are highly favoured by industries because of their increased visibility advantage and product presentation."
-    },
-    {
-      "question": "Can I customize clear pillow boxes with my logo?",
-      "answer": "Yes, you can customize clear pillow boxes with your brand logos, labels, foil stamping, inserts, ribbons, and other branding elements."
-    },
-    {
-      "question": "Are clear pillow boxes suitable for retail display?",
-      "answer": "Yes, clear pillow boxes are highly suitable for retail display because their transparent design improves product visibility and helps products stand out on retail shelves."
-    },
-    {
-      "question": "Can I order clear pillow boxes in custom sizes?",
-      "answer": "Yes, we provide fully customizable dimensions based on your product requirements. Whether you want small pillow boxes or large clear pillow boxes, HOF Pack allows full customization options."
-    },
-    {
-      "question": "What is your minimum order quantity for clear pillow boxes?",
-      "answer": "We offer low minimums and high maximums. You can order as few as 500 units. However, the minimum order quantity is not fixed. It usually depends on the packaging style and customization requirements."
     }
   ],
   "coffee-bean-packaging": [
@@ -2145,42 +2061,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
       "answer": "On average, our turnaround time is 8-10 business days. We provide both express shipping (7-10 days) and standard shipping (12-20 days) as a trusted partner of DHL, FedEx Corp, and UPS."
     }
   ],
-  "custom-pre-roll-boxes": [
-    {
-      "question": "What is the best pre roll packaging for a small brand?",
-      "answer": "We provide low-MOQs of any style of pre roll packaging you order. You can pick any size, style, theme or design options."
-    },
-    {
-      "question": "What is the difference between a pre roll box and a pre roll tube?",
-      "answer": "A pre roll tube directly touches the product, while a pre roll box is the secondary carton that holds one or more tubes. It offers complete protection from external elements."
-    },
-    {
-      "question": "What is the minimum order for a custom pre roll box?",
-      "answer": "We provide any number of boxes with a low MOQ of 100 units."
-    },
-    {
-      "question": "How soon can you process my pre roll boxes order?",
-      "answer": "HOF Pack provides a standard turnaround time in 8-12 days. We also process rush orders at an additional cost."
-    }
-  ],
-  "custom-pre-roll-packaging": [
-    {
-      "question": "How Can I Place My Pre-Roll Boxes Order?",
-      "answer": "Simply go to our website and explore your desired product. Fill in the form given on the page with all the requirements and we will receive your order. Our agent will get in touch with you to discuss further scope. You can also give us a call to make it quick."
-    },
-    {
-      "question": "Do You Use Ecofriendly Materials for Preroll Packaging?",
-      "answer": "Yes, we always use green packaging options ensuring strict state regulations for child resistance, and tamper evidence. Our experts provide you with opaque labeling that balances local regulations and sustainability."
-    },
-    {
-      "question": "Is child-resistant pre-roll packaging required?",
-      "answer": "The requirements for pre-roll packaging vary by state and change often. Our experts provide you with the best child-resistant packaging solutions for your pre roll that aligns with your state regulations."
-    },
-    {
-      "question": "How long does your pre-roll packaging production take?",
-      "answer": "Our standard turnaround is 8-12 days in the USA once you approve the design. We ship your order right at your doorstep all across the USA."
-    }
-  ],
   "custom-ring-boxes": [
     {
       "question": "What sizes and styles of ring boxes do you produce?",
@@ -2193,24 +2073,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
     {
       "question": "What file formats do I need to send for custom logo printing?",
       "answer": "We accept vector files such as AI, PDF, EPS, and high-res PSD files to get an accurate printing result."
-    }
-  ],
-  "custom-shoulder-neck-rigid-boxes": [
-    {
-      "question": "What are shoulder neck boxes used for?",
-      "answer": "Shoulder neck boxes are a versatile and luxury option used for cosmetics, jewelry, skincare, watches, electronics, gifts, and apparel industries."
-    },
-    {
-      "question": "Can I order a shoulder rigid box with a logo?",
-      "answer": "Yes, we offer personalized custom boxes. You can add your logo, custom design, or graphics as per your preference."
-    },
-    {
-      "question": "Do you ship shoulder boxes across the USA?",
-      "answer": "Yes, we ship all over the US and also across the world."
-    },
-    {
-      "question": "Can I order a sample before a bulk order?",
-      "answer": "Yes, you can order a free sample before finalizing your wholesale order."
     }
   ],
   "custom-sticker-sheets": [
@@ -2305,24 +2167,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
       "answer": "Yes, they are made with food-grade materials that are FDA approved and are safe for packaging edible items. It protects air, moisture, and oxidation."
     }
   ],
-  "disposable-cigarette-boxes": [
-    {
-      "question": "What are the benefits of using disposable cigarette boxes?",
-      "answer": "If you’re a retail tobacco and CBD brand in the US, using disposable cigarette boxes is useful because it provides product protection from contamination and damage, creates an unboxing experience, provides an eco-friendly packaging solution, acts as a marketing tool, and increases your product value."
-    },
-    {
-      "question": "What styles are available for custom disposable cigarette boxes?",
-      "answer": "For customized disposable cigarette boxes, popular style options are flip top box, drawer box, sleeve and tray box, and tuck end boxes. You can choose any style from these options."
-    },
-    {
-      "question": "Do you provide a sample?",
-      "answer": "Yes, you can definitely order a free physical sample from us. Our in-house design team provides 2D mockups, 3D mockups, and video mockups as well. You can choose whatever suits you best."
-    },
-    {
-      "question": "What is your turnaround time?",
-      "answer": "Turnaround time majorly depends on the shipping option you choose, either standard or express, and on the design complexity. Standard shipping takes 12-20 days, and express shipping takes 8-10 days. On average, we deliver custom boxes in 8-12 days."
-    }
-  ],
   "double-wall-corrugated-boxes": [
     {
       "question": "How is a double wall stronger than a single wall for heavy shipping?",
@@ -2343,32 +2187,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
     {
       "question": "Can I get samples and a mockup before a bulk order?",
       "answer": "Yes, you can. Throughout the project development you’ll have to approve the 3D mockup of your order first before it’s produced. You may also ask for physical samples of your order."
-    }
-  ],
-  "e-cigarette-boxes": [
-    {
-      "question": "Which box styles are best for custom e-cigarette packaging?",
-      "answer": "Popular packaging styles include tuck end boxes, drawer boxes, sleeve packaging, rigid boxes, and flip-top boxes, depending on the product type and branding goals. The most common type in the US market is flip top box."
-    },
-    {
-      "question": "Can I include custom inserts and compartments in my e-cigarette box for cartridges and accessories?",
-      "answer": "Yes, custom inserts can be added to organize vape pens, cartridges, chargers, and other accessories securely inside the packaging."
-    },
-    {
-      "question": "What are the design trends for e cigarette packaging in 2026?",
-      "answer": "Minimalist layouts, matte finishes, holographic printing, eco-friendly materials, and sleek typography are the leading packaging trends for vape brands."
-    },
-    {
-      "question": "Can I add custom inserts and trays for vape and e-cigarette pens?",
-      "answer": "Yes, foam inserts, cardboard dividers, and molded trays can be customized according to product dimensions for better protection and presentation."
-    },
-    {
-      "question": "Do you offer a sample before the bulk order?",
-      "answer": "Yes, both digital mockups and physical samples are available before moving toward bulk production. We provide 2D mockups, 3D mockups, and video mockups for our customers to assess the print quality. Or you can order a physical sample to see the product quality."
-    },
-    {
-      "question": "What is your turnaround time for custom e-cigarette boxes?",
-      "answer": "On average, our turnaround time is typically 8–10 business days, depending on packaging style, quantity, and customization requirements. We provide both standard shipping and express shipping. We are partnered with DHL, FedEx Corp, and UPS."
     }
   ],
   "eco-safe-stickers": [
@@ -2413,28 +2231,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
     {
       "question": "How does branded packaging affect returns and repeat customers?",
       "answer": "Sturdier, right-sized packaging cuts down on damage-related returns, and a well-designed unboxing experience boosts repeat purchases and social sharing — turning what used to be just a shipping cost into a marketing touchpoint."
-    }
-  ],
-  "empty-paper-flip-top-cigarette-boxes": [
-    {
-      "question": "Why do cigarettes need custom packaging?",
-      "answer": "Cigarettes need custom packaging because they are small and brittle, and can be easily damaged. They need a sturdy box to hold them firmly and protect them from pressure and environmental elements. Moreover, blank cigarette boxes lack branding, whereas a custom-printed box gives endless branding and marketing options."
-    },
-    {
-      "question": "Can I customize the Flip Top Cigarette Boxes with my logo and branding?",
-      "answer": "Yes, you can customize your flip top box cigarette packaging with your brand’s logo and banding requirements. You can add your logo, product information, dispensary, ingredients, and public health awareness on the empty paper flip top cigarette boxes."
-    },
-    {
-      "question": "Can I order Flip Top Cigarette Boxes in bulk or wholesale quantities?",
-      "answer": "Yes, we offer wholesale and bulk quantity orders for custom cigarette packaging. We offer low minimums and high maximums with flexible pricing and fast turnaround."
-    },
-    {
-      "question": "Are your cigarette boxes available in different sizes and styles?",
-      "answer": "Yes, we offer endless customization options for your custom cigarette boxes. Measure your product’s size and dimensions. Based on that, you can choose the box size and styling options. For cigarettes, famous styles are drawer box, sleeve & tray box, rigid packaging, flip top box, and hinge-lid box."
-    },
-    {
-      "question": "What is the turnaround time for your custom cigarette packaging?",
-      "answer": "On average, our turnaround time is 8-10 days. We offer both express shipping, which takes 7-10 days, and standard shipping with takes 12-20 days. We are partnered with DHL, FedEx Corp, and UPS as a reliable packaging partner for custom cigarette boxes all across the US and the globe."
     }
   ],
   "eye-shadow-boxes": [
@@ -2489,28 +2285,6 @@ export const PRODUCT_FAQS: Record<string, ContentSheetFaq[]> = {
     {
       "question": "What is the minimum order quantity for wholesale orders?",
       "answer": "We keep our minimum order quantity (MOQ) as low as just 500 boxes per custom design run. We support businesses of all sizes to keep HOF Pack inclusive and accessible for all businesses in the United States and the globe."
-    }
-  ],
-  "gift-pillow-boxes": [
-    {
-      "question": "What are gift pillow boxes used for?",
-      "answer": "Gift pillow boxes are commonly used for jewelry, candles, cosmetics, chocolates, party favors, accessories, and festive gift packaging."
-    },
-    {
-      "question": "Are pillow boxes suitable for luxury packaging?",
-      "answer": "Yes, their elegant curved design, combined with premium finishes like foil stamping and ribbons, makes them ideal for luxury gift packaging."
-    },
-    {
-      "question": "How to make a pillow gift box?",
-      "answer": "To make a pillow gift box: Draw a main rectangular grid Score four curved end flaps using a round object like a cup or CD Cut out the shape using scissors or a cutter Glue the side seam together."
-    },
-    {
-      "question": "Can I customize gift pillow boxes with my logo?",
-      "answer": "Yes, you can fully customize the size, printing, colors, finishes, and branding elements of your pillow boxes."
-    },
-    {
-      "question": "What is the minimum order quantity for wholesale gift pillow boxes?",
-      "answer": "Our MOQ usually starts from 500 units, depending on the packaging style and customization requirements. We offer low minimums and high maximums, ideal for businesses of all sizes. You can also see a digital pillow gift box template, 2D or 3D mockup, or request a physical sample to see your product yourself before finalizing a bulk order."
     }
   ],
   "gusseted-coffee-bags": [

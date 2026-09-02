@@ -478,7 +478,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20 lg:h-20 gap-4">
           {/* Logo */}
           <Link href="/" prefetch={false} className="flex items-center gap-2 shrink-0">
-            <HofPackLogo variant="light" className="h-10 sm:h-11 lg:h-16 w-auto shrink-0" />
+            <HofPackLogo variant="light" className="h-12 sm:h-[52px] w-auto shrink-0" />
           </Link>
 
           {/* ── Desktop nav links ── */}
@@ -556,7 +556,7 @@ const Navbar = () => {
             {/* Header */}
             <div className="flex items-center justify-between border-b border-border/70 pb-3.5">
               <Link href="/" prefetch={false} onClick={() => setMobileOpen(false)}>
-                <HofPackLogo variant="light" className="h-9 w-auto" />
+                <HofPackLogo variant="light" className="h-11 w-auto" />
               </Link>
               <button
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-background text-foreground transition-all hover:border-accent/40 hover:text-accent cursor-pointer"
