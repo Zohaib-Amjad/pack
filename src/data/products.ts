@@ -502,26 +502,45 @@ export const getAllProducts = (): (Product & { image?: string })[] => {
 
 import { PRODUCT_TAGS_MAP } from "./product-tags";
 
+function productTagFromIndex(idx: number): string {
+  return `F${100 + idx} — Custom Packaging`;
+}
+
+function slugLookupKeys(slug: string): string[] {
+  const clean = (slug || "").toLowerCase().trim();
+  if (!clean) return [];
+  const keys = new Set<string>([clean]);
+  keys.add(clean.replace(/\./g, "-"));
+  keys.add(clean.replace(/(\d)-(\d)/, "$1.$2"));
+  return [...keys];
+}
+
+function indexInProductList(products: { slug: string }[], slug: string): number {
+  const keys = new Set(slugLookupKeys(slug));
+  return products.findIndex((p) => keys.has(p.slug));
+}
+
+/**
+ * Eyebrow on /product/* pages: `F{100+position} — Custom Packaging`.
+ * Prefer the original hofpack.com tag map so detail pages match the live site.
+ * New catalog-only products fall back to position in their category list.
+ */
 export const getProductTag = (slug: string, categorySlug?: string): string => {
-  if (PRODUCT_TAGS_MAP[slug]) {
-    return PRODUCT_TAGS_MAP[slug];
+  for (const key of slugLookupKeys(slug)) {
+    if (PRODUCT_TAGS_MAP[key]) return PRODUCT_TAGS_MAP[key];
   }
 
   if (categorySlug) {
     const cat = getCategoryBySlug(categorySlug);
     if (cat) {
-      const idx = cat.products.findIndex((p) => p.slug === slug);
-      if (idx !== -1) {
-        return `F${100 + idx} — Custom Packaging`;
-      }
+      const idx = indexInProductList(cat.products, slug);
+      if (idx !== -1) return productTagFromIndex(idx);
     }
   }
 
   for (const cat of categories) {
-    const idx = cat.products.findIndex((p) => p.slug === slug);
-    if (idx !== -1) {
-      return `F${100 + idx} — Custom Packaging`;
-    }
+    const idx = indexInProductList(cat.products, slug);
+    if (idx !== -1) return productTagFromIndex(idx);
   }
 
   return "F100 — Custom Packaging";

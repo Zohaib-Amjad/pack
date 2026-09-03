@@ -1,16 +1,21 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { Bell } from "lucide-react";
 import { useQuoteModal } from "@/components/QuoteModalContext";
 import { useCmsHome } from "@/hooks/useCms";
 import type { CmsHome } from "@/types/cms";
 
-const DEFAULT_IMAGES = [
-  "/images/products/afe38795-24d9-47c6-b9f8-048f4d3b98d7.png",
-  "/images/products/aa806591-0348-42f5-be2e-3330477f3054.png",
-  "/images/products/7fde84ed-872a-454c-b74e-4f404d5d2bc4.png",
-  "/images/products/f4d0a7f0-7ab2-43ee-a836-dd5be3d1321a.jpg",
+import processDesign from "@/assets/process-design.jpg";
+import processPrototype from "@/assets/process-prototype.jpg";
+import processProduction from "@/assets/process-production.jpg";
+import processDelivery from "@/assets/process-delivery.jpg";
+
+const PROCESS_IMAGES: StaticImageData[] = [
+  processDesign,
+  processPrototype,
+  processProduction,
+  processDelivery,
 ];
 
 const DEFAULT_STEPS = [
@@ -20,8 +25,7 @@ const DEFAULT_STEPS = [
     name: "Design",
     desc: "Tell us your vision",
     tag: "Free consultation",
-    img: DEFAULT_IMAGES[0],
-    active: true,
+    img: PROCESS_IMAGES[0],
   },
   {
     num: "2",
@@ -29,8 +33,7 @@ const DEFAULT_STEPS = [
     name: "Proof",
     desc: "See it before we print",
     tag: "Free 3D mock-up",
-    img: DEFAULT_IMAGES[1],
-    active: true,
+    img: PROCESS_IMAGES[1],
   },
   {
     num: "3",
@@ -38,8 +41,7 @@ const DEFAULT_STEPS = [
     name: "Production",
     desc: "We print and inspect",
     tag: "100% QC inspected",
-    img: DEFAULT_IMAGES[2],
-    active: true,
+    img: PROCESS_IMAGES[2],
   },
   {
     num: "4",
@@ -47,8 +49,7 @@ const DEFAULT_STEPS = [
     name: "Delivery",
     desc: "At your door, on time",
     tag: "Free shipping USA",
-    img: DEFAULT_IMAGES[3],
-    active: true,
+    img: PROCESS_IMAGES[3],
   },
 ];
 
@@ -61,38 +62,22 @@ const HowItWorks = ({ cms }: HowItWorksProps) => {
   const { data } = useCmsHome();
   const how = data?.howItWorks || cms?.howItWorks;
 
-  const sectionLabel = how?.sectionLabel;
   const titleLead = how?.titleLead || "From Idea to";
   const titleAccent = how?.titleAccent || "Your Door";
-  const subtitle = how?.subtitle || "Four steps. No confusion. No hidden fees.";
+  const liveSubtitle = "Four simple steps — from your brief to your brand on shelves.";
+  const subtitle =
+    how?.subtitle && how.subtitle !== "Four steps. No confusion. No hidden fees."
+      ? how.subtitle
+      : liveSubtitle;
   const ctaLabel = how?.ctaLabel || "Talk to a Designer";
 
-  const rawSteps = Array.isArray(how?.steps) && how.steps.length > 0 ? how.steps : DEFAULT_STEPS;
-  const activeSteps = (rawSteps as any[])
-    .filter((s: any) => s.active !== false)
-    .map((s: any, idx: number) => ({
-      num: String(idx + 1),
-      step: `Step 0${idx + 1}`,
-      name: s.name || s.title || `Step ${idx + 1}`,
-      desc: s.desc || s.description || "",
-      tag:
-        Array.isArray(s.details) && s.details.length > 0
-          ? s.details[0]
-          : s.tag || "Free consultation",
-      img: s.imageUrl || s.img || DEFAULT_IMAGES[idx % DEFAULT_IMAGES.length],
-    }));
+  const activeSteps = DEFAULT_STEPS;
 
   return (
     <div>
       <div className="bg-[#f5f3ee] px-4 sm:px-10 py-12 sm:py-[64px]">
         <div style={{ maxWidth: "1100px", margin: "0px auto" }}>
-          {/* Header */}
           <div className="text-center sm:text-left">
-            {sectionLabel && (
-              <p className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-[#e8732a] mb-1.5">
-                {sectionLabel}
-              </p>
-            )}
             <h2 className="font-display text-[#1a1a1a]" style={{ fontSize: "26px", fontWeight: 700 }}>
               {titleLead} <span className="text-[#e8732a]">{titleAccent}</span>
             </h2>
@@ -106,7 +91,6 @@ const HowItWorks = ({ cms }: HowItWorksProps) => {
             )}
           </div>
 
-          {/* Mobile vertical list */}
           <div className="flex sm:hidden flex-col gap-3">
             {activeSteps.map((step) => (
               <div
@@ -142,13 +126,7 @@ const HowItWorks = ({ cms }: HowItWorksProps) => {
             ))}
           </div>
 
-          {/* Desktop grid (4 columns) */}
-          <div
-            className="hidden sm:grid gap-[3px]"
-            style={{
-              gridTemplateColumns: `repeat(${Math.max(1, Math.min(4, activeSteps.length))}, 1fr)`,
-            }}
-          >
+          <div className="hidden sm:grid grid-cols-4 gap-[3px]">
             {activeSteps.map((step) => (
               <div key={step.step} className="group">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "4 / 3" }}>
@@ -218,7 +196,6 @@ const HowItWorks = ({ cms }: HowItWorksProps) => {
             ))}
           </div>
 
-          {/* Bottom talk to designer banner */}
           <div
             className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:justify-between sm:text-left gap-5 rounded-xl px-5 py-6 sm:px-9 sm:py-8"
             style={{ marginTop: "32px", background: "rgb(45, 92, 62)" }}
@@ -240,15 +217,16 @@ const HowItWorks = ({ cms }: HowItWorksProps) => {
             <button
               type="button"
               onClick={() => open()}
-              className="inline-flex items-center justify-center gap-2 font-sans font-bold text-white rounded-[6px] flex-shrink-0 transition-colors cursor-pointer border-0 w-full sm:w-auto hover:bg-[#c45a18] shadow-xs"
+              className="inline-flex items-center justify-center gap-2 font-sans font-bold text-white rounded-[5px] flex-shrink-0 transition-colors cursor-pointer border-0 w-full sm:w-auto hover:bg-[#c45a18]"
               style={{
                 background: "rgb(232, 115, 42)",
-                fontSize: "13px",
+                fontSize: "11px",
                 padding: "12px 24px",
+                letterSpacing: "0.02em",
               }}
             >
-              <Bell className="w-4 h-4 text-white shrink-0 stroke-[2.2]" />
-              <span>Talk to a Designer</span>
+              <Bell className="shrink-0" width={14} height={14} strokeWidth={2.5} />
+              {ctaLabel}
             </button>
           </div>
         </div>

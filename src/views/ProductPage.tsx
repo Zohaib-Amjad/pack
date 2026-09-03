@@ -56,6 +56,8 @@ import {
 
 interface ProductPageProps {
   productSlug?: string;
+  /** From the server request URL so Vercel SSR matches Google Ads landings. */
+  initialShowGoogleCart?: boolean;
 }
 
 const LOCKED_LOCAL_PRODUCT_SLUGS = new Set([
@@ -67,7 +69,10 @@ const LOCKED_LOCAL_PRODUCT_SLUGS = new Set([
   "bath-bomb-boxes",
 ]);
 
-export default function ProductPage({ productSlug: propSlug }: ProductPageProps) {
+export default function ProductPage({
+  productSlug: propSlug,
+  initialShowGoogleCart = false,
+}: ProductPageProps) {
   const params = useParams();
   const router = useRouter();
   const rawSlug = propSlug || (params?.productSlug as string) || "kraft-paper-tubes";
@@ -98,7 +103,7 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileAttached, setFileAttached] = useState<File | null>(null);
   const [smsConsent, setSmsConsent] = useSmsConsent();
-  const [showGoogleCart, setShowGoogleCart] = useState(false);
+  const [showGoogleCart, setShowGoogleCart] = useState(!!initialShowGoogleCart);
   const [stockLeft, setStockLeft] = useState<number | null>(null);
 
   useEffect(() => {
@@ -136,8 +141,11 @@ export default function ProductPage({ productSlug: propSlug }: ProductPageProps)
   }, [rawSlug]);
 
   useEffect(() => {
-    setShowGoogleCart(shouldShowAddToCart());
-  }, [rawSlug]);
+    const fromUrl = shouldShowAddToCart();
+    // Keep showing for this landing if the server already saw Google params,
+    // even if analytics later strips UTM from the address bar.
+    setShowGoogleCart(Boolean(initialShowGoogleCart) || fromUrl);
+  }, [rawSlug, initialShowGoogleCart]);
 
   useEffect(() => {
     if (!showGoogleCart || !rawSlug) {
@@ -555,7 +563,7 @@ ${requirements || "No additional notes"}`;
               <div className="m-0 min-w-0 border-0 bg-card p-5 sm:p-6 lg:py-6 lg:pl-5 lg:pr-6 xl:p-7 xl:pl-6">
                 <div>
                   <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-accent">
-                    {product.skuCode || getProductTag(product.slug, product.category?.slug)}
+                    {getProductTag(rawSlug || product.slug, product.category?.slug)}
                   </p>
                   <h1 className="font-display text-[26px] sm:text-[30px] lg:text-[32px] font-semibold leading-[1.1] text-[#1a1a1a] [text-wrap:balance]">
                     {product.name}

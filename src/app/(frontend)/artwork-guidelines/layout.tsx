@@ -1,14 +1,14 @@
-import React from "react";
 import type { Metadata } from "next";
-import CartPage from "@/views/CartPage";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: { absolute: "Your Cart | HOF Pack | HofPack" },
+  title: {
+    absolute: "HOF Pack | Custom Packaging Boxes & Mylar Bags | Low MOQ, Free Mockup",
+  },
   description:
     "Get premium custom packaging boxes and mylar bags from HOF Pack. Enjoy low MOQs, free design support, free mockups, fast turnaround, competitive pricing, and worldwide shipping for businesses of all sizes.",
-  robots: { index: false, follow: false },
 };
 
-export default function CartRoutePage() {
-  return <CartPage />;
+export default function ArtworkGuidelinesLayout({ children }: { children: ReactNode }) {
+  return children;
 }

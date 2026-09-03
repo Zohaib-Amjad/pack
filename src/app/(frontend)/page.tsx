@@ -49,7 +49,7 @@ export default async function HomePage() {
       <TrendingProducts cms={cmsHome} />
 
       {/* 7. How It Works (4-Step Process & Design Support) */}
-      <HowItWorks />
+      <HowItWorks cms={cmsHome} />
 
       {/* 8. Sustainability / Greener Earth Section */}
       <WhyChooseUs cms={cmsHome} />

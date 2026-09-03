@@ -20,33 +20,69 @@ function canUseStorage() {
   return typeof window !== "undefined";
 }
 
-function hasGoogleUtmParams(search?: string): boolean {
-  const params = new URLSearchParams(
-    search ?? (canUseStorage() ? window.location.search : ""),
-  );
-  const source = (params.get("utm_source") || "").toLowerCase();
+export type GoogleShoppingQuery =
+  | string
+  | URLSearchParams
+  | { get(name: string): string | null }
+  | Record<string, string | string[] | undefined>;
+
+function toURLSearchParams(query?: GoogleShoppingQuery): URLSearchParams {
+  if (query == null) {
+    return new URLSearchParams(canUseStorage() ? window.location.search : "");
+  }
+  if (typeof query === "string") {
+    return new URLSearchParams(query.startsWith("?") ? query.slice(1) : query);
+  }
+  if (typeof URLSearchParams !== "undefined" && query instanceof URLSearchParams) {
+    return query;
+  }
+  if (typeof (query as { get?: unknown }).get === "function") {
+    const getter = (query as { get(name: string): string | null }).get.bind(query);
+    const params = new URLSearchParams();
+    for (const key of ["utm_source", "utm_medium", "utm_campaign", "gclid"]) {
+      const value = getter(key);
+      if (value) params.set(key, value);
+    }
+    return params;
+  }
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(
+    query as Record<string, string | string[] | undefined>,
+  )) {
+    if (value == null) continue;
+    params.set(key, Array.isArray(value) ? (value[0] ?? "") : value);
+  }
+  return params;
+}
+
+function hasGoogleUtmParams(query?: GoogleShoppingQuery): boolean {
+  const params = toURLSearchParams(query);
+  const source = (params.get("utm_source") || "").toLowerCase().replace(/\s+/g, "_");
   const hasGclid = !!params.get("gclid");
   return (
     source === "google" ||
     source === "google_shopping" ||
     source === "shopping" ||
+    source === "adwords" ||
+    source === "googleads" ||
     hasGclid
   );
 }
 
 /**
- * Add to Cart / price UI only when the *current* URL has Google UTM (or gclid).
- * Does not stick across normal product pages.
+ * Add to Cart / price UI when the URL has Google UTM (or gclid).
+ * Safe on the server — do not require `window` / sessionStorage to detect ads traffic.
+ * Does not stick across later organic product pages.
  */
-export function shouldShowAddToCart(search?: string): boolean {
-  if (!canUseStorage()) return false;
-  // Clear legacy sticky flag from earlier builds
-  try {
-    sessionStorage.removeItem("hofpack_google_shopping_visitor");
-  } catch {
-    /* ignore */
+export function shouldShowAddToCart(query?: GoogleShoppingQuery): boolean {
+  if (canUseStorage()) {
+    try {
+      sessionStorage.removeItem("hofpack_google_shopping_visitor");
+    } catch {
+      /* ignore */
+    }
   }
-  return hasGoogleUtmParams(search ?? window.location.search);
+  return hasGoogleUtmParams(query);
 }
 
 /** @deprecated Use shouldShowAddToCart — kept for older call sites. */

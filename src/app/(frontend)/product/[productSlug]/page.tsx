@@ -2,20 +2,23 @@ import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductPageView from "@/views/ProductPage";
-import { getAllProducts, getProductBySlug, isRemovedProductSlug } from "@/data/products";
+import { getProductBySlug, isRemovedProductSlug } from "@/data/products";
 import { FULL_PRODUCTS_DATABASE } from "@/data/product-detail-defaults";
 import { getProductMetaDescription, getProductMetaTitle } from "@/data/content-sheet-meta-titles";
+import { shouldShowAddToCart } from "@/lib/google-shopping";
 
 interface PageProps {
   params: Promise<{ productSlug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export async function generateStaticParams() {
-  const allProds = getAllProducts();
-  return allProds.slice(0, 20).map((prod) => ({
-    productSlug: prod.slug,
-  }));
-}
+/**
+ * Product pages must see `?utm_source=google&utm_medium=cpc` (and gclid) at
+ * request time. Static HTML from generateStaticParams is cached on Vercel as
+ * `/product/[slug]` and reused for every query string, so the Google cart UI
+ * never appears in production even though localhost (always dynamic) works.
+ */
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { productSlug } = await params;
@@ -41,10 +44,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function ProductDetailPage({ params }: PageProps) {
+export default async function ProductDetailPage({ params, searchParams }: PageProps) {
   const { productSlug } = await params;
+  const query = await searchParams;
   if (isRemovedProductSlug(productSlug)) {
     notFound();
   }
-  return <ProductPageView productSlug={productSlug} />;
+  return (
+    <ProductPageView
+      productSlug={productSlug}
+      initialShowGoogleCart={shouldShowAddToCart(query)}
+    />
+  );
 }
