@@ -292,7 +292,8 @@ export async function fetchCategoryPageData(
     relatedProducts = relatedProducts.filter((p: any) => !isRemovedProductSlug(p.slug));
 
     // If no products found in Supabase for this category, populate from static catalog
-    let finalProducts = prodData;
+    let finalProducts: { id?: string; name?: string; slug: string; images?: string[]; category_id?: string }[] =
+      Array.isArray(prodData) ? prodData : [];
     if (finalProducts.length === 0) {
       const staticCat = getCategoryBySlug(categorySlug) || getCategoryBySlug(resolvedSlug);
       if (staticCat && staticCat.products) {
@@ -330,7 +331,7 @@ export async function fetchCategoryPageData(
     const products = (isRigidBoxesPage
       ? filterRigidBoxesProducts(finalProducts)
       : finalProducts
-    ).filter((p) => !isRemovedProductSlug(p.slug));
+    ).filter((p: { slug: string }) => !isRemovedProductSlug(p.slug));
 
     const defaults = getCategoryDetailDefaults(resolvedSlug, catData.name, catData.section);
     const mergedCategoryContent = catData.category_content && Object.keys(catData.category_content).length > 0
