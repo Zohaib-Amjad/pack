@@ -26,10 +26,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hofpack.com"),
   icons: {
     icon: [
+      { url: "/favicon.png", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    shortcut: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -39,7 +40,7 @@ export default function CustomPagesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth font-sans overflow-x-hidden max-w-full ${dmSans.variable}`}>
+    <html lang="en" className={`font-sans overflow-x-hidden max-w-full ${dmSans.variable}`}>
       <body className={`min-h-screen flex flex-col bg-white text-[#2e2e2e] antialiased overflow-x-hidden w-full max-w-full ${dmSans.className}`}>
         <AppProviders>
           <CustomHeader />

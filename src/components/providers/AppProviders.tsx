@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QuoteModalProvider } from "@/components/QuoteModalContext";
 import { Toaster } from "@/components/ui/toaster";
 import GlobalAbandonedCapture from "@/components/GlobalAbandonedCapture";
+import ScrollToTopOnNavigate from "@/components/ScrollToTopOnNavigate";
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -23,6 +24,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <QuoteModalProvider>
+        <ScrollToTopOnNavigate />
         <GlobalAbandonedCapture />
         {children}
         <Toaster />

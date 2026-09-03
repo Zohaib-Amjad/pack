@@ -238,6 +238,11 @@ export default function AdminCmsSeoView() {
 
                 <div className="cb p-6">
                   <div className="flex flex-col gap-4">
+                    {activeTab === "advanced" && (
+                      <p className="text-[11px] text-[#7a7672] leading-relaxed">
+                        Social / Open Graph fallback is <code className="text-[#1a1a1a]">/og-image.png</code> (1200×630, official navbar logo on cream). Organization logo: <code className="text-[#1a1a1a]">/hofpack-logo.png</code>. Apple touch icon: <code className="text-[#1a1a1a]">/apple-touch-icon.png</code>.
+                      </p>
+                    )}
                     <div>
                       <label className="text-[10px] font-bold text-[#aaa6a0] uppercase tracking-widest pl-1 mb-1 block">
                         Page title

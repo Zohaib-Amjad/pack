@@ -29,6 +29,7 @@ import {
   ARTWORK_ACCEPT,
 } from "@/lib/form-validation";
 import { useAbandonedFormCapture } from "@/hooks/useAbandonedFormCapture";
+import { sendQuoteEmail } from "@/lib/send-quote-email";
 
 const ALL_PRODUCT_OPTIONS = [
   "Custom Cheese Paper",
@@ -304,6 +305,14 @@ export default function ContactView() {
         );
       }
 
+      sendQuoteEmail({
+        name: `${firstName} ${lastName}`.trim(),
+        email,
+        phone: phone || "",
+        productInterest: productType,
+        specs: fullMessage,
+      });
+
       setSubmitted(true);
       setFirstName("");
       setLastName("");
@@ -351,7 +360,7 @@ export default function ContactView() {
   return (
     <>
       {/* ── Hero Section ── */}
-      <section className="bg-primary py-10 sm:py-14 text-center">
+      <section className="bg-primary py-6 sm:py-14 text-center">
         <div className="max-w-[840px] mx-auto px-4 sm:px-5">
           <p className="font-sans text-[10px] font-medium tracking-[0.2em] uppercase text-accent mb-3">
             Get Started
@@ -405,10 +414,10 @@ export default function ContactView() {
       </div>
 
       {/* ── Main Section (Left Sidebar + Right Form) ── */}
-      <section className="bg-background py-10 sm:py-14">
+      <section className="bg-background py-6 sm:py-14">
         <div className="max-w-[1100px] mx-auto px-4 sm:px-5 grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-12 items-start">
-          {/* ── Left Sidebar ── */}
-          <div className="flex flex-col gap-6">
+          {/* ── Left Sidebar (below the form on mobile) ── */}
+          <div className="flex flex-col gap-6 order-2 lg:order-1">
             <div>
               <h2 className="font-display text-[28px] font-semibold text-foreground mb-2">
                 Talk to a Real Person
@@ -580,8 +589,8 @@ export default function ContactView() {
             </div>
           </div>
 
-          {/* ── Right Column: Project Details Form ── */}
-          <div className="bg-card border border-border rounded-[14px] px-5 sm:px-9 py-6 sm:py-9">
+          {/* ── Project Details Form (first on mobile) ── */}
+          <div className="bg-card border border-border rounded-[14px] px-5 sm:px-9 py-6 sm:py-9 order-1 lg:order-2">
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
                 <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-5">

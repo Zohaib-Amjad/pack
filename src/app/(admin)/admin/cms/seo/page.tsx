@@ -17,6 +17,7 @@ export default function AdminCmsSeoPage() {
         { label: "SEO & Meta" },
       ]}
     >
+      {/* Social preview fallbacks: /og-image.png (1200×630) and org logo /hofpack-logo.png */}
       <AdminCmsSeoView />
     </AdminLayout>
   );

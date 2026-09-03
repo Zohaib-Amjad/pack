@@ -27,6 +27,14 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/email-preview",
+        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
+      },
+    ];
+  },
   async redirects() {
     return [
       {

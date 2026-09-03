@@ -26,7 +26,7 @@ export default async function SeoJsonLd() {
       ? rawLogoUrl.startsWith("http")
         ? rawLogoUrl
         : `${base}${rawLogoUrl.startsWith("/") ? rawLogoUrl : `/${rawLogoUrl}`}`
-      : `${base}/logo.png`;
+      : `${base}/hofpack-logo.png`;
 
     const orgData: Record<string, unknown> = {
       "@context": "https://schema.org",

@@ -28,9 +28,9 @@ export const DEFAULT_SEO_SETTINGS: SeoSettings = {
   advanced: {
     googleSiteVerification: "",
     robotsMode: "allow_all",
-    defaultOgImageUrl: "",
+    defaultOgImageUrl: "/og-image.png",
     orgName: "HofPack",
-    orgLogoUrl: "",
+    orgLogoUrl: "/hofpack-logo.png",
     schemaOrganization: true,
     schemaBreadcrumb: true,
     schemaWebSiteSearch: false,
