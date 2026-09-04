@@ -7,6 +7,7 @@ import DiscountBar from "@/components/home/DiscountBar";
 import TrendingProducts from "@/components/home/TrendingProducts";
 import HowItWorks from "@/components/home/HowItWorks";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
+import PremiumFinishes from "@/components/home/PremiumFinishes";
 import HomeQuoteSection from "@/components/home/HomeQuoteSection";
 import FAQSection from "@/components/home/FAQSection";
 import HomeMoreProducts from "@/components/home/HomeMoreProducts";
@@ -54,16 +55,19 @@ export default async function HomePage() {
       {/* 8. Sustainability / Greener Earth Section */}
       <WhyChooseUs cms={cmsHome} />
 
-      {/* 9. Home Quote Section */}
+      {/* 9. Premium Finishes (above quote form) */}
+      <PremiumFinishes />
+
+      {/* 10. Home Quote Section */}
       <HomeQuoteSection />
 
-      {/* 10. Common Questions (FAQ Section) */}
+      {/* 11. Common Questions (FAQ Section) */}
       <FAQSection cms={cmsHome} initialFaqs={initialFaqs} />
 
-      {/* 11. More Products Carousel */}
+      {/* 12. More Products Carousel */}
       <HomeMoreProducts cms={cmsHome} />
 
-      {/* 12. Trustpilot Testimonials Section (End of Home Page) */}
+      {/* 13. Trustpilot Testimonials Section (End of Home Page) */}
       <TrustpilotTestimonialsSection cms={cmsHome} />
     </div>
   );
