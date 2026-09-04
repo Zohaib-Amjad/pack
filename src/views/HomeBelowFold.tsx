@@ -20,6 +20,7 @@ const DiscountBar = dynamic(() => import("@/components/home/DiscountBar"), { ssr
 const TrendingProducts = dynamic(() => import("@/components/home/TrendingProducts"), { ssr: false });
 const HowItWorks = dynamic(() => import("@/components/home/HowItWorks"), { ssr: false });
 const WhyChooseUs = dynamic(() => import("@/components/home/WhyChooseUs"), { ssr: false });
+const PremiumFinishes = dynamic(() => import("@/components/home/PremiumFinishes"), { ssr: false });
 const HomeQuoteSection = dynamic(() => import("@/components/home/HomeQuoteSection"), { ssr: false });
 const FAQSection = dynamic(() => import("@/components/home/FAQSection"), { ssr: false });
 const HomeMoreProducts = dynamic(() => import("@/components/home/HomeMoreProducts"), { ssr: false });
@@ -77,6 +78,9 @@ export default function HomeBelowFold({
       </LazySection>
       <LazySection placeholderClassName="min-h-[700px] sm:min-h-[520px]">
         <WhyChooseUs />
+      </LazySection>
+      <LazySection placeholderClassName="min-h-[480px]">
+        <PremiumFinishes />
       </LazySection>
       <LazySection placeholderClassName="min-h-[800px] sm:min-h-[620px]">
         <HomeQuoteSection />
