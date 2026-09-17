@@ -9,6 +9,7 @@ import HowItWorks from "@/components/home/HowItWorks";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import PremiumFinishes from "@/components/home/PremiumFinishes";
 import HomeQuoteSection from "@/components/home/HomeQuoteSection";
+import TeamSection from "@/components/home/TeamSection";
 import FAQSection from "@/components/home/FAQSection";
 import HomeMoreProducts from "@/components/home/HomeMoreProducts";
 import TrustpilotTestimonialsSection from "@/components/home/TrustpilotTestimonialsSection";
@@ -61,13 +62,16 @@ export default async function HomePage() {
       {/* 10. Home Quote Section */}
       <HomeQuoteSection />
 
-      {/* 11. Common Questions (FAQ Section) */}
+      {/* 11. Team Section (Four names, not a ticket queue) */}
+      <TeamSection cms={cmsHome} />
+
+      {/* 12. Common Questions (FAQ Section) */}
       <FAQSection cms={cmsHome} initialFaqs={initialFaqs} />
 
-      {/* 12. More Products Carousel */}
+      {/* 13. More Products Carousel */}
       <HomeMoreProducts cms={cmsHome} />
 
-      {/* 13. Trustpilot Testimonials Section (End of Home Page) */}
+      {/* 14. Trustpilot Testimonials Section (End of Home Page) */}
       <TrustpilotTestimonialsSection cms={cmsHome} />
     </div>
   );

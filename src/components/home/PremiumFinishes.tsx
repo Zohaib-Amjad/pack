@@ -1,20 +1,15 @@
 "use client";
 
-import React, { useState, useRef, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Sparkles,
-  Play,
-  Pause,
-  ChevronLeft,
-  ChevronRight,
   ArrowRight,
   CheckCircle2,
   X,
-  ExternalLink,
   ShieldCheck,
   Eye,
+  SlidersHorizontal,
 } from "lucide-react";
 import { useQuoteModal } from "@/components/QuoteModalContext";
 
@@ -38,7 +33,8 @@ const FINISHES: FinishItem[] = [
     category: "Metallic Foils",
     badge: "Prismatic Light Shift",
     src: "/images/finishes/holographic-foiling.webp",
-    summary: "Multi-spectrum reflective foil that shifts into a brilliant rainbow sheen under ambient light.",
+    summary:
+      "Multi-spectrum reflective foil that shifts into a brilliant rainbow sheen under ambient retail lighting.",
     deepDesc:
       "Holographic foil stamping applies micro-embossed foil under heat and pressure. Under light, it produces a shifting rainbow glow that delivers unmatched shelf contrast and unboxing excitement.",
     bestFor: "Cosmetics, beauty serums, tech accessories, vape & limited retail editions.",
@@ -55,7 +51,8 @@ const FINISHES: FinishItem[] = [
     category: "Metallic Foils",
     badge: "Luxury Gold",
     src: "/images/finishes/gold-foiling.webp",
-    summary: "Ultra-radiant metallic gold pressed into paperboard for classic prestige and brand authority.",
+    summary:
+      "Ultra-radiant metallic gold pressed into paperboard for classic prestige, warmth, and brand authority.",
     deepDesc:
       "Hot gold foil stamping uses precision brass dies and thermal pressure to bond mirror-like metallic pigment directly into the packaging board, commanding top-tier retail value.",
     bestFor: "Luxury jewelry, perfumes, spirits, gourmet confections & apparel boxes.",
@@ -72,7 +69,8 @@ const FINISHES: FinishItem[] = [
     category: "Metallic Foils",
     badge: "Chrome Metallic",
     src: "/images/finishes/silver-foiling.webp",
-    summary: "Modern mirror-chrome foil providing sharp, high-contrast reflections on light and dark stock.",
+    summary:
+      "Modern mirror-chrome foil providing sharp, high-contrast reflections on light and dark paper stock.",
     deepDesc:
       "Silver foil stamping gives packaging a sleek, architectural presence. Its cool-toned mirror sheen accentuates minimalist branding and high-tech product aesthetics.",
     bestFor: "Skincare, consumer tech, modern apparel & luxury candles.",
@@ -89,7 +87,8 @@ const FINISHES: FinishItem[] = [
     category: "Gloss & UV",
     badge: "High-Gloss Accent",
     src: "/images/finishes/spot-uv.webp",
-    summary: "Targeted high-gloss varnish creating sleek tactile contrast against matte packaging.",
+    summary:
+      "Targeted high-gloss varnish creating sleek tactile contrast against soft-touch matte packaging.",
     deepDesc:
       "Spot UV is cured instantly with ultraviolet light over selected artwork areas. Placed over soft-touch matte lamination, the contrast between silky matte and glassy shine creates immediate tactile appeal.",
     bestFor: "Logos, pattern overlays, folding cartons & mailer box lids.",
@@ -106,7 +105,8 @@ const FINISHES: FinishItem[] = [
     category: "Tactile & 3D",
     badge: "Raised 3D Relief",
     src: "/images/finishes/embossing.webp",
-    summary: "Precision matched dies press graphics outward for an elevated, three-dimensional physical touchpoint.",
+    summary:
+      "Precision matched dies press graphics outward for an elevated, three-dimensional physical touchpoint.",
     deepDesc:
       "Embossing reshapes the paperboard from behind using precision matched male and female dies. It creates raised 3D contours that customers instinctively touch and remember.",
     bestFor: "Logo crests, organic skincare, specialty coffee cartons & luxury mailers.",
@@ -123,7 +123,8 @@ const FINISHES: FinishItem[] = [
     category: "Tactile & 3D",
     badge: "Recessed Impression",
     src: "/images/finishes/debossing.webp",
-    summary: "Clean architectural impression pressed deep into paperboard for an understated luxury look.",
+    summary:
+      "Clean architectural impression pressed deep into paperboard for an understated, tactile luxury look.",
     deepDesc:
       "Debossing creates a crisp indentation in the surface of rigid boxes or heavy paperboard, producing a subtle shadow line that feels timeless, refined, and minimalist.",
     bestFor: "Boutique retail, rigid luxury boxes, artisan goods & apparel tags.",
@@ -141,357 +142,334 @@ const CATEGORIES = ["All Finishes", "Metallic Foils", "Tactile & 3D", "Gloss & U
 export default function PremiumFinishes() {
   const { open } = useQuoteModal();
   const [activeCategory, setActiveCategory] = useState<string>("All Finishes");
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedFinish, setSelectedFinish] = useState<FinishItem | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const filteredFinishes = useMemo(() => {
     if (activeCategory === "All Finishes") return FINISHES;
     return FINISHES.filter((f) => f.category === activeCategory);
   }, [activeCategory]);
 
-  const loopFinishes = useMemo(() => {
-    return [...filteredFinishes, ...filteredFinishes, ...filteredFinishes];
-  }, [filteredFinishes]);
+  const handleOpenModal = useCallback((finish: FinishItem) => {
+    setSelectedFinish(finish);
+  }, []);
 
-  const handleScroll = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return;
-    const distance = 320;
-    scrollContainerRef.current.scrollBy({
-      left: direction === "left" ? -distance : distance,
-      behavior: "smooth",
-    });
-  };
+  const handleCloseModal = useCallback(() => {
+    setSelectedFinish(null);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && selectedFinish) {
-        setSelectedFinish(null);
+        handleCloseModal();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedFinish]);
+  }, [selectedFinish, handleCloseModal]);
 
   return (
     <section
-      className="border-t border-[#e0ddd6] bg-[#f5f3ee] py-12 sm:py-16 relative overflow-hidden select-none"
+      className="border-t border-[#e0ddd6] bg-[#faf8f5] py-14 sm:py-18 lg:py-20 relative overflow-hidden"
       aria-labelledby="premium-finishes-heading"
     >
-      <div className="relative max-w-[1200px] mx-auto px-4 sm:px-6 z-10">
-        {/* Clean Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8">
+      <div className="relative max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-[10.5px] font-bold tracking-[0.14em] uppercase text-[#e8732a] mb-2">
-              <Sparkles className="w-3 h-3" />
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-[#e8732a] mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#e8732a]" />
               <span>Packaging Embellishments</span>
             </div>
 
             <h2
               id="premium-finishes-heading"
-              className="font-display text-[#1a1a1a] text-2xl sm:text-3xl lg:text-[34px] font-bold tracking-tight"
+              className="text-2xl sm:text-3xl lg:text-[34px] font-bold tracking-tight text-[#1a1a1a] leading-tight"
             >
-              Elevate Your Packaging With <span className="text-[#e8732a]">Premium Finishes</span>
+              Elevate Your Packaging With{" "}
+              <span className="text-[#e8732a]">Premium Finishes</span>
             </h2>
 
-            <p className="font-sans text-[#7a7672] text-xs sm:text-sm mt-1.5 max-w-xl">
+            <p className="text-[#666] text-xs sm:text-sm mt-1.5 max-w-xl leading-relaxed">
               Specialty finishing techniques that maximize tactile appeal, light reflection, and shelf presence.
             </p>
           </div>
 
-          {/* Controls */}
-          <div className="flex items-center gap-2.5 self-start md:self-end">
-            <button
-              type="button"
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#e0ddd6] text-xs font-semibold text-[#1a1a1a] hover:bg-[#faf8f5] transition-all cursor-pointer shadow-xs"
-              title={isPlaying ? "Pause sliding" : "Resume sliding"}
-            >
-              {isPlaying ? (
-                <>
-                  <Pause className="w-3 h-3 text-[#e8732a] fill-[#e8732a]" />
-                  <span>Pause</span>
-                </>
-              ) : (
-                <>
-                  <Play className="w-3 h-3 text-[#2d5c3e] fill-[#2d5c3e]" />
-                  <span>Play</span>
-                </>
-              )}
-            </button>
-
-            <div className="inline-flex items-center gap-1 bg-white p-1 rounded-lg border border-[#e0ddd6] shadow-xs">
-              <button
-                type="button"
-                onClick={() => handleScroll("left")}
-                aria-label="Previous finish"
-                className="w-7 h-7 rounded flex items-center justify-center text-[#7a7672] hover:text-[#1a1a1a] hover:bg-[#f5f3ee] transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => handleScroll("right")}
-                aria-label="Next finish"
-                className="w-7 h-7 rounded flex items-center justify-center text-[#7a7672] hover:text-[#1a1a1a] hover:bg-[#f5f3ee] transition-colors"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+          {/* Category Filter Tabs */}
+          <div className="flex items-center gap-1.5 p-1 bg-white rounded-xl border border-[#e0ddd6] shadow-xs overflow-x-auto [scrollbar-width:none]">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#7a7672] ml-2 mr-1 hidden sm:block shrink-0" />
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => {
+                    setActiveCategory(cat);
+                    setHoveredIndex(null);
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "bg-[#2d5c3e] text-white shadow-xs"
+                      : "text-[#5a5652] hover:text-[#1a1a1a] hover:bg-[#f5f3ee]"
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Minimalist Category Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 mb-5 scrollbar-none">
-          {CATEGORIES.map((cat) => {
-            const isSelected = activeCategory === cat;
+        {/* 21st.dev Style Hover Reveal Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {filteredFinishes.map((finish, idx) => {
+            const isHovered = hoveredIndex === idx;
+            const isOtherHovered = hoveredIndex !== null && !isHovered;
+
             return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setActiveCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                  isSelected
-                    ? "bg-[#1a1a1a] text-white shadow-xs"
-                    : "bg-white/80 hover:bg-white text-[#5a5652] hover:text-[#1a1a1a] border border-[#e0ddd6]"
+              <div
+                key={finish.id}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onFocus={() => setHoveredIndex(idx)}
+                onBlur={() => setHoveredIndex(null)}
+                tabIndex={0}
+                onClick={() => handleOpenModal(finish)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleOpenModal(finish);
+                  }
+                }}
+                className={`group relative h-[380px] sm:h-[420px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-out border outline-none focus-visible:ring-2 focus-visible:ring-[#e8732a] flex flex-col justify-end p-5 sm:p-6 ${
+                  isOtherHovered
+                    ? "blur-[2.5px] opacity-50 scale-[0.98] border-[#e2ded6]"
+                    : isHovered
+                    ? "scale-[1.02] shadow-[0_16px_36px_rgba(45,92,62,0.15)] z-20 border-[#2d5c3e]/70 ring-2 ring-[#2d5c3e]/20"
+                    : "border-[#e0ddd6] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-[#d0ccc3]"
                 }`}
               >
-                {cat}
-              </button>
+                {/* Background Image */}
+                <Image
+                  src={finish.src}
+                  alt={finish.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+
+                {/* Dark Gradient Overlay for optimal readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-opacity duration-300" />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-t from-[#2d5c3e]/30 via-transparent to-transparent transition-opacity duration-500 ${
+                    isHovered ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+
+                {/* Top Badges */}
+                <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10 pointer-events-none">
+                  <span className="bg-white/95 backdrop-blur-md text-[#1a1a1a] px-2.5 py-1 rounded-full text-[9.5px] font-bold tracking-wider uppercase border border-black/5 shadow-xs">
+                    {finish.category}
+                  </span>
+
+                  <span className="bg-[#e8732a] text-white px-2.5 py-1 rounded-full text-[9.5px] font-bold tracking-wide shadow-xs">
+                    {finish.badge}
+                  </span>
+                </div>
+
+                {/* Bottom Content & Interactive Reveal */}
+                <div className="relative z-10 space-y-2">
+                  <div className="flex items-center gap-1.5 text-[10px] sm:text-[10.5px] font-bold uppercase tracking-wider text-[#fcd34d]">
+                    <Sparkles className="w-3 h-3 text-[#fcd34d]" />
+                    <span>{finish.tactileFeel}</span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug group-hover:text-[#fcd34d] transition-colors">
+                    {finish.name}
+                  </h3>
+
+                  <p className="text-xs sm:text-[12.5px] text-white/85 leading-relaxed line-clamp-2">
+                    {finish.summary}
+                  </p>
+
+                  {/* Slide-Up Specs & Actions on Hover */}
+                  <div
+                    className={`pt-2 flex items-center justify-between gap-2.5 transition-all duration-300 ${
+                      isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        open();
+                      }}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#e8732a] hover:bg-[#d6651e] text-white text-xs font-bold transition-colors shadow-sm cursor-pointer"
+                    >
+                      <span>Request Quote</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenModal(finish);
+                      }}
+                      className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-white/25 hover:bg-white/35 backdrop-blur-md text-white text-xs font-semibold transition-colors cursor-pointer"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Details</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>
-      </div>
 
-      {/* CONTINUOUS SLIDING TRACK */}
-      <div className="relative w-full overflow-hidden group">
-        <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-r from-[#f5f3ee] to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-l from-[#f5f3ee] to-transparent z-20 pointer-events-none" />
+        {/* Bottom Helper Bar */}
+        <div className="mt-10 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-[#2d5c3e] text-white border border-[#234b32] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5 text-center sm:text-left">
+            <div className="w-10 h-10 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-xs sm:text-sm font-bold text-white">
+                Unsure which finish fits your packaging budget & substrate?
+              </p>
+              <p className="text-[11px] sm:text-xs text-white/80 mt-0.5">
+                Our packaging engineers provide free 3D digital mockups with foil & UV simulations.
+              </p>
+            </div>
+          </div>
 
-        <div
-          ref={scrollContainerRef}
-          className="flex items-stretch overflow-x-auto scrollbar-none py-3 px-4 sm:px-8 cursor-grab active:cursor-grabbing"
-          style={{ scrollBehavior: "smooth" }}
-        >
-          <div
-            className="flex items-stretch gap-4 sm:gap-5 flex-shrink-0 animate-marquee-finishes"
-            style={{
-              animationPlayState: isPlaying ? "running" : "paused",
-            }}
+          <button
+            type="button"
+            onClick={() => open()}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#1a1a1a] hover:bg-[#faf8f5] text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer shrink-0"
           >
-            {loopFinishes.map((finish, idx) => (
-              <article
-                key={`${finish.id}-${idx}`}
-                onClick={() => setSelectedFinish(finish)}
-                className="w-[260px] sm:w-[280px] bg-white rounded-xl border border-[#e0ddd6] shadow-xs hover:shadow-md hover:border-[#e8732a]/40 transition-all duration-200 flex flex-col overflow-hidden group/card cursor-pointer flex-shrink-0"
-              >
-                {/* Visual Header */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#ece9e2]">
-                  <Image
-                    src={finish.src}
-                    alt={finish.name}
-                    fill
-                    sizes="280px"
-                    className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
-
-                  {/* Badge */}
-                  <div className="absolute top-2.5 left-2.5 bg-[#1a1a1a]/80 backdrop-blur-md text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full border border-white/10">
-                    {finish.badge}
-                  </div>
-
-                  {/* Tactile hint at bottom of image */}
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white/90 text-[10.5px] font-medium truncate">
-                    {finish.tactileFeel}
-                  </div>
-                </div>
-
-                {/* Clean, Readable Body */}
-                <div className="p-4 flex-1 flex flex-col justify-between bg-white">
-                  <div>
-                    <h3 className="font-display font-bold text-[#1a1a1a] text-[15px] sm:text-[16px] group-hover/card:text-[#e8732a] transition-colors mb-1.5">
-                      {finish.name}
-                    </h3>
-
-                    <p className="font-sans text-[#5a5652] text-xs leading-relaxed line-clamp-2 mb-3">
-                      {finish.summary}
-                    </p>
-                  </div>
-
-                  {/* Footer with Clickable CTA */}
-                  <div className="pt-2.5 border-t border-[#f0eee9] flex items-center justify-between text-[11.5px] font-semibold">
-                    <span className="text-[#7a7672] text-[11px] truncate max-w-[150px]">
-                      {finish.bestFor.split(",")[0]}
-                    </span>
-                    <span className="text-[#e8732a] group-hover/card:translate-x-0.5 transition-transform inline-flex items-center gap-0.5">
-                      <span>Inspect</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+            <span>Consult With a Packaging Specialist</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
       </div>
 
-      {/* Clean Bottom Mini Bar */}
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 mt-8 relative z-10">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white rounded-xl px-5 py-3.5 border border-[#e0ddd6] shadow-2xs">
-          <p className="font-sans text-xs text-[#5a5652] text-center sm:text-left">
-            <strong className="text-[#1a1a1a] font-semibold">Combined Finishes:</strong> We combine Foil Stamping + Spot UV + Embossing on the same run.
-          </p>
-
-          <div className="flex items-center gap-2.5">
-            <button
-              type="button"
-              onClick={() => open()}
-              className="font-sans font-bold text-white bg-[#e8732a] hover:bg-[#c45a18] transition-colors px-3.5 py-1.5 rounded-lg text-xs tracking-wide uppercase cursor-pointer"
-            >
-              Get Finish Quote
-            </button>
-            <Link
-              href="/library"
-              className="font-sans font-semibold text-[#1a1a1a] hover:text-[#e8732a] text-xs inline-flex items-center gap-1 transition-colors"
-            >
-              <span>View Library</span>
-              <ExternalLink className="w-3 h-3" />
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* CLEAN FINISH DETAIL MODAL */}
+      {/* Deep Finish Inspection Modal */}
       {selectedFinish && (
         <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={handleCloseModal}
           role="dialog"
           aria-modal="true"
           aria-labelledby="finish-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in"
-          onClick={() => setSelectedFinish(null)}
         >
           <div
-            className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl border border-[#e0ddd6] overflow-hidden flex flex-col max-h-[90vh]"
+            className="relative w-full max-w-2xl bg-white border border-[#e0ddd6] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden text-[#1a1a1a] flex flex-col max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Image Header */}
-            <div className="relative aspect-[16/9] w-full bg-[#1a1a1a] overflow-hidden">
+            {/* Modal Header Image */}
+            <div className="relative h-56 sm:h-64 w-full bg-[#1a1a1a] overflow-hidden shrink-0">
               <Image
                 src={selectedFinish.src}
                 alt={selectedFinish.name}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 512px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
               <button
                 type="button"
-                onClick={() => setSelectedFinish(null)}
+                onClick={handleCloseModal}
                 aria-label="Close modal"
-                className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors cursor-pointer z-10"
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/90 transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
 
-              <div className="absolute bottom-3.5 left-4 right-4 text-white">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#e8732a] bg-black/60 px-2 py-0.5 rounded">
-                  {selectedFinish.badge}
+              <div className="absolute bottom-4 left-6 right-6">
+                <span className="bg-[#e8732a] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                  {selectedFinish.category}
                 </span>
-                <h3 id="finish-modal-title" className="font-display text-xl sm:text-2xl font-bold text-white mt-1">
+                <h3
+                  id="finish-modal-title"
+                  className="text-2xl sm:text-3xl font-bold text-white mt-1.5"
+                >
                   {selectedFinish.name}
                 </h3>
               </div>
             </div>
 
             {/* Modal Body */}
-            <div className="p-5 sm:p-6 overflow-y-auto space-y-4">
+            <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
               <div>
-                <h4 className="font-sans font-bold uppercase text-[#7a7672] text-[10px] tracking-wider mb-1">
-                  Overview
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#7a7672] mb-1.5">
+                  Overview & Technique
                 </h4>
-                <p className="font-sans text-[#1a1a1a] text-xs sm:text-sm leading-relaxed">
+                <p className="text-sm text-[#4a4a4a] leading-relaxed">
                   {selectedFinish.deepDesc}
                 </p>
               </div>
 
-              <div className="bg-[#faf8f5] rounded-xl p-3.5 border border-[#e0ddd6]">
-                <h4 className="font-sans font-bold uppercase text-[#e8732a] text-[10px] tracking-wider mb-1">
-                  Best For
-                </h4>
-                <p className="font-sans text-[#1a1a1a] text-xs leading-relaxed font-medium">
-                  {selectedFinish.bestFor}
-                </p>
-              </div>
-
               <div>
-                <h4 className="font-sans font-bold uppercase text-[#7a7672] text-[10px] tracking-wider mb-2">
-                  Key Advantages
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#7a7672] mb-2">
+                  Technical Specifications
                 </h4>
-                <div className="space-y-1.5">
-                  {selectedFinish.specs.map((spec, sIdx) => (
-                    <div key={sIdx} className="flex items-center gap-2 text-xs text-[#2d5c3e]">
-                      <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {selectedFinish.specs.map((spec) => (
+                    <div
+                      key={spec}
+                      className="flex items-center gap-2 p-2.5 rounded-xl bg-[#faf8f5] border border-[#e8e5df] text-xs text-[#2a2a2a]"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2d5c3e] shrink-0" />
                       <span>{spec}</span>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
 
-            {/* Modal Footer */}
-            <div className="p-4 bg-[#faf8f5] border-t border-[#e0ddd6] flex items-center justify-between gap-3">
-              <Link
-                href="/library"
-                onClick={() => setSelectedFinish(null)}
-                className="text-xs font-semibold text-[#5a5652] hover:text-[#1a1a1a]"
-              >
-                Materials Library →
-              </Link>
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#7a7672] mb-1">
+                  Best Suited For
+                </h4>
+                <p className="text-xs sm:text-sm text-[#4a4a4a] leading-relaxed">
+                  {selectedFinish.bestFor}
+                </p>
+              </div>
 
-              <button
-                type="button"
-                onClick={() => {
-                  const finishName = selectedFinish.name;
-                  setSelectedFinish(null);
-                  open({ product: `Finish: ${finishName}` });
-                }}
-                className="font-sans font-bold text-white bg-[#e8732a] hover:bg-[#c45a18] px-4 py-2 rounded-lg text-xs uppercase tracking-wide cursor-pointer transition-colors"
-              >
-                Request Quote With This Finish
-              </button>
+              {/* Modal Actions */}
+              <div className="pt-4 border-t border-[#e0ddd6] flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="text-xs text-[#666]">
+                  Tactile Feel: <strong className="text-[#1a1a1a]">{selectedFinish.tactileFeel}</strong>
+                </div>
+
+                <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                  <button
+                    type="button"
+                    onClick={handleCloseModal}
+                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-[#f5f3ee] hover:bg-[#e8e5df] text-xs font-semibold text-[#1a1a1a] transition-colors cursor-pointer border border-[#e0ddd6]"
+                  >
+                    Close
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleCloseModal();
+                      open();
+                    }}
+                    className="flex-1 sm:flex-none px-5 py-2 rounded-xl bg-[#e8732a] hover:bg-[#d6651e] text-xs font-bold text-white transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                  >
+                    <span>Get a Quote with This Finish</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* Marquee Animation CSS */}
-      <style jsx>{`
-        @keyframes marqueeFinishes {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-33.333%);
-          }
-        }
-        .animate-marquee-finishes {
-          display: flex;
-          width: max-content;
-          animation: marqueeFinishes 38s linear infinite;
-        }
-        .animate-marquee-finishes:hover {
-          animation-play-state: paused;
-        }
-        .scrollbar-none::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-none {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 }
